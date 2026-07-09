@@ -4,13 +4,13 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from maps.global_dem import GlobalDEM
-from features.dilation_detector import detect_peaks
+from features.dilation_detector import detect_peaks, detect_craters
 
 dem = np.load("maps/data/global_dem.npy")
 gdem = GlobalDEM(elevation=dem, lxy=0.025, origin_xy=(0.0, 0.0))
 
-n = 60  # cell-radius; D_detect = n * lxy = 60*0.025 = 1.5m
-peaks = detect_peaks(dem, n=n, flatness_eps=0.005)
+n = 80  # cell-radius; D_detect = n * lxy = 80*0.025 = 2.0m
+peaks = detect_peaks(dem, n=n, flatness_eps=0.0065)
 
 print(f"Detected {len(peaks)} peaks with n={n} (D_detect={n*gdem.lxy:.2f}m)")
 print(peaks[:10], "..." if len(peaks) > 10 else "")

@@ -12,8 +12,8 @@ craters = np.load("maps/data/craters_data.npy")
 lxy = 0.025
 gdem = GlobalDEM(elevation=dem, lxy=lxy, origin_xy=(0.0, 0.0))
 
-n = 60  # D_detect = 1.5m, matches largest crater tier
-peaks = detect_craters(dem, n=n, flatness_eps=0.005)
+n = 80  # D_detect = 2.0m, matches largest crater tier
+peaks = detect_craters(dem, n=n, flatness_eps=0.0065)
 
 # convert crater world coords (m) -> pixel coords for plotting
 craters_ij = np.array([gdem.xy_to_ij(c['x'], c['y']) for c in craters])  # (i, j) = (row, col)
