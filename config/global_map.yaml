@@ -1,0 +1,10 @@
+# Global DEM parameters — derived from OmniLRS lunaryard_20m export
+dem_path: "maps/data/global_dem.npy"
+mask_path: "maps/data/global_mask.npy"
+craters_gt_path: "maps/data/craters_data.npy"  # ground truth, eval-only
+
+lxy: 0.025          # meters/pixel, from TerrainManager._grid_size
+origin_xy: [0.0, 0.0]  # world (x,y) of DEM[0,0]
+
+extent_m: [20.0, 20.0]  # lab_length x lab_width
+shape_px: [800, 800]
