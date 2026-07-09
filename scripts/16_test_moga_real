@@ -1,0 +1,21 @@
+import numpy as np
+import sys, os
+
+from sim.traverse_recorder import RAW_ODOM
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from refinement.moga import run_moga, wrap_angle
+
+# import truth poses from sim/data/traverse/local_scan
+truth_poses = {}
+for site in sorted(RAW_ODOM.keys()):
+    pos, quat = RAW_ODOM[site]
+    truth_poses[site] = (pos[0], pos[1], wrap_angle(np.arctan2(quat[2], quat[3]) * 2))  
+    
+site_names = sorted(truth_poses.keys())
+
+def pose_R(theta):
+    c, s = np.cos(theta), np.sin(theta)
+    return np.array([[c, -s], [s, c]])
+
+#landmarks
+global_landmarks = {   }

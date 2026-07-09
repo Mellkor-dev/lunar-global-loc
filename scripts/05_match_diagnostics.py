@@ -12,8 +12,8 @@ lxy = 0.025
 gdem = GlobalDEM(elevation=dem, lxy=lxy, origin_xy=(0.0, 0.0))
 craters_ij = np.array([gdem.xy_to_ij(c['x'], c['y']) for c in craters])
 
-n = 60
-peaks = detect_craters(dem, n=n, flatness_eps=0.005)
+n = 80
+peaks = detect_craters(dem, n=n, flatness_eps=0.0065)
 print(f"{len(peaks)} peaks detected")
 
 tree = cKDTree(craters_ij)  # ALL 162 craters, no size filter

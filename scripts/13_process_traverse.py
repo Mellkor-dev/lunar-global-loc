@@ -11,7 +11,7 @@ VLP16_OFFSET = np.array([-0.14999991655349731, -2.3034954210743308e-07, 0.415000
 LXY = 0.025
 
 global_dem = np.load("maps/data/global_dem.npy")
-global_peaks = detect_craters(global_dem, n=60, flatness_eps=0.005)
+global_peaks = detect_craters(global_dem, n=80, flatness_eps=0.0065)
 print(f"Global peaks: {len(global_peaks)}\n")
 
 results = {}
@@ -30,7 +30,7 @@ for site in sorted(RAW_ODOM.keys()):
     pts_leveled[:, 2] += z_offset
 
     local_grid, local_origin, lxy = grid_local_map(pts_leveled, LXY)
-    local_peaks = detect_craters(local_grid, n=60, flatness_eps=0.005)
+    local_peaks = detect_craters(local_grid, n=80, flatness_eps=0.0065)
     print(f"  grid shape: {local_grid.shape}, local peaks: {len(local_peaks)}")
 
     result = run_darces(
