@@ -58,3 +58,41 @@ if __name__ == "__main__":
               world_t={s: traverse["world_t"][s] for s in traverse["sites"]},
               allow_pickle=True)
     print("\nSaved: maps/data/traverse.npz")
+
+#save traversal map in png
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10, 10))
+for s in traverse["sites"]:
+    plt.plot(traverse["world_t"][s][0], traverse["world_t"][s][1], 'ro')
+    plt.text(traverse["world_t"][s][0], traverse["world_t"][s][1], s, fontsize=12)
+
+for edge in traverse["odometry_chain"]:
+    from_pos = traverse["world_t"][edge["from"]]
+    to_pos = traverse["world_t"][edge["to"]]
+    plt.plot([from_pos[0], to_pos[0]], [from_pos[1], to_pos[1]], 'b-')
+
+plt.xlabel("X (m)")
+plt.ylabel("Y (m)")
+plt.title("Traverse Map")
+plt.grid(True)
+plt.savefig("maps/data/traverse_map.png")
+
+#superpose the traverse map on the global DEM
+global_dem = np.load("maps/data/global_dem.npy")
+plt.figure(figsize=(10, 10))
+plt.imshow(global_dem, cmap='gray', extent=[0, global_dem.shape[1], 0, global_dem.shape[0]])
+for s in traverse["sites"]:
+    plt.plot(traverse["world_t"][s][0], traverse["world_t"][s][1], 'ro')
+    plt.text(traverse["world_t"][s][0], traverse["world_t"][s][1], s, fontsize=12)
+    
+for edge in traverse["odometry_chain"]:
+    from_pos = traverse["world_t"][edge["from"]]
+    to_pos = traverse["world_t"][edge["to"]]
+    plt.plot([from_pos[0], to_pos[0]], [from_pos[1], to_pos[1]], 'b-')
+    
+plt.xlabel("X (m)")
+plt.ylabel("Y (m)")
+plt.title("Traverse Map on Global DEM")
+plt.grid(True)
+plt.savefig("maps/data/traverse_map_on_global_dem.png") 
