@@ -18,13 +18,15 @@ results = {}
 for site in sorted(RAW_ODOM.keys()):
     print(f"=== {site} ===")
     pos, quat = RAW_ODOM[site]
+    
     world_pos = SPAWN_XYZ + np.array(pos)
 
     pts_struct = np.load(f"sim/data/traverse/local_scan_{site}.npy")
     pts_local = np.stack([pts_struct['x'], pts_struct['y'], pts_struct['z']], axis=1)
     pts_base_link = pts_local + VLP16_OFFSET
-
+    
     R = quat_to_rotmat(*quat)
+    true_yaw = np.degrees(np.arctan2(R[1, 0], R[0, 0]))
     pts_leveled = level_points_tilt_only(pts_base_link, R)
     z_offset = -np.median(pts_leveled[:, 2])
     pts_leveled[:, 2] += z_offset
@@ -44,13 +46,24 @@ for site in sorted(RAW_ODOM.keys()):
         err = np.linalg.norm(result['t'] - world_pos[:2])
         print(f"  DARCES estimate: t={result['t']}, fitness={result['fitness']:.4f}")
         print(f"  Ground truth: {world_pos[:2]}, error={err:.2f}m\n")
+
+        # Extract the actual matched (local_xy, global_xy) point pairs from
+        # the best hypothesis's control-point indices, for MOGA's
+        # feature-correspondence term.
+        local_xy_m = local_peaks[:, [1, 0]] * lxy + np.array(local_origin)
+        global_xy_m = global_peaks[:, [1, 0]] * lxy + np.array((0.0, 0.0))
+        li, gi = result["local_idx"], result["global_idx"]
+        matched_pairs = [(local_xy_m[li[k]], global_xy_m[gi[k]]) for k in range(3)]
+
         results[site] = {
             "local_grid": local_grid, "local_peaks": local_peaks,
             "local_origin": local_origin, "lxy": lxy,
             "darces_R": result["R"], "darces_t": result["t"],
             "darces_fitness": result["fitness"],
             "ground_truth_xy": world_pos[:2],
-            "error_m": err
+            "error_m": err,
+            "matched_pairs": matched_pairs,
+            "true_yaw_deg": true_yaw,
         }
     else:
         print("  DARCES: no solution\n")
