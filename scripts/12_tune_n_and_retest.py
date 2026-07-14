@@ -11,9 +11,9 @@ local_grid = local_data["local_grid"]
 local_origin = tuple(local_data["origin_xy"])
 lxy = float(local_data["lxy"])
 
-for n in [80, 100, 120]:
-    global_peaks = detect_craters(global_dem, n=n, flatness_eps=0.005)
-    local_peaks = detect_craters(local_grid, n=n, flatness_eps=0.005)
+for n in [40, 60, 80, 100]:
+    global_peaks = detect_craters(global_dem, n=n, flatness_eps=0.007)
+    local_peaks = detect_craters(local_grid, n=n, flatness_eps=0.0065)
     print(f"\n=== n={n} (D_detect={n*lxy:.2f}m) ===")
     print(f"Global peaks: {len(global_peaks)}, Local peaks: {len(local_peaks)}")
 

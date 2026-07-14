@@ -32,8 +32,8 @@ lxy = 0.025
 local_grid, origin_xy, lxy = grid_local_map(pts_leveled, lxy)
 print(f"Local grid shape: {local_grid.shape}, origin: {origin_xy}")
 
-n_local = 60  # same D_detect as global, per paper Sec III
-local_peaks = detect_craters(local_grid, n=n_local, flatness_eps=0.005)
+n_local = 80  # same D_detect as global, per paper Sec III
+local_peaks = detect_craters(local_grid, n=n_local, flatness_eps=0.0065)
 print(f"Detected {len(local_peaks)} local features")
 
 plt.figure(figsize=(6, 5))

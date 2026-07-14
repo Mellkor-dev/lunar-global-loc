@@ -22,5 +22,5 @@ if len(peaks) > 0:
 plt.colorbar(label="Elevation (m)")
 plt.title(f"Lunaryard global features (n={n}, {len(peaks)} peaks)")
 plt.legend()
-plt.savefig("maps/data/global_features_preview.png", dpi=150)
+plt.savefig("maps/data/global_features_preview.png", dpi=200)
 print("Saved: maps/data/global_features_preview.png")

@@ -2,8 +2,8 @@
 # to lunaryard_20m (20m yard @ 0.025 m/px), rather than their 100km^2 @ 13-24m map.
 
 feature_detection:
-  n_cell_radius: 60        # D_detect = n * Lxy = 60 * 0.025 = 1.5 m
-  flatness_eps: 0.005       # elevation delta (m) below which a region is "flat", tune per terrain
+  n_cell_radius: 80        # D_detect = n * Lxy = 60 * 0.025 = 1.5 m
+  flatness_eps: 0.0065       # elevation delta (m) below which a region is "flat", tune per terrain
   use_minima: true          # true = crater-bowl detection (our case), false = peak detection (paper's Devon Island case)
 
 uncertainty:

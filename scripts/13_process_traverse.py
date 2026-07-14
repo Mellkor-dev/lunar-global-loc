@@ -6,6 +6,7 @@ from maps.local_map import quat_to_rotmat, level_points, grid_local_map, level_p
 from features.dilation_detector import detect_craters
 from matching.darces import run_darces
 from sim.traverse_recorder import RAW_ODOM, SPAWN_XYZ
+from matching.ransac import expand_correspondences, ransac_refine
 
 VLP16_OFFSET = np.array([-0.14999991655349731, -2.3034954210743308e-07, 0.41500020027160645])
 LXY = 0.025
@@ -52,8 +53,24 @@ for site in sorted(RAW_ODOM.keys()):
         # feature-correspondence term.
         local_xy_m = local_peaks[:, [1, 0]] * lxy + np.array(local_origin)
         global_xy_m = global_peaks[:, [1, 0]] * lxy + np.array((0.0, 0.0))
-        li, gi = result["local_idx"], result["global_idx"]
-        matched_pairs = [(local_xy_m[li[k]], global_xy_m[gi[k]]) for k in range(3)]
+
+        # Expand DARCES's 3-point hypothesis into a full candidate set using
+        # ALL detected features, then RANSAC to find the consensus inliers.
+        candidates = expand_correspondences(
+            local_xy_m, global_xy_m, result["R"], result["t"], match_threshold=2.5
+        )
+        matched_pairs, ransac_R, ransac_t = ransac_refine(
+            candidates, n_iterations=200, inlier_threshold=0.5, seed=42
+        )
+        print(f"  RANSAC: {len(candidates)} candidates -> {len(matched_pairs)} inliers")
+
+        if ransac_t is not None:
+            # Use RANSAC's refined transform (fit on the full inlier set,
+            # not just 3 points) as the site's pose estimate going forward.
+            result["t"] = ransac_t
+            result["R"] = ransac_R
+            err = np.linalg.norm(result['t'] - world_pos[:2])
+            print(f"  RANSAC-refined estimate: t={result['t']}, error={err:.2f}m")
 
         results[site] = {
             "local_grid": local_grid, "local_peaks": local_peaks,

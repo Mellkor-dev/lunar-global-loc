@@ -6,7 +6,7 @@ from matching.darces import pairwise_dists
 from features.dilation_detector import detect_craters
 
 global_dem = np.load("maps/data/global_dem.npy")
-global_peaks = detect_craters(global_dem, n=60, flatness_eps=0.005)
+global_peaks = detect_craters(global_dem, n=80, flatness_eps=0.0065)
 
 local_data = np.load("maps/data/local_features.npz")
 local_peaks = local_data["local_peaks"]

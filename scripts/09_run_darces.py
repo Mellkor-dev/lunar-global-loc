@@ -15,7 +15,7 @@ lxy = float(local_data["lxy"])
 
 # regenerate global peaks fresh (script 02 didn't save them to disk previously)
 from features.dilation_detector import detect_craters
-global_peaks = detect_craters(global_dem, n=60, flatness_eps=0.005)
+global_peaks = detect_craters(global_dem, n=80, flatness_eps=0.0065)
 global_origin = (0.0, 0.0)
 
 print(f"Local peaks: {len(local_peaks)}, Global peaks: {len(global_peaks)}")
