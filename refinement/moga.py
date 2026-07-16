@@ -1,6 +1,4 @@
-"""
-MOGA (Multi-frame Odometry-compensated Global Alignment) — Sec V of
-Carle & Barfoot 2010, simplified to a 2D pose-graph formulation.
+"""""
 
 Design simplification vs. the paper's full Eq. 2:
     - Global feature positions are treated as FIXED (taken from Stage C's
@@ -32,7 +30,7 @@ import numpy as np
 
 
 def wrap_angle(a):
-    """Wrap angle to (-pi, pi]."""
+    
     return (a + np.pi) % (2 * np.pi) - np.pi
 
 
@@ -83,11 +81,11 @@ def build_odometry_residual_and_jacobian(xa, ya, tha, xb, yb, thb, rho_meas, dth
     ca, sa = np.cos(tha), np.sin(tha)
     Ra = np.array([[ca, -sa], [sa, ca]])
     t_diff = np.array([xb - xa, yb - ya])
-    pred_rho = Ra.T @ t_diff
-    pred_dtheta = wrap_angle(thb - tha)
+    pred_rho = Ra.T @ t_diff #check later
+    pred_dtheta = wrap_angle(thb - tha) #something wrong here
 
     res_rho = pred_rho - rho_meas
-    res_dtheta = wrap_angle(pred_dtheta - dtheta_meas)
+    res_dtheta = wrap_angle(pred_dtheta - dtheta_meas) #check later
     residual = np.array([res_rho[0], res_rho[1], res_dtheta])
 
     dRa_dtha = np.array([[-sa, -ca], [ca, -sa]])

@@ -16,7 +16,7 @@ initial_poses = {}
 for s in site_names:
     r = results[s]
     if r is None:
-        print(f"WARNING: {s} has no DARCES solution, skipping from MOGA input.")
+        print(f"WARNING: {s} Not computed DARCES yet")
         continue
     t = r["darces_t"]
     R = r["darces_R"]

@@ -71,4 +71,4 @@ def ransac_refine(candidate_pairs, n_iterations=200, inlier_threshold=0.5, seed=
         inlier_pairs = [candidate_pairs[i] for i in best_inliers_idx]
         return inlier_pairs, R_final, t_final
 
-    return candidate_pairs, best_R, best_t  # fallback: RANSAC found nothing better
+    return candidate_pairs, best_R, best_t  # RANSAC found nothing better

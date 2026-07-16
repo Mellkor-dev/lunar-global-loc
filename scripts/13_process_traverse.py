@@ -39,7 +39,7 @@ for site in sorted(RAW_ODOM.keys()):
     result = run_darces(
         local_peaks, global_peaks, local_grid, global_dem,
         local_origin, (0.0, 0.0), lxy,
-        n_trials=5000, dist_tol_m=0.5, z_dev_thresh=0.3,
+        n_trials=5000, dist_tol_m=0.5, z_dev_thresh=0.2,
         heading_meas_deg=0.0, e_heading_deg=180.0, seed=42
     )
 
