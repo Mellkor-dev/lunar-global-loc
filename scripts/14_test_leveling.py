@@ -9,7 +9,7 @@ def quat_from_axis_angle(axis, angle_deg):
     axis = axis / np.linalg.norm(axis)
     return (*(axis * np.sin(angle/2)), np.cos(angle/2))
 
-# Test 1: pure yaw (90 deg about world Z) -- leveling should reset to ~identity
+# Test 1: pure yaw 
 qx, qy, qz, qw = quat_from_axis_angle(np.array([0,0,1]), 90)
 R = quat_to_rotmat(qx, qy, qz, qw)
 pts = np.array([[1.0, 0.0, 0.0], [0.0, 0.0, 1.0]])
@@ -17,11 +17,11 @@ leveled = level_points_tilt_only(pts, R)
 print("Test 1 (pure 90deg yaw) -- expect near-identity (no rotation):")
 print(leveled, "\nvs original:\n", pts)
 
-# Test 2: pure roll (30 deg about world X) -- leveling should PRESERVE this tilt
+# Test 2: pure roll 
 qx, qy, qz, qw = quat_from_axis_angle(np.array([1,0,0]), 30)
 R = quat_to_rotmat(qx, qy, qz, qw)
 pts = np.array([[0.0, 1.0, 0.0]])
 leveled = level_points_tilt_only(pts, R)
-expected = (R @ pts.T).T  # full R and tilt-only R should MATCH here since no yaw present
+expected = (R @ pts.T).T  # full R be careful, this is not the same as leveled
 print("\nTest 2 (pure 30deg roll) -- expect leveled == full-R result:")
 print("leveled:", leveled, " full-R:", expected)
