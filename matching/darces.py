@@ -10,7 +10,7 @@ def rigid_transform_2d(src: np.ndarray, dst: np.ndarray):
     """
     Least-squares rigid transform (rotation + translation) aligning
     src -> dst, for exactly 3 point correspondences (2D xy).
-    Horn's method / Arun et al. 1987, restricted to 2D + no reflection.
+    
     Returns (R (2x2), t (2,)).
     """
     src_mean = src.mean(axis=0)
@@ -50,10 +50,7 @@ def generate_hypotheses(local_xy, global_xy, n_trials, dist_tol_m, rng):
 
 def screen_hypothesis(R, t, global_dem, dem_lxy, dem_origin, z_dev_thresh,
                        heading_est_deg, heading_meas_deg, e_heading_deg):
-    """
-    Sec IV.B screening tests: map-boundary, z-deviation, orientation.
-    Returns True if hypothesis passes all screens.
-    """
+    
     H, W = global_dem.shape
     # map-boundary: rover position (origin of local frame, after transform) must be inside map
     rover_xy = t  # local frame origin maps to t under this R,t
@@ -70,10 +67,7 @@ def screen_hypothesis(R, t, global_dem, dem_lxy, dem_origin, z_dev_thresh,
     return True
 
 def fitness(R, t, local_xy_all, local_z_all, global_dem, dem_lxy, dem_origin, decimation=2):
-    """
-    Eq. 1: average absolute z-error between transformed reference points
-    and interpolated global map elevation. Negated so higher = better.
-    """
+    
     from scipy.ndimage import map_coordinates
     ref_xy = local_xy_all[::decimation]
     ref_z = local_z_all[::decimation]
@@ -95,11 +89,7 @@ def run_darces(local_peaks_xy, global_peaks_xy, local_grid, global_dem,
                local_origin, global_origin, lxy,
                n_trials=100, dist_tol_m=0.5, z_dev_thresh=0.3,
                heading_meas_deg=0.0, e_heading_deg=10.0, seed=None):
-    """
-    Full Sec IV pipeline: hypothesis search -> screening -> fitness -> best selection.
-    local_peaks_xy / global_peaks_xy: Nx2 arrays in (row,col) PIXEL indices.
-    Converts to metric xy internally using origin+lxy.
-    """
+    
     rng = np.random.default_rng(seed)
 
     local_xy_m = local_peaks_xy[:, [1, 0]] * lxy + np.array(local_origin)

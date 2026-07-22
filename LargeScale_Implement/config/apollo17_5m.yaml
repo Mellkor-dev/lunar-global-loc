@@ -1,0 +1,94 @@
+experiment:
+  name: apollo17_carle_5m
+  description: >
+    Carle et al. global localization using a 1.5 m simulation-truth
+    Apollo 17 DEM and a degraded 5 m orbital localization prior.
+
+paths:
+  truth_dem: DEM/truth_dem_1p5m.npy
+  truth_metadata: DEM/truth_dem_1p5m.yaml
+
+  orbital_dem: DEM/orbital_dem_5m.npy
+  orbital_metadata: DEM/orbital_dem_5m.yaml
+  orbital_valid_mask: DEM/orbital_valid_mask_5m.npy
+
+  raw_local_maps: local_maps/raw
+  leveled_local_maps: local_maps/leveled
+  gridded_local_maps: local_maps/gridded_5m
+  local_features: local_maps/features
+
+truth_dem:
+  resolution_m: 1.5
+  shape: [1334, 1334]
+  cell_edge_extent_m: [2001.0, 2001.0]
+  path: DEM/truth_dem_1p5m.npy
+  metadata_path: DEM/truth_dem_1p5m.yaml
+  edge_bounds_m:
+    x_min: -1000.5
+    x_max: 1000.5
+    y_min: -1000.5
+    y_max: 1000.5
+
+  first_cell_center_m:
+    x: -999.75
+    y: 999.75
+
+orbital_dem:
+  resolution_m: 5.0
+  shape: [400,400]
+  cell_edge_extent_m: [2000.0, 2000.0]
+  resampling_method: area_weighted_average
+  source_border_crop_m: 0.5
+
+  edge_bounds_m:
+    x_min: -1000.0
+    x_max: 1000.0
+    y_min: -1000.0
+    y_max: 1000.0
+
+  first_cell_center_m:
+    x: -997.5
+    y: 997.5
+
+coordinates:
+  # Fill these after checking dem.yaml and the original GeoTIFF.
+  geographic_center:
+    longitude_deg_east: 30.77229
+    latitude_deg_north: 20.19113
+
+  map_frame:
+    name: map
+    origin_description: center_of_apollo17_crop
+    origin_x_m: 0.0
+    origin_y_m: 0.0
+    x_direction: east
+    y_direction: north
+    z_direction: up
+    positive_yaw: counter_clockwise
+
+  raster:
+    column_direction: east
+    row_direction: south
+    column_to_map_x_sign: 1
+    row_to_map_y_sign: -1
+
+
+  origin_x_m: null
+  origin_y_m: null
+  origin_convention: null
+  row_direction: null
+  column_direction: null
+  vertical_offset_m: null
+  projected_crs: null
+
+feature_detection:
+  feature_kind: peak
+  cell_radius: 12
+  detection_distance_m: 60.0
+  flatness_threshold_m: 0.5
+
+darces:
+  enabled: false
+
+moga:
+  enabled: false

@@ -1,42 +1,77 @@
 """
-RANSAC outlier rejection (Sec 6.8) — sits between DARCES and MOGA.
+RANSAC outlier rejectio sits between DARCES and MOGA.
 
-DARCES gives a transform from only 3 control points. This stage uses that
-transform to project ALL detected local features into the global frame,
-finds nearest-neighbor candidate matches against ALL global features, then
-runs RANSAC over this expanded candidate set to find the largest group of
-mutually-consistent correspondences (the "consensus set"). This consensus
-set — not DARCES's original 3 points — is what gets fed to MOGA.
+ This consensus set — not DARCES's original 3 points — is what gets fed to MOGA.
 """
 
 import numpy as np
 from scipy.spatial import cKDTree
+
+
 from matching.darces import rigid_transform_2d
 
 
-def expand_correspondences(local_xy, global_xy, R, t, match_threshold):
-    """
-    Project all local features into the global frame using DARCES's (R,t),
-    then nearest-neighbor match against all global features. Returns list
-    of (local_xy_i, global_xy_i) candidate pairs within match_threshold.
-    """
-    projected = (R @ local_xy.T).T + t
-    tree = cKDTree(global_xy)
-    dists, idx = tree.query(projected)
+def expand_correspondences(
+    local_xy: np.ndarray,
+    global_xy: np.ndarray,
+    R: np.ndarray,
+    t: np.ndarray,
+    match_threshold: float,
+) -> list[tuple[int, int]]:
+    
+    local_xy = np.asarray(local_xy, dtype=float)
+    global_xy = np.asarray(global_xy, dtype=float)
+    R = np.asarray(R, dtype=float)
+    t = np.asarray(t, dtype=float)
 
-    pairs = []
-    for i, (d, j) in enumerate(zip(dists, idx)):
-        if d < match_threshold:
-            pairs.append((local_xy[i], global_xy[j]))
-    return pairs
+    if local_xy.ndim != 2 or local_xy.shape[1] != 2:
+        raise ValueError("local_xy must have shape (N, 2)")
+
+    if global_xy.ndim != 2 or global_xy.shape[1] != 2:
+        raise ValueError("global_xy must have shape (M, 2)")
+
+    if R.shape != (2, 2):
+        raise ValueError("R must have shape (2, 2)")
+
+    if t.shape != (2,):
+        raise ValueError("t must have shape (2,)")
+
+    if match_threshold <= 0.0:
+        raise ValueError("match_threshold must be positive")
+
+    if len(local_xy) == 0 or len(global_xy) == 0:
+        return []
+
+    projected_local = (R @ local_xy.T).T + t
+
+    global_tree = cKDTree(global_xy)
+    local_to_global_distance, local_to_global_index = global_tree.query(
+        projected_local,
+        k=1,
+    )
+
+    projected_tree = cKDTree(projected_local)
+    _, global_to_local_index = projected_tree.query(global_xy, k=1)
+
+    matches: list[tuple[int, int]] = []
+
+    for local_index, (distance, global_index) in enumerate(
+        zip(local_to_global_distance, local_to_global_index)
+    ):
+        global_index = int(global_index)
+
+        is_mutual = (
+            int(global_to_local_index[global_index]) == local_index
+        )
+
+        if distance <= match_threshold and is_mutual:
+            matches.append((local_index, global_index))
+
+    return matches
 
 
 def ransac_refine(candidate_pairs, n_iterations=200, inlier_threshold=0.5, seed=None):
-    """
-    RANSAC: repeatedly sample 3 candidate pairs, fit a rigid transform,
-    count how many OTHER candidate pairs agree with it (inliers), keep the
-    largest/best consensus set. Returns (best_inlier_pairs, R, t).
-    """
+    
     rng = np.random.default_rng(seed)
     n = len(candidate_pairs)
     if n < 3:
