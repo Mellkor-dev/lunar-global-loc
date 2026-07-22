@@ -79,10 +79,7 @@ def run_moga(site_names, initial_poses, feature_correspondences, odometry_chain,
     initial_poses: dict {site_name: (x, y, theta)} — from DARCES
     feature_correspondences: dict {site_name: list of (local_xy, global_xy)}
     odometry_chain: list of dicts {"from", "to", "rho_xy" (2-vec), "dtheta"}
-    orientation_measurements: dict {site_name: theta_meas} — independent
-        absolute heading. Resolves the global rotational gauge freedom —
-        without it, a single-landmark-per-site system is under-constrained.
-        If None, falls back to a hard anchor on site_names[0].
+    orientation_measurements: dict {site_name: theta_meas}
 
     Returns dict {site_name: (x, y, theta)} — refined poses.
     """
