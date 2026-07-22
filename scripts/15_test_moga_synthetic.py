@@ -3,7 +3,7 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from refinement.moga import run_moga, wrap_angle
 
-# --- Ground truth: 3 sites ---
+
 truth = {
     "s1": (0.0, 0.0, 0.0),
     "s2": (5.0, 2.0, np.radians(30)),
@@ -15,16 +15,14 @@ def pose_R(theta):
     c, s = np.cos(theta), np.sin(theta)
     return np.array([[c, -s], [s, c]])
 
-# --- Fabricate global landmarks (fixed, arbitrary) ---
+
 global_landmarks = {
     "L1": np.array([2.0, 1.0]),
     "L2": np.array([6.0, 3.0]),
     "L3": np.array([10.0, 7.0]),
 }
 
-# --- For each site, create a local feature that EXACTLY corresponds to
-#     one global landmark under the ground-truth pose:
-#     global = R(theta) @ local + t   =>   local = R(theta).T @ (global - t)
+
 site_to_landmark = {"s1": "L1", "s2": "L2", "s3": "L3"}
 feature_correspondences = {}
 for s in site_names:
@@ -35,7 +33,7 @@ for s in site_names:
     local = R.T @ (g - t)
     feature_correspondences[s] = [(local, g)]
 
-# --- Fabricate EXACT odometry between consecutive sites ---
+
 odometry_chain = []
 for a, b in [("s1", "s2"), ("s2", "s3")]:
     xa, ya, tha = truth[a]
@@ -45,14 +43,14 @@ for a, b in [("s1", "s2"), ("s2", "s3")]:
     dtheta = wrap_angle(thb - tha)
     odometry_chain.append({"from": a, "to": b, "rho_xy": rho, "dtheta": dtheta})
 
-# --- Start MOGA from a deliberately WRONG initial guess ---
+
 initial_poses = {
     "s1": (1.0, -1.0, np.radians(10)),
     "s2": (4.0, 4.0, np.radians(10)),
     "s3": (7.0, 3.0, np.radians(10)),
 }
 
-print("=== Ground truth ===")
+print("    Ground truth     ")
 for s in site_names:
     x, y, th = truth[s]
     print(f"{s}: x={x:.3f} y={y:.3f} theta={np.degrees(th):.2f}deg")
@@ -75,7 +73,7 @@ refined = run_moga(
     max_iter=50, e_converge=1e-12, verbose=True
 )
 
-print("\n=== MOGA refined ===")
+print("\n    MOGA refined     ")
 max_err = 0.0
 for s in site_names:
     x, y, th = refined[s]
