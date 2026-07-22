@@ -48,14 +48,11 @@ for site in sorted(RAW_ODOM.keys()):
         print(f"  DARCES estimate: t={result['t']}, fitness={result['fitness']:.4f}")
         print(f"  Ground truth: {world_pos[:2]}, error={err:.2f}m\n")
 
-        # Extract the actual matched (local_xy, global_xy) point pairs from
-        # the best hypothesis's control-point indices, for MOGA's
-        # feature-correspondence term.
+        
         local_xy_m = local_peaks[:, [1, 0]] * lxy + np.array(local_origin)
         global_xy_m = global_peaks[:, [1, 0]] * lxy + np.array((0.0, 0.0))
 
-        # Expand DARCES's 3-point hypothesis into a full candidate set using
-        # ALL detected features, then RANSAC to find the consensus inliers.
+        
         candidates = expand_correspondences(
             local_xy_m, global_xy_m, result["R"], result["t"], match_threshold=2.5
         )
@@ -64,9 +61,8 @@ for site in sorted(RAW_ODOM.keys()):
         )
         print(f"  RANSAC: {len(candidates)} candidates -> {len(matched_pairs)} inliers")
 
-        if ransac_t is not None:
-            # Use RANSAC's refined transform (fit on the full inlier set,
-            # not just 3 points) as the site's pose estimate going forward.
+        if ransac_t is not None:  #be careful this is wrong
+           
             result["t"] = ransac_t
             result["R"] = ransac_R
             err = np.linalg.norm(result['t'] - world_pos[:2])
@@ -89,7 +85,7 @@ for site in sorted(RAW_ODOM.keys()):
 np.save("maps/data/traverse_darces_results.npy", results, allow_pickle=True)
 print("Saved: maps/data/traverse_darces_results.npy")
 
-print("\n=== Summary ===")
+print("\n     Summary      ")
 for site, r in results.items():
     if r is not None:
         print(f"{site}: fitness={r['darces_fitness']:.4f}, error={r['error_m']:.2f}m")
