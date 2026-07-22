@@ -1,29 +1,13 @@
 """""
 
 Design simplification vs. the paper's full Eq. 2:
-    - Global feature positions are treated as FIXED (taken from Stage C's
-      detected global peaks), not jointly optimized as unknowns. This
-      collapses the paper's separate global-feature and local-feature
-      error terms into a single feature-correspondence residual per site.
-    - State per site: (x, y, theta) — 2D position + heading. Roll/pitch
-      are assumed known (from leveling) and not part of the optimization.
+    - Global feature positions are treated as FIXED (
+    
 
 Three error terms (of the paper's four — global/local feature terms are
-merged, see above):
-    1. Feature-correspondence residual: for each DARCES-matched
-       (local_feature, global_feature) pair at site i, transform the local
-       feature by the site's CURRENT pose estimate and compare to the
-       fixed global feature position.
-    2. Odometry residual: for each consecutive site pair (i, i+1), compare
-       the relative transform implied by the two sites' CURRENT pose
-       estimates against the MEASURED odometry.
-    3. Orientation residual: compares each site's estimated heading to an
-       independent absolute measurement (inclinometer/sun-sensor
-       equivalent). Resolves the global rotational gauge freedom.
+merged, see above):   
 
-Solved via Gauss-Newton: linearize all residual types w.r.t. the state
-vector z = [x1,y1,th1, x2,y2,th2, ..., xN,yN,thN], solve the linear
-least-squares update, iterate to convergence.
+Solved via Gauss-Newton: linearize all residual term
 """
 
 import numpy as np
@@ -42,10 +26,7 @@ def pose_to_matrix(x, y, theta):
 
 
 def build_feature_residual_and_jacobian(x, y, theta, local_xy, global_xy):
-    """
-    Residual: R(theta) @ local_xy + [x,y] - global_xy   (2-vector)
-    Returns residual (2,) and jacobian w.r.t. [x, y, theta] (2x3).
-    """
+    
     c, s = np.cos(theta), np.sin(theta)
     R = np.array([[c, -s], [s, c]])
     pred = R @ local_xy + np.array([x, y])
@@ -60,24 +41,14 @@ def build_feature_residual_and_jacobian(x, y, theta, local_xy, global_xy):
 
 
 def build_orientation_residual_and_jacobian(theta, theta_meas):
-    """
-    Sec V's 4th error term (J_oℓo): compares estimated heading against an
-    independent absolute measurement (inclinometer/sun-sensor equivalent).
-    residual = wrap(theta - theta_meas)  (1-vector)
-    jacobian w.r.t. theta = 1  (1x1)
-    """
+    
     r = np.array([wrap_angle(theta - theta_meas)])
     J = np.array([[1.0]])
     return r, J
 
 
 def build_odometry_residual_and_jacobian(xa, ya, tha, xb, yb, thb, rho_meas, dtheta_meas):
-    """
-    Predicted relative transform (site a's frame -> site b's frame),
-    using CURRENT pose estimates, compared against MEASURED odometry.
-    residual = [predicted_rho - rho_meas ; wrap(predicted_dtheta - dtheta_meas)]  (3-vector)
-    Returns residual (3,) and jacobian w.r.t. [xa,ya,tha,xb,yb,thb] (3x6).
-    """
+    
     ca, sa = np.cos(tha), np.sin(tha)
     Ra = np.array([[ca, -sa], [sa, ca]])
     t_diff = np.array([xb - xa, yb - ya])
