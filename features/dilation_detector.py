@@ -2,17 +2,13 @@ import numpy as np
 from scipy.ndimage import grey_dilation
 
 def pixelated_circle_footprint(n: int) -> np.ndarray:
-    """Fig.4: circular structuring element of cell-radius n."""
+    
     size = 2 * n + 1
     yy, xx = np.mgrid[-n:n+1, -n:n+1]
     return (xx**2 + yy**2 <= n**2).astype(np.uint8)
 
 def detect_peaks(elevation: np.ndarray, n: int, flatness_eps: float = 1e-3):
-    """
-    Sec III: dilation-based local maxima detector.
-    n: structuring element cell-radius -> D_detect = n * Lxy
-    Returns list of (row, col) peak indices, filtered for flat-area false positives.
-    """
+    
     footprint = pixelated_circle_footprint(n)
     dilated = grey_dilation(elevation, footprint=footprint)
     unchanged = np.isclose(dilated, elevation, atol=flatness_eps)
@@ -44,5 +40,5 @@ def enforce_min_distance(peak_ij, elevation, min_dist_px):
     return np.array(kept)
 
 def detect_craters(elevation: np.ndarray, n: int, flatness_eps: float = 1e-3):
-    """Same as detect_peaks but for depressions (craters) — invert elevation."""
+    
     return detect_peaks(-elevation, n=n, flatness_eps=flatness_eps)
