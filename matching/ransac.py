@@ -99,7 +99,7 @@ def ransac_refine(candidate_pairs, n_iterations=200, inlier_threshold=0.5, seed=
             best_R, best_t = R, t
 
     if len(best_inliers_idx) >= 3:
-        # Refit transform using the FULL consensus set, not just the seed 3
+        
         R_final, t_final = rigid_transform_2d(
             local_pts[best_inliers_idx], global_pts[best_inliers_idx]
         )
