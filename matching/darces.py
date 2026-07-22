@@ -15,10 +15,10 @@ def rigid_transform_2d(src: np.ndarray, dst: np.ndarray):
     """
     src_mean = src.mean(axis=0)
     dst_mean = dst.mean(axis=0)
-    src_c = src - src_mean
-    dst_c = dst - dst_mean
+    src_c = src - src_mean #centered src corrds
+    dst_c = dst - dst_mean 
 
-    H = src_c.T @ dst_c
+    H = src_c.T @ dst_c 
     U, S, Vt = np.linalg.svd(H)
     R = Vt.T @ U.T
     if np.linalg.det(R) < 0:  # reflection guard
