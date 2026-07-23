@@ -1,0 +1,12 @@
+{
+  "sigma_xy": 11.528816098577026,
+  "sigma_z": 1.3088183429887439,
+  "sigma_z_intrinsic": 1.3,
+  "sigma_xy_intrinsic": 10.0,
+  "sigma_z_downsample": 0.15167549223193924,
+  "sigma_xy_downsample": 5.73703761838885,
+  "downsample_factor": 3,
+  "match_count": 124,
+  "downsampled_feature_path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/global_craters_n12.npz",
+  "truth_feature_path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/truth_craters_n40.npz"
+}

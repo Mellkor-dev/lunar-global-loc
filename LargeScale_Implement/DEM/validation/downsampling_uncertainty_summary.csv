@@ -1,0 +1,2 @@
+match_count,downsampling_uncertainty_x_m,downsampling_uncertainty_y_m,downsampling_uncertainty_z_m,downsampling_uncertainty_xy_distance_m,downsampling_uncertainty_xyz_distance_m,mean_dx_m,mean_dy_m,mean_dz_m,rmse_xy_m,rmse_z_m
+124,5.5057497615715105,3.9166906516560673,0.1532017543993555,5.73703761838885,5.735025666130762,-1.9274193548387097,2.7661290322580645,0.11517962741274987,7.5511695312926586,0.1916693092854991
