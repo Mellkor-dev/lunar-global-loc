@@ -1,0 +1,14 @@
+digraph G {
+"odom" -> "base_link"[label=" Broadcaster: default_authority\nAverage rate: 60.441\nBuffer length: 2.267\nMost recent transform: 1874.133431\nOldest transform: 1871.866764\n"];
+"base_link" -> "front_left_wheel_link"[label=" Broadcaster: default_authority\nAverage rate: 60.441\nBuffer length: 2.267\nMost recent transform: 1874.133431\nOldest transform: 1871.866764\n"];
+"base_link" -> "front_right_wheel_link"[label=" Broadcaster: default_authority\nAverage rate: 60.441\nBuffer length: 2.267\nMost recent transform: 1874.133431\nOldest transform: 1871.866764\n"];
+"base_link" -> "rear_left_wheel_link"[label=" Broadcaster: default_authority\nAverage rate: 60.441\nBuffer length: 2.267\nMost recent transform: 1874.133431\nOldest transform: 1871.866764\n"];
+"base_link" -> "rear_right_wheel_link"[label=" Broadcaster: default_authority\nAverage rate: 60.441\nBuffer length: 2.267\nMost recent transform: 1874.133431\nOldest transform: 1871.866764\n"];
+"base_link" -> "vlp16"[label=" Broadcaster: default_authority\nAverage rate: 60.441\nBuffer length: 2.267\nMost recent transform: 1874.133431\nOldest transform: 1871.866764\n"];
+"base_link" -> "Camera_Pseudo_Depth"[label=" Broadcaster: default_authority\nAverage rate: 60.441\nBuffer length: 2.267\nMost recent transform: 1874.133431\nOldest transform: 1871.866764\n"];
+"base_link" -> "Imu_Sensor"[label=" Broadcaster: default_authority\nAverage rate: 60.441\nBuffer length: 2.267\nMost recent transform: 1874.133431\nOldest transform: 1871.866764\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1784796835.3850589"[ shape=plaintext ] ;
+}->"odom";
+}
