@@ -1,7 +1,7 @@
 import numpy as np
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-pointcloud = np.load("sim/data/traverse/local_scan_site01.npy")
+pointcloud = np.load("sim/data/traverse/scan_site_01.npy")
 import matplotlib.pyplot as plt
 import open3d as o3d
 import numpy as np
@@ -14,11 +14,18 @@ x = pointcloud['x']
 y = pointcloud['y']
 z = pointcloud['z']
 
+odom_to_lidar_transform = np.array([[0.996,  0.002, -0.086, -0.194],
+                                   [-0.003,  1.000, -0.016, -0.001],
+                                   [0.086,  0.016,  0.996, -0.089],
+                                   [0.000,  0.000,  0.000,  1.000]])
 
 valid_mask = ~((x == 0) & (y == 0) & (z == 0)) & (np.abs(x) < 50) & (np.abs(y) < 50)
 x, y, z = x[valid_mask], y[valid_mask], z[valid_mask]
 
-
+ones = np.ones((x.shape[0], 1))
+points_homogeneous = np.hstack((x.reshape(-1, 1), y.reshape(-1, 1), z.reshape(-1, 1), ones))
+transformed_points = (odom_to_lidar_transform @ points_homogeneous.T).T
+x, y, z = transformed_points[:, 0], transformed_points[:, 1], transformed_points[:, 2]
 fig = plt.figure(figsize=(14, 6))
 
 
@@ -42,7 +49,7 @@ ax2.grid(True, linestyle='--', alpha=0.5)
 ax2.axis('equal') 
 
 plt.tight_layout()
-plt.show
+plt.show()
 
 
 
