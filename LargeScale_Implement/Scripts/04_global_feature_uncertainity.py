@@ -42,6 +42,8 @@ LXY_M = 5.0
 N_CELLS = 12
 FLATNESS_EPS_M = 0.5
 TRUTH_DEM_LXY_M = 1.5
+D_DETECT = 60.0
+MATCH_DISTANCE_GATE_M = D_DETECT / 2.0
 
 SCALE_CONFIG = (
     {"D_DETECT": 60.0,
@@ -176,11 +178,19 @@ def estimate_downsampled_uncertainty(
     
     matched_truth_xyz = truth_xyz[truth_index]
     coordinate_difference = downsampled_xyz - matched_truth_xyz
+    keep = xy_distance <= MATCH_DISTANCE_GATE_M
+    n_rejected = int((~keep).sum())
+    if n_rejected > 0:
+        print(f"Rejected {n_rejected}/{len(xy_distance)} matches beyond "
+              f"{MATCH_DISTANCE_GATE_M:.1f}m as likely wrong-feature pairings")
+
+    xy_distance_clean = xy_distance[keep]
+    dz_clean = coordinate_difference[keep, 2]
     z_distance = np.abs(coordinate_difference[:, 2])
     
     
-    sigma_xy_downsample = float(np.std(xy_distance))
-    sigma_z_downsample = float(np.std(z_distance))
+    sigma_xy_downsample = float(np.sqrt(np.mean(xy_distance_clean**2)))
+    sigma_z_downsample = float(np.sqrt(np.mean(np.mean(dz_clean**2))))
 
     # Independent uncertainty sources combine in quadrature.
     result = GlobalFeatureUncertainty(
@@ -199,6 +209,9 @@ def estimate_downsampled_uncertainty(
         **asdict(result),
         "downsample_factor": int(downsample_factor),
         "match_count": int(len(downsampled_xyz)),
+        "match_count_used": int(keep.sum()),
+        "match_count_rejected": n_rejected,
+        "match_distance_gate_m": float(MATCH_DISTANCE_GATE_M),
         "downsampled_feature_path": str(DOWNSAMPLED_FEATURE_PATH),
         "truth_feature_path": str(TRUTH_FEATURE_PATH),
     }
@@ -219,8 +232,52 @@ def estimate_downsampled_uncertainty(
         xy_distance_m=xy_distance,
         z_distance_m=z_distance,
     )
+    def inspect_match(rank_idx, downsampled_xyz, truth_xyz, dem_5m, dem_1p5m,
+                   x_coords_5m, y_coords_5m, x_coords_1p5m, y_coords_1p5m,
+                   window=40.0):
+        dx, dy = downsampled_xyz[rank_idx, 0], downsampled_xyz[rank_idx, 1]
+        tx, ty = truth_xyz[rank_idx, 0], truth_xyz[rank_idx, 1]
+
+        fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+        for ax, dem, xs, ys, title in [
+            (axes[0], dem_5m, x_coords_5m, y_coords_5m, "5m downsampled"),
+            (axes[1], dem_1p5m, x_coords_1p5m, y_coords_1p5m, "1.5m truth"),
+        ]:
+            cx = (dx + tx) / 2
+            cy = (dy + ty) / 2
+            x_mask = (xs >= cx - window) & (xs <= cx + window)
+            y_mask = (ys >= cy - window) & (ys <= cy + window)
+            ax.imshow(dem[np.ix_(np.where(y_mask)[0], np.where(x_mask)[0])],
+                    extent=[xs[x_mask].min(), xs[x_mask].max(),
+                            ys[y_mask].min(), ys[y_mask].max()],
+                    origin="lower", cmap="terrain")
+            ax.plot(dx, dy, "rx", markersize=12, markeredgewidth=3, label="downsampled")
+            ax.plot(tx, ty, "b+", markersize=12, markeredgewidth=3, label="truth")
+            ax.set_title(title)
+            ax.legend()
+        plt.tight_layout()
+        plt.savefig(f"/tmp/match_inspect_rank{rank_idx}.png")
+        print(f"saved match_inspect_rank{rank_idx}.png")
+
+    
+    data = np.load(MATCHES_PATH)
+    xy = data["xy_distance_m"]
+    downsampled_xyz = data["downsampled_xyz_m"]
+    truth_xyz = data["truth_xyz_m"]
+    
+    order = np.argsort(xy)[::-1]  # largest first
+    print(f"{'rank':>4} {'xy_dist_m':>10} {'downsampled_xy':>25} {'truth_xy':>25}")
+    for rank, i in enumerate(order[:15]):
+        print(f"{rank:>4} {xy[i]:>10.2f} "
+            f"({downsampled_xyz[i,0]:>8.1f},{downsampled_xyz[i,1]:>8.1f})   "
+            f"({truth_xyz[i,0]:>8.1f},{truth_xyz[i,1]:>8.1f})")
+    
+    for rank in [1, 2, 3, 4, 5]:
+        inspect_match(order[rank], downsampled_xyz, truth_xyz, np.load(DEM_PATH), np.load(TRUTH_DEM_PATH), downsampled_xyz[:, 0], downsampled_xyz[:, 1], truth_xyz[:, 0], truth_xyz[:, 1])
 
     return result
+
+
 
 
 def main() -> None:
@@ -233,7 +290,8 @@ def main() -> None:
     print(f"Saved validation dataclass: {VALIDATION_DATA_PATH}")
     print(f"Saved nearest-neighbour data: {MATCHES_PATH}")
     print(f"global feature covariance matrix:\n{gloabal_feature_covariance(uncertainty.sigma_xy, uncertainty.sigma_z)}")
-
+    
 if __name__ == "__main__":
+    
     main()
     
