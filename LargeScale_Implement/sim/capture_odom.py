@@ -38,7 +38,7 @@ class OdomSaver(Node):
         OUT_DIR.mkdir(parents=True, exist_ok=True)
         save_filepath = OUT_DIR / self.out_filename
         
-        np.savez(save_filepath, odom_data)
+        np.save(save_filepath, odom_data)
         self.get_logger().info(f"Saved odometry data -> {save_filepath}")
         self.saved = True
         

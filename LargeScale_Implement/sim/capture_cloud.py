@@ -40,7 +40,7 @@ class SingleScanSaver(Node):
             self.get_logger().warn(f"requested fields not available ({e}), falling back to xyz only")
             points = np.array(list(pc2.read_points(msg, field_names=("x", "y", "z"), skip_nans=True)))
 
-        np.savez(OUT_DIR / self.out_path, points)
+        np.save(OUT_DIR / self.out_path, points)
         self.get_logger().info(f"Saved {points.shape[0]} points -> {OUT_DIR / self.out_path}")
         self.saved = True
 
