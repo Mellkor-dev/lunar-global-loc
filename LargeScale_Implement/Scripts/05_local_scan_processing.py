@@ -1,19 +1,16 @@
 #!/usr/bin/env python3
-"""Load and preprocess the captured local-scan dataset.
-
-Point clouds are deliberately stored as a tuple because every scan can contain
-a different number of points.  Odometry poses and transforms have fixed shapes
-and are therefore stacked into normal NumPy arrays.
-"""
+"""Load, level, and grid every captured local LiDAR scan."""
 
 from __future__ import annotations
 
+import argparse
 from dataclasses import dataclass
 from pathlib import Path
 import re
 from typing import Sequence
-import math
+
 import numpy as np
+from scipy.spatial import cKDTree
 from scipy.spatial.transform import Rotation
 
 
@@ -22,6 +19,14 @@ SIM_PATH = PROJECT_ROOT / "sim"
 ODOM_SCAN = SIM_PATH / "odom_scans"
 TRANSFORM_SCAN = SIM_PATH / "transform_scan"
 POINTCLOUD_SCAN = SIM_PATH / "pointcloud_scans"
+LEVELED_SCAN = PROJECT_ROOT / "local_maps" / "leveled"
+GRIDDED_SCAN = PROJECT_ROOT / "local_maps" / "gridded_5m"
+
+LOCAL_GRID_RESOLUTION_M = 5.0
+
+
+T_BASE_LIDAR = np.eye(4, dtype=np.float64)
+T_BASE_LIDAR[:3, 3] = (-0.15, 0.0, 0.415)
 
 
 @dataclass(frozen=True)
@@ -37,7 +42,6 @@ class LocalScanDataset:
         return len(self.site_numbers)
 
     def index_for_site(self, site_number: int) -> int:
-        """Return the array/list index corresponding to a site number."""
         matches = np.flatnonzero(self.site_numbers == site_number)
         if len(matches) == 0:
             raise KeyError(f"Site {site_number:02d} is not in this dataset")
@@ -47,7 +51,6 @@ class LocalScanDataset:
         self,
         site_number: int,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-        """Return ``(pointcloud, odometry, transform)`` for one site."""
         index = self.index_for_site(site_number)
         return (
             self.pointclouds[index],
@@ -56,12 +59,33 @@ class LocalScanDataset:
         )
 
     def pointcloud_in_map(self, site_number: int) -> np.ndarray:
-        """Transform one preprocessed LiDAR-frame point cloud into map frame."""
+        """Evaluation helper; this uses the saved absolute ground-truth pose."""
         index = self.index_for_site(site_number)
         xyz = self.pointclouds[index]
         rotation = self.transforms[index, :3, :3]
         translation = self.transforms[index, :3, 3]
         return xyz @ rotation.T + translation
+
+
+@dataclass(frozen=True)
+class LeveledPointCloud:
+    """One cloud expressed in a gravity-leveled rover-local frame."""
+
+    points_xyz: np.ndarray
+    lidar_origin_xyz: np.ndarray
+    yaw_rad: float
+
+
+@dataclass(frozen=True)
+class LocalElevationGrid:
+    """A north-up local elevation raster and its coordinate vectors."""
+
+    elevation: np.ndarray
+    valid_mask: np.ndarray
+    x_centers_m: np.ndarray
+    y_centers_m: np.ndarray
+    resolution_m: float
+    max_neighbor_distance_m: float
 
 
 def _site_number(path: Path) -> int:
@@ -87,7 +111,7 @@ def _files_by_site(directory: Path, pattern: str) -> dict[int, Path]:
 
 
 def _preprocess_pointcloud(path: Path) -> np.ndarray:
-    """Convert a structured or ordinary cloud to finite, nonzero ``N x 3`` XYZ."""
+    """Convert a structured or ordinary cloud to finite, nonzero N x 3 XYZ."""
     cloud = np.load(path, allow_pickle=False)
 
     if cloud.dtype.names is not None:
@@ -109,7 +133,6 @@ def _preprocess_pointcloud(path: Path) -> np.ndarray:
     valid = np.isfinite(xyz).all(axis=1)
     valid &= np.any(xyz != 0.0, axis=1)
     xyz = np.ascontiguousarray(xyz[valid])
-
     if len(xyz) == 0:
         raise ValueError(f"{path.name} has no valid points after preprocessing")
     return xyz
@@ -133,7 +156,6 @@ def _load_odometry(paths: Sequence[Path]) -> np.ndarray:
             raise ValueError(f"{path.name} contains a zero-length quaternion")
         pose[3:] /= quaternion_norm
         poses.append(pose)
-
     return np.stack(poses)
 
 
@@ -153,7 +175,6 @@ def _load_transforms(paths: Sequence[Path]) -> np.ndarray:
         if not np.allclose(transform[3], (0.0, 0.0, 0.0, 1.0)):
             raise ValueError(f"{path.name} is not a homogeneous transform")
         transforms.append(transform)
-
     return np.stack(transforms)
 
 
@@ -189,185 +210,262 @@ def load_local_scan_dataset(
     transforms = _load_transforms(
         [transform_files[site] for site in site_numbers]
     )
-
     return LocalScanDataset(
         site_numbers=site_numbers,
         pointclouds=pointclouds,
         odometry=odometry,
         transforms=transforms,
     )
-    
-def pose_transform(pose : np.ndarray) -> np.ndarray:
-    pose =np.asarray(pose,dtype=np.float64).reshape(-1)
-    if pose.shape != 7:
-        print("Shape Error")
-        
-    quaternion = pose[3:]
-    quaternion_mag = np.linalg.norm(quaternion)
-    quaternion = quaternion/quaternion_mag
-    transform = np.eye(4,dtype=np.float64)
-    transform[:3, :3] = Rotation.from_quat(quaternion).as_matrix()
-    transform[:3, 3] = pose[:3]
 
+
+def pose_transform(pose: np.ndarray) -> np.ndarray:
+    """Convert [x, y, z, qx, qy, qz, qw] to a 4 x 4 transform."""
+    pose = np.asarray(pose, dtype=np.float64).reshape(-1)
+    if pose.shape != (7,):
+        raise ValueError(f"Pose must have shape (7,), got {pose.shape}")
+    if not np.isfinite(pose).all():
+        raise ValueError("Pose contains NaN or infinite values")
+
+    quaternion = pose[3:]
+    quaternion_norm = np.linalg.norm(quaternion)
+    if quaternion_norm == 0.0:
+        raise ValueError("Pose quaternion has zero length")
+
+    transform = np.eye(4, dtype=np.float64)
+    transform[:3, :3] = Rotation.from_quat(
+        quaternion / quaternion_norm
+    ).as_matrix()
+    transform[:3, 3] = pose[:3]
     return transform
+
 
 def yaw_rotation(yaw_rad: float) -> np.ndarray:
     """Rotation from a yaw-aligned local frame into the map frame."""
-    c = np.cos(yaw_rad)
-    s = np.sin(yaw_rad)
-
+    cosine = np.cos(yaw_rad)
+    sine = np.sin(yaw_rad)
     return np.array(
         [
-            [c, -s, 0.0],
-            [s,  c, 0.0],
+            [cosine, -sine, 0.0],
+            [sine, cosine, 0.0],
             [0.0, 0.0, 1.0],
         ],
         dtype=np.float64,
-    )      
-    
+    )
+
 
 def level_pointcloud(
     points_lidar: np.ndarray,
     odometry_pose: np.ndarray,
-    transform_array:np.ndarray
-) -> tuple[np.ndarray, np.ndarray, np.ndarray, float]:
-    """Convert LiDAR points to base frame and remove roll/pitch.
+    T_base_lidar: np.ndarray = T_BASE_LIDAR,
+) -> LeveledPointCloud:
+    """Apply extrinsics and remove roll/pitch without using absolute position.
 
-    Returns:
-        points_base
-        points_leveled
-        lidar_origin_leveled
-        yaw_rad
+    Odometry orientation supplies gravity alignment. Removing yaw from that
+    rotation keeps the resulting x/y axes rover-local.
     """
     points_lidar = np.asarray(points_lidar, dtype=np.float64)
-
     if points_lidar.ndim != 2 or points_lidar.shape[1] != 3:
         raise ValueError(
             f"points_lidar must have shape (N, 3), got {points_lidar.shape}"
         )
 
-    # Odometry gives base_link pose in map/odom.
-    T_map_base = pose_transform(odometry_pose)
-
-    # Static LiDAR mount: lidar frame -> base_link frame.
-    T_base_lidar = np.array(
-        [
-            [1.0, 0.0, 0.0, -0.15],
-            [0.0, 1.0, 0.0,  0.00],
-            [0.0, 0.0, 1.0,  0.415],
-            [0.0, 0.0, 0.0,  1.00],
-        ],
-        dtype=np.float64,
-    )
+    T_base_lidar = np.asarray(T_base_lidar, dtype=np.float64)
+    if T_base_lidar.shape != (4, 4):
+        raise ValueError(
+            f"T_base_lidar must have shape (4, 4), got {T_base_lidar.shape}"
+        )
+    if not np.isfinite(T_base_lidar).all():
+        raise ValueError("T_base_lidar contains invalid values")
+    if not np.allclose(T_base_lidar[3], (0.0, 0.0, 0.0, 1.0)):
+        raise ValueError("T_base_lidar is not a homogeneous transform")
 
     R_base_lidar = T_base_lidar[:3, :3]
     t_base_lidar = T_base_lidar[:3, 3]
+    points_base = points_lidar @ R_base_lidar.T + t_base_lidar
 
-    # LiDAR frame -> base_link frame.
-    points_base = (
-        points_lidar @ R_base_lidar.T
-        + t_base_lidar
+    R_map_base = pose_transform(odometry_pose)[:3, :3]
+    yaw_rad = float(np.arctan2(R_map_base[1, 0], R_map_base[0, 0]))
+    R_level_base = yaw_rotation(yaw_rad).T @ R_map_base
+
+    points_leveled = points_base @ R_level_base.T
+    lidar_origin_leveled = R_level_base @ t_base_lidar
+    return LeveledPointCloud(
+        points_xyz=np.ascontiguousarray(points_leveled, dtype=np.float32),
+        lidar_origin_xyz=np.asarray(lidar_origin_leveled, dtype=np.float64),
+        yaw_rad=yaw_rad,
     )
 
-    R_map_base = T_map_base[:3, :3]
 
-    # Extract heading only.
-    yaw_rad = float(
-        np.arctan2(
-            R_map_base[1, 0],
-            R_map_base[0, 0],
+def grid_pointcloud_nearest(
+    points_xyz: np.ndarray,
+    resolution_m: float = LOCAL_GRID_RESOLUTION_M,
+    max_neighbor_distance_m: float | None = None,
+) -> LocalElevationGrid:
+    """Grid a leveled cloud with nearest-neighbour XY interpolation."""
+    points_xyz = np.asarray(points_xyz, dtype=np.float64)
+    if points_xyz.ndim != 2 or points_xyz.shape[1] != 3:
+        raise ValueError(
+            f"points_xyz must have shape (N, 3), got {points_xyz.shape}"
         )
+    points_xyz = points_xyz[np.isfinite(points_xyz).all(axis=1)]
+    if len(points_xyz) == 0:
+        raise ValueError("Point cloud has no finite points to grid")
+    if not np.isfinite(resolution_m) or resolution_m <= 0.0:
+        raise ValueError("resolution_m must be finite and positive")
+
+    if max_neighbor_distance_m is None:
+        max_neighbor_distance_m = resolution_m / np.sqrt(2.0)
+    if (
+        not np.isfinite(max_neighbor_distance_m)
+        or max_neighbor_distance_m <= 0.0
+    ):
+        raise ValueError(
+            "max_neighbor_distance_m must be finite and positive"
+        )
+
+    x_min = np.floor(points_xyz[:, 0].min() / resolution_m) * resolution_m
+    x_max = np.ceil(points_xyz[:, 0].max() / resolution_m) * resolution_m
+    y_min = np.floor(points_xyz[:, 1].min() / resolution_m) * resolution_m
+    y_max = np.ceil(points_xyz[:, 1].max() / resolution_m) * resolution_m
+    if x_max <= x_min:
+        x_max = x_min + resolution_m
+    if y_max <= y_min:
+        y_max = y_min + resolution_m
+
+    x_centers = np.arange(
+        x_min + resolution_m / 2.0,
+        x_max,
+        resolution_m,
+        dtype=np.float64,
     )
-
-    c = np.cos(yaw_rad)
-    s = np.sin(yaw_rad)
-
-    R_map_level = np.array(
-        [
-            [c, -s, 0.0],
-            [s,  c, 0.0],
-            [0.0, 0.0, 1.0],
-        ],
+    # North-up raster convention: row zero has the greatest local y.
+    y_centers = np.arange(
+        y_max - resolution_m / 2.0,
+        y_min,
+        -resolution_m,
         dtype=np.float64,
     )
 
-    # Remove roll and pitch while preserving rover-relative yaw.
-    R_level_base = R_map_level.T @ R_map_base
-
-    points_leveled = points_base @ R_level_base.T
-
-    # Position of LiDAR origin relative to base_link,
-    # expressed in the leveled frame.
-    lidar_origin_leveled = R_level_base @ t_base_lidar
-    
-    T_map_base = pose_transform(odometry_pose)
-
-    T_map_lidar_predicted = T_map_base @ T_base_lidar
-    T_map_lidar_saved = transform_array
-
-    error = np.linalg.inv(T_map_lidar_predicted) @ T_map_lidar_saved
-
-    print("Predicted T_map_lidar:")
-    print(T_map_lidar_predicted)
-
-    print("Saved T_map_lidar:")
-    print(T_map_lidar_saved)
-
-    print("Difference:")
-    print(error)
-
-    return (
-        points_base,
-        points_leveled,
-        T_base_lidar,
-        lidar_origin_leveled,
-        yaw_rad,
+    query_y, query_x = np.meshgrid(y_centers, x_centers, indexing="ij")
+    query_xy = np.column_stack((query_x.ravel(), query_y.ravel()))
+    distances, nearest_indices = cKDTree(points_xyz[:, :2]).query(
+        query_xy,
+        k=1,
+        workers=-1,
     )
-    
+    valid = distances <= max_neighbor_distance_m
+
+    elevation = np.full(len(query_xy), np.nan, dtype=np.float32)
+    elevation[valid] = points_xyz[nearest_indices[valid], 2]
+    shape = (len(y_centers), len(x_centers))
+    return LocalElevationGrid(
+        elevation=elevation.reshape(shape),
+        valid_mask=valid.reshape(shape),
+        x_centers_m=x_centers,
+        y_centers_m=y_centers,
+        resolution_m=float(resolution_m),
+        max_neighbor_distance_m=float(max_neighbor_distance_m),
+    )
+
+
+def process_all_sites(
+    dataset: LocalScanDataset,
+    leveled_directory: Path = LEVELED_SCAN,
+    gridded_directory: Path = GRIDDED_SCAN,
+    resolution_m: float = LOCAL_GRID_RESOLUTION_M,
+    max_neighbor_distance_m: float | None = None,
+) -> list[LocalElevationGrid]:
+    """Level and grid every site, saving reusable NumPy artifacts."""
+    leveled_directory = Path(leveled_directory)
+    gridded_directory = Path(gridded_directory)
+    leveled_directory.mkdir(parents=True, exist_ok=True)
+    gridded_directory.mkdir(parents=True, exist_ok=True)
+
+    grids = []
+    for index, site_value in enumerate(dataset.site_numbers):
+        site_number = int(site_value)
+        leveled = level_pointcloud(
+            dataset.pointclouds[index],
+            dataset.odometry[index],
+        )
+        grid = grid_pointcloud_nearest(
+            leveled.points_xyz,
+            resolution_m=resolution_m,
+            max_neighbor_distance_m=max_neighbor_distance_m,
+        )
+
+        np.save(
+            leveled_directory / f"leveled_site_{site_number:02d}.npy",
+            leveled.points_xyz,
+        )
+        np.savez_compressed(
+            gridded_directory / f"grid_site_{site_number:02d}.npz",
+            elevation=grid.elevation,
+            valid_mask=grid.valid_mask,
+            x_centers_m=grid.x_centers_m,
+            y_centers_m=grid.y_centers_m,
+            resolution_m=np.float64(grid.resolution_m),
+            max_neighbor_distance_m=np.float64(
+                grid.max_neighbor_distance_m
+            ),
+            lidar_origin_xyz_m=leveled.lidar_origin_xyz,
+            measured_yaw_rad=np.float64(leveled.yaw_rad),
+            site_number=np.int64(site_number),
+            frame=np.asarray("gravity_leveled_rover_local"),
+            raster_convention=np.asarray(
+                "columns:+x, rows:-y, elevation:+z"
+            ),
+        )
+        grids.append(grid)
+        print(
+            f"Site {site_number:02d}: points={len(leveled.points_xyz):6d}, "
+            f"grid={grid.elevation.shape}, "
+            f"valid={int(grid.valid_mask.sum()):5d}/{grid.valid_mask.size:5d}"
+        )
+
+    return grids
+
+
+def parse_arguments() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--resolution",
+        type=float,
+        default=LOCAL_GRID_RESOLUTION_M,
+        help="Local elevation-grid resolution in metres (default: 5)",
+    )
+    parser.add_argument(
+        "--max-neighbor-distance",
+        type=float,
+        default=None,
+        help="Maximum XY interpolation distance (default: half-cell diagonal)",
+    )
+    parser.add_argument(
+        "--leveled-directory",
+        type=Path,
+        default=LEVELED_SCAN,
+    )
+    parser.add_argument(
+        "--gridded-directory",
+        type=Path,
+        default=GRIDDED_SCAN,
+    )
+    return parser.parse_args()
+
 
 def main() -> None:
+    args = parse_arguments()
     dataset = load_local_scan_dataset()
-
-    site_number = 16
-    index = dataset.index_for_site(site_number)
-
-    points_lidar = dataset.pointclouds[index]
-    odometry_pose = dataset.odometry[index]
-    T_map_lidar = dataset.transforms[index]
-
-    (
-        points_base,
-        points_leveled,
-        T_base_lidar,
-        lidar_origin_leveled,
-        yaw_rad,
-    ) = level_pointcloud(
-        points_lidar=points_lidar,
-        odometry_pose=odometry_pose,
-        transform_array=T_map_lidar,
+    grids = process_all_sites(
+        dataset,
+        leveled_directory=args.leveled_directory,
+        gridded_directory=args.gridded_directory,
+        resolution_m=args.resolution,
+        max_neighbor_distance_m=args.max_neighbor_distance,
     )
-
-    print(f"Site: {site_number:02d}")
-    print(f"Raw cloud shape:     {points_lidar.shape}")
-    print(f"Base cloud shape:    {points_base.shape}")
-    print(f"Leveled cloud shape: {points_leveled.shape}")
-
-    print("\nRecovered T_base_lidar:")
-    print(T_base_lidar)
-
-    print("\nLiDAR origin in leveled frame:")
-    print(lidar_origin_leveled)
-
-    print(f"\nRover yaw: {np.degrees(yaw_rad):.3f} deg")
-
-    print("\nRaw LiDAR z range:")
-    print(points_lidar[:, 2].min(), points_lidar[:, 2].max())
-
-    print("\nBase-frame z range:")
-    print(points_base[:, 2].min(), points_base[:, 2].max())
-
-    print("\nLeveled z range:")
-    print(points_leveled[:, 2].min(), points_leveled[:, 2].max())
+    print()
+    print(f"Saved {len(grids)} leveled clouds to {args.leveled_directory}")
+    print(f"Saved {len(grids)} local grids to {args.gridded_directory}")
 
 
 if __name__ == "__main__":
