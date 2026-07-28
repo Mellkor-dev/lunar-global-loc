@@ -23,7 +23,7 @@ print(f"Local peaks: {len(local_peaks)}, Global peaks: {len(global_peaks)}")
 result = run_darces(
     local_peaks, global_peaks, local_grid, global_dem,
     local_origin, global_origin, lxy,
-    n_trials=5000, dist_tol_m=0.5, z_dev_thresh=0.3,
+    n_trials=10000, dist_tol_m=0.5, z_dev_thresh=0.3,
     heading_meas_deg=5.79,
     e_heading_deg=180.0,   # keep disabled for this pass
     seed=42

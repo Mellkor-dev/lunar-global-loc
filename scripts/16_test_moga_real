@@ -11,7 +11,7 @@ traverse = build_traverse()  # rebuilds world_t, world_R, odometry_chain (3D)
 
 site_names = traverse["sites"]
 
-# --- Initial poses from DARCES (x, y, heading_from_R) ---
+
 initial_poses = {}
 for s in site_names:
     r = results[s]
@@ -22,8 +22,6 @@ for s in site_names:
     R = r["darces_R"]
     theta = np.arctan2(R[1, 0], R[0, 0])
     initial_poses[s] = (t[0], t[1], theta)
-
-# --- Feature correspondences from DARCES's matched triplets ---
 feature_correspondences = {}
 for s in site_names:
     r = results[s]
@@ -31,7 +29,7 @@ for s in site_names:
         continue
     feature_correspondences[s] = r["matched_pairs"]
 
-# --- Reduce 3D odometry chain to 2D (xy translation, yaw-only rotation) ---
+
 odometry_chain_2d = []
 for edge in traverse["odometry_chain"]:
     R3 = edge["R"]
@@ -42,8 +40,7 @@ for edge in traverse["odometry_chain"]:
         "rho_xy": rho3[:2], "dtheta": dtheta
     })
 
-# --- Absolute orientation measurements: true yaw per site (independent
-#     of DARCES's own heading estimate — saved during script 13's run) ---
+
 orientation_measurements = {}
 for s in site_names:
     r = results[s]
