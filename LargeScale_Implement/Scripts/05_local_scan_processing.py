@@ -240,7 +240,7 @@ def pose_transform(pose: np.ndarray) -> np.ndarray:
 
 
 def yaw_rotation(yaw_rad: float) -> np.ndarray:
-    """Rotation from a yaw-aligned local frame into the map frame."""
+    
     cosine = np.cos(yaw_rad)
     sine = np.sin(yaw_rad)
     return np.array(
@@ -258,16 +258,13 @@ def level_pointcloud(
     odometry_pose: np.ndarray,
     T_base_lidar: np.ndarray = T_BASE_LIDAR,
 ) -> LeveledPointCloud:
-    """Apply extrinsics and remove roll/pitch without using absolute position.
-
-    Odometry orientation supplies gravity alignment. Removing yaw from that
-    rotation keeps the resulting x/y axes rover-local.
-    """
+    
     points_lidar = np.asarray(points_lidar, dtype=np.float64)
     if points_lidar.ndim != 2 or points_lidar.shape[1] != 3:
         raise ValueError(
             f"points_lidar must have shape (N, 3), got {points_lidar.shape}"
         )
+
 
     T_base_lidar = np.asarray(T_base_lidar, dtype=np.float64)
     if T_base_lidar.shape != (4, 4):

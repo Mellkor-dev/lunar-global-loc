@@ -82,10 +82,11 @@ coordinates:
   projected_crs: null
 
 feature_detection:
-  feature_kind: peak
-  cell_radius: 12
-  detection_distance_m: 60.0
-  flatness_threshold_m: 0.5
+  feature_kind: crater
+  cell_radius: 6
+  detection_distance_m: 30.0
+  flatness_threshold_m: 0.15
+  local_min_valid_fraction: 0.10
 
 darces:
   enabled: false
