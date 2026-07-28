@@ -17,7 +17,7 @@ def expand_correspondences(
     R: np.ndarray,
     t: np.ndarray,
     match_threshold: float,
-) -> list[tuple[int, int]]:
+) -> list[tuple[np.ndarray, np.ndarray]]:
     
     local_xy = np.asarray(local_xy, dtype=float)
     global_xy = np.asarray(global_xy, dtype=float)
@@ -53,7 +53,7 @@ def expand_correspondences(
     projected_tree = cKDTree(projected_local)
     _, global_to_local_index = projected_tree.query(global_xy, k=1)
 
-    matches: list[tuple[int, int]] = []
+    matches: list[tuple[np.ndarray, np.ndarray]] = []
 
     for local_index, (distance, global_index) in enumerate(
         zip(local_to_global_distance, local_to_global_index)
@@ -65,7 +65,9 @@ def expand_correspondences(
         )
 
         if distance <= match_threshold and is_mutual:
-            matches.append((local_index, global_index))
+            matches.append(
+                (local_xy[local_index].copy(), global_xy[global_index].copy())
+            )
 
     return matches
 

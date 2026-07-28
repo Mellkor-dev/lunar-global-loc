@@ -26,7 +26,16 @@ def pose_to_matrix(x, y, theta):
 
 
 def build_feature_residual_and_jacobian(x, y, theta, local_xy, global_xy):
-    
+    local_xy = np.asarray(local_xy, dtype=float)
+    global_xy = np.asarray(global_xy, dtype=float)
+
+    if local_xy.shape != (2,) or global_xy.shape != (2,):
+        raise ValueError(
+            "Each feature correspondence must contain local and global XY "
+            f"coordinates with shape (2,); got {local_xy.shape} and "
+            f"{global_xy.shape}. Regenerate traverse_darces_results.npy."
+        )
+
     c, s = np.cos(theta), np.sin(theta)
     R = np.array([[c, -s], [s, c]])
     pred = R @ local_xy + np.array([x, y])
