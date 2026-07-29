@@ -1,9 +1,9 @@
 import numpy as np
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-pointcloud = np.load("sim/data/traverse/scan_site_01.npy")
+pointcloud = np.load("sim/data/traverse/scan_site_05.npy")
 import matplotlib.pyplot as plt
-import open3d as o3d
+#import open3d as o3d
 import numpy as np
 
 print("Shape:", pointcloud.shape)

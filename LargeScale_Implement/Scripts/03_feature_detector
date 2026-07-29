@@ -15,7 +15,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from features.dilation_detector import detect_craters
+from features.dilation_detector import detect_craters, detect_peaks
 
 
 DEM_PATH = PROJECT_ROOT / "DEM" / "orbital_dem_5m.npy"
@@ -26,11 +26,11 @@ FEATURE_PATH = PROJECT_ROOT / "DEM" / "global_craters_n12.npz"
 TRUTH_FEATURE_PATH = PROJECT_ROOT / "DEM" / "truth_craters_n40.npz"
 
 TRUTH_DEM_LXY_M = 1.5
-N_CELLS_TRUTH = 40
+N_CELLS_TRUTH = 20
 
 LXY_M = 5.0
-N_CELLS = 12
-FLATNESS_EPS_M = 0.5
+N_CELLS = 6
+FLATNESS_EPS_M = 0.15
 
 
 def main() -> None:
@@ -49,7 +49,7 @@ def main() -> None:
     detection_distance_m = N_CELLS * LXY_M
     truth_detection_distance_m = N_CELLS_TRUTH * TRUTH_DEM_LXY_M
 
-    craters_rc = detect_craters(
+    craters_rc = detect_peaks(
         dem,
         n=N_CELLS,
         flatness_eps=FLATNESS_EPS_M,
@@ -57,7 +57,7 @@ def main() -> None:
 
     craters_rc = np.asarray(craters_rc)
     
-    true_craters_rc = detect_craters(
+    true_craters_rc = detect_peaks(
         true_dem,
         n=N_CELLS_TRUTH,
         flatness_eps=FLATNESS_EPS_M,
