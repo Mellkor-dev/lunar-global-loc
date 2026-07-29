@@ -1,6 +1,14 @@
 """Regression tests for shared Phase 1 configuration and feature geometry."""
 
+from pathlib import Path
+import sys
+
 import numpy as np
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from features.dilation_detector import detect_craters
 from pipeline_config import load_pipeline_config
@@ -46,3 +54,9 @@ def test_masked_crater_detection_and_border_exclusion() -> None:
     )
     assert any(np.array_equal(item, (0, 0)) for item in with_border)
     assert np.array_equal(without_border, np.array([[4, 4]]))
+
+
+if __name__ == "__main__":
+    import pytest
+
+    raise SystemExit(pytest.main([str(Path(__file__).resolve()), "-q"]))
