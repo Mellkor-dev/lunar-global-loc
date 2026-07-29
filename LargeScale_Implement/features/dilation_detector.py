@@ -14,6 +14,7 @@ def detect_peaks(
     n: int,
     flatness_eps: float = 1e-3,
     min_valid_fraction: float = 0.0,
+    exclude_border: bool = False,
 ):
     """Detect maxima in finite portions of a possibly sparse elevation grid."""
     elevation = np.asarray(elevation)
@@ -38,6 +39,11 @@ def detect_peaks(
         atol=flatness_eps,
         rtol=0.0,
     )
+    if exclude_border:
+        unchanged[:n, :] = False
+        unchanged[-n:, :] = False
+        unchanged[:, :n] = False
+        unchanged[:, -n:] = False
 
     peak_ij = np.argwhere(unchanged)
 
@@ -90,10 +96,12 @@ def detect_craters(
     n: int,
     flatness_eps: float = 1e-3,
     min_valid_fraction: float = 0.0,
+    exclude_border: bool = False,
 ):
     return detect_peaks(
         -elevation,
         n=n,
         flatness_eps=flatness_eps,
         min_valid_fraction=min_valid_fraction,
+        exclude_border=exclude_border,
     )

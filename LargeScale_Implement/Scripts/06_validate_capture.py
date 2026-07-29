@@ -24,7 +24,7 @@ EXTRINSIC_PATH = OUTPUT_DIRECTORY / "recovered_lidar_extrinsics.npz"
 
 # Known Husky-to-LiDAR translation from the USD/TF setup.
 EXPECTED_BASE_TO_LIDAR_TRANSLATION_M = np.array(
-    [-0.15, 0.0, 0.45],
+    [-0.15, 0.0, 0.415],
     dtype=float,
 )
 
@@ -348,7 +348,7 @@ def main() -> None:
     )
     print(
         "Maximum error from expected translation "
-        "[-0.15, 0.0, 0.45]: "
+        f"{EXPECTED_BASE_TO_LIDAR_TRANSLATION_M.tolist()}: "
         f"{max(row['expected_translation_error_m'] for row in results):.6f} m"
     )
     print()

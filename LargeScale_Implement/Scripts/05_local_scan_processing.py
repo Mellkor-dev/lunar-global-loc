@@ -7,6 +7,7 @@ import argparse
 from dataclasses import dataclass
 from pathlib import Path
 import re
+import sys
 from typing import Sequence
 
 import numpy as np
@@ -15,14 +16,21 @@ from scipy.spatial.transform import Rotation
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from pipeline_config import load_pipeline_config
+
+
+CONFIG = load_pipeline_config()
 SIM_PATH = PROJECT_ROOT / "sim"
 ODOM_SCAN = SIM_PATH / "odom_scans"
 TRANSFORM_SCAN = SIM_PATH / "transform_scan"
 POINTCLOUD_SCAN = SIM_PATH / "pointcloud_scans"
-LEVELED_SCAN = PROJECT_ROOT / "local_maps" / "leveled"
-GRIDDED_SCAN = PROJECT_ROOT / "local_maps" / "gridded_5m"
+LEVELED_SCAN = CONFIG.leveled_maps_path
+GRIDDED_SCAN = CONFIG.gridded_maps_path
 
-LOCAL_GRID_RESOLUTION_M = 5.0
+LOCAL_GRID_RESOLUTION_M = CONFIG.orbital_raster.resolution_m
 
 
 T_BASE_LIDAR = np.eye(4, dtype=np.float64)

@@ -15,19 +15,21 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from features.dilation_detector import detect_craters
+from features.dilation_detector import detect_craters, detect_peaks
+from pipeline_config import load_pipeline_config
 
 
-GRID_DIRECTORY = PROJECT_ROOT / "local_maps" / "gridded_5m"
-FEATURE_DIRECTORY = PROJECT_ROOT / "local_maps" / "features"
+CONFIG = load_pipeline_config()
+GRID_DIRECTORY = CONFIG.gridded_maps_path
+FEATURE_DIRECTORY = CONFIG.local_features_path
 PREVIEW_DIRECTORY = PROJECT_ROOT / "plots" / "local_features"
 SUMMARY_PATH = FEATURE_DIRECTORY / "local_feature_summary.csv"
 
-RESOLUTION_M = 5.0
-DETECTION_DISTANCE_M = 30.0
-DETECTION_RADIUS_CELLS = int(round(DETECTION_DISTANCE_M / RESOLUTION_M))
-FLATNESS_EPS_M = 0.15
-MIN_VALID_FRACTION = 0.10
+RESOLUTION_M = CONFIG.orbital_raster.resolution_m
+DETECTION_DISTANCE_M = CONFIG.features.distance_m
+DETECTION_RADIUS_CELLS = CONFIG.features.radius_for_resolution(RESOLUTION_M)
+FLATNESS_EPS_M = CONFIG.features.flatness_threshold_m
+MIN_VALID_FRACTION = CONFIG.features.local_min_valid_fraction
 
 
 def has_noncollinear_triplet(xy: np.ndarray, area_epsilon_m2: float = 1.0) -> bool:
@@ -82,13 +84,13 @@ def save_preview(
             color="red",
             s=55,
             linewidths=1.8,
-            label="Detected crater",
+            label=f"Detected {CONFIG.features.kind}",
         )
 
     axis.scatter(0.0, 0.0, marker="^", color="black", s=45, label="Rover")
     axis.legend()
     axis.set_title(
-        f"Site {site_number:02d}: local crater features "
+        f"Site {site_number:02d}: local {CONFIG.features.kind} features "
         f"(N={len(feature_xy_m)})"
     )
     axis.set_xlabel("Rover-local x [m]")
@@ -120,7 +122,12 @@ def process_grid(path: Path) -> dict[str, int | float | bool]:
     if not np.array_equal(valid_mask, np.isfinite(elevation)):
         raise ValueError(f"{path.name}: valid mask and finite cells disagree")
 
-    crater_rc = detect_craters(
+    detector = (
+        detect_craters
+        if CONFIG.features.kind == "crater"
+        else detect_peaks
+    )
+    crater_rc = detector(
         elevation,
         n=DETECTION_RADIUS_CELLS,
         flatness_eps=FLATNESS_EPS_M,
@@ -149,7 +156,8 @@ def process_grid(path: Path) -> dict[str, int | float | bool]:
         flatness_eps_m=np.float64(FLATNESS_EPS_M),
         min_valid_fraction=np.float64(MIN_VALID_FRACTION),
         site_number=np.int64(site_number),
-        feature_kind=np.asarray("crater"),
+        feature_kind=np.asarray(CONFIG.features.kind),
+        config_path=np.asarray(str(CONFIG.config_path)),
         usable_for_darces=np.bool_(usable_for_darces),
     )
     save_preview(
@@ -182,8 +190,8 @@ def main() -> None:
         writer.writeheader()
         writer.writerows(rows)
 
-    print("Local crater feature detection")
-    print("------------------------------")
+    print(f"Local {CONFIG.features.kind} feature detection")
+    print("--------------------------------")
     for row in rows:
         status = "DARCES-ready" if row["has_noncollinear_triplet"] else "insufficient"
         print(
