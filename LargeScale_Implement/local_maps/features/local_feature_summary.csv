@@ -1,5 +1,5 @@
 site,valid_grid_cells,feature_count,has_three_features,has_noncollinear_triplet
-1,218,0,False,False
+1,219,1,False,False
 2,226,1,False,False
 3,305,3,True,True
 4,274,1,False,False
@@ -17,3 +17,12 @@ site,valid_grid_cells,feature_count,has_three_features,has_noncollinear_triplet
 16,397,3,True,True
 17,378,5,True,True
 18,230,2,False,False
+19,309,1,False,False
+20,252,3,True,True
+21,285,1,False,False
+22,361,3,True,True
+23,178,1,False,False
+24,217,1,False,False
+25,152,1,False,False
+26,184,1,False,False
+27,217,1,False,False
