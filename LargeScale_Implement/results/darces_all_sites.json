@@ -10,8 +10,8 @@
   "sites": [
     {
       "site": 1,
-      "local_feature_count": 0,
-      "heading_measurement_deg": -0.19641268331562067,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -0.19641526716578595,
       "status": "skipped_insufficient_features"
     },
     {
@@ -25,7 +25,7 @@
       "local_feature_count": 3,
       "heading_measurement_deg": 65.98145702328631,
       "status": "no_solution",
-      "runtime_s": 0.028368087994749658
+      "runtime_s": 0.054153572999894095
     },
     {
       "site": 4,
@@ -50,14 +50,14 @@
       "local_feature_count": 3,
       "heading_measurement_deg": 12.538108630796627,
       "status": "no_solution",
-      "runtime_s": 0.0024246980028692633
+      "runtime_s": 0.0026817390003088803
     },
     {
       "site": 8,
       "local_feature_count": 3,
       "heading_measurement_deg": -17.488095766108614,
       "status": "no_solution",
-      "runtime_s": 0.027878356995643117
+      "runtime_s": 0.03171316199995999
     },
     {
       "site": 9,
@@ -70,7 +70,7 @@
       "local_feature_count": 6,
       "heading_measurement_deg": -149.88358846699458,
       "status": "solution",
-      "runtime_s": 0.8796042820031289,
+      "runtime_s": 0.9288282859997707,
       "estimated_x_m": -425.4868965041605,
       "estimated_y_m": -359.61014703324145,
       "estimated_z_m": 8.907266616821289,
@@ -91,21 +91,21 @@
       "local_feature_count": 3,
       "heading_measurement_deg": -123.2110441770452,
       "status": "no_solution",
-      "runtime_s": 0.06400722899707034
+      "runtime_s": 0.06685847299968373
     },
     {
       "site": 12,
       "local_feature_count": 3,
       "heading_measurement_deg": -123.06321476571472,
       "status": "no_solution",
-      "runtime_s": 0.03499186399858445
+      "runtime_s": 0.03735505300028308
     },
     {
       "site": 13,
       "local_feature_count": 5,
       "heading_measurement_deg": -114.47124062847757,
       "status": "no_solution",
-      "runtime_s": 0.4638332820031792
+      "runtime_s": 0.48324045200024557
     },
     {
       "site": 14,
@@ -118,21 +118,21 @@
       "local_feature_count": 3,
       "heading_measurement_deg": 176.97048111810403,
       "status": "no_solution",
-      "runtime_s": 0.05584266899677459
+      "runtime_s": 0.05825292100007573
     },
     {
       "site": 16,
       "local_feature_count": 3,
       "heading_measurement_deg": -149.93772540980726,
       "status": "no_solution",
-      "runtime_s": 0.05155666699283756
+      "runtime_s": 0.05324853599995549
     },
     {
       "site": 17,
       "local_feature_count": 5,
       "heading_measurement_deg": -103.40557178715108,
       "status": "solution",
-      "runtime_s": 0.27148697499069385,
+      "runtime_s": 0.279569557999821,
       "estimated_x_m": -632.4676766211021,
       "estimated_y_m": -373.597981880929,
       "estimated_z_m": 14.01834774017334,
@@ -152,6 +152,62 @@
       "site": 18,
       "local_feature_count": 2,
       "heading_measurement_deg": 171.950814254094,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 19,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 89.18950670079074,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 20,
+      "local_feature_count": 3,
+      "heading_measurement_deg": 126.94351952104525,
+      "status": "no_solution",
+      "runtime_s": 0.007371714000328211
+    },
+    {
+      "site": 21,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 86.23556340588637,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 22,
+      "local_feature_count": 3,
+      "heading_measurement_deg": -120.22704075264764,
+      "status": "no_solution",
+      "runtime_s": 0.002780371999961062
+    },
+    {
+      "site": 23,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -163.60938770709834,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 24,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -160.34280210923467,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 25,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -161.8939803821131,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 26,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 172.43423561518478,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 27,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 87.86110641502314,
       "status": "skipped_insufficient_features"
     }
   ]
