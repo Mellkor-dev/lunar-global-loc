@@ -8,8 +8,7 @@ from itertools import combinations
 
 import numpy as np
 from scipy.interpolate import RegularGridInterpolator
-
-
+from scipy.spatial import cKDTree
 @dataclass(frozen=True)
 class TriangleHypothesis:
     """One ordered local/global control-triangle correspondence."""
@@ -669,12 +668,7 @@ def select_hypothesis_cluster(
     minimum_cluster_size: int,
     top_hypothesis_count: int = 5,
 ) -> tuple[EvaluatedHypothesis, int, int] | None:
-    """Select a high-fitness pose cluster.
-
-    Only the best ``top_hypothesis_count`` terrain-scored poses are considered.
-    Cluster confidence is the number of distinct local control triangles, not
-    merely the number of nearly duplicate candidate poses.
-    """
+    
     if not candidates:
         return None
 

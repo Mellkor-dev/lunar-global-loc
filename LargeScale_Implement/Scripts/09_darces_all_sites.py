@@ -32,8 +32,10 @@ def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--trials", type=int, default=1000_000)
     parser.add_argument("--seed", type=int, default=29)
-    parser.add_argument("--heading-tolerance", type=float, default=10.0)
+    parser.add_argument("--heading-tolerance", type=float, default=5.0)
     parser.add_argument("--minimum-cluster-size", type=int, default=2)
+    parser.add_argument("--cluster-position-radius", type=float,default = 50.0)
+    parser.add_argument("--top-hypotheses",type=int, default = 5)
     return parser.parse_args()
 
 
@@ -136,7 +138,8 @@ def run_site(
         z_residual_tolerance_m=z_residual_tolerance_m,
         heading_measurement_deg=heading_measurement_deg,
         heading_tolerance_deg=args.heading_tolerance,
-        cluster_position_radius_m=distance_tolerance_m,
+        cluster_position_radius_m=args.cluster_position_radius,         
+        top_hypothesis_count =  args.top_hypotheses,
         cluster_heading_radius_deg=5.0,
         minimum_cluster_size=args.minimum_cluster_size,
         seed=args.seed + site_number,
@@ -249,6 +252,7 @@ def main() -> None:
                 f"xy_error={result['xy_error_m']:.3f}m, "
                 f"z_error={result['z_error_m']:.3f}m, "
                 f"heading_error={result['heading_error_deg']:.3f}deg"
+                f"Hypothesis cap:       {args.trials}"
             )
         print()
 
