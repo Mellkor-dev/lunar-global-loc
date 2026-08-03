@@ -18,7 +18,8 @@ from features.dilation_detector import detect_craters, detect_peaks
 from pipeline_config import PipelineConfig, RasterConfig, load_pipeline_config
 
 
-PLOT_DIRECTORY = PROJECT_ROOT / "plots"
+CONFIG = load_pipeline_config()
+PLOT_DIRECTORY = CONFIG.plots_path
 GLOBAL_PREVIEW_PATH = PLOT_DIRECTORY / "global_features_preview.png"
 TRUTH_PREVIEW_PATH = PLOT_DIRECTORY / "truth_features_preview.png"
 
@@ -140,7 +141,7 @@ def _save_preview(
 
 
 def main() -> None:
-    config = load_pipeline_config()
+    config = CONFIG
     orbital_dem = _load_dem(
         config.orbital_dem_path,
         config.orbital_raster,

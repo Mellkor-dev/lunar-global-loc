@@ -91,6 +91,12 @@ class PipelineConfig:
     gridded_maps_path: Path
     local_features_path: Path
     feature_uncertainty_path: Path
+    dem_qa_path: Path
+    feature_validation_path: Path
+    plots_path: Path
+    results_path: Path
+    captures_path: Path
+    capture_validation_path: Path
     truth_raster: RasterConfig
     orbital_raster: RasterConfig
     features: FeatureDetectionConfig
@@ -185,6 +191,12 @@ def load_pipeline_config(
         gridded_maps_path=resolved("gridded_local_maps"),
         local_features_path=resolved("local_features"),
         feature_uncertainty_path=resolved("feature_uncertainty"),
+        dem_qa_path=resolved("dem_qa"),
+        feature_validation_path=resolved("feature_validation"),
+        plots_path=resolved("plots"),
+        results_path=resolved("results"),
+        captures_path=resolved("captures"),
+        capture_validation_path=resolved("capture_validation"),
         truth_raster=truth_raster,
         orbital_raster=orbital_raster,
         features=features,

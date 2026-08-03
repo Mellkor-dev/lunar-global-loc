@@ -100,8 +100,8 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--preview",
         type=Path,
-        default=Path("DEM/dem_preview.png"),
-        help="Output preview image",
+        default=None,
+        help="Output preview image (default: configured plot directory)",
     )
 
     return parser.parse_args()
@@ -112,6 +112,7 @@ def main() -> None:
     config = load_pipeline_config()
     dem_path = config.truth_dem_path
     metadata_path = config.truth_metadata_path
+    preview_path = args.preview or config.plots_path / "truth_dem_preview.png"
 
     if not dem_path.exists():
         print(f"DEM file not found: {dem_path}")
@@ -133,8 +134,9 @@ def main() -> None:
     plt.imshow(dem, cmap="terrain", origin="lower")
     plt.colorbar(label="Elevation (m)")
     plt.title("Digital Elevation Model Preview")
-    plt.savefig(args.preview, dpi=200)
-    print(f"Saved DEM preview image: {args.preview}")
+    preview_path.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(preview_path, dpi=200)
+    print(f"Saved DEM preview image: {preview_path}")
     
 if __name__ == "__main__":
     main()

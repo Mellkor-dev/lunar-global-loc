@@ -22,7 +22,8 @@ from matching.darces import run_darces
 from pipeline_config import load_pipeline_config
 
 
-RESULT_DIRECTORY = PROJECT_ROOT / "results"
+CONFIG = load_pipeline_config()
+RESULT_DIRECTORY = CONFIG.results_path
 JSON_PATH = RESULT_DIRECTORY / "darces_all_sites.json"
 CSV_PATH = RESULT_DIRECTORY / "darces_all_sites.csv"
 
@@ -121,9 +122,7 @@ def run_site(
         config.gridded_maps_path / f"grid_site_{site_number:02d}.npz"
     )
     odometry_path = (
-        PROJECT_ROOT
-        / "sim"
-        / "5m_px"
+        config.captures_path
         / "odom_scans"
         / f"odom_site_{site_number:02d}.npy"
     )
@@ -237,7 +236,7 @@ def main() -> None:
     if args.minimum_cluster_size <= 0:
         raise ValueError("--minimum-cluster-size must be positive")
 
-    config = load_pipeline_config()
+    config = CONFIG
     global_features_xyz, _ = _load_features(
         config.global_features_path,
         config.features.kind,

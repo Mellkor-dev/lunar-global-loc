@@ -24,7 +24,7 @@ from pipeline_config import load_pipeline_config
 
 CONFIG = load_pipeline_config()
 SIM_PATH = PROJECT_ROOT / "sim"
-CAPTURE_PATH = SIM_PATH / "5m_px"
+CAPTURE_PATH = CONFIG.captures_path
 ODOM_SCAN = CAPTURE_PATH / "odom_scans"
 TRANSFORM_SCAN = CAPTURE_PATH / "transform_scan"
 POINTCLOUD_SCAN = CAPTURE_PATH / "pointcloud_scans"

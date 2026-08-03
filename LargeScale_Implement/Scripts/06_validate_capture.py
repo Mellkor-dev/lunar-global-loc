@@ -3,6 +3,7 @@
 from pathlib import Path
 import csv
 import re
+import sys
 
 import numpy as np
 from scipy.spatial.transform import Rotation
@@ -11,14 +12,19 @@ from scipy.spatial.transform import Rotation
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SIM_DIRECTORY = PROJECT_ROOT / "sim"
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
-CAPTURE_DIRECTORY = SIM_DIRECTORY / "5m_px"
+from pipeline_config import load_pipeline_config
+
+CONFIG = load_pipeline_config()
+
+CAPTURE_DIRECTORY = CONFIG.captures_path
 CLOUD_DIRECTORY = CAPTURE_DIRECTORY / "pointcloud_scans"
 ODOM_DIRECTORY = CAPTURE_DIRECTORY / "odom_scans"
 TRANSFORM_DIRECTORY = CAPTURE_DIRECTORY / "transform_scan"
 
-OUTPUT_DIRECTORY = SIM_DIRECTORY / "validation"
+OUTPUT_DIRECTORY = CONFIG.capture_validation_path
 SUMMARY_PATH = OUTPUT_DIRECTORY / "capture_validation.csv"
 EXTRINSIC_PATH = OUTPUT_DIRECTORY / "recovered_lidar_extrinsics.npz"
 

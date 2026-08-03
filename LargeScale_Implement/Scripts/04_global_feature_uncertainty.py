@@ -21,10 +21,11 @@ if str(PROJECT_ROOT) not in sys.path:
 from pipeline_config import PipelineConfig, load_pipeline_config
 
 
-OUTPUT_DIRECTORY = PROJECT_ROOT / "DEM" / "validation"
+CONFIG = load_pipeline_config()
+OUTPUT_DIRECTORY = CONFIG.feature_validation_path
 MATCHES_PATH = OUTPUT_DIRECTORY / "downsampling_feature_matches.npz"
 SUMMARY_PATH = OUTPUT_DIRECTORY / "downsampling_uncertainty_summary.csv"
-PLOT_PATH = PROJECT_ROOT / "plots" / "downsampling_uncertainty.png"
+PLOT_PATH = CONFIG.plots_path / "downsampling_uncertainty.png"
 REQUIRED_FIELDS = {"x_m", "y_m", "z_m", "feature_kind"}
 
 
@@ -240,7 +241,7 @@ def _save_plot() -> None:
 
 
 def main() -> None:
-    config = load_pipeline_config()
+    config = CONFIG
     uncertainty, counts = estimate_uncertainty(config)
     _save_plot()
 

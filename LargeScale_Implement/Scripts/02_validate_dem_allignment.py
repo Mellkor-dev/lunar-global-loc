@@ -25,7 +25,7 @@ TRUTH_PATH = CONFIG.truth_dem_path
 ORBITAL_PATH = CONFIG.orbital_dem_path
 MASK_PATH = CONFIG.orbital_mask_path
 
-OUTPUT_DIRECTORY = ROOT / "DEM" / "qa"
+OUTPUT_DIRECTORY = CONFIG.dem_qa_path
 ALIGNMENT_PLOT_PATH = OUTPUT_DIRECTORY / "dem_alignment.png"
 PROFILE_PLOT_PATH = OUTPUT_DIRECTORY / "dem_center_profiles.png"
 REPORT_PATH = OUTPUT_DIRECTORY / "dem_alignment_report.json"

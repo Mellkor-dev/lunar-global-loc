@@ -5,27 +5,33 @@ experiment:
     Apollo 17 DEM and a degraded 5 m orbital localization prior.
 
 paths:
-  truth_dem: DEM/truth_dem_1p5m.npy
-  truth_metadata: DEM/truth_dem_1p5m.yaml
+  truth_dem: DEM/1p5m_px/truth_dem_1p5m.npy
+  truth_metadata: DEM/1p5m_px/truth_dem_1p5m.yaml
 
-  orbital_dem: DEM/orbital_dem_5m.npy
-  orbital_metadata: DEM/orbital_dem_5m.yaml
-  orbital_valid_mask: DEM/orbital_valid_mask_5m.npy
-  global_features: DEM/global_craters.npz
-  truth_features: DEM/truth_craters.npz
-  feature_uncertainty: DEM/validation/global_feature_uncertainty.json
+  orbital_dem: DEM/5m_px/orbital_dem_5m.npy
+  orbital_metadata: DEM/5m_px/orbital_dem_5m.yaml
+  orbital_valid_mask: DEM/5m_px/orbital_valid_mask_5m.npy
+  global_features: DEM/5m_px/global_craters.npz
+  truth_features: DEM/1p5m_px/truth_craters.npz
+  feature_uncertainty: DEM/5m_px/validation/global_feature_uncertainty.json
+  dem_qa: DEM/5m_px/qa
+  feature_validation: DEM/5m_px/validation
 
   raw_local_maps: local_maps/5m_px/raw
   leveled_local_maps: local_maps/5m_px/leveled
   gridded_local_maps: local_maps/5m_px/gridded
   local_features: local_maps/5m_px/features
+  plots: plots/5m_px
+  results: results/5m_px
+  captures: sim/5m_px
+  capture_validation: sim/5m_px/validation
 
 truth_dem:
   resolution_m: 1.5
   shape: [1334, 1334]
   cell_edge_extent_m: [2001.0, 2001.0]
-  path: DEM/truth_dem_1p5m.npy
-  metadata_path: DEM/truth_dem_1p5m.yaml
+  path: DEM/1p5m_px/truth_dem_1p5m.npy
+  metadata_path: DEM/1p5m_px/truth_dem_1p5m.yaml
   edge_bounds_m:
     x_min: -1000.5
     x_max: 1000.5

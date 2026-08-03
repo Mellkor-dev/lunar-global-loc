@@ -21,7 +21,8 @@ from pipeline_config import load_pipeline_config
 
 
 SITE_NUMBER = 8
-RESULT_DIRECTORY = PROJECT_ROOT / "results"
+CONFIG = load_pipeline_config()
+RESULT_DIRECTORY = CONFIG.results_path
 RESULT_PATH = RESULT_DIRECTORY / "darces_site_08.json"
 
 
@@ -48,7 +49,7 @@ def main() -> None:
     if args.minimum_cluster_size <= 0:
         raise ValueError("--minimum-cluster-size must be positive")
 
-    config = load_pipeline_config()
+    config = CONFIG
     grid_path = (
         config.gridded_maps_path / f"grid_site_{SITE_NUMBER:02d}.npz"
     )
@@ -57,9 +58,7 @@ def main() -> None:
         / f"local_craters_site_{SITE_NUMBER:02d}.npz"
     )
     odometry_path = (
-        PROJECT_ROOT
-        / "sim"
-        / "5m_px"
+        config.captures_path
         / "odom_scans"
         / f"odom_site_{SITE_NUMBER:02d}.npy"
     )

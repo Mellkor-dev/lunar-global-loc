@@ -22,7 +22,7 @@ from pipeline_config import load_pipeline_config
 CONFIG = load_pipeline_config()
 GRID_DIRECTORY = CONFIG.gridded_maps_path
 FEATURE_DIRECTORY = CONFIG.local_features_path
-PREVIEW_DIRECTORY = PROJECT_ROOT / "plots" / "local_features"
+PREVIEW_DIRECTORY = CONFIG.plots_path / "local_features"
 SUMMARY_PATH = FEATURE_DIRECTORY / "local_feature_summary.csv"
 
 RESOLUTION_M = CONFIG.orbital_raster.resolution_m
