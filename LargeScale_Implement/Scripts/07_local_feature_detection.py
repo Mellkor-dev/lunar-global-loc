@@ -30,6 +30,8 @@ DETECTION_DISTANCE_M = CONFIG.features.distance_m
 DETECTION_RADIUS_CELLS = CONFIG.features.radius_for_resolution(RESOLUTION_M)
 FLATNESS_EPS_M = CONFIG.features.flatness_threshold_m
 MIN_VALID_FRACTION = CONFIG.features.local_min_valid_fraction
+SIGMA_LOCAL_MAP_M = 0.5
+UNCERTAINTY_MODEL = "symmetric_crater_occlusion"
 
 
 def has_noncollinear_triplet(xy: np.ndarray, area_epsilon_m2: float = 1.0) -> bool:
@@ -101,16 +103,132 @@ def save_preview(
     figure.savefig(path, dpi=170)
     plt.close(figure)
 
+def crater_feature_covariances(
+    feature_xyz_m: np.ndarray,
+    lidar_origin_xyz_m: np.ndarray,
+    *,
+    d_detect_m: float,
+    sigma_local_map_m: float = 0.5,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Create crater-feature covariance matrices.
+
+    This is a lunar crater adaptation of the Carle occlusion model.
+    It uses the absolute elevation angle because crater minima are
+    generally below the LiDAR and can be hidden by the near crater rim.
+    """
+    feature_xyz_m = np.asarray(
+        feature_xyz_m,
+        dtype=np.float64,
+    )
+
+    lidar_origin_xyz_m = np.asarray(
+        lidar_origin_xyz_m,
+        dtype=np.float64,
+    ).reshape(-1)
+
+    if feature_xyz_m.ndim != 2 or feature_xyz_m.shape[1] != 3:
+        raise ValueError(
+            "feature_xyz_m must have shape (N, 3)"
+        )
+
+    if lidar_origin_xyz_m.shape != (3,):
+        raise ValueError(
+            "lidar_origin_xyz_m must have shape (3,)"
+        )
+
+    if d_detect_m <= 0.0:
+        raise ValueError("d_detect_m must be positive")
+
+    if sigma_local_map_m <= 0.0:
+        raise ValueError(
+            "sigma_local_map_m must be positive"
+        )
+
+    delta_xyz_m = (
+        feature_xyz_m - lidar_origin_xyz_m
+    )
+
+    horizontal_range_m = np.hypot(
+        delta_xyz_m[:, 0],
+        delta_xyz_m[:, 1],
+    )
+
+    elevation_angle_rad = np.arctan2(
+        delta_xyz_m[:, 2],
+        horizontal_range_m,
+    )
+
+    sigma_xy_m = d_detect_m / 2.0
+
+    # tan(theta) = dz / horizontal range.
+    safe_horizontal_range_m = np.maximum(
+        horizontal_range_m,
+        1e-6,
+    )
+
+    absolute_slope = np.abs(
+        delta_xyz_m[:, 2]
+        / safe_horizontal_range_m
+    )
+
+    sigma_z_squared_m2 = (
+        sigma_local_map_m**2
+        + (sigma_xy_m * absolute_slope) ** 2
+    )
+
+    covariance = np.zeros(
+        (len(feature_xyz_m), 3, 3),
+        dtype=np.float64,
+    )
+
+    covariance[:, 0, 0] = sigma_xy_m**2
+    covariance[:, 1, 1] = sigma_xy_m**2
+    covariance[:, 2, 2] = sigma_z_squared_m2
+
+    return covariance, elevation_angle_rad
+
 
 def process_grid(path: Path) -> dict[str, int | float | bool]:
     with np.load(path, allow_pickle=False) as grid:
-        elevation = np.asarray(grid["elevation"], dtype=np.float32)
-        valid_mask = np.asarray(grid["valid_mask"], dtype=bool)
-        x_centers_m = np.asarray(grid["x_centers_m"], dtype=np.float64)
-        y_centers_m = np.asarray(grid["y_centers_m"], dtype=np.float64)
+        elevation = np.asarray(
+            grid["elevation"],
+            dtype=np.float32,
+        )
+
+        valid_mask = np.asarray(
+            grid["valid_mask"],
+            dtype=bool,
+        )
+
+        x_centers_m = np.asarray(
+            grid["x_centers_m"],
+            dtype=np.float64,
+        )
+
+        y_centers_m = np.asarray(
+            grid["y_centers_m"],
+            dtype=np.float64,
+        )
+
         resolution_m = float(grid["resolution_m"])
         site_number = int(grid["site_number"])
 
+        if "lidar_origin_xyz_m" not in grid.files:
+            raise ValueError(
+                f"{path.name}: lidar_origin_xyz_m is missing. "
+                "Regenerate the local grids using "
+                "Scripts/05_local_scan_processing.py."
+            )
+
+        lidar_origin_leveled = np.asarray(
+            grid["lidar_origin_xyz_m"],
+            dtype=np.float64,
+        ).reshape(-1)
+        
+    if not np.array_equal(valid_mask, np.isfinite(elevation)):
+        raise ValueError(
+            f"{path.name}: valid mask and finite cells disagree"
+        )
     if elevation.shape != valid_mask.shape:
         raise ValueError(f"{path.name}: elevation/mask shapes do not match")
     if elevation.shape != (len(y_centers_m), len(x_centers_m)):
@@ -143,6 +261,27 @@ def process_grid(path: Path) -> dict[str, int | float | bool]:
 
     FEATURE_DIRECTORY.mkdir(parents=True, exist_ok=True)
     PREVIEW_DIRECTORY.mkdir(parents=True, exist_ok=True)
+    
+    local_features_xyz = np.column_stack(
+        (
+            x_m,
+            y_m,
+            z_m,
+        )
+    ).astype(np.float64)
+
+    local_covariances, elevation_angles_rad = (
+        crater_feature_covariances(
+            feature_xyz_m=local_features_xyz,
+            lidar_origin_xyz_m=lidar_origin_leveled,
+            d_detect_m=DETECTION_DISTANCE_M,
+            sigma_local_map_m=SIGMA_LOCAL_MAP_M,
+        )
+    )
+
+    local_sigma_z_m = np.sqrt(
+        local_covariances[:, 2, 2]
+    )
     np.savez_compressed(
         FEATURE_DIRECTORY / f"local_craters_site_{site_number:02d}.npz",
         row=rows.astype(np.int64),
@@ -159,6 +298,14 @@ def process_grid(path: Path) -> dict[str, int | float | bool]:
         feature_kind=np.asarray(CONFIG.features.kind),
         config_path=np.asarray(str(CONFIG.config_path)),
         usable_for_darces=np.bool_(usable_for_darces),
+        local_covariances=local_covariances,
+        covariance=local_covariances,
+        elevation_angle_rad=elevation_angles_rad,
+        lidar_origin_xyz_m=lidar_origin_leveled,
+        sigma_local_xy_m=np.float64(DETECTION_DISTANCE_M / 2.0),
+        sigma_local_z_m=local_sigma_z_m,
+        sigma_local_map_m=np.float64(SIGMA_LOCAL_MAP_M),
+        uncertainty_model=np.asarray(UNCERTAINTY_MODEL),
     )
     save_preview(
         PREVIEW_DIRECTORY / f"local_craters_site_{site_number:02d}.png",

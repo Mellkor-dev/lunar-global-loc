@@ -36,6 +36,8 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("--minimum-cluster-size", type=int, default=2)
     parser.add_argument("--cluster-position-radius", type=float,default = 50.0)
     parser.add_argument("--top-hypotheses",type=int, default = 5)
+    parser.add_argument("--consensus-radius",type=float,default=15.0)
+    parser.add_argument("--minimum-consensus-features", type=int, default=4)
     return parser.parse_args()
 
 
@@ -143,6 +145,8 @@ def run_site(
         cluster_heading_radius_deg=5.0,
         minimum_cluster_size=args.minimum_cluster_size,
         seed=args.seed + site_number,
+        consensus_xy_tolerance_m=args.consensus_radius,
+        minimum_consensus_features=args.minimum_consensus_features,
     )
     elapsed_seconds = time.perf_counter() - start
     base_result["runtime_s"] = elapsed_seconds
@@ -176,6 +180,13 @@ def run_site(
             "heading_error_deg": _angle_error_deg(
                 float(result["heading_deg"]),
                 heading_measurement_deg,
+            ),
+            "consensus_count": int(result["consensus_count"]),
+            "consensus_xy_rmse_m": float(
+                result["consensus_xy_rmse_m"]
+            ),
+            "consensus_z_rmse_m": float(
+                result["consensus_z_rmse_m"]
             ),
         }
     )

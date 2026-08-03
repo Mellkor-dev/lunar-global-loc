@@ -77,9 +77,9 @@ coordinates:
 feature_detection:
   feature_kind: crater
   cell_radius: 6
-  detection_distance_m: 30.0
+  detection_distance_m: 30
   flatness_threshold_m: 0.15
-  local_min_valid_fraction: 0.10
+  local_min_valid_fraction: 0.05
 
 global_feature_uncertainty:
   intrinsic_horizontal_sigma_m: 10.0
