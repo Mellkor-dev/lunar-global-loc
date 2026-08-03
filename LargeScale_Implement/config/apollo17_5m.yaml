@@ -30,8 +30,8 @@ truth_dem:
   resolution_m: 1.5
   shape: [1334, 1334]
   cell_edge_extent_m: [2001.0, 2001.0]
-  path: DEM/1p5m_px/truth_dem_1p5m.npy
-  metadata_path: DEM/1p5m_px/truth_dem_1p5m.yaml
+  path: DEM/1p5m_px/dem.npy
+  metadata_path: DEM/1p5m_px/dem.yaml
   edge_bounds_m:
     x_min: -1000.5
     x_max: 1000.5

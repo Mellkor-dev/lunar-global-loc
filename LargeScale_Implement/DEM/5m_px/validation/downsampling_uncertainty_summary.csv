@@ -13,5 +13,5 @@ match_gate_m,15.0
 feature_kind,crater
 detection_distance_m,30.0
 flatness_threshold_m,0.15
-orbital_feature_path,/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/global_craters.npz
-truth_feature_path,/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/truth_craters.npz
+orbital_feature_path,/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/5m_px/global_craters.npz
+truth_feature_path,/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/1p5m_px/truth_craters.npz
