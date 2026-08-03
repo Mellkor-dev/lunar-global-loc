@@ -123,6 +123,7 @@ def run_site(
     odometry_path = (
         PROJECT_ROOT
         / "sim"
+        / "5m_px"
         / "odom_scans"
         / f"odom_site_{site_number:02d}.npy"
     )
@@ -179,8 +180,8 @@ def run_site(
         seed=args.seed + site_number,
         consensus_xy_tolerance_m=args.consensus_radius,
         minimum_consensus_features=args.minimum_consensus_features,
-        local_feature_covariances=local_feature_covariances,
-        global_feature_covariances=global_covariances,
+        local_covariances=local_feature_covariances,
+        global_covariances=global_covariances,
         covariance_sigma_multiplier=covariance_sigma_multiplier,
         use_feature_consensus=use_feature_consensus,
     )

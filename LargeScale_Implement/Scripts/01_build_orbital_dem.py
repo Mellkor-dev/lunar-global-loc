@@ -22,17 +22,24 @@ from scipy.sparse import csr_matrix
 
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-SOURCE_DEM_PATH = ROOT / "DEM" / "truth_dem_1p5m.npy"
-SOURCE_METADATA_PATH = ROOT / "DEM" / "truth_dem_1p5m.yaml"
+from pipeline_config import load_pipeline_config
 
-OUTPUT_DEM_PATH = ROOT / "DEM" / "orbital_dem_5m.npy"
-OUTPUT_MASK_PATH = ROOT / "DEM" / "orbital_valid_mask_5m.npy"
-OUTPUT_METADATA_PATH = ROOT / "DEM" / "orbital_dem_5m.yaml"
+CONFIG = load_pipeline_config()
 
-SOURCE_RESOLUTION_M = 1.5
-TARGET_RESOLUTION_M = 5.0
-TARGET_EXTENT_M = 2000.0
+SOURCE_DEM_PATH = CONFIG.truth_dem_path
+SOURCE_METADATA_PATH = CONFIG.truth_metadata_path
+
+OUTPUT_DEM_PATH = CONFIG.orbital_dem_path
+OUTPUT_MASK_PATH = CONFIG.orbital_mask_path
+OUTPUT_METADATA_PATH = CONFIG.orbital_metadata_path
+
+SOURCE_RESOLUTION_M = CONFIG.truth_raster.resolution_m
+TARGET_RESOLUTION_M = CONFIG.orbital_raster.resolution_m
+TARGET_EXTENT_M = CONFIG.orbital_raster.shape[0] * TARGET_RESOLUTION_M
 
 
 def sha256(path: Path) -> str:
@@ -163,12 +170,18 @@ def main() -> None:
     source_height_m = source_rows * SOURCE_RESOLUTION_M
     source_width_m = source_columns * SOURCE_RESOLUTION_M
 
-    if not np.isclose(source_height_m, 2001.0):
+    expected_source_height_m = (
+        CONFIG.truth_raster.shape[0] * SOURCE_RESOLUTION_M
+    )
+    expected_source_width_m = (
+        CONFIG.truth_raster.shape[1] * SOURCE_RESOLUTION_M
+    )
+    if not np.isclose(source_height_m, expected_source_height_m):
         raise ValueError(
             f"Unexpected source height: {source_height_m} m"
         )
 
-    if not np.isclose(source_width_m, 2001.0):
+    if not np.isclose(source_width_m, expected_source_width_m):
         raise ValueError(
             f"Unexpected source width: {source_width_m} m"
         )

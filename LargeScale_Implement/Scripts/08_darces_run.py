@@ -59,6 +59,7 @@ def main() -> None:
     odometry_path = (
         PROJECT_ROOT
         / "sim"
+        / "5m_px"
         / "odom_scans"
         / f"odom_site_{SITE_NUMBER:02d}.npy"
     )

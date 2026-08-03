@@ -24,9 +24,10 @@ from pipeline_config import load_pipeline_config
 
 CONFIG = load_pipeline_config()
 SIM_PATH = PROJECT_ROOT / "sim"
-ODOM_SCAN = SIM_PATH / "odom_scans"
-TRANSFORM_SCAN = SIM_PATH / "transform_scan"
-POINTCLOUD_SCAN = SIM_PATH / "pointcloud_scans"
+CAPTURE_PATH = SIM_PATH / "5m_px"
+ODOM_SCAN = CAPTURE_PATH / "odom_scans"
+TRANSFORM_SCAN = CAPTURE_PATH / "transform_scan"
+POINTCLOUD_SCAN = CAPTURE_PATH / "pointcloud_scans"
 LEVELED_SCAN = CONFIG.leveled_maps_path
 GRIDDED_SCAN = CONFIG.gridded_maps_path
 

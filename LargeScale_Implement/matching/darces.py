@@ -917,6 +917,7 @@ def run_darces(
     consensus_xy_tolerance_m: float = 15.0,
     minimum_consensus_features: int = 4,
     use_feature_consensus: bool = False,
+    reference_points_xyz: np.ndarray | None = None,
 ) -> dict[str, object] | None:
     """Run deterministic DARCES registration.
 
@@ -1052,6 +1053,7 @@ def run_darces(
         
         translation_z_m, _ = vertical_result
 
+        # Default diagnostic values when consensus screening is disabled.
         consensus_count = 0
         consensus_xy_rmse_m = np.inf
         consensus_z_rmse_m = np.inf
@@ -1065,16 +1067,12 @@ def run_darces(
                 global_features_xyz=global_features_xyz,
                 xy_tolerance_m=consensus_xy_tolerance_m,
                 z_tolerance_m=z_residual_tolerance_m,
-            )
-
-            consensus_count=consensus_count,
-            consensus_xy_rmse_m=consensus_xy_rmse_m,
-            consensus_z_rmse_m=consensus_z_rmse_m,
+            )            
 
             if consensus_count < minimum_consensus_features:
                 rejection_counts["feature_consensus"] += 1
                 continue
-            
+
         fitness, overlap = terrain_fitness(
             rotation,
             translation_xy_m,
@@ -1095,13 +1093,12 @@ def run_darces(
                 translation_z_m=translation_z_m,
                 fitness=fitness,
                 overlap=overlap,
-                consensus_count=int(consensus["count"]),
-                consensus_xy_rmse_m=float(
-                    consensus["xy_rmse_m"]
-                ),
-                consensus_z_rmse_m=float(
-                    consensus["z_rmse_m"]
-                ),
+
+                # Use the initialized scalar variables, not consensus["..."].
+                consensus_count=consensus_count,
+                consensus_xy_rmse_m=consensus_xy_rmse_m,
+                consensus_z_rmse_m=consensus_z_rmse_m,
+
                 local_indices=hypothesis.local_indices,
                 global_indices=hypothesis.global_indices,
                 control_rms_m=hypothesis.control_rms_m,

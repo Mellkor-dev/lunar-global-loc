@@ -13,9 +13,10 @@ from scipy.spatial.transform import Rotation
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SIM_DIRECTORY = PROJECT_ROOT / "sim"
 
-CLOUD_DIRECTORY = SIM_DIRECTORY / "pointcloud_scans"
-ODOM_DIRECTORY = SIM_DIRECTORY / "odom_scans"
-TRANSFORM_DIRECTORY = SIM_DIRECTORY / "transform_scan"
+CAPTURE_DIRECTORY = SIM_DIRECTORY / "5m_px"
+CLOUD_DIRECTORY = CAPTURE_DIRECTORY / "pointcloud_scans"
+ODOM_DIRECTORY = CAPTURE_DIRECTORY / "odom_scans"
+TRANSFORM_DIRECTORY = CAPTURE_DIRECTORY / "transform_scan"
 
 OUTPUT_DIRECTORY = SIM_DIRECTORY / "validation"
 SUMMARY_PATH = OUTPUT_DIRECTORY / "capture_validation.csv"

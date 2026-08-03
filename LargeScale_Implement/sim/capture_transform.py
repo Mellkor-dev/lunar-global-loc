@@ -76,8 +76,10 @@ class TransformSaver(Node):
             T[:3, 3] = translation
 
             # Save binary version
+            output_directory = PROJECT_ROOT / "sim" / "1p5m_px" / "transform_scan"
+            output_directory.mkdir(parents=True, exist_ok=True)
             np.savez(
-                PROJECT_ROOT / "sim" /"transform_scan" / self.out_file,
+                output_directory / self.out_file,
                 T=T,
                 translation=translation,
                 quaternion=quaternion,
@@ -86,7 +88,9 @@ class TransformSaver(Node):
             )
 
             # Save human-readable matrix
-            txt_file = PROJECT_ROOT / "sim" / "transform_scan" / self.out_file.with_suffix(".txt")
+            txt_file = (
+                output_directory / self.out_file.with_suffix(".txt")
+            )
 
             with open(txt_file, "w") as f:
 

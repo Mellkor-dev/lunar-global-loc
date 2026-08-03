@@ -81,7 +81,9 @@ class FeatureDetectionConfig:
 class PipelineConfig:
     config_path: Path
     truth_dem_path: Path
+    truth_metadata_path: Path
     orbital_dem_path: Path
+    orbital_metadata_path: Path
     orbital_mask_path: Path
     global_features_path: Path
     truth_features_path: Path
@@ -173,7 +175,9 @@ def load_pipeline_config(
     return PipelineConfig(
         config_path=path,
         truth_dem_path=resolved("truth_dem"),
+        truth_metadata_path=resolved("truth_metadata"),
         orbital_dem_path=resolved("orbital_dem"),
+        orbital_metadata_path=resolved("orbital_metadata"),
         orbital_mask_path=resolved("orbital_valid_mask"),
         global_features_path=resolved("global_features"),
         truth_features_path=resolved("truth_features"),

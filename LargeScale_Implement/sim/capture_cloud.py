@@ -19,7 +19,13 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import PointCloud2
 import sensor_msgs_py.point_cloud2 as pc2
-OUT_DIR = PROJECT_ROOT / "LargeScale_Implement" / "sim" / "pointcloud_scans"
+OUT_DIR = (
+    PROJECT_ROOT
+    / "LargeScale_Implement"
+    / "sim"
+    / "1p5m_px"
+    / "pointcloud_scans"
+)
 
 class SingleScanSaver(Node):
     def __init__(self, out_path: str, include_intensity: bool):
@@ -40,6 +46,7 @@ class SingleScanSaver(Node):
             self.get_logger().warn(f"requested fields not available ({e}), falling back to xyz only")
             points = np.array(list(pc2.read_points(msg, field_names=("x", "y", "z"), skip_nans=True)))
 
+        OUT_DIR.mkdir(parents=True, exist_ok=True)
         np.save(OUT_DIR / self.out_path, points)
         self.get_logger().info(f"Saved {points.shape[0]} points -> {OUT_DIR / self.out_path}")
         self.saved = True

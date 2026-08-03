@@ -15,10 +15,10 @@ paths:
   truth_features: DEM/truth_craters.npz
   feature_uncertainty: DEM/validation/global_feature_uncertainty.json
 
-  raw_local_maps: local_maps/raw
-  leveled_local_maps: local_maps/leveled
-  gridded_local_maps: local_maps/gridded_5m
-  local_features: local_maps/features
+  raw_local_maps: local_maps/5m_px/raw
+  leveled_local_maps: local_maps/5m_px/leveled
+  gridded_local_maps: local_maps/5m_px/gridded
+  local_features: local_maps/5m_px/features
 
 truth_dem:
   resolution_m: 1.5

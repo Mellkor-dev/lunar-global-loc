@@ -2,13 +2,18 @@
 from __future__ import annotations
 import numpy as np
 import matplotlib.pyplot as plt
-import rasterio
 import yaml
 import hashlib
 
 from pathlib import Path
-import sys, os
+import sys
 import argparse
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from pipeline_config import load_pipeline_config
 
 # DEM feature imports for global digital elevation model processing
 
@@ -93,24 +98,6 @@ def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
 
     parser.add_argument(
-        "--dem",
-        type=Path,
-        default=Path("DEM/dem.npy"),
-        help="Path to the NumPy DEM",
-    )
-    parser.add_argument(
-        "--metadata",
-        type=Path,
-        default=Path("DEM/dem.yaml"),
-        help="Path to the YAML metadata",
-    )
-    parser.add_argument(
-        "--resolution",
-        type=float,
-        default=1.5,
-        help="Nominal DEM resolution in metres per cell",
-    )
-    parser.add_argument(
         "--preview",
         type=Path,
         default=Path("DEM/dem_preview.png"),
@@ -122,21 +109,24 @@ def parse_arguments() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_arguments()
+    config = load_pipeline_config()
+    dem_path = config.truth_dem_path
+    metadata_path = config.truth_metadata_path
 
-    if not args.dem.exists():
-        print(f"DEM file not found: {args.dem}")
+    if not dem_path.exists():
+        print(f"DEM file not found: {dem_path}")
         sys.exit(1)
 
-    if not args.metadata.exists():
-        print(f"Metadata file not found: {args.metadata}")
+    if not metadata_path.exists():
+        print(f"Metadata file not found: {metadata_path}")
         sys.exit(1)
 
-    dem = load_dem(args.dem)
-    metadata = load_metadata(args.metadata)
-    dem_hash = file_hash(args.dem)
+    dem = load_dem(dem_path)
+    metadata = load_metadata(metadata_path)
+    dem_hash = file_hash(dem_path)
 
     print(f"DEM file hash (SHA256): {dem_hash}")
-    print_dem_statistics(dem, args.resolution)
+    print_dem_statistics(dem, config.truth_raster.resolution_m)
 
     # Save a preview image of the DEM
     plt.figure(figsize=(8, 6))

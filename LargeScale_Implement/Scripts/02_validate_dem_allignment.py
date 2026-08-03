@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -13,18 +14,24 @@ from scipy.interpolate import RegularGridInterpolator
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-TRUTH_PATH = ROOT / "DEM" / "truth_dem_1p5m.npy"
-ORBITAL_PATH = ROOT / "DEM" / "orbital_dem_5m.npy"
-MASK_PATH = ROOT / "DEM" / "orbital_valid_mask_5m.npy"
+from pipeline_config import load_pipeline_config
+
+CONFIG = load_pipeline_config()
+
+TRUTH_PATH = CONFIG.truth_dem_path
+ORBITAL_PATH = CONFIG.orbital_dem_path
+MASK_PATH = CONFIG.orbital_mask_path
 
 OUTPUT_DIRECTORY = ROOT / "DEM" / "qa"
 ALIGNMENT_PLOT_PATH = OUTPUT_DIRECTORY / "dem_alignment.png"
 PROFILE_PLOT_PATH = OUTPUT_DIRECTORY / "dem_center_profiles.png"
 REPORT_PATH = OUTPUT_DIRECTORY / "dem_alignment_report.json"
 
-TRUTH_RESOLUTION_M = 1.5
-ORBITAL_RESOLUTION_M = 5.0
+TRUTH_RESOLUTION_M = CONFIG.truth_raster.resolution_m
+ORBITAL_RESOLUTION_M = CONFIG.orbital_raster.resolution_m
 
 
 def raster_coordinates(
@@ -293,10 +300,10 @@ def main() -> None:
     orbital = np.load(ORBITAL_PATH)
     orbital_mask = np.load(MASK_PATH)
 
-    if truth.shape != (1334, 1334):
+    if truth.shape != CONFIG.truth_raster.shape:
         raise ValueError(f"Unexpected truth shape: {truth.shape}")
 
-    if orbital.shape != (400, 400):
+    if orbital.shape != CONFIG.orbital_raster.shape:
         raise ValueError(f"Unexpected orbital shape: {orbital.shape}")
 
     if orbital_mask.shape != orbital.shape:

@@ -14,7 +14,7 @@ from nav_msgs.msg import Odometry
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # Fix 2: Construct the absolute target directory explicitly
-OUT_DIR = PROJECT_ROOT / "sim" / "odom_scans"
+OUT_DIR = PROJECT_ROOT / "sim" / "1p5m_px" / "odom_scans"
 
 class OdomSaver(Node):
     def __init__(self, out_path: str):
