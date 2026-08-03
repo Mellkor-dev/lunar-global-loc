@@ -47,32 +47,7 @@ class EvaluatedHypothesis:
                 )
             )
         )
-@dataclass(frozen=True)
-class EvaluatedHypothesis:
-    """A screened pose hypothesis with its terrain score."""
 
-    rotation: np.ndarray
-    translation_xy_m: np.ndarray
-    translation_z_m: float
-    fitness: float
-    overlap: float
-    consensus_count : int
-    consensus_xy_rmse_m:float
-    consensus_z_rmse_m:float
-    local_indices: np.ndarray
-    global_indices: np.ndarray
-    control_rms_m: float
-
-    @property
-    def heading_deg(self) -> float:
-        return float(
-            np.degrees(
-                np.arctan2(
-                    self.rotation[1, 0],
-                    self.rotation[0, 0],
-                )
-            )
-        )
 
 
 def _points_xy(points: np.ndarray, name: str) -> np.ndarray:
@@ -302,7 +277,7 @@ def generate_hypotheses(
     maximum_hypotheses: int = 100_000,
     local_covariances: np.ndarray | None = None,
     global_covariances: np.ndarray | None = None,
-    sigma_multiplier: float = 3.0,
+    sigma_multiplier: float = 2.0,
 ) -> list[TriangleHypothesis]:
     """Generate all geometry-compatible ordered triangle correspondences.
 
@@ -831,10 +806,13 @@ def select_hypothesis_cluster(
         raise ValueError("top_hypothesis_count must be positive")
 
     ranked = sorted(
-        candidates,
-        key=lambda candidate: (candidate.consensus_count,candidate.fitness,-candidate.consensus_xy_rmse_m),
-        reverse=True,
-    )
+            candidates,
+            key=lambda candidate: (
+                candidate.fitness,
+                -candidate.control_rms_m,
+            ),
+            reverse=True,
+        )
 
     top_candidates = ranked[:top_hypothesis_count]
 
@@ -938,6 +916,7 @@ def run_darces(
     covariance_sigma_multiplier: float = 2.0,
     consensus_xy_tolerance_m: float = 15.0,
     minimum_consensus_features: int = 4,
+    use_feature_consensus: bool = False,
 ) -> dict[str, object] | None:
     """Run deterministic DARCES registration.
 
@@ -948,15 +927,17 @@ def run_darces(
     """
     del seed
     
-    if consensus_xy_tolerance_m <= 0.0:
-        raise ValueError(
-            "consensus_xy_tolerance_m must be positive"
-        )
+    if use_feature_consensus:
+        if consensus_xy_tolerance_m <= 0.0:
+            raise ValueError(
+                "consensus_xy_tolerance_m must be positive"
+            )
 
-    if minimum_consensus_features < 3:
-        raise ValueError(
-            "minimum_consensus_features must be at least 3"
-        )
+        if minimum_consensus_features < 3:
+            raise ValueError(
+                "minimum_consensus_features must be at least 3"
+            )
+            
 
     local_features_xyz = _points_xyz(
         local_features_xyz,
@@ -983,11 +964,19 @@ def run_darces(
     if heading_tolerance_deg <= 0.0:
         raise ValueError("heading_tolerance_deg must be positive")
 
-    local_xyz = _local_grid_xyz(
-        local_grid,
-        local_x_centers_m,
-        local_y_centers_m,
-    )
+    if reference_points_xyz is None:
+        # Compatibility fallback: use finite 5 m local-grid cells.
+        terrain_points_xyz = _local_grid_xyz(
+            local_grid,
+            local_x_centers_m,
+            local_y_centers_m,
+        )
+    else:
+        # Preferred method: use observed LiDAR points decimated to 2.5 m.
+        terrain_points_xyz = _points_xyz(
+            reference_points_xyz,
+            "reference_points_xyz",
+        )
 
     dem_interpolator = build_dem_interpolator(
         global_dem,
@@ -1061,26 +1050,36 @@ def run_darces(
             rejection_counts["vertical"] += 1
             continue
         
-        translation_z_m, vertical_residual  = vertical_result
-        consensus = feature_consensus(
-            rotation=rotation,
-            translation_xy_m=translation_xy_m,
-            translation_z_m=translation_z_m,
-            local_features_xyz=local_features_xyz,
-            global_features_xyz=global_features_xyz,
-            xy_tolerance_m=consensus_xy_tolerance_m,
-            z_tolerance_m=z_residual_tolerance_m,
-        )
-        if consensus["count"] < minimum_consensus_features:
-            rejection_counts["feature_consensus"] += 1
-            continue
-        
+        translation_z_m, _ = vertical_result
 
+        consensus_count = 0
+        consensus_xy_rmse_m = np.inf
+        consensus_z_rmse_m = np.inf
+
+        if use_feature_consensus:
+            consensus = feature_consensus(
+                rotation=rotation,
+                translation_xy_m=translation_xy_m,
+                translation_z_m=translation_z_m,
+                local_features_xyz=local_features_xyz,
+                global_features_xyz=global_features_xyz,
+                xy_tolerance_m=consensus_xy_tolerance_m,
+                z_tolerance_m=z_residual_tolerance_m,
+            )
+
+            consensus_count=consensus_count,
+            consensus_xy_rmse_m=consensus_xy_rmse_m,
+            consensus_z_rmse_m=consensus_z_rmse_m,
+
+            if consensus_count < minimum_consensus_features:
+                rejection_counts["feature_consensus"] += 1
+                continue
+            
         fitness, overlap = terrain_fitness(
             rotation,
             translation_xy_m,
             translation_z_m,
-            local_xyz,
+            terrain_points_xyz,
             dem_interpolator,
             minimum_overlap=minimum_overlap,
         )
@@ -1149,18 +1148,19 @@ def run_darces(
         f"{distinct_triangle_count}"
     )
     print(f"Cluster members:          {cluster_member_count}")
-    print(
-        f"Feature consensus:        "
-        f"{best.consensus_count}/{len(local_features_xyz)}"
-    )
-    print(
-        f"Consensus XY RMSE:        "
-        f"{best.consensus_xy_rmse_m:.3f} m"
-    )
-    print(
-        f"Consensus Z RMSE:         "
-        f"{best.consensus_z_rmse_m:.3f} m"
-    )
+    if use_feature_consensus:
+        print(
+            f"Feature consensus:        "
+            f"{best.consensus_count}/{len(local_features_xyz)}"
+        )
+        print(
+            f"Consensus XY RMSE:        "
+            f"{best.consensus_xy_rmse_m:.3f} m"
+        )
+        print(
+            f"Consensus Z RMSE:         "
+            f"{best.consensus_z_rmse_m:.3f} m"
+        )
 
     return {
         "R": best.rotation,

@@ -54,18 +54,47 @@ def _angle_error_deg(first: float, second: float) -> float:
 def _load_features(
     path: Path,
     expected_kind: str,
-) -> np.ndarray:
+) -> tuple[np.ndarray, np.ndarray | None]:
     with np.load(path, allow_pickle=False) as data:
         kind = str(data["feature_kind"])
-        xyz = np.column_stack((data["x_m"], data["y_m"], data["z_m"]))
+
+        xyz = np.column_stack(
+            (
+                data["x_m"],
+                data["y_m"],
+                data["z_m"],
+            )
+        ).astype(np.float64)
+
+        covariance = (
+            np.asarray(
+                data["covariance"],
+                dtype=np.float64,
+            )
+            if "covariance" in data.files
+            else None
+        )
+
     if kind != expected_kind:
         raise ValueError(
             f"{path.name} contains {kind}, expected {expected_kind}"
         )
-    xyz = np.asarray(xyz, dtype=np.float64)
-    if xyz.ndim != 2 or xyz.shape[1] != 3 or not np.isfinite(xyz).all():
-        raise ValueError(f"{path.name} contains invalid feature coordinates")
-    return xyz
+
+    if not np.isfinite(xyz).all():
+        raise ValueError(
+            f"{path.name} contains invalid feature coordinates"
+        )
+
+    if covariance is not None:
+        expected_shape = (len(xyz), 3, 3)
+
+        if covariance.shape != expected_shape:
+            raise ValueError(
+                f"{path.name}: covariance shape "
+                f"{covariance.shape}, expected {expected_shape}"
+            )
+
+    return xyz, covariance
 
 
 # ALL-SITES EDIT 3: Each site is matched without absolute odometry position.
@@ -79,7 +108,10 @@ def run_site(
     global_y_centers_m: np.ndarray,
     distance_tolerance_m: float,
     z_residual_tolerance_m: float,
-    args: argparse.Namespace,
+    args: argparse.Namespace,    
+    global_covariances: np.ndarray | None,
+    covariance_sigma_multiplier: float = 2.0,
+    use_feature_consensus: bool = False,
 ) -> dict[str, object]:
     feature_path = (
         config.local_features_path
@@ -95,7 +127,7 @@ def run_site(
         / f"odom_site_{site_number:02d}.npy"
     )
 
-    local_features_xyz = _load_features(
+    local_features_xyz, local_feature_covariances = _load_features(
         feature_path,
         config.features.kind,
     )
@@ -147,6 +179,10 @@ def run_site(
         seed=args.seed + site_number,
         consensus_xy_tolerance_m=args.consensus_radius,
         minimum_consensus_features=args.minimum_consensus_features,
+        local_feature_covariances=local_feature_covariances,
+        global_feature_covariances=global_covariances,
+        covariance_sigma_multiplier=covariance_sigma_multiplier,
+        use_feature_consensus=use_feature_consensus,
     )
     elapsed_seconds = time.perf_counter() - start
     base_result["runtime_s"] = elapsed_seconds
@@ -201,9 +237,22 @@ def main() -> None:
         raise ValueError("--minimum-cluster-size must be positive")
 
     config = load_pipeline_config()
-    global_features_xyz = _load_features(
+    global_features_xyz, _ = _load_features(
         config.global_features_path,
         config.features.kind,
+    )
+    GLOBAL_FEATURE_COVARIANCE_M2 = np.array(
+        [
+            [110.50479094, 0.0,          0.0],
+            [0.0,          110.50479094, 0.0],
+            [0.0,          0.0,          1.70066948],
+        ],
+        dtype=np.float64,
+    )
+    global_covariances = np.repeat(
+        GLOBAL_FEATURE_COVARIANCE_M2[None, :, :],
+        len(global_features_xyz),
+        axis=0,
     )
     global_dem = np.asarray(
         np.load(config.orbital_dem_path, allow_pickle=False),
@@ -250,7 +299,10 @@ def main() -> None:
             global_y_centers_m=global_y_centers_m,
             distance_tolerance_m=distance_tolerance_m,
             z_residual_tolerance_m=z_residual_tolerance_m,
-            args=args,
+            args=args,            
+            global_covariances=global_covariances,
+            covariance_sigma_multiplier=2.0,
+            use_feature_consensus=False,
         )
         results.append(result)
         print(
