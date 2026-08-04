@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Generate synchronized orbital and truth feature catalogues."""
+"""Generate feature catalogues for configured DEM resolutions."""
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 import sys
 
@@ -15,13 +16,12 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from features.dilation_detector import detect_craters, detect_peaks
-from pipeline_config import PipelineConfig, RasterConfig, load_pipeline_config
-
-
-CONFIG = load_pipeline_config()
-PLOT_DIRECTORY = CONFIG.plots_path
-GLOBAL_PREVIEW_PATH = PLOT_DIRECTORY / "global_features_preview.png"
-TRUTH_PREVIEW_PATH = PLOT_DIRECTORY / "truth_features_preview.png"
+from pipeline_config import (
+    FeatureDetectionTarget,
+    PipelineConfig,
+    RasterConfig,
+    load_pipeline_config,
+)
 
 
 def _load_dem(path: Path, raster: RasterConfig, name: str) -> np.ndarray:
@@ -68,8 +68,11 @@ def _save_catalogue(
     xyz: np.ndarray,
     *,
     config: PipelineConfig,
+    kind: str,
     resolution_m: float,
     radius_cells: int,
+    distance_m: float,
+    flatness_threshold_m: float,
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(
@@ -79,12 +82,10 @@ def _save_catalogue(
         x_m=xyz[:, 0],
         y_m=xyz[:, 1],
         z_m=xyz[:, 2],
-        feature_kind=np.asarray(config.features.kind),
+        feature_kind=np.asarray(kind),
         detection_radius_cells=np.int64(radius_cells),
-        detection_distance_m=np.float64(config.features.distance_m),
-        flatness_eps_m=np.float64(
-            config.features.flatness_threshold_m
-        ),
+        detection_distance_m=np.float64(distance_m),
+        flatness_eps_m=np.float64(flatness_threshold_m),
         resolution_m=np.float64(resolution_m),
         config_path=np.asarray(str(config.config_path)),
     )
@@ -98,7 +99,8 @@ def _save_preview(
     *,
     title: str,
     radius_cells: int,
-    config: PipelineConfig,
+    kind: str,
+    distance_m: float,
 ) -> None:
     x_centers, y_centers = raster.coordinates()
     half_cell = raster.resolution_m / 2.0
@@ -123,13 +125,13 @@ def _save_preview(
             color="red",
             s=28,
             linewidths=1.2,
-            label=f"Detected {config.features.kind}",
+            label=f"Detected {kind}",
         )
         axis.legend()
     axis.set_title(
         f"{title}\n"
-        f"kind={config.features.kind}, n={radius_cells}, "
-        f"D={config.features.distance_m:g} m, N={len(xyz)}"
+        f"kind={kind}, n={radius_cells}, "
+        f"D={distance_m:g} m, N={len(xyz)}"
     )
     axis.set_xlabel("Map x / east [m]")
     axis.set_ylabel("Map y / north [m]")
@@ -140,98 +142,71 @@ def _save_preview(
     plt.close(figure)
 
 
+def _parse_arguments(config: PipelineConfig) -> argparse.Namespace:
+    choices = sorted(config.feature_detection_targets)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--resolution",
+        choices=choices + ["all"],
+        default="all",
+        help="Raster resolution profile to process (default: all)",
+    )
+    return parser.parse_args()
+
+
+def _process_target(config: PipelineConfig, target: FeatureDetectionTarget) -> int:
+    dem = _load_dem(target.dem_path, target.raster, target.name)
+    indices = _detect(
+        dem,
+        kind=config.features.kind,
+        radius_cells=target.radius_cells,
+        flatness_threshold_m=target.flatness_threshold_m,
+    )
+    xyz = target.raster.indices_to_xyz(indices, dem)
+    _save_catalogue(
+        target.output_path,
+        indices,
+        xyz,
+        config=config,
+        kind=config.features.kind,
+        resolution_m=target.raster.resolution_m,
+        radius_cells=target.radius_cells,
+        distance_m=target.distance_m,
+        flatness_threshold_m=target.flatness_threshold_m,
+    )
+    target.preview_path.parent.mkdir(parents=True, exist_ok=True)
+    _save_preview(
+        target.preview_path,
+        dem,
+        target.raster,
+        xyz,
+        title=f"Apollo 17 {target.name} {target.catalogue_role} DEM features",
+        radius_cells=target.radius_cells,
+        kind=config.features.kind,
+        distance_m=target.distance_m,
+    )
+    print(
+        f"{target.name}: kind={config.features.kind}, "
+        f"n={target.radius_cells}, D={target.distance_m:g} m, "
+        f"flatness={target.flatness_threshold_m:g} m, count={len(indices)}"
+    )
+    print(f"  catalogue: {target.output_path}")
+    print(f"  preview:   {target.preview_path}")
+    return len(indices)
+
+
 def main() -> None:
-    config = CONFIG
-    orbital_dem = _load_dem(
-        config.orbital_dem_path,
-        config.orbital_raster,
-        "Orbital",
+    config = load_pipeline_config()
+    arguments = _parse_arguments(config)
+    names = (
+        sorted(config.feature_detection_targets)
+        if arguments.resolution == "all"
+        else [arguments.resolution]
     )
-    truth_dem = _load_dem(
-        config.truth_dem_path,
-        config.truth_raster,
-        "Truth",
-    )
-
-    orbital_radius = config.features.radius_for_resolution(
-        config.orbital_raster.resolution_m
-    )
-    truth_radius = config.features.radius_for_resolution(
-        config.truth_raster.resolution_m
-    )
-    orbital_indices = _detect(
-        orbital_dem,
-        kind=config.features.kind,
-        radius_cells=orbital_radius,
-        flatness_threshold_m=config.features.flatness_threshold_m,
-    )
-    truth_indices = _detect(
-        truth_dem,
-        kind=config.features.kind,
-        radius_cells=truth_radius,
-        flatness_threshold_m=config.features.flatness_threshold_m,
-    )
-    orbital_xyz = config.orbital_raster.indices_to_xyz(
-        orbital_indices,
-        orbital_dem,
-    )
-    truth_xyz = config.truth_raster.indices_to_xyz(
-        truth_indices,
-        truth_dem,
-    )
-
-    _save_catalogue(
-        config.global_features_path,
-        orbital_indices,
-        orbital_xyz,
-        config=config,
-        resolution_m=config.orbital_raster.resolution_m,
-        radius_cells=orbital_radius,
-    )
-    _save_catalogue(
-        config.truth_features_path,
-        truth_indices,
-        truth_xyz,
-        config=config,
-        resolution_m=config.truth_raster.resolution_m,
-        radius_cells=truth_radius,
-    )
-
-    PLOT_DIRECTORY.mkdir(parents=True, exist_ok=True)
-    _save_preview(
-        GLOBAL_PREVIEW_PATH,
-        orbital_dem,
-        config.orbital_raster,
-        orbital_xyz,
-        title="Apollo 17 orbital DEM features",
-        radius_cells=orbital_radius,
-        config=config,
-    )
-    _save_preview(
-        TRUTH_PREVIEW_PATH,
-        truth_dem,
-        config.truth_raster,
-        truth_xyz,
-        title="Apollo 17 truth DEM features",
-        radius_cells=truth_radius,
-        config=config,
-    )
-
-    print("Synchronized feature catalogues")
-    print("-------------------------------")
-    print(
-        f"Definition: {config.features.kind}, "
-        f"D={config.features.distance_m:g} m, "
-        f"flatness={config.features.flatness_threshold_m:g} m"
-    )
-    print(
-        f"Orbital: n={orbital_radius}, count={len(orbital_indices)}, "
-        f"path={config.global_features_path}"
-    )
-    print(
-        f"Truth:   n={truth_radius}, count={len(truth_indices)}, "
-        f"path={config.truth_features_path}"
-    )
+    print("Feature detection")
+    print("-----------------")
+    for name in names:
+        _process_target(config, config.feature_detection_targets[name])
 
 
 if __name__ == "__main__":

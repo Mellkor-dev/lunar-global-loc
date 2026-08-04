@@ -1,6 +1,11 @@
 import numpy as np
 from scipy.ndimage import grey_dilation
 
+try:
+    import cv2
+except ImportError:  # SciPy remains the portable fallback.
+    cv2 = None
+
 def pixelated_circle_footprint(n: int) -> np.ndarray:
     if n < 1:
         raise ValueError("n must be at least 1")
@@ -32,7 +37,17 @@ def detect_peaks(
 
     # Invalid cells must neither become candidates nor influence dilation.
     dilation_input = np.where(finite, elevation, -np.inf)
-    dilated = grey_dilation(dilation_input, footprint=footprint)
+    if cv2 is not None and finite.all():
+        # OpenCV's morphology is dramatically faster for native 0.25 m
+        # rasters with a large circular footprint.
+        dilated = cv2.dilate(
+            dilation_input,
+            footprint,
+            borderType=cv2.BORDER_CONSTANT,
+            borderValue=-np.inf,
+        )
+    else:
+        dilated = grey_dilation(dilation_input, footprint=footprint)
     unchanged = finite & np.isclose(
         dilated,
         elevation,
@@ -44,6 +59,21 @@ def detect_peaks(
         unchanged[-n:, :] = False
         unchanged[:, :n] = False
         unchanged[:, -n:] = False
+
+    if cv2 is not None and finite.all():
+        eroded = cv2.erode(
+            elevation,
+            footprint,
+            borderType=cv2.BORDER_CONSTANT,
+            borderValue=np.inf,
+        )
+        unchanged &= (dilated - eroded) > flatness_eps * 10
+        peak_ij = np.argwhere(unchanged)
+        return enforce_min_distance(
+            peak_ij,
+            elevation,
+            min_dist_px=n,
+        )
 
     peak_ij = np.argwhere(unchanged)
 
@@ -85,11 +115,32 @@ def enforce_min_distance(peak_ij, elevation, min_dist_px):
     elevs = elevation[peak_ij[:, 0], peak_ij[:, 1]]
     order = np.argsort(-elevs)
     kept = []
+    spatial_bins = {}
+    distance_squared = min_dist_px * min_dist_px
     for idx in order:
         p = peak_ij[idx]
-        if all(np.linalg.norm(p - k) >= min_dist_px for k in kept):
+        bin_i = int(p[0] // min_dist_px)
+        bin_j = int(p[1] // min_dist_px)
+        accept = True
+        for offset_i in (-1, 0, 1):
+            for offset_j in (-1, 0, 1):
+                for kept_point in spatial_bins.get(
+                    (bin_i + offset_i, bin_j + offset_j), ()
+                ):
+                    delta = p - kept_point
+                    if int(delta @ delta) < distance_squared:
+                        accept = False
+                        break
+                if not accept:
+                    break
+            if not accept:
+                break
+        if accept:
             kept.append(p)
-    return np.array(kept)
+            spatial_bins.setdefault((bin_i, bin_j), []).append(p)
+    if not kept:
+        return np.empty((0, 2), dtype=np.int64)
+    return np.asarray(kept, dtype=np.int64)
 
 def detect_craters(
     elevation: np.ndarray,

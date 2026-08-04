@@ -24,3 +24,14 @@ artifact used by the 5 m experiment. Scripts must load paths through
 New experiments should use the same layout, for example `0p25m_px`,
 `0p5m_px`, and `1p5m_px`, with a dedicated configuration selecting the
 matching directories.
+
+Feature detector inputs and parameters are listed under
+`feature_detection.resolutions` in `config/apollo17_5m.yaml`. Run one native
+raster or every configured raster with:
+
+```bash
+python3 Scripts/03_feature_detector.py --resolution 0p25m
+python3 Scripts/03_feature_detector.py --resolution 1p5m
+python3 Scripts/03_feature_detector.py --resolution 5m
+python3 Scripts/03_feature_detector.py --resolution all
+```

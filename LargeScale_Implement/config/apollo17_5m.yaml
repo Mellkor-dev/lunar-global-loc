@@ -87,6 +87,48 @@ feature_detection:
   flatness_threshold_m: 0.15
   local_min_valid_fraction: 0.05
 
+  # Native detector inputs.  Keys are accepted by
+  # Scripts/03_feature_detector.py --resolution.
+  resolutions:
+    0p25m:
+      dem: DEM/0p25m_px/apollo17_refined_0p25m_2000m.npy
+      metadata: DEM/0p25m_px/apollo17_refined_0p25m_2000m.json
+      output: DEM/0p25m_px/global_craters.npz
+      preview: plots/0p25m_px/global_features_preview.png
+      resolution_m: 0.25
+      shape: [8000, 8000]
+      first_cell_center_m: {x: -999.875, y: 999.875}
+      cell_radius: 120
+      detection_distance_m: 30
+      flatness_threshold_m: 0.15
+      catalogue_role: global
+
+    1p5m:
+      dem: DEM/1p5m_px/truth_dem_1p5m.npy
+      metadata: DEM/1p5m_px/truth_dem_1p5m.yaml
+      output: DEM/1p5m_px/truth_craters.npz
+      preview: plots/1p5m_px/truth_features_preview.png
+      resolution_m: 1.5
+      shape: [1334, 1334]
+      first_cell_center_m: {x: -999.75, y: 999.75}
+      cell_radius: 20
+      detection_distance_m: 30
+      flatness_threshold_m: 0.15
+      catalogue_role: truth
+
+    5m:
+      dem: DEM/5m_px/orbital_dem_5m.npy
+      metadata: DEM/5m_px/orbital_dem_5m.yaml
+      output: DEM/5m_px/global_craters.npz
+      preview: plots/5m_px/global_features_preview.png
+      resolution_m: 5.0
+      shape: [400, 400]
+      first_cell_center_m: {x: -997.5, y: 997.5}
+      cell_radius: 6
+      detection_distance_m: 30
+      flatness_threshold_m: 0.15
+      catalogue_role: global
+
 global_feature_uncertainty:
   intrinsic_horizontal_sigma_m: 10.0
   intrinsic_vertical_sigma_m: 1.3

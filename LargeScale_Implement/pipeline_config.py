@@ -78,6 +78,22 @@ class FeatureDetectionConfig:
 
 
 @dataclass(frozen=True)
+class FeatureDetectionTarget:
+    """One raster and its resolution-specific detector parameters."""
+
+    name: str
+    dem_path: Path
+    metadata_path: Path
+    output_path: Path
+    preview_path: Path
+    raster: RasterConfig
+    radius_cells: int
+    distance_m: float
+    flatness_threshold_m: float
+    catalogue_role: str
+
+
+@dataclass(frozen=True)
 class PipelineConfig:
     config_path: Path
     truth_dem_path: Path
@@ -100,6 +116,7 @@ class PipelineConfig:
     truth_raster: RasterConfig
     orbital_raster: RasterConfig
     features: FeatureDetectionConfig
+    feature_detection_targets: dict[str, FeatureDetectionTarget]
     intrinsic_horizontal_sigma_m: float
     intrinsic_vertical_sigma_m: float
     match_gate_fraction: float
@@ -175,6 +192,52 @@ def load_pipeline_config(
     if not 0.0 <= features.local_min_valid_fraction <= 1.0:
         raise ValueError("local_min_valid_fraction must lie in [0, 1]")
 
+    target_data = _mapping(
+        feature_data.get("resolutions", {}),
+        "feature_detection.resolutions",
+    )
+    feature_detection_targets: dict[str, FeatureDetectionTarget] = {}
+    for target_name, unvalidated_target in target_data.items():
+        target = _mapping(
+            unvalidated_target,
+            f"feature_detection.resolutions.{target_name}",
+        )
+        target_raster = _raster_config(
+            target,
+            f"feature_detection.resolutions.{target_name}",
+        )
+        radius_cells = int(target["cell_radius"])
+        distance_m = float(target["detection_distance_m"])
+        if radius_cells < 1:
+            raise ValueError(f"Detector radius for {target_name} must be positive")
+        if not np.isclose(radius_cells * target_raster.resolution_m, distance_m):
+            raise ValueError(
+                f"Detector radius for {target_name} does not equal its "
+                "physical detection distance"
+            )
+        flatness = float(target["flatness_threshold_m"])
+        if flatness < 0.0:
+            raise ValueError(
+                f"Detector flatness threshold for {target_name} must be non-negative"
+            )
+        role = str(target.get("catalogue_role", "global")).lower()
+        if role not in {"global", "truth"}:
+            raise ValueError(
+                f"catalogue_role for {target_name} must be 'global' or 'truth'"
+            )
+        feature_detection_targets[str(target_name)] = FeatureDetectionTarget(
+            name=str(target_name),
+            dem_path=PROJECT_ROOT / str(target["dem"]),
+            metadata_path=PROJECT_ROOT / str(target["metadata"]),
+            output_path=PROJECT_ROOT / str(target["output"]),
+            preview_path=PROJECT_ROOT / str(target["preview"]),
+            raster=target_raster,
+            radius_cells=radius_cells,
+            distance_m=distance_m,
+            flatness_threshold_m=flatness,
+            catalogue_role=role,
+        )
+
     def resolved(key: str) -> Path:
         return PROJECT_ROOT / str(paths[key])
 
@@ -200,6 +263,7 @@ def load_pipeline_config(
         truth_raster=truth_raster,
         orbital_raster=orbital_raster,
         features=features,
+        feature_detection_targets=feature_detection_targets,
         intrinsic_horizontal_sigma_m=float(
             uncertainty["intrinsic_horizontal_sigma_m"]
         ),
