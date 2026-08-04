@@ -992,7 +992,7 @@ def run_darces(
         side_ratio_tolerance=side_ratio_tolerance,
         minimum_angle_deg=minimum_triangle_angle_deg,
         control_rms_tolerance_m=control_rms_tolerance_m,
-        maximum_hypotheses=n_trials,
+        maximum_hypotheses=n_trials*10,
         local_covariances=local_covariances,
         global_covariances=global_covariances,
         sigma_multiplier=covariance_sigma_multiplier,

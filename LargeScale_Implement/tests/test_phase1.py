@@ -18,19 +18,19 @@ def test_feature_scale_is_consistent_across_rasters() -> None:
     config = load_pipeline_config()
     assert config.features.radius_for_resolution(
         config.orbital_raster.resolution_m
-    ) == 6
+    ) == 3
     assert config.features.radius_for_resolution(
         config.truth_raster.resolution_m
-    ) == 20
+    ) == 10
 
 
 def test_resolution_specific_detector_profiles() -> None:
     config = load_pipeline_config()
     targets = config.feature_detection_targets
     assert set(targets) == {"0p25m", "1p5m", "5m"}
-    assert targets["0p25m"].radius_cells == 120
-    assert targets["1p5m"].radius_cells == 20
-    assert targets["5m"].radius_cells == 6
+    assert targets["0p25m"].radius_cells == 60
+    assert targets["1p5m"].radius_cells == 10
+    assert targets["5m"].radius_cells == 3
     for target in targets.values():
         assert np.isclose(
             target.radius_cells * target.raster.resolution_m,
@@ -45,7 +45,7 @@ def test_resolution_workspace_paths_are_projected_consistently() -> None:
     assert config.gridded_maps_path.parts[-2:] == ("0p25m_px", "gridded")
     assert config.results_path.name == "0p25m_px"
     assert config.captures_path.name == "0p25m_px"
-    assert config.features.radius_cells == 120
+    assert config.features.radius_cells == 60
     assert config.truth_raster.resolution_m == 1.5
 
 

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 import sys
+import time
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -16,6 +17,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from features.dilation_detector import detect_craters, detect_peaks
+from features import dilation_detector
 from pipeline_config import (
     FeatureDetectionTarget,
     PipelineConfig,
@@ -155,12 +157,30 @@ def _parse_arguments(config: PipelineConfig) -> argparse.Namespace:
 
 
 def _process_target(config: PipelineConfig, target: FeatureDetectionTarget) -> int:
+    print(
+        f"{target.name}: loading {target.dem_path} "
+        f"({target.raster.shape[0]}x{target.raster.shape[1]})",
+        flush=True,
+    )
     dem = _load_dem(target.dem_path, target.raster, target.name)
+    backend = "OpenCV" if dilation_detector.cv2 is not None else "SciPy"
+    print(
+        f"{target.name}: detecting {config.features.kind}s with "
+        f"n={target.radius_cells} using {backend} morphology...",
+        flush=True,
+    )
+    started = time.perf_counter()
     indices = _detect(
         dem,
         kind=config.features.kind,
         radius_cells=target.radius_cells,
         flatness_threshold_m=target.flatness_threshold_m,
+    )
+    elapsed = time.perf_counter() - started
+    print(
+        f"{target.name}: detection finished in {elapsed:.1f} s; "
+        f"writing {len(indices)} features...",
+        flush=True,
     )
     xyz = target.raster.indices_to_xyz(indices, dem)
     _save_catalogue(

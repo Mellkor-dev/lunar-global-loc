@@ -35,6 +35,14 @@ def detect_peaks(
     if not finite.any():
         return np.empty((0, 2), dtype=np.int64)
 
+    estimated_footprint_work = int(elevation.size) * int(footprint.sum())
+    if cv2 is None and estimated_footprint_work > 5_000_000_000:
+        raise RuntimeError(
+            "This DEM/radius combination is too large for the SciPy "
+            "morphology fallback. Install OpenCV in the active environment "
+            "with 'python3 -m pip install opencv-python' and rerun."
+        )
+
     # Invalid cells must neither become candidates nor influence dilation.
     dilation_input = np.where(finite, elevation, -np.inf)
     if cv2 is not None and finite.all():

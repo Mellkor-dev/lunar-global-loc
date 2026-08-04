@@ -76,7 +76,7 @@ class TransformSaver(Node):
             T[:3, 3] = translation
 
             # Save binary version
-            output_directory = PROJECT_ROOT / "sim" / "1p5m_px" / "transform_scan"
+            output_directory = PROJECT_ROOT / "sim" / "5m_px" / "transform_scan"
             output_directory.mkdir(parents=True, exist_ok=True)
             np.savez(
                 output_directory / self.out_file,

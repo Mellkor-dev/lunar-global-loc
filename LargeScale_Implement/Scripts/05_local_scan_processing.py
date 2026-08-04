@@ -185,11 +185,14 @@ def _load_transforms(paths: Sequence[Path]) -> np.ndarray:
 
 
 def load_local_scan_dataset(
-    pointcloud_directory: Path = POINTCLOUD_SCAN,
-    odometry_directory: Path = ODOM_SCAN,
-    transform_directory: Path = TRANSFORM_SCAN,
+    pointcloud_directory: Path | None = None,
+    odometry_directory: Path | None = None,
+    transform_directory: Path | None = None,
 ) -> LocalScanDataset:
     """Load, validate, preprocess, and align all inputs by site number."""
+    pointcloud_directory = pointcloud_directory or POINTCLOUD_SCAN
+    odometry_directory = odometry_directory or ODOM_SCAN
+    transform_directory = transform_directory or TRANSFORM_SCAN
     cloud_files = _files_by_site(Path(pointcloud_directory), "scan_site_*.npy")
     odom_files = _files_by_site(Path(odometry_directory), "odom_site_*.npy")
     transform_files = _files_by_site(

@@ -23,7 +23,7 @@ OUT_DIR = (
     PROJECT_ROOT
     / "LargeScale_Implement"
     / "sim"
-    / "1p5m_px"
+    / "5m_px"
     / "pointcloud_scans"
 )
 
