@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate alignment between the 1.5 m truth DEM and 5 m orbital prior."""
+"""Validate alignment between the truth DEM and a selected resolution DEM."""
 
 from __future__ import annotations
 
@@ -126,6 +126,10 @@ def save_alignment_plot(
     residual: np.ndarray,
     truth_bounds: tuple[float, float, float, float],
     orbital_bounds: tuple[float, float, float, float],
+    selected_profile: str,
+    truth_resolution_m: float,
+    selected_resolution_m: float,
+    statistics: dict[str, float | int],
 ) -> None:
     minimum = min(float(np.min(truth)), float(np.min(orbital)))
     maximum = max(float(np.max(truth)), float(np.max(orbital)))
@@ -134,8 +138,20 @@ def save_alignment_plot(
     residual_limit = float(
         np.percentile(np.abs(finite_residual), 99.0)
     )
+    if residual_limit == 0.0:
+        residual_limit = float(np.finfo(np.float64).eps)
 
-    figure, axes = plt.subplots(2, 2, figsize=(14, 12))
+    figure, axes = plt.subplots(
+        2,
+        2,
+        figsize=(15, 12),
+        layout="constrained",
+    )
+    truth_label = f"Truth reference — {truth_resolution_m:g} m/cell"
+    selected_label = (
+        f"Selected DEM ({selected_profile}) — "
+        f"{selected_resolution_m:g} m/cell"
+    )
 
     truth_image = axes[0, 0].imshow(
         truth,
@@ -145,7 +161,7 @@ def save_alignment_plot(
         vmin=minimum,
         vmax=maximum,
     )
-    axes[0, 0].set_title("Truth DEM — 1.5 m/cell")
+    axes[0, 0].set_title(truth_label)
     axes[0, 0].set_xlabel("Map x / east [m]")
     axes[0, 0].set_ylabel("Map y / north [m]")
     axes[0, 0].axhline(0.0, linewidth=0.5)
@@ -159,7 +175,7 @@ def save_alignment_plot(
         vmin=minimum,
         vmax=maximum,
     )
-    axes[0, 1].set_title("Orbital prior — 5 m/cell")
+    axes[0, 1].set_title(selected_label)
     axes[0, 1].set_xlabel("Map x / east [m]")
     axes[0, 1].set_ylabel("Map y / north [m]")
     axes[0, 1].axhline(0.0, linewidth=0.5)
@@ -173,7 +189,10 @@ def save_alignment_plot(
         vmin=minimum,
         vmax=maximum,
     )
-    axes[1, 0].set_title("5 m prior interpolated onto 1.5 m centers")
+    axes[1, 0].set_title(
+        f"{selected_profile} DEM interpolated onto "
+        f"{truth_resolution_m:g} m truth centers"
+    )
     axes[1, 0].set_xlabel("Map x / east [m]")
     axes[1, 0].set_ylabel("Map y / north [m]")
 
@@ -185,9 +204,25 @@ def save_alignment_plot(
         vmin=-residual_limit,
         vmax=residual_limit,
     )
-    axes[1, 1].set_title("Truth − interpolated orbital prior")
+    axes[1, 1].set_title("Truth − interpolated selected DEM")
     axes[1, 1].set_xlabel("Map x / east [m]")
     axes[1, 1].set_ylabel("Map y / north [m]")
+    axes[1, 1].text(
+        0.02,
+        0.98,
+        "\n".join(
+            (
+                f"mean = {float(statistics['mean_m']):.4f} m",
+                f"RMSE = {float(statistics['rmse_m']):.4f} m",
+                f"MAE = {float(statistics['mae_m']):.4f} m",
+                f"|error| p95 = "
+                f"{float(statistics['absolute_p95_m']):.4f} m",
+            )
+        ),
+        transform=axes[1, 1].transAxes,
+        va="top",
+        bbox={"facecolor": "white", "alpha": 0.85, "edgecolor": "0.7"},
+    )
 
     figure.colorbar(
         truth_image,
@@ -203,14 +238,13 @@ def save_alignment_plot(
     )
 
     figure.suptitle(
-        "Apollo 17 truth/prior DEM alignment",
+        f"Apollo 17 DEM alignment: truth vs {selected_profile}",
         fontsize=14,
     )
 
     figure.savefig(
         ALIGNMENT_PLOT_PATH,
         dpi=180,
-        bbox_inches="tight",
     )
     plt.close(figure)
 
@@ -218,20 +252,23 @@ def save_alignment_plot(
 def save_profile_plot(
     truth_interpolator: RegularGridInterpolator,
     orbital_interpolator: RegularGridInterpolator,
+    x_coordinates: np.ndarray,
+    y_coordinates: np.ndarray,
+    selected_profile: str,
+    truth_resolution_m: float,
+    selected_resolution_m: float,
 ) -> None:
-    coordinates = np.linspace(-990.0, 990.0, 1000)
-
     east_west_points = np.column_stack(
         (
-            np.zeros_like(coordinates),
-            coordinates,
+            np.zeros_like(x_coordinates),
+            x_coordinates,
         )
     )
 
     south_north_points = np.column_stack(
         (
-            coordinates,
-            np.zeros_like(coordinates),
+            y_coordinates,
+            np.zeros_like(y_coordinates),
         )
     )
 
@@ -241,41 +278,73 @@ def save_profile_plot(
     truth_south_north = truth_interpolator(south_north_points)
     orbital_south_north = orbital_interpolator(south_north_points)
 
-    figure, axes = plt.subplots(2, 1, figsize=(12, 8))
+    figure, axes = plt.subplots(2, 2, figsize=(15, 9), layout="constrained")
+    truth_label = f"Truth reference ({truth_resolution_m:g} m)"
+    selected_label = (
+        f"Selected {selected_profile} DEM ({selected_resolution_m:g} m)"
+    )
 
-    axes[0].plot(
-        coordinates,
+    axes[0, 0].plot(
+        x_coordinates,
         truth_east_west,
-        label="Truth 1.5 m",
+        label=truth_label,
+        linewidth=2.2,
     )
-    axes[0].plot(
-        coordinates,
+    axes[0, 0].plot(
+        x_coordinates,
         orbital_east_west,
-        label="Orbital prior 5 m",
+        label=selected_label,
+        linestyle="--",
+        linewidth=1.4,
     )
-    axes[0].set_title("East–west profile through map origin")
-    axes[0].set_xlabel("Map x / east [m]")
-    axes[0].set_ylabel("Elevation [m]")
-    axes[0].grid(True)
-    axes[0].legend()
+    axes[0, 0].set_title("East–west profile through map origin")
+    axes[0, 0].set_xlabel("Map x / east [m]")
+    axes[0, 0].set_ylabel("Elevation [m]")
+    axes[0, 0].grid(True)
+    axes[0, 0].legend()
 
-    axes[1].plot(
-        coordinates,
+    axes[1, 0].plot(
+        y_coordinates,
         truth_south_north,
-        label="Truth 1.5 m",
+        label=truth_label,
+        linewidth=2.2,
     )
-    axes[1].plot(
-        coordinates,
+    axes[1, 0].plot(
+        y_coordinates,
         orbital_south_north,
-        label="Orbital prior 5 m",
+        label=selected_label,
+        linestyle="--",
+        linewidth=1.4,
     )
-    axes[1].set_title("South–north profile through map origin")
-    axes[1].set_xlabel("Map y / north [m]")
-    axes[1].set_ylabel("Elevation [m]")
-    axes[1].grid(True)
-    axes[1].legend()
+    axes[1, 0].set_title("South–north profile through map origin")
+    axes[1, 0].set_xlabel("Map y / north [m]")
+    axes[1, 0].set_ylabel("Elevation [m]")
+    axes[1, 0].grid(True)
+    axes[1, 0].legend()
 
-    figure.tight_layout()
+    axes[0, 1].plot(
+        x_coordinates,
+        truth_east_west - orbital_east_west,
+        color="tab:purple",
+    )
+    axes[0, 1].axhline(0.0, color="black", linewidth=0.7)
+    axes[0, 1].set_title("East–west residual: truth − selected")
+    axes[0, 1].set_xlabel("Map x / east [m]")
+    axes[0, 1].set_ylabel("Elevation residual [m]")
+    axes[0, 1].grid(True)
+
+    axes[1, 1].plot(
+        y_coordinates,
+        truth_south_north - orbital_south_north,
+        color="tab:purple",
+    )
+    axes[1, 1].axhline(0.0, color="black", linewidth=0.7)
+    axes[1, 1].set_title("South–north residual: truth − selected")
+    axes[1, 1].set_xlabel("Map y / north [m]")
+    axes[1, 1].set_ylabel("Elevation residual [m]")
+    axes[1, 1].grid(True)
+
+    figure.suptitle(f"Centerline comparison: truth vs {selected_profile}")
     figure.savefig(PROFILE_PLOT_PATH, dpi=180)
     plt.close(figure)
 
@@ -361,14 +430,31 @@ def main() -> None:
         residual=residual,
         truth_bounds=truth_bounds,
         orbital_bounds=orbital_bounds,
+        selected_profile=args.resolution,
+        truth_resolution_m=TRUTH_RESOLUTION_M,
+        selected_resolution_m=ORBITAL_RESOLUTION_M,
+        statistics=statistics,
     )
 
+    common_x_min = max(float(truth_x[0]), float(orbital_x[0]))
+    common_x_max = min(float(truth_x[-1]), float(orbital_x[-1]))
+    common_y_min = max(float(truth_y[-1]), float(orbital_y[-1]))
+    common_y_max = min(float(truth_y[0]), float(orbital_y[0]))
     save_profile_plot(
         truth_interpolator=truth_interpolator,
         orbital_interpolator=orbital_interpolator,
+        x_coordinates=np.linspace(common_x_min, common_x_max, 2000),
+        y_coordinates=np.linspace(common_y_min, common_y_max, 2000),
+        selected_profile=args.resolution,
+        truth_resolution_m=TRUTH_RESOLUTION_M,
+        selected_resolution_m=ORBITAL_RESOLUTION_M,
     )
 
     report = {
+        "comparison": {
+            "selected_profile": args.resolution,
+            "operation": "truth minus selected DEM interpolated to truth centers",
+        },
         "coordinate_contract": {
             "origin": "center_of_dem",
             "x_direction": "east",
@@ -394,7 +480,7 @@ def main() -> None:
                 "y": float(truth_y[-1]),
             },
         },
-        "orbital_dem": {
+        "selected_dem": {
             "shape": list(orbital.shape),
             "resolution_m": ORBITAL_RESOLUTION_M,
             "edge_bounds_m": {
@@ -412,7 +498,7 @@ def main() -> None:
                 "y": float(orbital_y[-1]),
             },
         },
-        "truth_minus_interpolated_prior": statistics,
+        "truth_minus_interpolated_selected_dem": statistics,
     }
 
     with REPORT_PATH.open("w", encoding="utf-8") as file:
@@ -421,7 +507,7 @@ def main() -> None:
     print("DEM alignment validation")
     print("------------------------")
     print(f"Truth bounds:   {truth_bounds}")
-    print(f"Orbital bounds: {orbital_bounds}")
+    print(f"Selected DEM bounds ({args.resolution}): {orbital_bounds}")
     print()
     print("Truth first cell:")
     print(f"  x = {truth_x[0]:.6f} m")
@@ -430,14 +516,14 @@ def main() -> None:
     print(f"  x = {truth_x[-1]:.6f} m")
     print(f"  y = {truth_y[-1]:.6f} m")
     print()
-    print("Orbital first cell:")
+    print("Selected DEM first cell:")
     print(f"  x = {orbital_x[0]:.6f} m")
     print(f"  y = {orbital_y[0]:.6f} m")
-    print("Orbital last cell:")
+    print("Selected DEM last cell:")
     print(f"  x = {orbital_x[-1]:.6f} m")
     print(f"  y = {orbital_y[-1]:.6f} m")
     print()
-    print("Truth − interpolated prior residuals")
+    print("Truth − interpolated selected DEM residuals")
     for key, value in statistics.items():
         print(f"{key:24s}: {value}")
 
