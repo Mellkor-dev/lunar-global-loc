@@ -13,6 +13,7 @@ appropriate for creating a controlled coarse localization prior.
 from __future__ import annotations
 
 import hashlib
+import argparse
 from pathlib import Path
 from typing import Any
 
@@ -26,20 +27,7 @@ import sys
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from pipeline_config import load_pipeline_config
-
-CONFIG = load_pipeline_config()
-
-SOURCE_DEM_PATH = CONFIG.truth_dem_path
-SOURCE_METADATA_PATH = CONFIG.truth_metadata_path
-
-OUTPUT_DEM_PATH = CONFIG.orbital_dem_path
-OUTPUT_MASK_PATH = CONFIG.orbital_mask_path
-OUTPUT_METADATA_PATH = CONFIG.orbital_metadata_path
-
-SOURCE_RESOLUTION_M = CONFIG.truth_raster.resolution_m
-TARGET_RESOLUTION_M = CONFIG.orbital_raster.resolution_m
-TARGET_EXTENT_M = CONFIG.orbital_raster.shape[0] * TARGET_RESOLUTION_M
+from pipeline_config import add_resolution_argument, load_resolution_config
 
 
 def sha256(path: Path) -> str:
@@ -147,6 +135,22 @@ def build_overlap_matrix(
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    add_resolution_argument(parser)
+    args = parser.parse_args()
+    config = load_resolution_config(args.resolution)
+
+    SOURCE_DEM_PATH = config.truth_dem_path
+    SOURCE_METADATA_PATH = config.truth_metadata_path
+    OUTPUT_DEM_PATH = config.orbital_dem_path
+    OUTPUT_MASK_PATH = config.orbital_mask_path
+    OUTPUT_METADATA_PATH = config.orbital_metadata_path
+    SOURCE_RESOLUTION_M = config.truth_raster.resolution_m
+    TARGET_RESOLUTION_M = config.orbital_raster.resolution_m
+    TARGET_EXTENT_M = config.orbital_raster.shape[0] * TARGET_RESOLUTION_M
+
+    if SOURCE_DEM_PATH.resolve() == OUTPUT_DEM_PATH.resolve():
+        raise ValueError("Source and target DEM paths must differ")
     if not SOURCE_DEM_PATH.is_file():
         raise FileNotFoundError(
             f"Source DEM does not exist: {SOURCE_DEM_PATH}"
@@ -171,10 +175,10 @@ def main() -> None:
     source_width_m = source_columns * SOURCE_RESOLUTION_M
 
     expected_source_height_m = (
-        CONFIG.truth_raster.shape[0] * SOURCE_RESOLUTION_M
+        config.truth_raster.shape[0] * SOURCE_RESOLUTION_M
     )
     expected_source_width_m = (
-        CONFIG.truth_raster.shape[1] * SOURCE_RESOLUTION_M
+        config.truth_raster.shape[1] * SOURCE_RESOLUTION_M
     )
     if not np.isclose(source_height_m, expected_source_height_m):
         raise ValueError(
@@ -237,6 +241,7 @@ def main() -> None:
     if not target_valid_mask.all():
         raise RuntimeError("Output DEM unexpectedly contains invalid cells")
 
+    OUTPUT_DEM_PATH.parent.mkdir(parents=True, exist_ok=True)
     np.save(OUTPUT_DEM_PATH, target_dem)
     np.save(OUTPUT_MASK_PATH, target_valid_mask)
 

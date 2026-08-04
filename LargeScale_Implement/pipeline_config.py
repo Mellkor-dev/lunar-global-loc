@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
+import argparse
 from pathlib import Path
 from typing import Any
 
@@ -120,6 +121,76 @@ class PipelineConfig:
     intrinsic_horizontal_sigma_m: float
     intrinsic_vertical_sigma_m: float
     match_gate_fraction: float
+
+    @property
+    def available_resolutions(self) -> tuple[str, ...]:
+        return tuple(sorted(self.feature_detection_targets))
+
+    def for_resolution(self, name: str) -> "PipelineConfig":
+        """Return a pipeline view rooted in one resolution subdirectory."""
+        if name not in self.feature_detection_targets:
+            choices = ", ".join(self.available_resolutions)
+            raise ValueError(f"Unknown resolution '{name}'; choose from {choices}")
+
+        target = self.feature_detection_targets[name]
+        directory_name = target.output_path.parent.name
+        local_root = PROJECT_ROOT / "local_maps" / directory_name
+        simulation_root = PROJECT_ROOT / "sim" / directory_name
+        validation_root = target.output_path.parent / "validation"
+        features = replace(
+            self.features,
+            radius_cells=target.radius_cells,
+            distance_m=target.distance_m,
+            flatness_threshold_m=target.flatness_threshold_m,
+        )
+        mask_name = f"orbital_valid_mask_{name}.npy"
+        return replace(
+            self,
+            orbital_dem_path=target.dem_path,
+            orbital_metadata_path=target.metadata_path,
+            orbital_mask_path=target.output_path.parent / mask_name,
+            global_features_path=target.output_path,
+            leveled_maps_path=local_root / "leveled",
+            gridded_maps_path=local_root / "gridded",
+            local_features_path=local_root / "features",
+            feature_uncertainty_path=(
+                validation_root / "global_feature_uncertainty.json"
+            ),
+            dem_qa_path=target.output_path.parent / "qa",
+            feature_validation_path=validation_root,
+            plots_path=PROJECT_ROOT / "plots" / directory_name,
+            results_path=PROJECT_ROOT / "results" / directory_name,
+            captures_path=simulation_root,
+            capture_validation_path=simulation_root / "validation",
+            orbital_raster=target.raster,
+            features=features,
+        )
+
+
+def add_resolution_argument(
+    parser: argparse.ArgumentParser,
+    *,
+    include_all: bool = False,
+) -> None:
+    """Add the common pipeline resolution selector to a script parser."""
+    config = load_pipeline_config()
+    choices = list(config.available_resolutions)
+    if include_all:
+        choices.append("all")
+    parser.add_argument(
+        "--resolution",
+        choices=choices,
+        default="all" if include_all else "5m",
+        help=(
+            "Resolution workspace to use "
+            f"(default: {'all' if include_all else '5m'})"
+        ),
+    )
+
+
+def load_resolution_config(name: str) -> PipelineConfig:
+    """Load configuration and select one resolution workspace."""
+    return load_pipeline_config().for_resolution(name)
 
 
 def _mapping(value: Any, name: str) -> dict[str, Any]:

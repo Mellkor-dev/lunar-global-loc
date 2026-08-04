@@ -13,7 +13,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from pipeline_config import load_pipeline_config
+from pipeline_config import add_resolution_argument, load_resolution_config
 
 # DEM feature imports for global digital elevation model processing
 
@@ -96,6 +96,7 @@ def print_dem_statistics(dem: np.ndarray, resolution_m: float | None) -> None:
         
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
+    add_resolution_argument(parser)
 
     parser.add_argument(
         "--preview",
@@ -109,10 +110,10 @@ def parse_arguments() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_arguments()
-    config = load_pipeline_config()
-    dem_path = config.truth_dem_path
-    metadata_path = config.truth_metadata_path
-    preview_path = args.preview or config.plots_path / "truth_dem_preview.png"
+    config = load_resolution_config(args.resolution)
+    dem_path = config.orbital_dem_path
+    metadata_path = config.orbital_metadata_path
+    preview_path = args.preview or config.plots_path / "dem_preview.png"
 
     if not dem_path.exists():
         print(f"DEM file not found: {dem_path}")
@@ -127,7 +128,7 @@ def main() -> None:
     dem_hash = file_hash(dem_path)
 
     print(f"DEM file hash (SHA256): {dem_hash}")
-    print_dem_statistics(dem, config.truth_raster.resolution_m)
+    print_dem_statistics(dem, config.orbital_raster.resolution_m)
 
     # Save a preview image of the DEM
     plt.figure(figsize=(8, 6))
