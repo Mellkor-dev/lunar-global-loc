@@ -151,6 +151,11 @@ def main() -> None:
 
     if SOURCE_DEM_PATH.resolve() == OUTPUT_DEM_PATH.resolve():
         raise ValueError("Source and target DEM paths must differ")
+    if TARGET_RESOLUTION_M < SOURCE_RESOLUTION_M:
+        raise ValueError(
+            "Cannot build a finer DEM from the configured truth raster; "
+            "select an equal or coarser --resolution"
+        )
     if not SOURCE_DEM_PATH.is_file():
         raise FileNotFoundError(
             f"Source DEM does not exist: {SOURCE_DEM_PATH}"

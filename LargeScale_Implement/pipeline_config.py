@@ -133,6 +133,7 @@ class PipelineConfig:
             raise ValueError(f"Unknown resolution '{name}'; choose from {choices}")
 
         target = self.feature_detection_targets[name]
+        truth_target = self.feature_detection_targets.get("1p5m")
         directory_name = target.output_path.parent.name
         local_root = PROJECT_ROOT / "local_maps" / directory_name
         simulation_root = PROJECT_ROOT / "sim" / directory_name
@@ -146,6 +147,22 @@ class PipelineConfig:
         mask_name = f"orbital_valid_mask_{name}.npy"
         return replace(
             self,
+            truth_dem_path=(
+                truth_target.dem_path if truth_target else self.truth_dem_path
+            ),
+            truth_metadata_path=(
+                truth_target.metadata_path
+                if truth_target
+                else self.truth_metadata_path
+            ),
+            truth_features_path=(
+                truth_target.output_path
+                if truth_target
+                else self.truth_features_path
+            ),
+            truth_raster=(
+                truth_target.raster if truth_target else self.truth_raster
+            ),
             orbital_dem_path=target.dem_path,
             orbital_metadata_path=target.metadata_path,
             orbital_mask_path=target.output_path.parent / mask_name,

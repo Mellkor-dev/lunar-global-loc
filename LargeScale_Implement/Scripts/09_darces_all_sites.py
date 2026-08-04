@@ -19,18 +19,13 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from matching.darces import run_darces
-from pipeline_config import load_pipeline_config
-
-
-CONFIG = load_pipeline_config()
-RESULT_DIRECTORY = CONFIG.results_path
-JSON_PATH = RESULT_DIRECTORY / "darces_all_sites.json"
-CSV_PATH = RESULT_DIRECTORY / "darces_all_sites.csv"
+from pipeline_config import add_resolution_argument, load_resolution_config
 
 
 # ALL-SITES EDIT 1: One reproducible CLI controls every independent site run.
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
+    add_resolution_argument(parser)
     parser.add_argument("--trials", type=int, default=1000_000)
     parser.add_argument("--seed", type=int, default=29)
     parser.add_argument("--heading-tolerance", type=float, default=5.0)
@@ -236,7 +231,10 @@ def main() -> None:
     if args.minimum_cluster_size <= 0:
         raise ValueError("--minimum-cluster-size must be positive")
 
-    config = CONFIG
+    config = load_resolution_config(args.resolution)
+    result_directory = config.results_path
+    json_path = result_directory / "darces_all_sites.json"
+    csv_path = result_directory / "darces_all_sites.csv"
     global_features_xyz, _ = _load_features(
         config.global_features_path,
         config.features.kind,
@@ -320,7 +318,7 @@ def main() -> None:
         print()
 
     # ALL-SITES EDIT 6: Machine-readable JSON and flat CSV share one result.
-    RESULT_DIRECTORY.mkdir(parents=True, exist_ok=True)
+    result_directory.mkdir(parents=True, exist_ok=True)
     payload = {
         "settings": {
             "trials_per_site": args.trials,
@@ -332,12 +330,12 @@ def main() -> None:
         },
         "sites": results,
     }
-    with JSON_PATH.open("w", encoding="utf-8") as stream:
+    with json_path.open("w", encoding="utf-8") as stream:
         json.dump(payload, stream, indent=2)
         stream.write("\n")
 
     fieldnames = sorted({key for result in results for key in result})
-    with CSV_PATH.open("w", encoding="utf-8", newline="") as stream:
+    with csv_path.open("w", encoding="utf-8", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(results)
@@ -350,8 +348,8 @@ def main() -> None:
     print("-------")
     for status, count in statuses.items():
         print(f"{status}: {count}")
-    print(f"JSON: {JSON_PATH}")
-    print(f"CSV:  {CSV_PATH}")
+    print(f"JSON: {json_path}")
+    print(f"CSV:  {csv_path}")
 
 
 if __name__ == "__main__":

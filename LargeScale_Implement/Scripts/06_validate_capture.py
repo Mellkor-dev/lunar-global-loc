@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from pathlib import Path
+import argparse
 import csv
 import re
 import sys
@@ -15,18 +16,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from pipeline_config import load_pipeline_config
-
-CONFIG = load_pipeline_config()
-
-CAPTURE_DIRECTORY = CONFIG.captures_path
-CLOUD_DIRECTORY = CAPTURE_DIRECTORY / "pointcloud_scans"
-ODOM_DIRECTORY = CAPTURE_DIRECTORY / "odom_scans"
-TRANSFORM_DIRECTORY = CAPTURE_DIRECTORY / "transform_scan"
-
-OUTPUT_DIRECTORY = CONFIG.capture_validation_path
-SUMMARY_PATH = OUTPUT_DIRECTORY / "capture_validation.csv"
-EXTRINSIC_PATH = OUTPUT_DIRECTORY / "recovered_lidar_extrinsics.npz"
+from pipeline_config import add_resolution_argument, load_resolution_config
 
 
 # Known Husky-to-LiDAR translation from the USD/TF setup.
@@ -132,6 +122,20 @@ def rotation_difference_deg(
 
 
 def main() -> None:
+    global CAPTURE_DIRECTORY, CLOUD_DIRECTORY, ODOM_DIRECTORY
+    global TRANSFORM_DIRECTORY, OUTPUT_DIRECTORY, SUMMARY_PATH, EXTRINSIC_PATH
+    parser = argparse.ArgumentParser(description=__doc__)
+    add_resolution_argument(parser)
+    args = parser.parse_args()
+    config = load_resolution_config(args.resolution)
+    CAPTURE_DIRECTORY = config.captures_path
+    CLOUD_DIRECTORY = CAPTURE_DIRECTORY / "pointcloud_scans"
+    ODOM_DIRECTORY = CAPTURE_DIRECTORY / "odom_scans"
+    TRANSFORM_DIRECTORY = CAPTURE_DIRECTORY / "transform_scan"
+    OUTPUT_DIRECTORY = config.capture_validation_path
+    SUMMARY_PATH = OUTPUT_DIRECTORY / "capture_validation.csv"
+    EXTRINSIC_PATH = OUTPUT_DIRECTORY / "recovered_lidar_extrinsics.npz"
+
     OUTPUT_DIRECTORY.mkdir(parents=True, exist_ok=True)
 
     cloud_files = {

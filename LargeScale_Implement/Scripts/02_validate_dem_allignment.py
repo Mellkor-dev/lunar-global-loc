@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 import sys
@@ -17,21 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from pipeline_config import load_pipeline_config
-
-CONFIG = load_pipeline_config()
-
-TRUTH_PATH = CONFIG.truth_dem_path
-ORBITAL_PATH = CONFIG.orbital_dem_path
-MASK_PATH = CONFIG.orbital_mask_path
-
-OUTPUT_DIRECTORY = CONFIG.dem_qa_path
-ALIGNMENT_PLOT_PATH = OUTPUT_DIRECTORY / "dem_alignment.png"
-PROFILE_PLOT_PATH = OUTPUT_DIRECTORY / "dem_center_profiles.png"
-REPORT_PATH = OUTPUT_DIRECTORY / "dem_alignment_report.json"
-
-TRUTH_RESOLUTION_M = CONFIG.truth_raster.resolution_m
-ORBITAL_RESOLUTION_M = CONFIG.orbital_raster.resolution_m
+from pipeline_config import add_resolution_argument, load_resolution_config
 
 
 def raster_coordinates(
@@ -294,11 +281,33 @@ def save_profile_plot(
 
 
 def main() -> None:
+    global CONFIG, TRUTH_PATH, ORBITAL_PATH, MASK_PATH
+    global OUTPUT_DIRECTORY, ALIGNMENT_PLOT_PATH, PROFILE_PLOT_PATH, REPORT_PATH
+    global TRUTH_RESOLUTION_M, ORBITAL_RESOLUTION_M
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    add_resolution_argument(parser)
+    args = parser.parse_args()
+    CONFIG = load_resolution_config(args.resolution)
+    TRUTH_PATH = CONFIG.truth_dem_path
+    ORBITAL_PATH = CONFIG.orbital_dem_path
+    MASK_PATH = CONFIG.orbital_mask_path
+    OUTPUT_DIRECTORY = CONFIG.dem_qa_path
+    ALIGNMENT_PLOT_PATH = OUTPUT_DIRECTORY / "dem_alignment.png"
+    PROFILE_PLOT_PATH = OUTPUT_DIRECTORY / "dem_center_profiles.png"
+    REPORT_PATH = OUTPUT_DIRECTORY / "dem_alignment_report.json"
+    TRUTH_RESOLUTION_M = CONFIG.truth_raster.resolution_m
+    ORBITAL_RESOLUTION_M = CONFIG.orbital_raster.resolution_m
+
     OUTPUT_DIRECTORY.mkdir(parents=True, exist_ok=True)
 
     truth = np.load(TRUTH_PATH)
     orbital = np.load(ORBITAL_PATH)
-    orbital_mask = np.load(MASK_PATH)
+    orbital_mask = (
+        np.load(MASK_PATH)
+        if MASK_PATH.is_file()
+        else np.isfinite(orbital)
+    )
 
     if truth.shape != CONFIG.truth_raster.shape:
         raise ValueError(f"Unexpected truth shape: {truth.shape}")

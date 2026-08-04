@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import csv
 from pathlib import Path
 import sys
@@ -16,10 +17,10 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from features.dilation_detector import detect_craters, detect_peaks
-from pipeline_config import load_pipeline_config
+from pipeline_config import add_resolution_argument, load_resolution_config
 
 
-CONFIG = load_pipeline_config()
+CONFIG = load_resolution_config("5m")
 GRID_DIRECTORY = CONFIG.gridded_maps_path
 FEATURE_DIRECTORY = CONFIG.local_features_path
 PREVIEW_DIRECTORY = CONFIG.plots_path / "local_features"
@@ -327,6 +328,23 @@ def process_grid(path: Path) -> dict[str, int | float | bool]:
 
 
 def main() -> None:
+    global CONFIG, GRID_DIRECTORY, FEATURE_DIRECTORY, PREVIEW_DIRECTORY
+    global SUMMARY_PATH, RESOLUTION_M, DETECTION_DISTANCE_M
+    global DETECTION_RADIUS_CELLS, FLATNESS_EPS_M, MIN_VALID_FRACTION
+    parser = argparse.ArgumentParser(description=__doc__)
+    add_resolution_argument(parser)
+    args = parser.parse_args()
+    CONFIG = load_resolution_config(args.resolution)
+    GRID_DIRECTORY = CONFIG.gridded_maps_path
+    FEATURE_DIRECTORY = CONFIG.local_features_path
+    PREVIEW_DIRECTORY = CONFIG.plots_path / "local_features"
+    SUMMARY_PATH = FEATURE_DIRECTORY / "local_feature_summary.csv"
+    RESOLUTION_M = CONFIG.orbital_raster.resolution_m
+    DETECTION_DISTANCE_M = CONFIG.features.distance_m
+    DETECTION_RADIUS_CELLS = CONFIG.features.radius_for_resolution(RESOLUTION_M)
+    FLATNESS_EPS_M = CONFIG.features.flatness_threshold_m
+    MIN_VALID_FRACTION = CONFIG.features.local_min_valid_fraction
+
     grid_paths = sorted(GRID_DIRECTORY.glob("grid_site_*.npz"))
     if not grid_paths:
         raise FileNotFoundError(f"No local grids found in {GRID_DIRECTORY}")

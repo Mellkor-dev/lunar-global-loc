@@ -19,19 +19,16 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from pipeline_config import load_pipeline_config
+from pipeline_config import add_resolution_argument, load_resolution_config
 
-
-CONFIG = load_pipeline_config()
-SIM_PATH = PROJECT_ROOT / "sim"
-CAPTURE_PATH = CONFIG.captures_path
+_DEFAULT_CONFIG = load_resolution_config("5m")
+CAPTURE_PATH = _DEFAULT_CONFIG.captures_path
 ODOM_SCAN = CAPTURE_PATH / "odom_scans"
 TRANSFORM_SCAN = CAPTURE_PATH / "transform_scan"
 POINTCLOUD_SCAN = CAPTURE_PATH / "pointcloud_scans"
-LEVELED_SCAN = CONFIG.leveled_maps_path
-GRIDDED_SCAN = CONFIG.gridded_maps_path
-
-LOCAL_GRID_RESOLUTION_M = CONFIG.orbital_raster.resolution_m
+LEVELED_SCAN = _DEFAULT_CONFIG.leveled_maps_path
+GRIDDED_SCAN = _DEFAULT_CONFIG.gridded_maps_path
+LOCAL_GRID_RESOLUTION_M = _DEFAULT_CONFIG.orbital_raster.resolution_m
 
 
 T_BASE_LIDAR = np.eye(4, dtype=np.float64)
@@ -434,11 +431,12 @@ def process_all_sites(
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
+    add_resolution_argument(parser)
     parser.add_argument(
-        "--resolution",
+        "--grid-resolution",
         type=float,
-        default=LOCAL_GRID_RESOLUTION_M,
-        help="Local elevation-grid resolution in metres (default: 5)",
+        default=None,
+        help="Override the selected profile's grid resolution in metres",
     )
     parser.add_argument(
         "--max-neighbor-distance",
@@ -449,29 +447,38 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--leveled-directory",
         type=Path,
-        default=LEVELED_SCAN,
+        default=None,
     )
     parser.add_argument(
         "--gridded-directory",
         type=Path,
-        default=GRIDDED_SCAN,
+        default=None,
     )
     return parser.parse_args()
 
 
 def main() -> None:
+    global CAPTURE_PATH, ODOM_SCAN, TRANSFORM_SCAN, POINTCLOUD_SCAN
     args = parse_arguments()
+    config = load_resolution_config(args.resolution)
+    CAPTURE_PATH = config.captures_path
+    ODOM_SCAN = CAPTURE_PATH / "odom_scans"
+    TRANSFORM_SCAN = CAPTURE_PATH / "transform_scan"
+    POINTCLOUD_SCAN = CAPTURE_PATH / "pointcloud_scans"
+    resolution_m = args.grid_resolution or config.orbital_raster.resolution_m
+    leveled_directory = args.leveled_directory or config.leveled_maps_path
+    gridded_directory = args.gridded_directory or config.gridded_maps_path
     dataset = load_local_scan_dataset()
     grids = process_all_sites(
         dataset,
-        leveled_directory=args.leveled_directory,
-        gridded_directory=args.gridded_directory,
-        resolution_m=args.resolution,
+        leveled_directory=leveled_directory,
+        gridded_directory=gridded_directory,
+        resolution_m=resolution_m,
         max_neighbor_distance_m=args.max_neighbor_distance,
     )
     print()
-    print(f"Saved {len(grids)} leveled clouds to {args.leveled_directory}")
-    print(f"Saved {len(grids)} local grids to {args.gridded_directory}")
+    print(f"Saved {len(grids)} leveled clouds to {leveled_directory}")
+    print(f"Saved {len(grids)} local grids to {gridded_directory}")
 
 
 if __name__ == "__main__":

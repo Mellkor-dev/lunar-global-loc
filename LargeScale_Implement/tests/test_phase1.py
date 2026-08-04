@@ -38,6 +38,17 @@ def test_resolution_specific_detector_profiles() -> None:
         )
 
 
+def test_resolution_workspace_paths_are_projected_consistently() -> None:
+    config = load_pipeline_config().for_resolution("0p25m")
+    assert config.orbital_raster.resolution_m == 0.25
+    assert config.global_features_path.parent.name == "0p25m_px"
+    assert config.gridded_maps_path.parts[-2:] == ("0p25m_px", "gridded")
+    assert config.results_path.name == "0p25m_px"
+    assert config.captures_path.name == "0p25m_px"
+    assert config.features.radius_cells == 120
+    assert config.truth_raster.resolution_m == 1.5
+
+
 def test_truth_raster_coordinate_contract() -> None:
     config = load_pipeline_config()
     indices = np.array([[0, 0], [1333, 1333]])

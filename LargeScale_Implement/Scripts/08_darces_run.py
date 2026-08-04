@@ -17,18 +17,16 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from matching.darces import run_darces
-from pipeline_config import load_pipeline_config
+from pipeline_config import add_resolution_argument, load_resolution_config
 
 
 SITE_NUMBER = 8
-CONFIG = load_pipeline_config()
-RESULT_DIRECTORY = CONFIG.results_path
-RESULT_PATH = RESULT_DIRECTORY / "darces_site_08.json"
 
 
 # RUNNER EDIT 1: All experimental controls are explicit CLI parameters.
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
+    add_resolution_argument(parser)
     parser.add_argument("--trials", type=int, default=100_000)
     parser.add_argument("--seed", type=int, default=8)
     parser.add_argument("--heading-tolerance", type=float, default=10.0)
@@ -49,7 +47,9 @@ def main() -> None:
     if args.minimum_cluster_size <= 0:
         raise ValueError("--minimum-cluster-size must be positive")
 
-    config = CONFIG
+    config = load_resolution_config(args.resolution)
+    result_directory = config.results_path
+    result_path = result_directory / "darces_site_08.json"
     grid_path = (
         config.gridded_maps_path / f"grid_site_{SITE_NUMBER:02d}.npz"
     )
@@ -225,8 +225,8 @@ def main() -> None:
             ),
         }
 
-    RESULT_DIRECTORY.mkdir(parents=True, exist_ok=True)
-    with RESULT_PATH.open("w", encoding="utf-8") as stream:
+    result_directory.mkdir(parents=True, exist_ok=True)
+    with result_path.open("w", encoding="utf-8") as stream:
         json.dump(payload, stream, indent=2)
         stream.write("\n")
 
@@ -242,7 +242,7 @@ def main() -> None:
         print(f"XY error:      {evaluation['xy_error_m']:.3f} m")
         print(f"Z error:       {evaluation['z_error_m']:.3f} m")
         print(f"Heading error: {evaluation['heading_error_deg']:.3f} deg")
-    print(f"Result:        {RESULT_PATH}")
+    print(f"Result:        {result_path}")
 
 
 if __name__ == "__main__":

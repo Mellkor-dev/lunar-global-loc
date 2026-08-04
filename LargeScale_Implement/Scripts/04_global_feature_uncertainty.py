@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 from dataclasses import asdict, dataclass
 import csv
 import json
@@ -18,14 +19,11 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from pipeline_config import PipelineConfig, load_pipeline_config
-
-
-CONFIG = load_pipeline_config()
-OUTPUT_DIRECTORY = CONFIG.feature_validation_path
-MATCHES_PATH = OUTPUT_DIRECTORY / "downsampling_feature_matches.npz"
-SUMMARY_PATH = OUTPUT_DIRECTORY / "downsampling_uncertainty_summary.csv"
-PLOT_PATH = CONFIG.plots_path / "downsampling_uncertainty.png"
+from pipeline_config import (
+    PipelineConfig,
+    add_resolution_argument,
+    load_resolution_config,
+)
 REQUIRED_FIELDS = {"x_m", "y_m", "z_m", "feature_kind"}
 
 
@@ -241,7 +239,15 @@ def _save_plot() -> None:
 
 
 def main() -> None:
-    config = CONFIG
+    global OUTPUT_DIRECTORY, MATCHES_PATH, SUMMARY_PATH, PLOT_PATH
+    parser = argparse.ArgumentParser(description=__doc__)
+    add_resolution_argument(parser)
+    args = parser.parse_args()
+    config = load_resolution_config(args.resolution)
+    OUTPUT_DIRECTORY = config.feature_validation_path
+    MATCHES_PATH = OUTPUT_DIRECTORY / "downsampling_feature_matches.npz"
+    SUMMARY_PATH = OUTPUT_DIRECTORY / "downsampling_uncertainty_summary.csv"
+    PLOT_PATH = config.plots_path / "downsampling_uncertainty.png"
     uncertainty, counts = estimate_uncertainty(config)
     _save_plot()
 
