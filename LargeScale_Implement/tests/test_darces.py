@@ -4,7 +4,12 @@ from itertools import permutations
 
 import numpy as np
 
-from matching.darces import generate_hypotheses, rigid_transform_2d, run_darces
+from matching.darces import (
+    feature_consensus,
+    generate_hypotheses,
+    rigid_transform_2d,
+    run_darces,
+)
 
 
 def _rotation(yaw_deg: float) -> np.ndarray:
@@ -27,9 +32,7 @@ def test_all_triangle_vertex_orders_recover_transform() -> None:
             hypotheses = generate_hypotheses(
                 shuffled_local,
                 shuffled_global,
-                n_trials=1,
                 distance_tolerance_m=0.01,
-                rng=np.random.default_rng(4),
                 control_rms_tolerance_m=0.01,
             )
             recovered = []
@@ -95,7 +98,7 @@ def test_end_to_end_synthetic_2p5d_pose() -> None:
         local_y_centers_m=local_y,
         global_x_centers_m=global_x,
         global_y_centers_m=global_y,
-        n_trials=1,
+        n_trials=100,
         distance_tolerance_m=0.1,
         z_residual_tolerance_m=0.1,
         heading_measurement_deg=20.0,
@@ -107,3 +110,44 @@ def test_end_to_end_synthetic_2p5d_pose() -> None:
     assert np.allclose(result["R"], expected_rotation, atol=1e-10)
     assert np.allclose(result["t"], expected_xy, atol=1e-10)
     assert np.isclose(result["tz"], expected_z, atol=1e-10)
+    assert result["correspondence_count"] == 3
+
+
+def test_covariance_gate_is_not_clipped_by_lookup_tolerance() -> None:
+    local = np.array(((0.0, 0.0), (20.0, 0.0), (5.0, 30.0)))
+    global_points = local.copy()
+    global_points[1, 0] += 1.0
+    covariance = np.repeat(np.eye(3)[None, :, :], 3, axis=0)
+    hypotheses = generate_hypotheses(
+        local,
+        global_points,
+        distance_tolerance_m=0.1,
+        control_rms_tolerance_m=2.0,
+        local_covariances=covariance,
+        global_covariances=covariance,
+        sigma_multiplier=2.0,
+    )
+    assert hypotheses
+
+
+def test_feature_expansion_is_covariance_gated_and_one_to_one() -> None:
+    local = np.array(
+        ((0.0, 0.0, 0.0), (10.0, 0.0, 0.0), (10.4, 0.0, 0.0))
+    )
+    global_points = np.array(((5.0, 2.0, 1.0), (15.2, 2.0, 1.0)))
+    local_covariance = np.repeat((0.25 * np.eye(3))[None, :, :], 3, axis=0)
+    global_covariance = np.repeat((0.25 * np.eye(3))[None, :, :], 2, axis=0)
+    result = feature_consensus(
+        rotation=np.eye(2),
+        translation_xy_m=np.array((5.0, 2.0)),
+        translation_z_m=1.0,
+        local_features_xyz=local,
+        global_features_xyz=global_points,
+        xy_tolerance_m=0.01,
+        z_tolerance_m=0.01,
+        local_covariances=local_covariance,
+        global_covariances=global_covariance,
+        sigma_multiplier=2.0,
+    )
+    assert result["count"] == 2
+    assert len(np.unique(result["global_indices"])) == 2

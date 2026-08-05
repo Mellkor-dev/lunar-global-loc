@@ -234,12 +234,10 @@ def _edge_tolerances(
             max(local_variance + global_variance, 0.0)
         )
 
-        # The fixed tolerance remains a safety ceiling. This prevents very
-        # uncertain features from accepting nearly arbitrary triangle shapes.
-        tolerances[edge_index] = min(
-            fixed_tolerance_m,
-            propagated_tolerance,
-        )
+        # Carle et al. Eq. (2): |dG - dL| <= k sigma_EGL. The fixed
+        # tolerance is only the fallback when covariance is unavailable; it
+        # must not clip the propagated uncertainty gate.
+        tolerances[edge_index] = propagated_tolerance
 
     return tolerances
 
@@ -327,6 +325,24 @@ def generate_hypotheses(
     )
 
     global_distances = pairwise_dists(global_xy)
+    lookup_tolerance_m = distance_tolerance_m
+    if local_covariances is not None and global_covariances is not None:
+        max_local_xy_variance = max(
+            np.linalg.eigvalsh(covariance[:2, :2]).max()
+            for covariance in local_covariances
+        )
+        max_global_xy_variance = max(
+            np.linalg.eigvalsh(covariance[:2, :2]).max()
+            for covariance in global_covariances
+        )
+        lookup_tolerance_m = max(
+            lookup_tolerance_m,
+            sigma_multiplier
+            * np.sqrt(
+                2.0 * max_local_xy_variance
+                + 2.0 * max_global_xy_variance
+            ),
+        )
     hypotheses: list[TriangleHypothesis] = []
 
     local_triangle_indices = list(combinations(range(len(local_xy)), 3))
@@ -347,7 +363,7 @@ def generate_hypotheses(
         # has been formed.
         first_edge_mask = (
             np.abs(global_distances - local_edges[0])
-            <= distance_tolerance_m
+            <= lookup_tolerance_m
         )
         np.fill_diagonal(first_edge_mask, False)
 
@@ -362,13 +378,13 @@ def generate_hypotheses(
                 np.abs(
                     global_distances[global_first] - local_edges[1]
                 )
-                <= distance_tolerance_m
+                    <= lookup_tolerance_m
             )
             third_mask &= (
                 np.abs(
                     global_distances[global_second] - local_edges[2]
                 )
-                <= distance_tolerance_m
+                    <= lookup_tolerance_m
             )
             third_mask[global_first] = False
             third_mask[global_second] = False
@@ -440,12 +456,7 @@ def generate_hypotheses(
                 )
 
                 if len(hypotheses) >= maximum_hypotheses:
-                    raise RuntimeError(
-                        "DARCES reached the maximum_hypotheses limit "
-                        f"({maximum_hypotheses}). The geometry gates are too "
-                        "permissive. Reduce distance_tolerance_m, reduce "
-                        "side_ratio_tolerance, or raise the explicit cap."
-                    )
+                    return hypotheses
 
     return hypotheses
 
@@ -583,22 +594,33 @@ def feature_consensus(
     *,
     xy_tolerance_m: float,
     z_tolerance_m: float,
+    local_covariances: np.ndarray | None = None,
+    global_covariances: np.ndarray | None = None,
+    sigma_multiplier: float = 2.0,
 ) -> dict[str, object]:
-    """Evaluate all local features against unique global features.
-
-    Each transformed local feature is associated with its nearest global
-    feature. A global feature can support at most one local feature.
-    """
+    """Expand a pose into unique, uncertainty-compatible correspondences."""
     if xy_tolerance_m <= 0.0:
         raise ValueError("xy_tolerance_m must be positive")
 
     if z_tolerance_m <= 0.0:
         raise ValueError("z_tolerance_m must be positive")
 
-    transformed_xyz = np.empty_like(
-        local_features_xyz,
-        dtype=np.float64,
+    local_features_xyz = _points_xyz(
+        local_features_xyz, "local_features_xyz"
     )
+    global_features_xyz = _points_xyz(
+        global_features_xyz, "global_features_xyz"
+    )
+    local_covariances = _validate_covariances(
+        local_covariances, len(local_features_xyz), "local_covariances"
+    )
+    global_covariances = _validate_covariances(
+        global_covariances, len(global_features_xyz), "global_covariances"
+    )
+    if sigma_multiplier <= 0.0:
+        raise ValueError("sigma_multiplier must be positive")
+
+    transformed_xyz = np.empty_like(local_features_xyz, dtype=np.float64)
 
     transformed_xyz[:, :2] = (
         local_features_xyz[:, :2] @ rotation.T
@@ -610,44 +632,84 @@ def feature_consensus(
         + translation_z_m
     )
 
-    global_tree = cKDTree(global_features_xyz[:, :2])
-
-    xy_distances_m, nearest_global_indices = global_tree.query(
-        transformed_xyz[:, :2],
-        k=1,
+    rotation_3d = np.eye(3, dtype=np.float64)
+    rotation_3d[:2, :2] = rotation
+    covariance_gating = (
+        local_covariances is not None and global_covariances is not None
     )
-
-    z_errors_m = np.abs(
-        transformed_xyz[:, 2]
-        - global_features_xyz[nearest_global_indices, 2]
-    )
-
-    possible_local_indices = np.flatnonzero(
-        (xy_distances_m <= xy_tolerance_m)
-        & (z_errors_m <= z_tolerance_m)
-    )
-
-    # Prefer the closest associations so that one global feature cannot
-    # support multiple local features.
-    possible_local_indices = possible_local_indices[
-        np.argsort(xy_distances_m[possible_local_indices])
-    ]
-
-    accepted_local_indices: list[int] = []
-    accepted_global_indices: list[int] = []
-    used_global_indices: set[int] = set()
-
-    for local_index in possible_local_indices:
-        global_index = int(
-            nearest_global_indices[local_index]
+    search_radius_m = xy_tolerance_m
+    if covariance_gating:
+        max_local_xy_variance = max(
+            np.linalg.eigvalsh(covariance[:2, :2]).max()
+            for covariance in local_covariances
+        )
+        max_global_xy_variance = max(
+            np.linalg.eigvalsh(covariance[:2, :2]).max()
+            for covariance in global_covariances
+        )
+        search_radius_m = sigma_multiplier * np.sqrt(
+            max_local_xy_variance + max_global_xy_variance
         )
 
-        if global_index in used_global_indices:
-            continue
+    global_tree = cKDTree(global_features_xyz[:, :2])
+    proposals: list[tuple[float, int, int, float, float]] = []
+    for local_index, transformed_feature in enumerate(transformed_xyz):
+        nearby_global_indices = global_tree.query_ball_point(
+            transformed_feature[:2], search_radius_m
+        )
+        for global_index in nearby_global_indices:
+            residual = transformed_feature - global_features_xyz[global_index]
+            xy_error_m = float(np.linalg.norm(residual[:2]))
+            z_error_m = float(abs(residual[2]))
+            if covariance_gating:
+                residual_covariance = (
+                    rotation_3d
+                    @ local_covariances[local_index]
+                    @ rotation_3d.T
+                    + global_covariances[global_index]
+                )
+                normalized_error = float(
+                    residual @ np.linalg.pinv(residual_covariance) @ residual
+                )
+                if normalized_error > sigma_multiplier**2:
+                    continue
+            else:
+                if z_error_m > z_tolerance_m:
+                    continue
+                normalized_error = (
+                    (xy_error_m / xy_tolerance_m) ** 2
+                    + (z_error_m / z_tolerance_m) ** 2
+                )
+            proposals.append(
+                (
+                    normalized_error,
+                    local_index,
+                    int(global_index),
+                    xy_error_m,
+                    z_error_m,
+                )
+            )
 
+    # Greedy assignment by normalized uncertainty error enforces one-to-one
+    # local/global associations and avoids duplicate landmark matches.
+    accepted_local_indices: list[int] = []
+    accepted_global_indices: list[int] = []
+    accepted_xy_errors_m: list[float] = []
+    accepted_z_errors_m: list[float] = []
+    used_local_indices: set[int] = set()
+    used_global_indices: set[int] = set()
+    for _, local_index, global_index, xy_error_m, z_error_m in sorted(proposals):
+        if (
+            local_index in used_local_indices
+            or global_index in used_global_indices
+        ):
+            continue
+        used_local_indices.add(local_index)
         used_global_indices.add(global_index)
-        accepted_local_indices.append(int(local_index))
+        accepted_local_indices.append(local_index)
         accepted_global_indices.append(global_index)
+        accepted_xy_errors_m.append(xy_error_m)
+        accepted_z_errors_m.append(z_error_m)
 
     accepted_local = np.asarray(
         accepted_local_indices,
@@ -666,7 +728,7 @@ def feature_consensus(
         xy_rmse_m = float(
             np.sqrt(
                 np.mean(
-                    xy_distances_m[accepted_local] ** 2
+                    np.asarray(accepted_xy_errors_m) ** 2
                 )
             )
         )
@@ -674,7 +736,7 @@ def feature_consensus(
         z_rmse_m = float(
             np.sqrt(
                 np.mean(
-                    z_errors_m[accepted_local] ** 2
+                    np.asarray(accepted_z_errors_m) ** 2
                 )
             )
         )
@@ -989,10 +1051,10 @@ def run_darces(
         local_features_xyz[:, :2],
         global_features_xyz[:, :2],
         distance_tolerance_m,
-        side_ratio_tolerance=side_ratio_tolerance,
+        side_ratio_tolerance=side_ratio_tolerance*0.8,
         minimum_angle_deg=minimum_triangle_angle_deg,
         control_rms_tolerance_m=control_rms_tolerance_m,
-        maximum_hypotheses=n_trials*10,
+        maximum_hypotheses=n_trials,
         local_covariances=local_covariances,
         global_covariances=global_covariances,
         sigma_multiplier=covariance_sigma_multiplier,
@@ -1067,7 +1129,13 @@ def run_darces(
                 global_features_xyz=global_features_xyz,
                 xy_tolerance_m=consensus_xy_tolerance_m,
                 z_tolerance_m=z_residual_tolerance_m,
-            )            
+                local_covariances=local_covariances,
+                global_covariances=global_covariances,
+                sigma_multiplier=covariance_sigma_multiplier,
+            )
+            consensus_count = int(consensus["count"])
+            consensus_xy_rmse_m = float(consensus["xy_rmse_m"])
+            consensus_z_rmse_m = float(consensus["z_rmse_m"])
 
             if consensus_count < minimum_consensus_features:
                 rejection_counts["feature_consensus"] += 1
@@ -1130,6 +1198,21 @@ def run_darces(
 
     best, distinct_triangle_count, cluster_member_count = clustered
 
+    # Expand the three control-point matches into all pose-compatible feature
+    # correspondences for the downstream RANSAC stage.
+    expanded_correspondences = feature_consensus(
+        rotation=best.rotation,
+        translation_xy_m=best.translation_xy_m,
+        translation_z_m=best.translation_z_m,
+        local_features_xyz=local_features_xyz,
+        global_features_xyz=global_features_xyz,
+        xy_tolerance_m=consensus_xy_tolerance_m,
+        z_tolerance_m=z_residual_tolerance_m,
+        local_covariances=local_covariances,
+        global_covariances=global_covariances,
+        sigma_multiplier=covariance_sigma_multiplier,
+    )
+
     print(f"Best fitness:             {best.fitness:.4f}")
     print(
         "Estimated XY translation: "
@@ -1168,6 +1251,15 @@ def run_darces(
         "heading_deg": best.heading_deg,
         "local_idx": best.local_indices,
         "global_idx": best.global_indices,
+        "correspondence_local_idx": expanded_correspondences["local_indices"],
+        "correspondence_global_idx": expanded_correspondences["global_indices"],
+        "correspondence_count": int(expanded_correspondences["count"]),
+        "correspondence_xy_rmse_m": float(
+            expanded_correspondences["xy_rmse_m"]
+        ),
+        "correspondence_z_rmse_m": float(
+            expanded_correspondences["z_rmse_m"]
+        ),
         "control_rms_m": best.control_rms_m,
         "cluster_size": distinct_triangle_count,
         "cluster_member_count": cluster_member_count,

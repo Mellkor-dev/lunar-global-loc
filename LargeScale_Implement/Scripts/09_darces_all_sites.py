@@ -26,7 +26,12 @@ from pipeline_config import add_resolution_argument, load_resolution_config
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     add_resolution_argument(parser)
-    parser.add_argument("--trials", type=int, default=1000_000)
+    parser.add_argument(
+        "--trials",
+        type=int,
+        default=100_000,
+        help="Maximum accepted control hypotheses per site (default: 100000)",
+    )
     parser.add_argument("--seed", type=int, default=29)
     parser.add_argument("--heading-tolerance", type=float, default=5.0)
     parser.add_argument("--minimum-cluster-size", type=int, default=2)
@@ -162,7 +167,7 @@ def run_site(
         local_y_centers_m=local_y_centers_m,
         global_x_centers_m=global_x_centers_m,
         global_y_centers_m=global_y_centers_m,
-        n_trials=100000,
+        n_trials=args.trials,
         distance_tolerance_m=distance_tolerance_m,
         z_residual_tolerance_m=z_residual_tolerance_m,
         heading_measurement_deg=heading_measurement_deg,
@@ -219,6 +224,19 @@ def run_site(
             "consensus_z_rmse_m": float(
                 result["consensus_z_rmse_m"]
             ),
+            "correspondence_count": int(result["correspondence_count"]),
+            "correspondence_local_indices": np.asarray(
+                result["correspondence_local_idx"], dtype=np.int64
+            ).tolist(),
+            "correspondence_global_indices": np.asarray(
+                result["correspondence_global_idx"], dtype=np.int64
+            ).tolist(),
+            "correspondence_xy_rmse_m": float(
+                result["correspondence_xy_rmse_m"]
+            ),
+            "correspondence_z_rmse_m": float(
+                result["correspondence_z_rmse_m"]
+            ),
         }
     )
     return base_result
@@ -235,22 +253,9 @@ def main() -> None:
     result_directory = config.results_path
     json_path = result_directory / "darces_all_sites.json"
     csv_path = result_directory / "darces_all_sites.csv"
-    global_features_xyz, _ = _load_features(
+    global_features_xyz, catalogue_global_covariances = _load_features(
         config.global_features_path,
         config.features.kind,
-    )
-    GLOBAL_FEATURE_COVARIANCE_M2 = np.array(
-        [
-            [110.50479094, 0.0,          0.0],
-            [0.0,          110.50479094, 0.0],
-            [0.0,          0.0,          1.70066948],
-        ],
-        dtype=np.float64,
-    )
-    global_covariances = np.repeat(
-        GLOBAL_FEATURE_COVARIANCE_M2[None, :, :],
-        len(global_features_xyz),
-        axis=0,
     )
     global_dem = np.asarray(
         np.load(config.orbital_dem_path, allow_pickle=False),
@@ -264,6 +269,17 @@ def main() -> None:
         encoding="utf-8",
     ) as stream:
         uncertainty = json.load(stream)
+    if catalogue_global_covariances is not None:
+        global_covariances = catalogue_global_covariances
+    else:
+        global_covariance_m2 = np.asarray(
+            uncertainty["covariance_m2"], dtype=np.float64
+        )
+        global_covariances = np.repeat(
+            global_covariance_m2[None, :, :],
+            len(global_features_xyz),
+            axis=0,
+        )
     distance_tolerance_m = 3.0 * float(uncertainty["sigma_xy_m"])
     z_residual_tolerance_m = 3.0 * float(uncertainty["sigma_z_m"])
 
@@ -327,6 +343,8 @@ def main() -> None:
             "minimum_cluster_size": args.minimum_cluster_size,
             "distance_tolerance_m": distance_tolerance_m,
             "z_residual_tolerance_m": z_residual_tolerance_m,
+            "covariance_sigma_multiplier": 2.0,
+            "global_covariance_m2": global_covariances[0].tolist(),
         },
         "sites": results,
     }
