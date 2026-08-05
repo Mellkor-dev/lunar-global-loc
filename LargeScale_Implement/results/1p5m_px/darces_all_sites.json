@@ -1,11 +1,29 @@
 {
   "settings": {
-    "trials_per_site": 1000000,
+    "trials_per_site": 100000,
     "seed": 29,
     "heading_tolerance_deg": 5.0,
     "minimum_cluster_size": 2,
     "distance_tolerance_m": 30.0,
-    "z_residual_tolerance_m": 3.9000000000000004
+    "z_residual_tolerance_m": 3.9000000000000004,
+    "covariance_sigma_multiplier": 2.0,
+    "global_covariance_m2": [
+      [
+        100.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.6900000000000002
+      ]
+    ]
   },
   "sites": [
     {
@@ -13,7 +31,7 @@
       "local_feature_count": 6,
       "heading_measurement_deg": -0.27220387723835904,
       "status": "solution",
-      "runtime_s": 9.282400297990534,
+      "runtime_s": 13.788603868000791,
       "estimated_x_m": -444.8169472785816,
       "estimated_y_m": -161.1857644590951,
       "estimated_z_m": 8.506591737270355,
@@ -30,21 +48,36 @@
       "heading_error_deg": 1.2326525491061204,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 4,
+      "correspondence_local_indices": [
+        1,
+        3,
+        2,
+        0
+      ],
+      "correspondence_global_indices": [
+        488,
+        546,
+        545,
+        495
+      ],
+      "correspondence_xy_rmse_m": 8.23354833568095,
+      "correspondence_z_rmse_m": 1.1363523244823526
     },
     {
       "site": 2,
       "local_feature_count": 6,
       "heading_measurement_deg": -1.9318747485652559,
       "status": "no_solution",
-      "runtime_s": 6.186593144011567
+      "runtime_s": 9.309223978998489
     },
     {
       "site": 3,
       "local_feature_count": 9,
       "heading_measurement_deg": -40.71819704388585,
       "status": "solution",
-      "runtime_s": 51.62009155200212,
+      "runtime_s": 77.43737966300978,
       "estimated_x_m": 19.74618054632766,
       "estimated_y_m": -10.699047981214001,
       "estimated_z_m": -0.020504534244537354,
@@ -61,7 +94,24 @@
       "heading_error_deg": 0.03188224239141846,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 5,
+      "correspondence_local_indices": [
+        5,
+        2,
+        1,
+        0,
+        7
+      ],
+      "correspondence_global_indices": [
+        375,
+        370,
+        340,
+        318,
+        384
+      ],
+      "correspondence_xy_rmse_m": 5.676379493746371,
+      "correspondence_z_rmse_m": 0.3320785325519341
     },
     {
       "site": 4,
@@ -80,7 +130,7 @@
       "local_feature_count": 10,
       "heading_measurement_deg": -149.25701624245687,
       "status": "solution",
-      "runtime_s": 85.45168463099981,
+      "runtime_s": 107.95541964500444,
       "estimated_x_m": -0.2220730783711673,
       "estimated_y_m": -61.33533680827089,
       "estimated_z_m": 0.11303138732910156,
@@ -88,7 +138,7 @@
       "fitness": -0.2235976876557612,
       "overlap": 1.0,
       "cluster_size": 5,
-      "evaluated_hypothesis_count": 2220,
+      "evaluated_hypothesis_count": 1930,
       "truth_x_m": -0.9627990126609802,
       "truth_y_m": -59.02731704711914,
       "truth_z_m": -0.45432978868484497,
@@ -97,7 +147,24 @@
       "heading_error_deg": 0.9162806247362312,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 5,
+      "correspondence_local_indices": [
+        5,
+        1,
+        3,
+        0,
+        6
+      ],
+      "correspondence_global_indices": [
+        375,
+        340,
+        366,
+        318,
+        370
+      ],
+      "correspondence_xy_rmse_m": 7.986447631435325,
+      "correspondence_z_rmse_m": 0.36733890601767283
     },
     {
       "site": 7,
@@ -128,21 +195,21 @@
       "local_feature_count": 3,
       "heading_measurement_deg": -110.5384072461038,
       "status": "no_solution",
-      "runtime_s": 0.011310344998491928
+      "runtime_s": 0.013602489008917473
     },
     {
       "site": 12,
       "local_feature_count": 5,
       "heading_measurement_deg": -95.71127683719807,
       "status": "no_solution",
-      "runtime_s": 4.360857670995756
+      "runtime_s": 6.152547535006306
     },
     {
       "site": 13,
       "local_feature_count": 5,
       "heading_measurement_deg": -99.79358424542976,
       "status": "solution",
-      "runtime_s": 5.40541142100119,
+      "runtime_s": 7.631588461998035,
       "estimated_x_m": -26.805701196935964,
       "estimated_y_m": -199.15030589968634,
       "estimated_z_m": 3.344308376312256,
@@ -159,21 +226,66 @@
       "heading_error_deg": 1.851783261711148,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 4,
+      "correspondence_local_indices": [
+        4,
+        3,
+        1,
+        0
+      ],
+      "correspondence_global_indices": [
+        414,
+        403,
+        366,
+        303
+      ],
+      "correspondence_xy_rmse_m": 6.489160245269291,
+      "correspondence_z_rmse_m": 1.1396670673150506
     },
     {
       "site": 14,
       "local_feature_count": 9,
       "heading_measurement_deg": -131.9409613661199,
-      "status": "no_solution",
-      "runtime_s": 69.99521232699044
+      "status": "solution",
+      "runtime_s": 35.96848246399895,
+      "estimated_x_m": -300.63155500186275,
+      "estimated_y_m": 216.20470704222646,
+      "estimated_z_m": 9.449747562408447,
+      "estimated_heading_deg": -127.5774121290003,
+      "fitness": -1.818077402233444,
+      "overlap": 1.0,
+      "cluster_size": 3,
+      "evaluated_hypothesis_count": 413,
+      "truth_x_m": -50.64036178588867,
+      "truth_y_m": -224.77685546875,
+      "truth_z_m": 3.8478145599365234,
+      "xy_error_m": 506.9125517879477,
+      "z_error_m": 5.601933002471924,
+      "heading_error_deg": 4.363549237119599,
+      "consensus_count": 0,
+      "consensus_xy_rmse_m": Infinity,
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 3,
+      "correspondence_local_indices": [
+        3,
+        5,
+        6
+      ],
+      "correspondence_global_indices": [
+        444,
+        500,
+        502
+      ],
+      "correspondence_xy_rmse_m": 5.2157898941944225,
+      "correspondence_z_rmse_m": 1.484861748553235
     },
     {
       "site": 15,
       "local_feature_count": 8,
       "heading_measurement_deg": 148.4489082081921,
       "status": "solution",
-      "runtime_s": 28.00461358400935,
+      "runtime_s": 41.44030272901,
       "estimated_x_m": -24.24339351506881,
       "estimated_y_m": 11.078935995321785,
       "estimated_z_m": 0.43672096729278564,
@@ -190,21 +302,36 @@
       "heading_error_deg": 2.442413358615113,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 4,
+      "correspondence_local_indices": [
+        7,
+        2,
+        0,
+        6
+      ],
+      "correspondence_global_indices": [
+        384,
+        370,
+        318,
+        375
+      ],
+      "correspondence_xy_rmse_m": 8.121242058907082,
+      "correspondence_z_rmse_m": 0.1354183187669095
     },
     {
       "site": 16,
       "local_feature_count": 3,
       "heading_measurement_deg": -138.39500865476546,
       "status": "no_solution",
-      "runtime_s": 0.40245546599908266
+      "runtime_s": 0.5865799720049836
     },
     {
       "site": 17,
       "local_feature_count": 9,
       "heading_measurement_deg": -143.02059009636423,
       "status": "solution",
-      "runtime_s": 41.04454611099209,
+      "runtime_s": 58.23325686401222,
       "estimated_x_m": -882.4521647203427,
       "estimated_y_m": 855.8727835068212,
       "estimated_z_m": 26.81753396987915,
@@ -221,21 +348,34 @@
       "heading_error_deg": 0.0694630276841508,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 3,
+      "correspondence_local_indices": [
+        4,
+        6,
+        2
+      ],
+      "correspondence_global_indices": [
+        685,
+        690,
+        683
+      ],
+      "correspondence_xy_rmse_m": 4.815032464352797,
+      "correspondence_z_rmse_m": 1.8293242850136326
     },
     {
       "site": 18,
       "local_feature_count": 8,
       "heading_measurement_deg": -139.12382904054863,
       "status": "no_solution",
-      "runtime_s": 20.538991277993773
+      "runtime_s": 29.177862436001305
     },
     {
       "site": 19,
       "local_feature_count": 4,
       "heading_measurement_deg": -163.07943097450712,
       "status": "solution",
-      "runtime_s": 1.5985819600027753,
+      "runtime_s": 2.28779201299767,
       "estimated_x_m": -467.84978122373593,
       "estimated_y_m": -153.9821831803753,
       "estimated_z_m": 10.15936815738678,
@@ -252,14 +392,27 @@
       "heading_error_deg": 3.3925425741244055,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 3,
+      "correspondence_local_indices": [
+        1,
+        0,
+        2
+      ],
+      "correspondence_global_indices": [
+        576,
+        578,
+        610
+      ],
+      "correspondence_xy_rmse_m": 4.383711847576766,
+      "correspondence_z_rmse_m": 0.6413245735736908
     },
     {
       "site": 20,
       "local_feature_count": 9,
       "heading_measurement_deg": -137.02000719215434,
       "status": "solution",
-      "runtime_s": 34.88826137899014,
+      "runtime_s": 49.90524815300887,
       "estimated_x_m": -191.87381383572114,
       "estimated_y_m": -338.15581577301947,
       "estimated_z_m": 7.46293044090271,
@@ -276,14 +429,35 @@
       "heading_error_deg": 1.5305596434299389,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 7,
+      "correspondence_local_indices": [
+        6,
+        1,
+        4,
+        5,
+        8,
+        0,
+        3
+      ],
+      "correspondence_global_indices": [
+        489,
+        465,
+        477,
+        474,
+        492,
+        452,
+        430
+      ],
+      "correspondence_xy_rmse_m": 6.474873664098033,
+      "correspondence_z_rmse_m": 0.7277332849166352
     },
     {
       "site": 21,
       "local_feature_count": 6,
       "heading_measurement_deg": -139.50755383711078,
       "status": "solution",
-      "runtime_s": 4.86209658900043,
+      "runtime_s": 6.855861231000745,
       "estimated_x_m": -402.20076342569786,
       "estimated_y_m": -575.6412348215891,
       "estimated_z_m": 7.160344336181879,
@@ -300,14 +474,29 @@
       "heading_error_deg": 3.6128224656118277,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 4,
+      "correspondence_local_indices": [
+        0,
+        3,
+        5,
+        1
+      ],
+      "correspondence_global_indices": [
+        508,
+        536,
+        529,
+        503
+      ],
+      "correspondence_xy_rmse_m": 13.861429556371602,
+      "correspondence_z_rmse_m": 0.7994882380138296
     },
     {
       "site": 22,
       "local_feature_count": 5,
       "heading_measurement_deg": -154.6185220563164,
       "status": "solution",
-      "runtime_s": 2.7119763950031484,
+      "runtime_s": 3.8072441749973223,
       "estimated_x_m": -236.5914453993461,
       "estimated_y_m": -372.7623650218448,
       "estimated_z_m": 6.465026617050171,
@@ -324,14 +513,31 @@
       "heading_error_deg": 3.3521728917544067,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 5,
+      "correspondence_local_indices": [
+        0,
+        3,
+        4,
+        2,
+        1
+      ],
+      "correspondence_global_indices": [
+        452,
+        474,
+        489,
+        465,
+        430
+      ],
+      "correspondence_xy_rmse_m": 6.262154219794174,
+      "correspondence_z_rmse_m": 0.6408608952718917
     },
     {
       "site": 23,
       "local_feature_count": 9,
       "heading_measurement_deg": -158.94227573393476,
       "status": "no_solution",
-      "runtime_s": 52.38166081500822
+      "runtime_s": 73.7561842760042
     },
     {
       "site": 24,
@@ -350,7 +556,7 @@
       "local_feature_count": 9,
       "heading_measurement_deg": 94.64262420433211,
       "status": "solution",
-      "runtime_s": 27.326308477990096,
+      "runtime_s": 38.51281384199683,
       "estimated_x_m": -201.0754417264567,
       "estimated_y_m": -153.38354424311706,
       "estimated_z_m": 3.7918154895305634,
@@ -367,14 +573,33 @@
       "heading_error_deg": 0.28254526917993417,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 6,
+      "correspondence_local_indices": [
+        4,
+        3,
+        5,
+        1,
+        7,
+        8
+      ],
+      "correspondence_global_indices": [
+        443,
+        424,
+        464,
+        427,
+        414,
+        484
+      ],
+      "correspondence_xy_rmse_m": 11.587053778882058,
+      "correspondence_z_rmse_m": 0.8648407199881094
     },
     {
       "site": 27,
       "local_feature_count": 6,
       "heading_measurement_deg": 165.23564396358438,
       "status": "solution",
-      "runtime_s": 9.871227616997203,
+      "runtime_s": 14.33271056500962,
       "estimated_x_m": -370.60686820295734,
       "estimated_y_m": -290.97076786424924,
       "estimated_z_m": 6.957655191421509,
@@ -391,14 +616,31 @@
       "heading_error_deg": 1.1206722313413593,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 5,
+      "correspondence_local_indices": [
+        1,
+        4,
+        2,
+        5,
+        0
+      ],
+      "correspondence_global_indices": [
+        492,
+        512,
+        466,
+        520,
+        474
+      ],
+      "correspondence_xy_rmse_m": 12.388965511287132,
+      "correspondence_z_rmse_m": 0.4817755628345099
     },
     {
       "site": 28,
       "local_feature_count": 8,
       "heading_measurement_deg": -146.19826293198696,
       "status": "solution",
-      "runtime_s": 28.603839659001096,
+      "runtime_s": 40.65085563900357,
       "estimated_x_m": -256.9602389131636,
       "estimated_y_m": -164.65149900893618,
       "estimated_z_m": 5.156771659851074,
@@ -415,7 +657,24 @@
       "heading_error_deg": 0.6573042782329708,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 5,
+      "correspondence_local_indices": [
+        5,
+        4,
+        6,
+        2,
+        1
+      ],
+      "correspondence_global_indices": [
+        463,
+        440,
+        484,
+        414,
+        459
+      ],
+      "correspondence_xy_rmse_m": 12.768211447524013,
+      "correspondence_z_rmse_m": 1.0627142686635267
     }
   ]
 }
