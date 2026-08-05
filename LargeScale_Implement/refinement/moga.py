@@ -1,179 +1,186 @@
-"""""
+"""Multi-frame odometry-compensated global alignment in 2.5-D."""
 
-Design simplification vs. the paper's full Eq. 2:
-    - Global feature positions are treated as FIXED (
-    
+from __future__ import annotations
 
-Three error terms (of the paper's four — global/local feature terms are
-merged, see above):   
-
-Solved via Gauss-Newton: linearize all residual term
-"""
+from dataclasses import dataclass
 
 import numpy as np
+from scipy.optimize import least_squares
 
 
-def wrap_angle(a):
-    
-    return (a + np.pi) % (2 * np.pi) - np.pi
+def wrap_angle(angle: np.ndarray | float) -> np.ndarray | float:
+    return (angle + np.pi) % (2.0 * np.pi) - np.pi
 
 
-def pose_to_matrix(x, y, theta):
-    c, s = np.cos(theta), np.sin(theta)
-    R = np.array([[c, -s], [s, c]])
-    t = np.array([x, y])
-    return R, t
+def yaw_rotation(yaw_rad: float) -> np.ndarray:
+    cosine = np.cos(yaw_rad)
+    sine = np.sin(yaw_rad)
+    return np.array(((cosine, -sine), (sine, cosine)), dtype=np.float64)
 
 
-def build_feature_residual_and_jacobian(x, y, theta, local_xy, global_xy):
-    local_xy = np.asarray(local_xy, dtype=float)
-    global_xy = np.asarray(global_xy, dtype=float)
+@dataclass(frozen=True)
+class FeatureObservation:
+    pose_index: int
+    landmark_index: int
+    local_xy_m: np.ndarray
+    local_covariance_xy_m2: np.ndarray
 
-    if local_xy.shape != (2,) or global_xy.shape != (2,):
-        raise ValueError(
-            "Each feature correspondence must contain local and global XY "
-            f"coordinates with shape (2,); got {local_xy.shape} and "
-            f"{global_xy.shape}. Regenerate traverse_darces_results.npy."
+
+@dataclass(frozen=True)
+class MogaProblem:
+    site_numbers: np.ndarray
+    initial_poses: np.ndarray
+    heading_measurements_rad: np.ndarray
+    landmark_global_indices: np.ndarray
+    initial_landmarks_xy_m: np.ndarray
+    landmark_global_covariances_xy_m2: np.ndarray
+    observations: tuple[FeatureObservation, ...]
+
+    @property
+    def pose_count(self) -> int:
+        return len(self.site_numbers)
+
+    @property
+    def landmark_count(self) -> int:
+        return len(self.landmark_global_indices)
+
+
+def pack_state(poses: np.ndarray, landmarks: np.ndarray) -> np.ndarray:
+    return np.concatenate((np.asarray(poses).ravel(), np.asarray(landmarks).ravel()))
+
+
+def unpack_state(
+    state: np.ndarray,
+    pose_count: int,
+    landmark_count: int,
+) -> tuple[np.ndarray, np.ndarray]:
+    state = np.asarray(state, dtype=np.float64)
+    pose_values = 3 * pose_count
+    expected = pose_values + 2 * landmark_count
+    if state.shape != (expected,):
+        raise ValueError(f"State has shape {state.shape}, expected ({expected},)")
+    return (
+        state[:pose_values].reshape(pose_count, 3),
+        state[pose_values:].reshape(landmark_count, 2),
+    )
+
+
+def _whiten(residual: np.ndarray, covariance: np.ndarray) -> np.ndarray:
+    covariance = np.asarray(covariance, dtype=np.float64)
+    try:
+        factor = np.linalg.cholesky(covariance)
+        return np.linalg.solve(factor, residual)
+    except np.linalg.LinAlgError:
+        eigenvalues, eigenvectors = np.linalg.eigh(covariance)
+        eigenvalues = np.maximum(eigenvalues, 1e-12)
+        inverse_sqrt = eigenvectors @ np.diag(eigenvalues**-0.5) @ eigenvectors.T
+        return inverse_sqrt @ residual
+
+
+def residual_vector(
+    state: np.ndarray,
+    problem: MogaProblem,
+    *,
+    heading_sigma_rad: float,
+) -> np.ndarray:
+    poses, landmarks = unpack_state(
+        state, problem.pose_count, problem.landmark_count
+    )
+    residuals: list[np.ndarray] = []
+
+    for landmark_index in range(problem.landmark_count):
+        residuals.append(
+            _whiten(
+                landmarks[landmark_index] - problem.initial_landmarks_xy_m[landmark_index],
+                problem.landmark_global_covariances_xy_m2[landmark_index],
+            )
         )
 
-    c, s = np.cos(theta), np.sin(theta)
-    R = np.array([[c, -s], [s, c]])
-    pred = R @ local_xy + np.array([x, y])
-    residual = pred - global_xy
+    for observation in problem.observations:
+        pose = poses[observation.pose_index]
+        rotation = yaw_rotation(pose[2])
+        predicted_landmark = rotation @ observation.local_xy_m + pose[:2]
+        covariance_world = (
+            rotation
+            @ observation.local_covariance_xy_m2
+            @ rotation.T
+        )
+        residuals.append(
+            _whiten(
+                predicted_landmark - landmarks[observation.landmark_index],
+                covariance_world,
+            )
+        )
 
-    dR_dtheta = np.array([[-s, -c], [c, -s]])
-    J = np.zeros((2, 3))
-    J[:, 0] = [1, 0]
-    J[:, 1] = [0, 1]
-    J[:, 2] = dR_dtheta @ local_xy
-    return residual, J
-
-
-def build_orientation_residual_and_jacobian(theta, theta_meas):
-    
-    r = np.array([wrap_angle(theta - theta_meas)])
-    J = np.array([[1.0]])
-    return r, J
-
-
-def build_odometry_residual_and_jacobian(xa, ya, tha, xb, yb, thb, rho_meas, dtheta_meas):
-    
-    ca, sa = np.cos(tha), np.sin(tha)
-    Ra = np.array([[ca, -sa], [sa, ca]])
-    t_diff = np.array([xb - xa, yb - ya])
-    pred_rho = Ra.T @ t_diff #check later
-    pred_dtheta = wrap_angle(thb - tha) #something wrong here
-
-    res_rho = pred_rho - rho_meas
-    res_dtheta = wrap_angle(pred_dtheta - dtheta_meas) #check later
-    residual = np.array([res_rho[0], res_rho[1], res_dtheta])
-
-    dRa_dtha = np.array([[-sa, -ca], [ca, -sa]])
-    J = np.zeros((3, 6))
-    J[0:2, 0:2] = -Ra.T
-    J[0:2, 2] = (dRa_dtha.T @ t_diff)
-    J[0:2, 3:5] = Ra.T
-    J[2, 2] = -1
-    J[2, 5] = 1
-    return residual, J
+    heading_residual = wrap_angle(poses[:, 2] - problem.heading_measurements_rad)
+    residuals.append(np.asarray(heading_residual) / heading_sigma_rad)
+    return np.concatenate(residuals)
 
 
-def run_moga(site_names, initial_poses, feature_correspondences, odometry_chain,
-             orientation_measurements=None,
-             sigma_feature=0.4, sigma_odom_trans=0.1, sigma_odom_rot_deg=1.0,
-             sigma_heading_deg=1.0,
-             max_iter=50, e_converge=1e-6, verbose=True):
-    """
-    site_names: list of site name strings, in traverse order
-    initial_poses: dict {site_name: (x, y, theta)} — from DARCES
-    feature_correspondences: dict {site_name: list of (local_xy, global_xy)}
-    odometry_chain: list of dicts {"from", "to", "rho_xy" (2-vec), "dtheta"}
-    orientation_measurements: dict {site_name: theta_meas}
+def solve_moga(
+    problem: MogaProblem,
+    *,
+    heading_sigma_deg: float = 1.0,
+    maximum_function_evaluations: int = 300,
+    relative_tolerance: float = 1e-10,
+) -> dict[str, object]:
+    """Jointly optimize poses and shared landmark positions."""
+    if problem.pose_count == 0:
+        raise ValueError("MOGA requires at least one pose")
+    if problem.landmark_count == 0:
+        raise ValueError("MOGA requires at least one globally anchored landmark")
+    if len(problem.observations) < 3:
+        raise ValueError("MOGA requires at least three feature observations")
+    if heading_sigma_deg <= 0.0:
+        raise ValueError("heading sigma must be positive")
 
-    Returns dict {site_name: (x, y, theta)} — refined poses.
-    """
-    n_sites = len(site_names)
-    idx = {s: i for i, s in enumerate(site_names)}
+    initial_state = pack_state(
+        problem.initial_poses, problem.initial_landmarks_xy_m
+    )
+    heading_sigma_rad = np.radians(heading_sigma_deg)
 
-    z = np.zeros(3 * n_sites)
-    for s in site_names:
-        i = idx[s]
-        x, y, th = initial_poses[s]
-        z[3*i:3*i+3] = [x, y, th]
+    def residual(state: np.ndarray) -> np.ndarray:
+        return residual_vector(
+            state,
+            problem,
+            heading_sigma_rad=heading_sigma_rad,
+        )
 
-    sigma_odom_rot = np.radians(sigma_odom_rot_deg)
-    sigma_heading = np.radians(sigma_heading_deg)
-    W_feature = np.diag([1/sigma_feature**2, 1/sigma_feature**2])
-    W_odom = np.diag([1/sigma_odom_trans**2, 1/sigma_odom_trans**2, 1/sigma_odom_rot**2])
-    W_heading = np.array([[1/sigma_heading**2]])
+    initial_residual = residual(initial_state)
+    solution = least_squares(
+        residual,
+        initial_state,
+        method="trf",
+        loss="linear",
+        max_nfev=maximum_function_evaluations,
+        ftol=relative_tolerance,
+        xtol=relative_tolerance,
+        gtol=relative_tolerance,
+    )
+    optimized_poses, optimized_landmarks = unpack_state(
+        solution.x, problem.pose_count, problem.landmark_count
+    )
+    optimized_poses[:, 2] = wrap_angle(optimized_poses[:, 2])
 
-    prev_cost = None
-    for iteration in range(max_iter):
-        H = np.zeros((3*n_sites, 3*n_sites))
-        b = np.zeros(3*n_sites)
-        cost = 0.0
+    information = solution.jac.T @ solution.jac
+    posterior_covariance = np.linalg.pinv(information)
+    pose_covariances = np.empty((problem.pose_count, 3, 3), dtype=np.float64)
+    for pose_index in range(problem.pose_count):
+        start = 3 * pose_index
+        pose_covariances[pose_index] = posterior_covariance[
+            start : start + 3, start : start + 3
+        ]
 
-        for s in site_names:
-            i = idx[s]
-            x, y, th = z[3*i:3*i+3]
-            for local_xy, global_xy in feature_correspondences.get(s, []):
-                r, J = build_feature_residual_and_jacobian(x, y, th, local_xy, global_xy)
-                H[3*i:3*i+3, 3*i:3*i+3] += J.T @ W_feature @ J
-                b[3*i:3*i+3] += J.T @ W_feature @ r
-                cost += 0.5 * r.T @ W_feature @ r
-
-        for edge in odometry_chain:
-            a, bsite = edge["from"], edge["to"]
-            ia, ib = idx[a], idx[bsite]
-            xa, ya, tha = z[3*ia:3*ia+3]
-            xb, yb, thb = z[3*ib:3*ib+3]
-            rho_meas = edge["rho_xy"]
-            dtheta_meas = edge["dtheta"]
-
-            r, J = build_odometry_residual_and_jacobian(xa, ya, tha, xb, yb, thb, rho_meas, dtheta_meas)
-            idx_block = list(range(3*ia, 3*ia+3)) + list(range(3*ib, 3*ib+3))
-            for p in range(6):
-                for q in range(6):
-                    H[idx_block[p], idx_block[q]] += (J[:, p].T @ W_odom @ J[:, q])
-                b[idx_block[p]] += J[:, p].T @ W_odom @ r
-            cost += 0.5 * r.T @ W_odom @ r
-
-        if orientation_measurements is not None:
-            for s in site_names:
-                if s not in orientation_measurements:
-                    continue
-                i = idx[s]
-                th = z[3*i+2]
-                theta_meas = orientation_measurements[s]
-                r, J = build_orientation_residual_and_jacobian(th, theta_meas)
-                H[3*i+2, 3*i+2] += (J.T @ W_heading @ J)[0, 0]
-                b[3*i+2] += (J.T @ W_heading @ r)[0]
-                cost += 0.5 * float(r.T @ W_heading @ r)
-        else:
-            H[0:3, :] = 0.0
-            H[:, 0:3] = 0.0
-            H[0:3, 0:3] = np.eye(3)
-            b[0:3] = 0.0
-
-        try:
-            dz = np.linalg.solve(H, -b)
-        except np.linalg.LinAlgError:
-            print("MOGA: singular H matrix, stopping.")
-            break
-
-        z += dz
-
-        if verbose:
-            print(f"iter {iteration}: cost={cost:.6f}, |dz|={np.linalg.norm(dz):.6f}")
-
-        if prev_cost is not None and abs(prev_cost - cost) < e_converge:
-            if verbose:
-                print(f"Converged at iteration {iteration}")
-            break
-        prev_cost = cost
-
-    refined = {}
-    for s in site_names:
-        i = idx[s]
-        refined[s] = tuple(z[3*i:3*i+3])
-    return refined
+    return {
+        "success": bool(solution.success),
+        "message": str(solution.message),
+        "status_code": int(solution.status),
+        "function_evaluations": int(solution.nfev),
+        "initial_cost": float(0.5 * initial_residual @ initial_residual),
+        "final_cost": float(solution.cost),
+        "optimality": float(solution.optimality),
+        "poses": optimized_poses,
+        "landmarks_xy_m": optimized_landmarks,
+        "pose_covariances": pose_covariances,
+        "posterior_covariance": posterior_covariance,
+    }

@@ -43,6 +43,8 @@ python3 Scripts/00_inspect_DEM.py --resolution 0p25m
 python3 Scripts/05_local_scan_processing.py --resolution 1p5m
 python3 Scripts/07_local_feature_detection.py --resolution 1p5m
 python3 Scripts/09_darces_all_sites.py --resolution 5m
+python3 Scripts/11_ransac_all_sites.py --resolution 5m
+python3 Scripts/12_moga_all_sites.py --resolution 5m
 ```
 
 For a selected `<resolution>`, pipeline products are read from and written to

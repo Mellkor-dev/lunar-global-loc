@@ -101,6 +101,8 @@ Every numbered script accepts `--resolution`:
 python3 LargeScale_Implement/Scripts/00_inspect_DEM.py --resolution 0p25m
 python3 LargeScale_Implement/Scripts/03_feature_detector.py --resolution 1p5m
 python3 LargeScale_Implement/Scripts/09_darces_all_sites.py --resolution 5m
+python3 LargeScale_Implement/Scripts/11_ransac_all_sites.py --resolution 5m
+python3 LargeScale_Implement/Scripts/12_moga_all_sites.py --resolution 5m
 ```
 
 All scripts default to `5m`. The feature detector also accepts
@@ -185,12 +187,31 @@ python3 LargeScale_Implement/Scripts/08_darces_run.py \
 # All captured sites
 python3 LargeScale_Implement/Scripts/09_darces_all_sites.py \
   --resolution 5m \
-  --trials 1000000
+  --trials 100000
+
+# Covariance-aware exhaustive consensus refinement
+python3 LargeScale_Implement/Scripts/11_ransac_all_sites.py \
+  --resolution 5m
+
+# Joint multi-frame landmark/pose refinement
+python3 LargeScale_Implement/Scripts/12_moga_all_sites.py \
+  --resolution 5m
 ```
 
 Results are written to `LargeScale_Implement/results/<resolution>_px/` as JSON
-and CSV files. DARCES uses local/global feature geometry and a heading prior;
-absolute odometry position is withheld from matching and used for evaluation.
+and CSV files. RANSAC diagnostic plots are written below
+`LargeScale_Implement/plots/<resolution>_px/ransac/`. DARCES uses local/global
+feature geometry and a heading prior; absolute odometry position is withheld
+from matching and used for evaluation. RANSAC preserves the DARCES estimate
+when a consensus cannot be tested or does not produce a supported improvement.
+MOGA jointly optimizes feature-derived 2-D poses, headings, and shared global
+landmark positions with feature, landmark-prior, and heading-sensor residuals.
+Sites without a DARCES/RANSAC pose remain unavailable, and false global aliases
+remain visible. Odometry position is used only for post-localization error
+evaluation and the truth overlay; it is never used to initialize or constrain
+a pose. Its output and
+traversal plot are written to `results/<resolution>_px/moga_all_sites.*` and
+`plots/<resolution>_px/moga/`.
 
 ## Coordinate conventions
 
@@ -235,4 +256,3 @@ python3 -m pytest LargeScale_Implement/tests -q
   reading those fields rather than reconstructing coordinates from filenames.
 - See [`LargeScale_Implement/DATA_LAYOUT.md`](LargeScale_Implement/DATA_LAYOUT.md)
   for the concise data-layout contract.
-

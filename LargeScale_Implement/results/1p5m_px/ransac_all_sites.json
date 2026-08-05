@@ -1,0 +1,2034 @@
+{
+  "settings": {
+    "resolution": "1p5m",
+    "confidence": 0.95,
+    "minimum_overlap": 0.5,
+    "minimum_triangle_area_m2": 1.0,
+    "maximum_refinement_iterations": 5,
+    "darces_results": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/results/1p5m_px/darces_all_sites.json"
+  },
+  "sites": [
+    {
+      "site": 1,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.0032243890018435195,
+      "estimated_x_m": -444.8169472785816,
+      "estimated_y_m": -161.1857644590951,
+      "estimated_z_m": 8.506591737270355,
+      "estimated_heading_deg": 0.9604486718677547,
+      "fitness": -0.5492995587096019,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC found no outliers",
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 4,
+        "inlier_count": 4,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          1,
+          3,
+          2,
+          0
+        ],
+        "inlier_global_indices": [
+          488,
+          546,
+          545,
+          495
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.9999497939178709,
+            -0.010020461247227257
+          ],
+          [
+            0.010020461247227238,
+            0.9999497939178709
+          ]
+        ],
+        "translation_xy_m": [
+          -445.4123074721875,
+          -161.28227838113418
+        ],
+        "translation_z_m": 8.550741285085678,
+        "heading_deg": 0.5741397467084373,
+        "terrain_fitness": -0.5405918578681461,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.7293935480784313,
+        "mahalanobis_squared": [
+          0.03893100899657567,
+          0.49008775962094314,
+          0.9686993365359193,
+          2.616193547026563
+        ],
+        "residuals_xyz_m": [
+          [
+            2.16437847307526,
+            1.1189343546860755,
+            -0.044149547815322876
+          ],
+          [
+            -5.708903622630373,
+            6.621038794868468,
+            0.044149547815322876
+          ],
+          [
+            -0.3434309735030183,
+            -12.235804437859514,
+            0.1381818950176239
+          ],
+          [
+            3.887956123058075,
+            4.4958312883049985,
+            -2.224891573190689
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 4
+      },
+      "darces": {
+        "site": 1,
+        "local_feature_count": 6,
+        "heading_measurement_deg": -0.27220387723835904,
+        "status": "solution",
+        "runtime_s": 14.07876685600786,
+        "estimated_x_m": -444.8169472785816,
+        "estimated_y_m": -161.1857644590951,
+        "estimated_z_m": 8.506591737270355,
+        "estimated_heading_deg": 0.9604486718677547,
+        "fitness": -0.5492995587096019,
+        "overlap": 1.0,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 183,
+        "truth_x_m": -0.005049131810665131,
+        "truth_y_m": -0.0011176990810781717,
+        "truth_z_m": -0.49565547704696655,
+        "xy_error_m": 473.11532958051976,
+        "z_error_m": 9.002247214317322,
+        "heading_error_deg": 1.2326525491061204,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 4,
+        "correspondence_local_indices": [
+          1,
+          3,
+          2,
+          0
+        ],
+        "correspondence_global_indices": [
+          488,
+          546,
+          545,
+          495
+        ],
+        "correspondence_xy_rmse_m": 8.23354833568095,
+        "correspondence_z_rmse_m": 1.1363523244823526
+      },
+      "truth_x_m": -0.005049131810665131,
+      "truth_y_m": -0.0011176990810781717,
+      "truth_z_m": -0.49565547704696655,
+      "xy_error_m": 473.11532958051976,
+      "z_error_m": 9.002247214317322,
+      "heading_error_deg": 1.2326525491061204
+    },
+    {
+      "site": 2,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 2,
+        "local_feature_count": 6,
+        "heading_measurement_deg": -1.9318747485652559,
+        "status": "no_solution",
+        "runtime_s": 9.101788701998885
+      }
+    },
+    {
+      "site": 3,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.009549605994834565,
+      "estimated_x_m": 19.74618054632766,
+      "estimated_y_m": -10.699047981214001,
+      "estimated_z_m": -0.020504534244537354,
+      "estimated_heading_deg": -40.68631480149443,
+      "fitness": -0.22432172670952738,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC found no outliers",
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 5,
+        "inlier_count": 5,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          5,
+          2,
+          1,
+          0,
+          7
+        ],
+        "inlier_global_indices": [
+          375,
+          370,
+          340,
+          318,
+          384
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.7565736116909685,
+            0.6539085334302375
+          ],
+          [
+            -0.6539085334302377,
+            0.7565736116909683
+          ]
+        ],
+        "translation_xy_m": [
+          20.924149416638592,
+          -9.503853584194236
+        ],
+        "translation_z_m": -0.2720063030719757,
+        "heading_deg": -40.83694090298579,
+        "terrain_fitness": -0.34178986392009286,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.23747131377647349,
+        "mahalanobis_squared": [
+          0.03918472938605104,
+          0.3467435626423982,
+          0.09953434313639846,
+          0.23747131377647349,
+          0.3632096226507236
+        ],
+        "residuals_xyz_m": [
+          [
+            -0.6010560242461693,
+            -0.8557276820208166,
+            -0.25150176882743835
+          ],
+          [
+            1.5404700379566947,
+            6.60247147494897,
+            -0.32310548424720764
+          ],
+          [
+            2.4637000807143465,
+            -2.3581880226361704,
+            0.2240874469280243
+          ],
+          [
+            4.110426823603746,
+            -3.9346385591485245,
+            0.25526782870292664
+          ],
+          [
+            -7.51354091802861,
+            0.5460827888565731,
+            0.0
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 10
+      },
+      "darces": {
+        "site": 3,
+        "local_feature_count": 9,
+        "heading_measurement_deg": -40.71819704388585,
+        "status": "solution",
+        "runtime_s": 76.22114959800092,
+        "estimated_x_m": 19.74618054632766,
+        "estimated_y_m": -10.699047981214001,
+        "estimated_z_m": -0.020504534244537354,
+        "estimated_heading_deg": -40.68631480149443,
+        "fitness": -0.22432172670952738,
+        "overlap": 1.0,
+        "cluster_size": 5,
+        "evaluated_hypothesis_count": 1495,
+        "truth_x_m": 23.901281356811523,
+        "truth_y_m": -10.196999549865723,
+        "truth_z_m": -0.5373302102088928,
+        "xy_error_m": 4.185321418087614,
+        "z_error_m": 0.5168256759643555,
+        "heading_error_deg": 0.03188224239141846,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 5,
+        "correspondence_local_indices": [
+          5,
+          2,
+          1,
+          0,
+          7
+        ],
+        "correspondence_global_indices": [
+          375,
+          370,
+          340,
+          318,
+          384
+        ],
+        "correspondence_xy_rmse_m": 5.676379493746371,
+        "correspondence_z_rmse_m": 0.3320785325519341
+      },
+      "truth_x_m": 23.901281356811523,
+      "truth_y_m": -10.196999549865723,
+      "truth_z_m": -0.5373302102088928,
+      "xy_error_m": 4.185321418087614,
+      "z_error_m": 0.5168256759643555,
+      "heading_error_deg": 0.03188224239141846
+    },
+    {
+      "site": 4,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 4,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -64.79133493705918,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 5,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 5,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -147.34555813717074,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 6,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.010422072009532712,
+      "estimated_x_m": -0.2220730783711673,
+      "estimated_y_m": -61.33533680827089,
+      "estimated_z_m": 0.11303138732910156,
+      "estimated_heading_deg": -150.1732968671931,
+      "fitness": -0.2235976876557612,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC found no outliers",
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 5,
+        "inlier_count": 5,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          5,
+          1,
+          3,
+          0,
+          6
+        ],
+        "inlier_global_indices": [
+          375,
+          340,
+          366,
+          318,
+          370
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.8370429033320395,
+            0.547137256985365
+          ],
+          [
+            -0.5471372569853651,
+            -0.8370429033320397
+          ]
+        ],
+        "translation_xy_m": [
+          -3.780008857730266,
+          -63.464818760281354
+        ],
+        "translation_z_m": 0.03082895278930664,
+        "heading_deg": -146.82916235789153,
+        "terrain_fitness": -0.31153987819169604,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.1801904529526774,
+        "mahalanobis_squared": [
+          0.29789083167261654,
+          0.1801904529526774,
+          0.15141866153246256,
+          0.09285801641801754,
+          0.526594260516354
+        ],
+        "residuals_xyz_m": [
+          [
+            -5.662061355395611,
+            -3.673422181049851,
+            -0.11233580112457275
+          ],
+          [
+            -4.884409461778574,
+            1.9439828799219043,
+            -0.08220243453979492
+          ],
+          [
+            3.658078673796517,
+            3.1531242510214668,
+            0.06490945816040039
+          ],
+          [
+            0.9442777441657029,
+            -3.6901767718076286,
+            0.0
+          ],
+          [
+            5.944114399211948,
+            2.2664918219140944,
+            0.7211543917655945
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 10
+      },
+      "darces": {
+        "site": 6,
+        "local_feature_count": 10,
+        "heading_measurement_deg": -149.25701624245687,
+        "status": "solution",
+        "runtime_s": 110.83093777199974,
+        "estimated_x_m": -0.2220730783711673,
+        "estimated_y_m": -61.33533680827089,
+        "estimated_z_m": 0.11303138732910156,
+        "estimated_heading_deg": -150.1732968671931,
+        "fitness": -0.2235976876557612,
+        "overlap": 1.0,
+        "cluster_size": 5,
+        "evaluated_hypothesis_count": 1930,
+        "truth_x_m": -0.9627990126609802,
+        "truth_y_m": -59.02731704711914,
+        "truth_z_m": -0.45432978868484497,
+        "xy_error_m": 2.423969910621105,
+        "z_error_m": 0.5673611760139465,
+        "heading_error_deg": 0.9162806247362312,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 5,
+        "correspondence_local_indices": [
+          5,
+          1,
+          3,
+          0,
+          6
+        ],
+        "correspondence_global_indices": [
+          375,
+          340,
+          366,
+          318,
+          370
+        ],
+        "correspondence_xy_rmse_m": 7.986447631435325,
+        "correspondence_z_rmse_m": 0.36733890601767283
+      },
+      "truth_x_m": -0.9627990126609802,
+      "truth_y_m": -59.02731704711914,
+      "truth_z_m": -0.45432978868484497,
+      "xy_error_m": 2.423969910621105,
+      "z_error_m": 0.5673611760139465,
+      "heading_error_deg": 0.9162806247362312
+    },
+    {
+      "site": 7,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 7,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -109.2759993649763,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 8,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 8,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -114.39735521942477,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 9,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 9,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -104.79089921902104,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 10,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 10,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -111.72540843703277,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 11,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 11,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -110.5384072461038,
+        "status": "no_solution",
+        "runtime_s": 0.013969284002087079
+      }
+    },
+    {
+      "site": 12,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 12,
+        "local_feature_count": 5,
+        "heading_measurement_deg": -95.71127683719807,
+        "status": "no_solution",
+        "runtime_s": 6.639868826008751
+      }
+    },
+    {
+      "site": 13,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.003192922013113275,
+      "estimated_x_m": -26.805701196935964,
+      "estimated_y_m": -199.15030589968634,
+      "estimated_z_m": 3.344308376312256,
+      "estimated_heading_deg": -97.94180098371862,
+      "fitness": -0.1369953723128674,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC found no outliers",
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 4,
+        "inlier_count": 4,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          4,
+          3,
+          1,
+          0
+        ],
+        "inlier_global_indices": [
+          414,
+          403,
+          366,
+          303
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.1534934853710526,
+            0.9881496596916105
+          ],
+          [
+            -0.9881496596916105,
+            -0.15349348537105284
+          ]
+        ],
+        "translation_xy_m": [
+          -27.336094815430922,
+          -202.23130351089767
+        ],
+        "translation_z_m": 3.3063616156578064,
+        "heading_deg": -98.82943379142503,
+        "terrain_fitness": -0.2739390715951908,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.2051098489058271,
+        "mahalanobis_squared": [
+          0.0509785394369904,
+          0.07013703667765692,
+          0.34008266113399727,
+          2.601789372319039
+        ],
+        "residuals_xyz_m": [
+          [
+            -1.3146457379197045,
+            -2.4741683804271304,
+            0.03794676065444946
+          ],
+          [
+            -3.169990261441484,
+            -0.8638183143637832,
+            -0.045976221561431885
+          ],
+          [
+            5.805337278709899,
+            -4.396400971200222,
+            -0.03794676065444946
+          ],
+          [
+            -1.3207012793487074,
+            7.734387665991136,
+            2.240109384059906
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 4
+      },
+      "darces": {
+        "site": 13,
+        "local_feature_count": 5,
+        "heading_measurement_deg": -99.79358424542976,
+        "status": "solution",
+        "runtime_s": 8.00780541000131,
+        "estimated_x_m": -26.805701196935964,
+        "estimated_y_m": -199.15030589968634,
+        "estimated_z_m": 3.344308376312256,
+        "estimated_heading_deg": -97.94180098371862,
+        "fitness": -0.1369953723128674,
+        "overlap": 1.0,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 122,
+        "truth_x_m": -30.75284194946289,
+        "truth_y_m": -198.97962951660156,
+        "truth_z_m": 2.7760562896728516,
+        "xy_error_m": 3.9508290962786203,
+        "z_error_m": 0.5682520866394043,
+        "heading_error_deg": 1.851783261711148,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 4,
+        "correspondence_local_indices": [
+          4,
+          3,
+          1,
+          0
+        ],
+        "correspondence_global_indices": [
+          414,
+          403,
+          366,
+          303
+        ],
+        "correspondence_xy_rmse_m": 6.489160245269291,
+        "correspondence_z_rmse_m": 1.1396670673150506
+      },
+      "truth_x_m": -30.75284194946289,
+      "truth_y_m": -198.97962951660156,
+      "truth_z_m": 2.7760562896728516,
+      "xy_error_m": 3.9508290962786203,
+      "z_error_m": 0.5682520866394043,
+      "heading_error_deg": 1.851783261711148
+    },
+    {
+      "site": 14,
+      "status": "minimal_unverified",
+      "estimate_source": "darces",
+      "runtime_s": 0.0012389149924274534,
+      "estimated_x_m": -300.63155500186275,
+      "estimated_y_m": 216.20470704222646,
+      "estimated_z_m": 9.449747562408447,
+      "estimated_heading_deg": -127.5774121290003,
+      "fitness": -1.818077402233444,
+      "overlap": 1.0,
+      "preservation_reason": "exactly three correspondences cannot be outlier-tested",
+      "ransac": {
+        "status": "minimal_unverified",
+        "input_correspondence_count": 3,
+        "inlier_count": 3,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          3,
+          5,
+          6
+        ],
+        "inlier_global_indices": [
+          444,
+          500,
+          502
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.5845027722043901,
+            0.8113917113733556
+          ],
+          [
+            -0.8113917113733555,
+            -0.5845027722043901
+          ]
+        ],
+        "translation_xy_m": [
+          -300.8073234487926,
+          215.88832924348117
+        ],
+        "translation_z_m": 7.653029561042786,
+        "heading_deg": -125.76787091125284,
+        "terrain_fitness": -2.2882138574907196,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.18936164673633654,
+        "mahalanobis_squared": [
+          1.5655422415112827,
+          0.18936164673633654,
+          0.18607967288355468
+        ],
+        "residuals_xyz_m": [
+          [
+            0.9646531085962806,
+            -0.24736539526838897,
+            -1.7967180013656616
+          ],
+          [
+            -2.1364039436713824,
+            -5.002352995542992,
+            0.0
+          ],
+          [
+            1.171750835075045,
+            5.24971839081141,
+            0.043457984924316406
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 1
+      },
+      "darces": {
+        "site": 14,
+        "local_feature_count": 9,
+        "heading_measurement_deg": -131.9409613661199,
+        "status": "solution",
+        "runtime_s": 37.59983310899406,
+        "estimated_x_m": -300.63155500186275,
+        "estimated_y_m": 216.20470704222646,
+        "estimated_z_m": 9.449747562408447,
+        "estimated_heading_deg": -127.5774121290003,
+        "fitness": -1.818077402233444,
+        "overlap": 1.0,
+        "cluster_size": 3,
+        "evaluated_hypothesis_count": 413,
+        "truth_x_m": -50.64036178588867,
+        "truth_y_m": -224.77685546875,
+        "truth_z_m": 3.8478145599365234,
+        "xy_error_m": 506.9125517879477,
+        "z_error_m": 5.601933002471924,
+        "heading_error_deg": 4.363549237119599,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 3,
+        "correspondence_local_indices": [
+          3,
+          5,
+          6
+        ],
+        "correspondence_global_indices": [
+          444,
+          500,
+          502
+        ],
+        "correspondence_xy_rmse_m": 5.2157898941944225,
+        "correspondence_z_rmse_m": 1.484861748553235
+      },
+      "truth_x_m": -50.64036178588867,
+      "truth_y_m": -224.77685546875,
+      "truth_z_m": 3.8478145599365234,
+      "xy_error_m": 506.9125517879477,
+      "z_error_m": 5.601933002471924,
+      "heading_error_deg": 4.363549237119599
+    },
+    {
+      "site": 15,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.0036830669996561483,
+      "estimated_x_m": -24.24339351506881,
+      "estimated_y_m": 11.078935995321785,
+      "estimated_z_m": 0.43672096729278564,
+      "estimated_heading_deg": 150.89132156680722,
+      "fitness": -0.5128207433382442,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC found no outliers",
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 4,
+        "inlier_count": 4,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          7,
+          2,
+          0,
+          6
+        ],
+        "inlier_global_indices": [
+          384,
+          370,
+          318,
+          375
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.8811790682724083,
+            -0.47278266638971744
+          ],
+          [
+            0.4727826663897174,
+            -0.8811790682724082
+          ]
+        ],
+        "translation_xy_m": [
+          -21.144301967567046,
+          8.939028410668776
+        ],
+        "translation_z_m": 0.43906736373901367,
+        "heading_deg": 151.7849224282605,
+        "terrain_fitness": -0.44025892001703487,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.17304841288066164,
+        "mahalanobis_squared": [
+          0.19452630179345584,
+          0.15157052396786747,
+          0.07996974112649438,
+          0.8677703210590348
+        ],
+        "residuals_xyz_m": [
+          [
+            3.1170875166574206,
+            -4.547313377621151,
+            -0.0023463964462280273
+          ],
+          [
+            4.866376594719043,
+            0.028964616901632212,
+            0.0023463964462280273
+          ],
+          [
+            2.7410627384134045,
+            0.05122290279052777,
+            0.25685930252075195
+          ],
+          [
+            -10.724526849789868,
+            4.467125857928984,
+            -0.09013950824737549
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 4
+      },
+      "darces": {
+        "site": 15,
+        "local_feature_count": 8,
+        "heading_measurement_deg": 148.4489082081921,
+        "status": "solution",
+        "runtime_s": 42.21635790000437,
+        "estimated_x_m": -24.24339351506881,
+        "estimated_y_m": 11.078935995321785,
+        "estimated_z_m": 0.43672096729278564,
+        "estimated_heading_deg": 150.89132156680722,
+        "fitness": -0.5128207433382442,
+        "overlap": 1.0,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 672,
+        "truth_x_m": -16.422508239746094,
+        "truth_y_m": 6.153733253479004,
+        "truth_z_m": 0.1715155839920044,
+        "xy_error_m": 9.242503369651283,
+        "z_error_m": 0.26520538330078125,
+        "heading_error_deg": 2.442413358615113,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 4,
+        "correspondence_local_indices": [
+          7,
+          2,
+          0,
+          6
+        ],
+        "correspondence_global_indices": [
+          384,
+          370,
+          318,
+          375
+        ],
+        "correspondence_xy_rmse_m": 8.121242058907082,
+        "correspondence_z_rmse_m": 0.1354183187669095
+      },
+      "truth_x_m": -16.422508239746094,
+      "truth_y_m": 6.153733253479004,
+      "truth_z_m": 0.1715155839920044,
+      "xy_error_m": 9.242503369651283,
+      "z_error_m": 0.26520538330078125,
+      "heading_error_deg": 2.442413358615113
+    },
+    {
+      "site": 16,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 16,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -138.39500865476546,
+        "status": "no_solution",
+        "runtime_s": 0.5995543079916388
+      }
+    },
+    {
+      "site": 17,
+      "status": "minimal_unverified",
+      "estimate_source": "darces",
+      "runtime_s": 0.0012510170054156333,
+      "estimated_x_m": -882.4521647203427,
+      "estimated_y_m": 855.8727835068212,
+      "estimated_z_m": 26.81753396987915,
+      "estimated_heading_deg": -142.95112706868008,
+      "fitness": -3.282474832522173,
+      "overlap": 1.0,
+      "preservation_reason": "exactly three correspondences cannot be outlier-tested",
+      "ransac": {
+        "status": "minimal_unverified",
+        "input_correspondence_count": 3,
+        "inlier_count": 3,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          4,
+          6,
+          2
+        ],
+        "inlier_global_indices": [
+          685,
+          690,
+          683
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.7981218752237,
+            0.6024960350818959
+          ],
+          [
+            -0.6024960350818959,
+            -0.7981218752236999
+          ]
+        ],
+        "translation_xy_m": [
+          -882.4521647203427,
+          855.8727835068212
+        ],
+        "translation_z_m": 26.81753396987915,
+        "heading_deg": -142.95112706868008,
+        "terrain_fitness": -3.282474832522173,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 1.9082547598397626,
+        "mahalanobis_squared": [
+          0.2954889255952961,
+          1.9082547598397626,
+          2.757175516276922
+        ],
+        "residuals_xyz_m": [
+          [
+            4.0828854606612595,
+            5.431407822966889,
+            0.0
+          ],
+          [
+            -2.4214398382032414,
+            -2.646420587610237,
+            1.8862954378128052
+          ],
+          [
+            -1.6614456224579044,
+            -2.7849872353566525,
+            -2.5458145141601562
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 1
+      },
+      "darces": {
+        "site": 17,
+        "local_feature_count": 9,
+        "heading_measurement_deg": -143.02059009636423,
+        "status": "solution",
+        "runtime_s": 60.63866204500664,
+        "estimated_x_m": -882.4521647203427,
+        "estimated_y_m": 855.8727835068212,
+        "estimated_z_m": 26.81753396987915,
+        "estimated_heading_deg": -142.95112706868008,
+        "fitness": -3.282474832522173,
+        "overlap": 1.0,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 41,
+        "truth_x_m": -102.15924835205078,
+        "truth_y_m": -266.02862548828125,
+        "truth_z_m": 3.638662815093994,
+        "xy_error_m": 1366.5722837961152,
+        "z_error_m": 23.178871154785156,
+        "heading_error_deg": 0.0694630276841508,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 3,
+        "correspondence_local_indices": [
+          4,
+          6,
+          2
+        ],
+        "correspondence_global_indices": [
+          685,
+          690,
+          683
+        ],
+        "correspondence_xy_rmse_m": 4.815032464352797,
+        "correspondence_z_rmse_m": 1.8293242850136326
+      },
+      "truth_x_m": -102.15924835205078,
+      "truth_y_m": -266.02862548828125,
+      "truth_z_m": 3.638662815093994,
+      "xy_error_m": 1366.5722837961152,
+      "z_error_m": 23.178871154785156,
+      "heading_error_deg": 0.0694630276841508
+    },
+    {
+      "site": 18,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 18,
+        "local_feature_count": 8,
+        "heading_measurement_deg": -139.12382904054863,
+        "status": "no_solution",
+        "runtime_s": 31.11321474700526
+      }
+    },
+    {
+      "site": 19,
+      "status": "minimal_unverified",
+      "estimate_source": "darces",
+      "runtime_s": 0.001088410004740581,
+      "estimated_x_m": -467.84978122373593,
+      "estimated_y_m": -153.9821831803753,
+      "estimated_z_m": 10.15936815738678,
+      "estimated_heading_deg": -166.47197354863152,
+      "fitness": -0.8140283181246726,
+      "overlap": 1.0,
+      "preservation_reason": "exactly three correspondences cannot be outlier-tested",
+      "ransac": {
+        "status": "minimal_unverified",
+        "input_correspondence_count": 3,
+        "inlier_count": 3,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          1,
+          0,
+          2
+        ],
+        "inlier_global_indices": [
+          576,
+          578,
+          610
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.9873394261205717,
+            0.15862174386855088
+          ],
+          [
+            -0.15862174386855088,
+            -0.9873394261205719
+          ]
+        ],
+        "translation_xy_m": [
+          -471.64931671753055,
+          -156.03761782336585
+        ],
+        "translation_z_m": 10.365602374076843,
+        "heading_deg": -170.8730936381169,
+        "terrain_fitness": -0.8415312474116,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.1531793922079922,
+        "mahalanobis_squared": [
+          0.1531793922079922,
+          0.021913938571394335,
+          0.4687793065220641
+        ],
+        "residuals_xyz_m": [
+          [
+            -4.540235439168896,
+            0.004101598163572362,
+            0.20623421669006348
+          ],
+          [
+            1.4847799867102367,
+            1.104301269058908,
+            0.0
+          ],
+          [
+            3.055455452458716,
+            -1.1084028672224804,
+            -0.885259747505188
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 1
+      },
+      "darces": {
+        "site": 19,
+        "local_feature_count": 4,
+        "heading_measurement_deg": -163.07943097450712,
+        "status": "solution",
+        "runtime_s": 2.4212737590132747,
+        "estimated_x_m": -467.84978122373593,
+        "estimated_y_m": -153.9821831803753,
+        "estimated_z_m": 10.15936815738678,
+        "estimated_heading_deg": -166.47197354863152,
+        "fitness": -0.8140283181246726,
+        "overlap": 1.0,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 14,
+        "truth_x_m": -162.78665161132812,
+        "truth_y_m": -310.0521240234375,
+        "truth_z_m": 5.476531028747559,
+        "xy_error_m": 342.66797265527117,
+        "z_error_m": 4.682837128639221,
+        "heading_error_deg": 3.3925425741244055,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 3,
+        "correspondence_local_indices": [
+          1,
+          0,
+          2
+        ],
+        "correspondence_global_indices": [
+          576,
+          578,
+          610
+        ],
+        "correspondence_xy_rmse_m": 4.383711847576766,
+        "correspondence_z_rmse_m": 0.6413245735736908
+      },
+      "truth_x_m": -162.78665161132812,
+      "truth_y_m": -310.0521240234375,
+      "truth_z_m": 5.476531028747559,
+      "xy_error_m": 342.66797265527117,
+      "z_error_m": 4.682837128639221,
+      "heading_error_deg": 3.3925425741244055
+    },
+    {
+      "site": 20,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.03045355700305663,
+      "estimated_x_m": -191.87381383572114,
+      "estimated_y_m": -338.15581577301947,
+      "estimated_z_m": 7.46293044090271,
+      "estimated_heading_deg": -138.55056683558428,
+      "fitness": -0.0848207324892808,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC found no outliers",
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 7,
+        "inlier_count": 7,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          6,
+          1,
+          4,
+          5,
+          8,
+          0,
+          3
+        ],
+        "inlier_global_indices": [
+          489,
+          465,
+          477,
+          474,
+          492,
+          452,
+          430
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.7704718530921677,
+            0.6374740179746323
+          ],
+          [
+            -0.6374740179746321,
+            -0.7704718530921676
+          ]
+        ],
+        "translation_xy_m": [
+          -188.42381834113579,
+          -339.32569581145196
+        ],
+        "translation_z_m": 7.23750913143158,
+        "heading_deg": -140.39627977426946,
+        "terrain_fitness": -0.24089525164507297,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.1455330577785965,
+        "mahalanobis_squared": [
+          0.10207864153230847,
+          0.09148113453209038,
+          0.14807687802655398,
+          0.1455330577785965,
+          0.027261062594171173,
+          0.33139236759720647,
+          1.3899152068235279
+        ],
+        "residuals_xyz_m": [
+          [
+            3.0659893258047077,
+            1.5831045426800756,
+            -0.22745883464813232
+          ],
+          [
+            2.619686674389669,
+            -1.99300219053589,
+            -0.22542130947113037
+          ],
+          [
+            4.749244997137367,
+            -0.2619121636338946,
+            -0.08556520938873291
+          ],
+          [
+            0.7333339033480115,
+            4.7031231284607316,
+            0.03217947483062744
+          ],
+          [
+            0.4006526210732204,
+            -2.024603296343855,
+            0.0
+          ],
+          [
+            -5.465637639821409,
+            -0.0456064145887467,
+            0.5608247518539429
+          ],
+          [
+            -6.103269881931453,
+            -1.9611036060384208,
+            1.4927901029586792
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 35
+      },
+      "darces": {
+        "site": 20,
+        "local_feature_count": 9,
+        "heading_measurement_deg": -137.02000719215434,
+        "status": "solution",
+        "runtime_s": 53.31879319000291,
+        "estimated_x_m": -191.87381383572114,
+        "estimated_y_m": -338.15581577301947,
+        "estimated_z_m": 7.46293044090271,
+        "estimated_heading_deg": -138.55056683558428,
+        "fitness": -0.0848207324892808,
+        "overlap": 1.0,
+        "cluster_size": 5,
+        "evaluated_hypothesis_count": 701,
+        "truth_x_m": -194.00518798828125,
+        "truth_y_m": -337.96356201171875,
+        "truth_z_m": 6.880199909210205,
+        "xy_error_m": 2.1400274033141757,
+        "z_error_m": 0.5827305316925049,
+        "heading_error_deg": 1.5305596434299389,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 7,
+        "correspondence_local_indices": [
+          6,
+          1,
+          4,
+          5,
+          8,
+          0,
+          3
+        ],
+        "correspondence_global_indices": [
+          489,
+          465,
+          477,
+          474,
+          492,
+          452,
+          430
+        ],
+        "correspondence_xy_rmse_m": 6.474873664098033,
+        "correspondence_z_rmse_m": 0.7277332849166352
+      },
+      "truth_x_m": -194.00518798828125,
+      "truth_y_m": -337.96356201171875,
+      "truth_z_m": 6.880199909210205,
+      "xy_error_m": 2.1400274033141757,
+      "z_error_m": 0.5827305316925049,
+      "heading_error_deg": 1.5305596434299389
+    },
+    {
+      "site": 21,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.0032255070109385997,
+      "estimated_x_m": -402.20076342569786,
+      "estimated_y_m": -575.6412348215891,
+      "estimated_z_m": 7.160344336181879,
+      "estimated_heading_deg": -135.89473137149895,
+      "fitness": -0.7207764120819028,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC found no outliers",
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 4,
+        "inlier_count": 4,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          0,
+          3,
+          5,
+          1
+        ],
+        "inlier_global_indices": [
+          508,
+          536,
+          529,
+          503
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.7457924970576914,
+            0.6661783179693355
+          ],
+          [
+            -0.6661783179693355,
+            -0.7457924970576917
+          ]
+        ],
+        "translation_xy_m": [
+          -402.1416743640074,
+          -568.7601538155382
+        ],
+        "translation_z_m": 7.762208998203278,
+        "heading_deg": -138.22721365149002,
+        "terrain_fitness": -1.0096334951420092,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.7362482074488561,
+        "mahalanobis_squared": [
+          1.1462285565412063,
+          0.2834600118217173,
+          0.5869737320544084,
+          0.8855226828433038
+        ],
+        "residuals_xyz_m": [
+          [
+            9.463229027249668,
+            8.24010688987346,
+            -0.6642095446586609
+          ],
+          [
+            -5.125554395318204,
+            2.96806076782633,
+            -0.3385998606681824
+          ],
+          [
+            -7.900546805571594,
+            -0.36163463927732664,
+            0.6018646620213985
+          ],
+          [
+            3.562872173640244,
+            -10.84653301842252,
+            0.3385998606681824
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 4
+      },
+      "darces": {
+        "site": 21,
+        "local_feature_count": 6,
+        "heading_measurement_deg": -139.50755383711078,
+        "status": "solution",
+        "runtime_s": 7.340080815003603,
+        "estimated_x_m": -402.20076342569786,
+        "estimated_y_m": -575.6412348215891,
+        "estimated_z_m": 7.160344336181879,
+        "estimated_heading_deg": -135.89473137149895,
+        "fitness": -0.7207764120819028,
+        "overlap": 1.0,
+        "cluster_size": 3,
+        "evaluated_hypothesis_count": 90,
+        "truth_x_m": -211.0142364501953,
+        "truth_y_m": -352.2628173828125,
+        "truth_z_m": 5.4391608238220215,
+        "xy_error_m": 294.0241579775494,
+        "z_error_m": 1.7211835123598576,
+        "heading_error_deg": 3.6128224656118277,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 4,
+        "correspondence_local_indices": [
+          0,
+          3,
+          5,
+          1
+        ],
+        "correspondence_global_indices": [
+          508,
+          536,
+          529,
+          503
+        ],
+        "correspondence_xy_rmse_m": 13.861429556371602,
+        "correspondence_z_rmse_m": 0.7994882380138296
+      },
+      "truth_x_m": -211.0142364501953,
+      "truth_y_m": -352.2628173828125,
+      "truth_z_m": 5.4391608238220215,
+      "xy_error_m": 294.0241579775494,
+      "z_error_m": 1.7211835123598576,
+      "heading_error_deg": 3.6128224656118277
+    },
+    {
+      "site": 22,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.007103429001290351,
+      "estimated_x_m": -236.5914453993461,
+      "estimated_y_m": -372.7623650218448,
+      "estimated_z_m": 6.465026617050171,
+      "estimated_heading_deg": -157.97069494807081,
+      "fitness": -0.21494904663482856,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC found no outliers",
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 5,
+        "inlier_count": 5,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          0,
+          3,
+          4,
+          2,
+          1
+        ],
+        "inlier_global_indices": [
+          452,
+          474,
+          489,
+          465,
+          430
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.926147152547837,
+            0.3771623679896145
+          ],
+          [
+            -0.37716236798961433,
+            -0.9261471525478372
+          ]
+        ],
+        "translation_xy_m": [
+          -235.52967796973283,
+          -373.7300971282531
+        ],
+        "translation_z_m": 6.465026617050171,
+        "heading_deg": -157.8419764164379,
+        "terrain_fitness": -0.23275988339006073,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.07350876355460054,
+        "mahalanobis_squared": [
+          0.012971447733655937,
+          0.07350876355460054,
+          0.0387262935491015,
+          0.30361969172296144,
+          1.8065369562898281
+        ],
+        "residuals_xyz_m": [
+          [
+            -0.5069210920567571,
+            -1.3303457125167597,
+            0.0
+          ],
+          [
+            1.1930670773736551,
+            -3.001684369163172,
+            0.1146765947341919
+          ],
+          [
+            2.1117317805635594,
+            1.258837732105576,
+            -0.009376823902130127
+          ],
+          [
+            5.705397818934017,
+            -3.8583926940226547,
+            -0.005008101463317871
+          ],
+          [
+            -8.503275584814332,
+            6.931585043597124,
+            1.428373098373413
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 10
+      },
+      "darces": {
+        "site": 22,
+        "local_feature_count": 5,
+        "heading_measurement_deg": -154.6185220563164,
+        "status": "solution",
+        "runtime_s": 4.028551608993439,
+        "estimated_x_m": -236.5914453993461,
+        "estimated_y_m": -372.7623650218448,
+        "estimated_z_m": 6.465026617050171,
+        "estimated_heading_deg": -157.97069494807081,
+        "fitness": -0.21494904663482856,
+        "overlap": 1.0,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 53,
+        "truth_x_m": -236.06866455078125,
+        "truth_y_m": -371.45111083984375,
+        "truth_z_m": 5.889065742492676,
+        "xy_error_m": 1.4116257809495505,
+        "z_error_m": 0.5759608745574951,
+        "heading_error_deg": 3.3521728917544067,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 5,
+        "correspondence_local_indices": [
+          0,
+          3,
+          4,
+          2,
+          1
+        ],
+        "correspondence_global_indices": [
+          452,
+          474,
+          489,
+          465,
+          430
+        ],
+        "correspondence_xy_rmse_m": 6.262154219794174,
+        "correspondence_z_rmse_m": 0.6408608952718917
+      },
+      "truth_x_m": -236.06866455078125,
+      "truth_y_m": -371.45111083984375,
+      "truth_z_m": 5.889065742492676,
+      "xy_error_m": 1.4116257809495505,
+      "z_error_m": 0.5759608745574951,
+      "heading_error_deg": 3.3521728917544067
+    },
+    {
+      "site": 23,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 23,
+        "local_feature_count": 9,
+        "heading_measurement_deg": -158.94227573393476,
+        "status": "no_solution",
+        "runtime_s": 81.94517171299958
+      }
+    },
+    {
+      "site": 24,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 24,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -138.21486385709562,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 25,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 25,
+        "local_feature_count": 2,
+        "heading_measurement_deg": 116.45158980740251,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 26,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.014256921000196598,
+      "estimated_x_m": -201.0754417264567,
+      "estimated_y_m": -153.38354424311706,
+      "estimated_z_m": 3.7918154895305634,
+      "estimated_heading_deg": 94.36007893515216,
+      "fitness": -0.5044078200576269,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC found no outliers",
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 6,
+        "inlier_count": 6,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          4,
+          3,
+          5,
+          1,
+          7,
+          8
+        ],
+        "inlier_global_indices": [
+          443,
+          424,
+          464,
+          427,
+          414,
+          484
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.12235714626372735,
+            -0.9924861352977163
+          ],
+          [
+            0.9924861352977167,
+            -0.12235714626372746
+          ]
+        ],
+        "translation_xy_m": [
+          -200.44839789444862,
+          -156.9113438163429
+        ],
+        "translation_z_m": 3.6428205966949463,
+        "heading_deg": 97.02815978828389,
+        "terrain_fitness": -0.49752504025258426,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 1.0216786924984633,
+        "mahalanobis_squared": [
+          0.37743992130394755,
+          0.21091900965691643,
+          0.7283971318082804,
+          1.606675044578711,
+          2.2156936230101008,
+          1.3149602531886464
+        ],
+        "residuals_xyz_m": [
+          [
+            -0.013316438835914823,
+            -7.564655345619997,
+            -0.14899489283561707
+          ],
+          [
+            -1.6713208582646928,
+            -0.5077632137788015,
+            0.610040932893753
+          ],
+          [
+            4.577174692378861,
+            -1.7433262010437147,
+            -1.057194173336029
+          ],
+          [
+            9.23265444412101,
+            -12.864993430519718,
+            0.06171226501464844
+          ],
+          [
+            -7.75729094204209,
+            9.03964097786718,
+            1.5930498093366623
+          ],
+          [
+            -4.367900897357174,
+            13.641097213095065,
+            -0.06171226501464844
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 20
+      },
+      "darces": {
+        "site": 26,
+        "local_feature_count": 9,
+        "heading_measurement_deg": 94.64262420433211,
+        "status": "solution",
+        "runtime_s": 40.89040368699352,
+        "estimated_x_m": -201.0754417264567,
+        "estimated_y_m": -153.38354424311706,
+        "estimated_z_m": 3.7918154895305634,
+        "estimated_heading_deg": 94.36007893515216,
+        "fitness": -0.5044078200576269,
+        "overlap": 1.0,
+        "cluster_size": 3,
+        "evaluated_hypothesis_count": 473,
+        "truth_x_m": -312.87744140625,
+        "truth_y_m": -352.31488037109375,
+        "truth_z_m": 5.095863342285156,
+        "xy_error_m": 228.1958887141978,
+        "z_error_m": 1.304047852754593,
+        "heading_error_deg": 0.28254526917993417,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 6,
+        "correspondence_local_indices": [
+          4,
+          3,
+          5,
+          1,
+          7,
+          8
+        ],
+        "correspondence_global_indices": [
+          443,
+          424,
+          464,
+          427,
+          414,
+          484
+        ],
+        "correspondence_xy_rmse_m": 11.587053778882058,
+        "correspondence_z_rmse_m": 0.8648407199881094
+      },
+      "truth_x_m": -312.87744140625,
+      "truth_y_m": -352.31488037109375,
+      "truth_z_m": 5.095863342285156,
+      "xy_error_m": 228.1958887141978,
+      "z_error_m": 1.304047852754593,
+      "heading_error_deg": 0.28254526917993417
+    },
+    {
+      "site": 27,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.0159370010078419,
+      "estimated_x_m": -370.60686820295734,
+      "estimated_y_m": -290.97076786424924,
+      "estimated_z_m": 6.957655191421509,
+      "estimated_heading_deg": 166.35631619492574,
+      "fitness": -0.5062253282922973,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC found no outliers",
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 5,
+        "inlier_count": 5,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          1,
+          4,
+          2,
+          5,
+          0
+        ],
+        "inlier_global_indices": [
+          492,
+          512,
+          466,
+          520,
+          474
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.979619693314243,
+            -0.20086128664058028
+          ],
+          [
+            0.20086128664058026,
+            -0.9796196933142429
+          ]
+        ],
+        "translation_xy_m": [
+          -366.66895136112555,
+          -299.3434051698454
+        ],
+        "translation_z_m": 6.957655191421509,
+        "heading_deg": 168.412670758313,
+        "terrain_fitness": -0.49322356590994776,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.8680712150670957,
+        "mahalanobis_squared": [
+          1.1031694222487727,
+          0.16421982627487086,
+          0.8680712150670957,
+          0.21941262305160772,
+          1.4124898618746613
+        ],
+        "residuals_xyz_m": [
+          [
+            7.706879733935921,
+            -10.628933483328353,
+            0.0
+          ],
+          [
+            -3.3266939993808364,
+            -2.1867508216697615,
+            -0.349528431892395
+          ],
+          [
+            6.97191241042367,
+            -2.9037477942763417,
+            0.9913166761398315
+          ],
+          [
+            -0.5294971463196703,
+            5.664942023900949,
+            0.15443480759859085
+          ],
+          [
+            -10.822600998659084,
+            10.054490075373451,
+            -0.17835211753845215
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 10
+      },
+      "darces": {
+        "site": 27,
+        "local_feature_count": 6,
+        "heading_measurement_deg": 165.23564396358438,
+        "status": "solution",
+        "runtime_s": 14.924171159000252,
+        "estimated_x_m": -370.60686820295734,
+        "estimated_y_m": -290.97076786424924,
+        "estimated_z_m": 6.957655191421509,
+        "estimated_heading_deg": 166.35631619492574,
+        "fitness": -0.5062253282922973,
+        "overlap": 1.0,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 155,
+        "truth_x_m": -355.8419494628906,
+        "truth_y_m": -339.0829162597656,
+        "truth_z_m": 6.069794654846191,
+        "xy_error_m": 50.32674883829635,
+        "z_error_m": 0.8878605365753174,
+        "heading_error_deg": 1.1206722313413593,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 5,
+        "correspondence_local_indices": [
+          1,
+          4,
+          2,
+          5,
+          0
+        ],
+        "correspondence_global_indices": [
+          492,
+          512,
+          466,
+          520,
+          474
+        ],
+        "correspondence_xy_rmse_m": 12.388965511287132,
+        "correspondence_z_rmse_m": 0.4817755628345099
+      },
+      "truth_x_m": -355.8419494628906,
+      "truth_y_m": -339.0829162597656,
+      "truth_z_m": 6.069794654846191,
+      "xy_error_m": 50.32674883829635,
+      "z_error_m": 0.8878605365753174,
+      "heading_error_deg": 1.1206722313413593
+    },
+    {
+      "site": 28,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.007551460003014654,
+      "estimated_x_m": -256.9602389131636,
+      "estimated_y_m": -164.65149900893618,
+      "estimated_z_m": 5.156771659851074,
+      "estimated_heading_deg": -146.85556721021993,
+      "fitness": -0.509303239607788,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC found no outliers",
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 5,
+        "inlier_count": 5,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          5,
+          4,
+          6,
+          2,
+          1
+        ],
+        "inlier_global_indices": [
+          463,
+          440,
+          484,
+          414,
+          459
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.8750266086324554,
+            0.4840748229201587
+          ],
+          [
+            -0.48407482292015863,
+            -0.8750266086324555
+          ]
+        ],
+        "translation_xy_m": [
+          -255.08749367968602,
+          -166.07745694871863
+        ],
+        "translation_z_m": 5.382188558578491,
+        "heading_deg": -151.04812490699732,
+        "terrain_fitness": -0.6021403284960805,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 1.0327504134446506,
+        "mahalanobis_squared": [
+          1.115671042701147,
+          0.5128157330509612,
+          1.0327504134446506,
+          0.6373922753546986,
+          2.2387950504104674
+        ],
+        "residuals_xyz_m": [
+          [
+            6.631259643873477,
+            10.56891133244767,
+            0.48488399386405945
+          ],
+          [
+            -8.947095681688097,
+            0.2773754710331673,
+            0.0
+          ],
+          [
+            10.714720470001396,
+            -6.710214989026213,
+            -0.13837943971157074
+          ],
+          [
+            -9.030124112499493,
+            -3.7490001916429208,
+            0.225416898727417
+          ],
+          [
+            0.6312396803127456,
+            -0.38707162281178853,
+            -2.0975821018218994
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 10
+      },
+      "darces": {
+        "site": 28,
+        "local_feature_count": 8,
+        "heading_measurement_deg": -146.19826293198696,
+        "status": "solution",
+        "runtime_s": 42.58088435798709,
+        "estimated_x_m": -256.9602389131636,
+        "estimated_y_m": -164.65149900893618,
+        "estimated_z_m": 5.156771659851074,
+        "estimated_heading_deg": -146.85556721021993,
+        "fitness": -0.509303239607788,
+        "overlap": 1.0,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 711,
+        "truth_x_m": -390.8143615722656,
+        "truth_y_m": -362.02740478515625,
+        "truth_z_m": 6.942140579223633,
+        "xy_error_m": 238.483069281283,
+        "z_error_m": 1.7853689193725586,
+        "heading_error_deg": 0.6573042782329708,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 5,
+        "correspondence_local_indices": [
+          5,
+          4,
+          6,
+          2,
+          1
+        ],
+        "correspondence_global_indices": [
+          463,
+          440,
+          484,
+          414,
+          459
+        ],
+        "correspondence_xy_rmse_m": 12.768211447524013,
+        "correspondence_z_rmse_m": 1.0627142686635267
+      },
+      "truth_x_m": -390.8143615722656,
+      "truth_y_m": -362.02740478515625,
+      "truth_z_m": 6.942140579223633,
+      "xy_error_m": 238.483069281283,
+      "z_error_m": 1.7853689193725586,
+      "heading_error_deg": 0.6573042782329708
+    }
+  ]
+}

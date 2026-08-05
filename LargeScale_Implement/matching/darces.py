@@ -93,7 +93,11 @@ def triangle_area(points_xy: np.ndarray) -> float:
     first = points_xy[1] - points_xy[0]
     second = points_xy[2] - points_xy[0]
 
-    return 0.5 * abs(float(np.cross(first, second)))
+    # Explicit 2-D determinant. NumPy 2.0 deprecated and newer releases reject
+    # np.cross() on two-component vectors because cross products are formally
+    # represented as three-dimensional vectors.
+    twice_area = first[0] * second[1] - first[1] * second[0]
+    return 0.5 * abs(float(twice_area))
 
 
 def _minimum_triangle_angle_deg(points_xy: np.ndarray) -> float:
