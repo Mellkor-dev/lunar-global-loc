@@ -33,8 +33,8 @@ class SingleScanSaver(Node):
         self.out_path = out_path
         self.include_intensity = include_intensity
         self.saved = False
-        self.create_subscription(PointCloud2, "/pointcloud", self.callback, 10)
-        self.get_logger().info(f"Waiting for one message on /pointcloud ...")
+        self.create_subscription(PointCloud2, "/os_cloud_node/points", self.callback, 10)
+        self.get_logger().info(f"Waiting for one message on /os_cloud_node/points ...")
 
     def callback(self, msg: PointCloud2):
         if self.saved:

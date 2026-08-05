@@ -170,7 +170,7 @@ def main():
 
     parser.add_argument(
         "--out",
-        default="odom_to_vlp16.npz",
+        default="odom_to_os1_lidar.npz",
         help="Output NPZ file"
     )
 

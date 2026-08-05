@@ -1,0 +1,14 @@
+digraph G {
+"base_link" -> "front_left_wheel_link"[label=" Broadcaster: default_authority\nAverage rate: 60.438\nBuffer length: 2.283\nMost recent transform: 8.233334\nOldest transform: 5.95\n"];
+"odom" -> "base_link"[label=" Broadcaster: default_authority\nAverage rate: 60.438\nBuffer length: 2.283\nMost recent transform: 8.233334\nOldest transform: 5.95\n"];
+"base_link" -> "front_right_wheel_link"[label=" Broadcaster: default_authority\nAverage rate: 60.438\nBuffer length: 2.283\nMost recent transform: 8.233334\nOldest transform: 5.95\n"];
+"base_link" -> "rear_left_wheel_link"[label=" Broadcaster: default_authority\nAverage rate: 60.438\nBuffer length: 2.283\nMost recent transform: 8.233334\nOldest transform: 5.95\n"];
+"base_link" -> "rear_right_wheel_link"[label=" Broadcaster: default_authority\nAverage rate: 60.438\nBuffer length: 2.283\nMost recent transform: 8.233334\nOldest transform: 5.95\n"];
+"base_link" -> "vlp16"[label=" Broadcaster: default_authority\nAverage rate: 60.438\nBuffer length: 2.283\nMost recent transform: 8.233334\nOldest transform: 5.95\n"];
+"base_link" -> "Camera_Pseudo_Depth"[label=" Broadcaster: default_authority\nAverage rate: 60.438\nBuffer length: 2.283\nMost recent transform: 8.233334\nOldest transform: 5.95\n"];
+"base_link" -> "Imu_Sensor"[label=" Broadcaster: default_authority\nAverage rate: 60.438\nBuffer length: 2.283\nMost recent transform: 8.233334\nOldest transform: 5.95\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1785898359.2460027"[ shape=plaintext ] ;
+}->"odom";
+}
