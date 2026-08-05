@@ -1,11 +1,29 @@
 {
   "settings": {
-    "trials_per_site": 1000000,
+    "trials_per_site": 100000,
     "seed": 29,
     "heading_tolerance_deg": 5.0,
     "minimum_cluster_size": 2,
     "distance_tolerance_m": 31.422150211084755,
-    "z_residual_tolerance_m": 3.908248415729024
+    "z_residual_tolerance_m": 3.908248415729024,
+    "covariance_sigma_multiplier": 2.0,
+    "global_covariance_m2": [
+      [
+        109.70572487644152,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        109.70572487644152,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.6971561865609361
+      ]
+    ]
   },
   "sites": [
     {
@@ -13,31 +31,50 @@
       "local_feature_count": 13,
       "heading_measurement_deg": -0.27220387723835904,
       "status": "solution",
-      "runtime_s": 141.39663029300573,
-      "estimated_x_m": -6.53244020934175,
-      "estimated_y_m": -2.741623189545244,
-      "estimated_z_m": 0.02179408073425293,
-      "estimated_heading_deg": 2.178680075276599,
-      "fitness": -0.2221692946052522,
+      "runtime_s": 110.14800719500636,
+      "estimated_x_m": 3.8670391578251753,
+      "estimated_y_m": -6.240443697297465,
+      "estimated_z_m": -0.005605220794677734,
+      "estimated_heading_deg": 0.9953863643255071,
+      "fitness": -0.2436684378749454,
       "overlap": 1.0,
       "cluster_size": 5,
-      "evaluated_hypothesis_count": 3867,
+      "evaluated_hypothesis_count": 1980,
       "truth_x_m": -0.005049131810665131,
       "truth_y_m": -0.0011176990810781717,
       "truth_z_m": -0.49565547704696655,
-      "xy_error_m": 7.07935057913483,
-      "z_error_m": 0.5174495577812195,
-      "heading_error_deg": 2.450883952514971,
+      "xy_error_m": 7.343177557076631,
+      "z_error_m": 0.4900502562522888,
+      "heading_error_deg": 1.2675902415638802,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 6,
+      "correspondence_local_indices": [
+        6,
+        7,
+        0,
+        4,
+        1,
+        11
+      ],
+      "correspondence_global_indices": [
+        334,
+        339,
+        289,
+        331,
+        312,
+        350
+      ],
+      "correspondence_xy_rmse_m": 15.386290513890396,
+      "correspondence_z_rmse_m": 0.367665723577162
     },
     {
       "site": 2,
       "local_feature_count": 11,
       "heading_measurement_deg": -1.9318747485652559,
       "status": "solution",
-      "runtime_s": 65.70941212600155,
+      "runtime_s": 89.73861518999911,
       "estimated_x_m": -465.8599457883665,
       "estimated_y_m": -137.97932130151872,
       "estimated_z_m": 8.989121735095978,
@@ -54,14 +91,35 @@
       "heading_error_deg": 1.2653225098051166,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 7,
+      "correspondence_local_indices": [
+        0,
+        8,
+        1,
+        5,
+        10,
+        9,
+        3
+      ],
+      "correspondence_global_indices": [
+        443,
+        507,
+        449,
+        495,
+        515,
+        491,
+        518
+      ],
+      "correspondence_xy_rmse_m": 11.18452746404928,
+      "correspondence_z_rmse_m": 0.6946889552326615
     },
     {
       "site": 3,
       "local_feature_count": 14,
       "heading_measurement_deg": -40.71819704388585,
       "status": "solution",
-      "runtime_s": 185.1328764409991,
+      "runtime_s": 101.19674095899973,
       "estimated_x_m": 23.62341780562359,
       "estimated_y_m": -11.1796319410134,
       "estimated_z_m": -0.02145916223526001,
@@ -69,7 +127,7 @@
       "fitness": -0.25762317523411093,
       "overlap": 1.0,
       "cluster_size": 3,
-      "evaluated_hypothesis_count": 5464,
+      "evaluated_hypothesis_count": 1924,
       "truth_x_m": 23.901281356811523,
       "truth_y_m": -10.196999549865723,
       "truth_z_m": -0.5373302102088928,
@@ -78,14 +136,31 @@
       "heading_error_deg": 1.1729461598128808,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 5,
+      "correspondence_local_indices": [
+        6,
+        3,
+        0,
+        10,
+        1
+      ],
+      "correspondence_global_indices": [
+        339,
+        334,
+        289,
+        350,
+        310
+      ],
+      "correspondence_xy_rmse_m": 8.7382645319217,
+      "correspondence_z_rmse_m": 0.3101245262436463
     },
     {
       "site": 4,
       "local_feature_count": 7,
       "heading_measurement_deg": -64.79133493705918,
       "status": "solution",
-      "runtime_s": 16.704130514001008,
+      "runtime_s": 23.010534842993366,
       "estimated_x_m": 699.9229099009541,
       "estimated_y_m": 638.3323375750125,
       "estimated_z_m": -15.324777841567993,
@@ -102,45 +177,81 @@
       "heading_error_deg": 4.343897193955968,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 4,
+      "correspondence_local_indices": [
+        6,
+        1,
+        0,
+        3
+      ],
+      "correspondence_global_indices": [
+        179,
+        89,
+        77,
+        100
+      ],
+      "correspondence_xy_rmse_m": 9.838863385733585,
+      "correspondence_z_rmse_m": 1.4110545239460255
     },
     {
       "site": 5,
       "local_feature_count": 7,
       "heading_measurement_deg": -147.34555813717074,
       "status": "no_solution",
-      "runtime_s": 15.688876915010042
+      "runtime_s": 21.239761800999986
     },
     {
       "site": 6,
       "local_feature_count": 17,
       "heading_measurement_deg": -149.25701624245687,
       "status": "solution",
-      "runtime_s": 376.2229134980007,
-      "estimated_x_m": -2.867990964822873,
-      "estimated_y_m": -55.85791015383166,
-      "estimated_z_m": 0.12604427337646484,
-      "estimated_heading_deg": -149.8305282837463,
-      "fitness": -0.16891370484593837,
+      "runtime_s": 99.66363093401014,
+      "estimated_x_m": -3.5883992486284164,
+      "estimated_y_m": -55.900620033325,
+      "estimated_z_m": 0.08753776550292969,
+      "estimated_heading_deg": -150.24956517205712,
+      "fitness": -0.20139863818694784,
       "overlap": 1.0,
-      "cluster_size": 5,
-      "evaluated_hypothesis_count": 14267,
+      "cluster_size": 4,
+      "evaluated_hypothesis_count": 1422,
       "truth_x_m": -0.9627990126609802,
       "truth_y_m": -59.02731704711914,
       "truth_z_m": -0.45432978868484497,
-      "xy_error_m": 3.697958413746785,
-      "z_error_m": 0.5803740620613098,
-      "heading_error_deg": 0.5735120412894332,
+      "xy_error_m": 4.082892456969871,
+      "z_error_m": 0.5418675541877747,
+      "heading_error_deg": 0.9925489296002468,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 7,
+      "correspondence_local_indices": [
+        0,
+        5,
+        1,
+        7,
+        2,
+        9,
+        16
+      ],
+      "correspondence_global_indices": [
+        289,
+        331,
+        310,
+        339,
+        312,
+        334,
+        365
+      ],
+      "correspondence_xy_rmse_m": 10.0191580811683,
+      "correspondence_z_rmse_m": 0.4479196943474
     },
     {
       "site": 7,
       "local_feature_count": 4,
       "heading_measurement_deg": -109.2759993649763,
       "status": "no_solution",
-      "runtime_s": 1.6088597030029632
+      "runtime_s": 2.3015855659905355
     },
     {
       "site": 8,
@@ -159,7 +270,7 @@
       "local_feature_count": 4,
       "heading_measurement_deg": -111.72540843703277,
       "status": "solution",
-      "runtime_s": 1.2760540300077992,
+      "runtime_s": 1.8631257179949898,
       "estimated_x_m": -279.04374953027656,
       "estimated_y_m": 457.9005215437965,
       "estimated_z_m": 6.980513215065002,
@@ -176,14 +287,27 @@
       "heading_error_deg": 1.2235288438905059,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 3,
+      "correspondence_local_indices": [
+        2,
+        3,
+        0
+      ],
+      "correspondence_global_indices": [
+        434,
+        467,
+        380
+      ],
+      "correspondence_xy_rmse_m": 5.978528714367807,
+      "correspondence_z_rmse_m": 1.2190003062632961
     },
     {
       "site": 11,
       "local_feature_count": 6,
       "heading_measurement_deg": -110.5384072461038,
       "status": "solution",
-      "runtime_s": 4.061906333998195,
+      "runtime_s": 5.664173034005216,
       "estimated_x_m": -327.77544986119216,
       "estimated_y_m": -203.19305308785647,
       "estimated_z_m": 7.127267360687256,
@@ -200,38 +324,76 @@
       "heading_error_deg": 1.22247711708971,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 4,
+      "correspondence_local_indices": [
+        5,
+        2,
+        3,
+        1
+      ],
+      "correspondence_global_indices": [
+        432,
+        383,
+        403,
+        385
+      ],
+      "correspondence_xy_rmse_m": 13.367605960554426,
+      "correspondence_z_rmse_m": 0.7516118669461449
     },
     {
       "site": 12,
       "local_feature_count": 12,
       "heading_measurement_deg": -95.71127683719807,
       "status": "solution",
-      "runtime_s": 95.2886196939944,
-      "estimated_x_m": -23.571626042861006,
-      "estimated_y_m": -173.86341868718682,
+      "runtime_s": 90.50235868200252,
+      "estimated_x_m": -24.402030732816094,
+      "estimated_y_m": -176.6335605631396,
       "estimated_z_m": 1.7954351902008057,
-      "estimated_heading_deg": -95.66431025947723,
-      "fitness": -0.160598434026547,
+      "estimated_heading_deg": -93.54868197390444,
+      "fitness": -0.16522675056023234,
       "overlap": 1.0,
       "cluster_size": 5,
-      "evaluated_hypothesis_count": 2904,
+      "evaluated_hypothesis_count": 2017,
       "truth_x_m": -27.199756622314453,
       "truth_y_m": -174.37538146972656,
       "truth_z_m": 1.2406376600265503,
-      "xy_error_m": 3.6640738792048175,
+      "xy_error_m": 3.5953640943160625,
       "z_error_m": 0.5547975301742554,
-      "heading_error_deg": 0.04696657772083768,
+      "heading_error_deg": 2.1625948632936343,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 8,
+      "correspondence_local_indices": [
+        5,
+        9,
+        0,
+        10,
+        11,
+        2,
+        8,
+        1
+      ],
+      "correspondence_global_indices": [
+        331,
+        365,
+        279,
+        377,
+        375,
+        310,
+        339,
+        289
+      ],
+      "correspondence_xy_rmse_m": 11.973413391666906,
+      "correspondence_z_rmse_m": 0.7943841270033486
     },
     {
       "site": 13,
       "local_feature_count": 9,
       "heading_measurement_deg": -99.79358424542976,
       "status": "solution",
-      "runtime_s": 34.09169629699318,
+      "runtime_s": 47.67878808900423,
       "estimated_x_m": -29.27574735848152,
       "estimated_y_m": -200.42570380381068,
       "estimated_z_m": 3.3723573684692383,
@@ -248,38 +410,70 @@
       "heading_error_deg": 1.220968209671497,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 4,
+      "correspondence_local_indices": [
+        1,
+        6,
+        4,
+        0
+      ],
+      "correspondence_global_indices": [
+        331,
+        377,
+        365,
+        279
+      ],
+      "correspondence_xy_rmse_m": 3.96198629966299,
+      "correspondence_z_rmse_m": 1.13309609470152
     },
     {
       "site": 14,
       "local_feature_count": 15,
       "heading_measurement_deg": -131.9409613661199,
       "status": "solution",
-      "runtime_s": 296.9565407339978,
-      "estimated_x_m": -63.48627901427363,
-      "estimated_y_m": -235.32424014540297,
-      "estimated_z_m": 4.34720242023468,
-      "estimated_heading_deg": -128.02003594756985,
-      "fitness": -0.7855253281679248,
+      "runtime_s": 32.55959037800494,
+      "estimated_x_m": -172.17449313078077,
+      "estimated_y_m": -23.810744456925477,
+      "estimated_z_m": 6.499654412269592,
+      "estimated_heading_deg": -134.78069812759307,
+      "fitness": -1.6647037308205594,
       "overlap": 1.0,
-      "cluster_size": 3,
-      "evaluated_hypothesis_count": 5529,
+      "cluster_size": 2,
+      "evaluated_hypothesis_count": 404,
       "truth_x_m": -50.64036178588867,
       "truth_y_m": -224.77685546875,
       "truth_z_m": 3.8478145599365234,
-      "xy_error_m": 16.621218756631873,
-      "z_error_m": 0.49938786029815674,
-      "heading_error_deg": 3.9209254185500413,
+      "xy_error_m": 234.85723931140478,
+      "z_error_m": 2.651839852333069,
+      "heading_error_deg": 2.8397367614731763,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 5,
+      "correspondence_local_indices": [
+        0,
+        2,
+        4,
+        7,
+        14
+      ],
+      "correspondence_global_indices": [
+        279,
+        351,
+        369,
+        424,
+        456
+      ],
+      "correspondence_xy_rmse_m": 8.963097241305343,
+      "correspondence_z_rmse_m": 1.0835809383864679
     },
     {
       "site": 15,
       "local_feature_count": 10,
       "heading_measurement_deg": 148.4489082081921,
       "status": "solution",
-      "runtime_s": 38.884466643008636,
+      "runtime_s": 53.73988892100169,
       "estimated_x_m": -18.33653182015741,
       "estimated_y_m": 7.874190967704255,
       "estimated_z_m": 0.46675026416778564,
@@ -296,14 +490,31 @@
       "heading_error_deg": 3.1128126667050537,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 5,
+      "correspondence_local_indices": [
+        5,
+        0,
+        9,
+        8,
+        2
+      ],
+      "correspondence_global_indices": [
+        334,
+        289,
+        350,
+        339,
+        310
+      ],
+      "correspondence_xy_rmse_m": 7.092878133568666,
+      "correspondence_z_rmse_m": 0.12645872235221634
     },
     {
       "site": 16,
       "local_feature_count": 8,
       "heading_measurement_deg": -138.39500865476546,
       "status": "solution",
-      "runtime_s": 19.212972990993876,
+      "runtime_s": 25.9380443609989,
       "estimated_x_m": -164.72849164008423,
       "estimated_y_m": -230.80849960973939,
       "estimated_z_m": 4.868707895278931,
@@ -311,7 +522,7 @@
       "fitness": -0.5419354838653798,
       "overlap": 1.0,
       "cluster_size": 2,
-      "evaluated_hypothesis_count": 515,
+      "evaluated_hypothesis_count": 520,
       "truth_x_m": -178.57537841796875,
       "truth_y_m": -323.9828796386719,
       "truth_z_m": 6.217787742614746,
@@ -320,21 +531,36 @@
       "heading_error_deg": 1.950706982387402,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 4,
+      "correspondence_local_indices": [
+        7,
+        3,
+        2,
+        6
+      ],
+      "correspondence_global_indices": [
+        401,
+        383,
+        385,
+        392
+      ],
+      "correspondence_xy_rmse_m": 11.611357329577071,
+      "correspondence_z_rmse_m": 0.30432498517304446
     },
     {
       "site": 17,
       "local_feature_count": 7,
       "heading_measurement_deg": -143.02059009636423,
       "status": "no_solution",
-      "runtime_s": 17.874006219004514
+      "runtime_s": 24.43021466799837
     },
     {
       "site": 18,
       "local_feature_count": 11,
       "heading_measurement_deg": -139.12382904054863,
       "status": "solution",
-      "runtime_s": 70.90078256900597,
+      "runtime_s": 97.04609008300758,
       "estimated_x_m": -127.40661375857346,
       "estimated_y_m": -290.6432326458093,
       "estimated_z_m": 5.814154148101807,
@@ -351,14 +577,33 @@
       "heading_error_deg": 0.3097542062582761,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 6,
+      "correspondence_local_indices": [
+        6,
+        7,
+        9,
+        4,
+        3,
+        8
+      ],
+      "correspondence_global_indices": [
+        416,
+        419,
+        431,
+        392,
+        395,
+        418
+      ],
+      "correspondence_xy_rmse_m": 10.549518540065796,
+      "correspondence_z_rmse_m": 0.17673962131304832
     },
     {
       "site": 19,
       "local_feature_count": 11,
       "heading_measurement_deg": -163.07943097450712,
       "status": "solution",
-      "runtime_s": 61.74139561300399,
+      "runtime_s": 86.33777619600005,
       "estimated_x_m": -161.16998665262867,
       "estimated_y_m": -316.562330663414,
       "estimated_z_m": 5.961707353591919,
@@ -375,38 +620,72 @@
       "heading_error_deg": 2.239069539897855,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 4,
+      "correspondence_local_indices": [
+        4,
+        5,
+        7,
+        2
+      ],
+      "correspondence_global_indices": [
+        419,
+        418,
+        431,
+        392
+      ],
+      "correspondence_xy_rmse_m": 4.165921357120665,
+      "correspondence_z_rmse_m": 0.2604043937201019
     },
     {
       "site": 20,
       "local_feature_count": 13,
       "heading_measurement_deg": -137.02000719215434,
       "status": "solution",
-      "runtime_s": 121.40293694699358,
-      "estimated_x_m": -191.72043953386847,
-      "estimated_y_m": -337.6412173463392,
-      "estimated_z_m": 7.3809075355529785,
-      "estimated_heading_deg": -139.91924239920587,
-      "fitness": -0.14425381635293327,
+      "runtime_s": 54.81041736899351,
+      "estimated_x_m": -225.31643065803024,
+      "estimated_y_m": -312.07395463846944,
+      "estimated_z_m": 7.2239720821380615,
+      "estimated_heading_deg": -135.93996126772848,
+      "fitness": -0.5935015998864709,
       "overlap": 1.0,
       "cluster_size": 5,
-      "evaluated_hypothesis_count": 3307,
+      "evaluated_hypothesis_count": 1759,
       "truth_x_m": -194.00518798828125,
       "truth_y_m": -337.96356201171875,
       "truth_z_m": 6.880199909210205,
-      "xy_error_m": 2.307375475131915,
-      "z_error_m": 0.5007076263427734,
-      "heading_error_deg": 2.8992352070515324,
+      "xy_error_m": 40.628385243139,
+      "z_error_m": 0.34377217292785645,
+      "heading_error_deg": 1.0800459244258604,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 6,
+      "correspondence_local_indices": [
+        10,
+        0,
+        2,
+        11,
+        1,
+        6
+      ],
+      "correspondence_global_indices": [
+        459,
+        395,
+        409,
+        436,
+        441,
+        444
+      ],
+      "correspondence_xy_rmse_m": 12.546396100327321,
+      "correspondence_z_rmse_m": 0.6904239478155176
     },
     {
       "site": 21,
       "local_feature_count": 8,
       "heading_measurement_deg": -139.50755383711078,
       "status": "solution",
-      "runtime_s": 11.212867059992277,
+      "runtime_s": 15.732986636998248,
       "estimated_x_m": -209.3186372651199,
       "estimated_y_m": -351.143968610201,
       "estimated_z_m": 6.030748724937439,
@@ -423,14 +702,31 @@
       "heading_error_deg": 0.18249340237233014,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 5,
+      "correspondence_local_indices": [
+        0,
+        1,
+        6,
+        5,
+        4
+      ],
+      "correspondence_global_indices": [
+        409,
+        421,
+        444,
+        441,
+        426
+      ],
+      "correspondence_xy_rmse_m": 7.211027585820891,
+      "correspondence_z_rmse_m": 0.26225136830369367
     },
     {
       "site": 22,
       "local_feature_count": 7,
       "heading_measurement_deg": -154.6185220563164,
       "status": "solution",
-      "runtime_s": 6.492233498007408,
+      "runtime_s": 9.033202192003955,
       "estimated_x_m": -233.65727000035378,
       "estimated_y_m": -369.80913205845195,
       "estimated_z_m": 6.4810426235198975,
@@ -447,59 +743,101 @@
       "heading_error_deg": 0.5343570587620832,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 7,
+      "correspondence_local_indices": [
+        0,
+        6,
+        2,
+        3,
+        5,
+        4,
+        1
+      ],
+      "correspondence_global_indices": [
+        409,
+        441,
+        421,
+        426,
+        430,
+        422,
+        388
+      ],
+      "correspondence_xy_rmse_m": 7.139346672928339,
+      "correspondence_z_rmse_m": 0.5584554164772395
     },
     {
       "site": 23,
       "local_feature_count": 15,
       "heading_measurement_deg": -158.94227573393476,
       "status": "solution",
-      "runtime_s": 213.3354673379945,
-      "estimated_x_m": -248.7244257392058,
-      "estimated_y_m": -381.1313968526248,
-      "estimated_z_m": 6.716468572616577,
-      "estimated_heading_deg": -159.92701239656543,
-      "fitness": -0.22294067766007802,
+      "runtime_s": 53.22600482599228,
+      "estimated_x_m": -440.522149308615,
+      "estimated_y_m": -416.703019725793,
+      "estimated_z_m": 9.41447901725769,
+      "estimated_heading_deg": -160.96118956230322,
+      "fitness": -0.9661121824504267,
       "overlap": 1.0,
       "cluster_size": 5,
-      "evaluated_hypothesis_count": 5658,
+      "evaluated_hypothesis_count": 1485,
       "truth_x_m": -252.51278686523438,
       "truth_y_m": -377.9277648925781,
       "truth_z_m": 6.394556045532227,
-      "xy_error_m": 4.9613443497339444,
-      "z_error_m": 0.3219125270843506,
-      "heading_error_deg": 0.9847366626306666,
+      "xy_error_m": 191.96624899639835,
+      "z_error_m": 3.019922971725464,
+      "heading_error_deg": 2.0189138283684542,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 7,
+      "correspondence_local_indices": [
+        2,
+        9,
+        3,
+        13,
+        6,
+        5,
+        0
+      ],
+      "correspondence_global_indices": [
+        471,
+        503,
+        485,
+        536,
+        468,
+        476,
+        480
+      ],
+      "correspondence_xy_rmse_m": 14.050751499803546,
+      "correspondence_z_rmse_m": 1.0220671268308568
     },
     {
       "site": 24,
       "local_feature_count": 3,
       "heading_measurement_deg": -138.21486385709562,
       "status": "no_solution",
-      "runtime_s": 0.00745772200752981
+      "runtime_s": 0.009446758995181881
     },
     {
       "site": 25,
       "local_feature_count": 4,
       "heading_measurement_deg": 116.45158980740251,
       "status": "no_solution",
-      "runtime_s": 1.2175640360073885
+      "runtime_s": 1.6942418709950289
     },
     {
       "site": 26,
       "local_feature_count": 10,
       "heading_measurement_deg": 94.64262420433211,
       "status": "no_solution",
-      "runtime_s": 32.009314184004324
+      "runtime_s": 45.415401029007626
     },
     {
       "site": 27,
       "local_feature_count": 13,
       "heading_measurement_deg": 165.23564396358438,
       "status": "solution",
-      "runtime_s": 121.87303138799325,
+      "runtime_s": 132.7630130470061,
       "estimated_x_m": -356.79124933531773,
       "estimated_y_m": -338.9383296485736,
       "estimated_z_m": 6.637357831001282,
@@ -507,7 +845,7 @@
       "fitness": -0.1361349176811211,
       "overlap": 1.0,
       "cluster_size": 5,
-      "evaluated_hypothesis_count": 3030,
+      "evaluated_hypothesis_count": 2365,
       "truth_x_m": -355.8419494628906,
       "truth_y_m": -339.0829162597656,
       "truth_z_m": 6.069794654846191,
@@ -516,31 +854,81 @@
       "heading_error_deg": 0.8300020575370581,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 8,
+      "correspondence_local_indices": [
+        2,
+        6,
+        7,
+        3,
+        10,
+        5,
+        1,
+        8
+      ],
+      "correspondence_global_indices": [
+        426,
+        441,
+        444,
+        422,
+        459,
+        430,
+        388,
+        409
+      ],
+      "correspondence_xy_rmse_m": 8.427270973848527,
+      "correspondence_z_rmse_m": 0.7964657625877064
     },
     {
       "site": 28,
       "local_feature_count": 17,
       "heading_measurement_deg": -146.19826293198696,
       "status": "solution",
-      "runtime_s": 335.07392606299254,
-      "estimated_x_m": 953.0051139327883,
-      "estimated_y_m": 179.59816572962535,
-      "estimated_z_m": -18.8337459564209,
-      "estimated_heading_deg": -150.12400730831055,
-      "fitness": -0.5050153642766316,
-      "overlap": 0.6085858585858586,
-      "cluster_size": 2,
-      "evaluated_hypothesis_count": 14676,
+      "runtime_s": 60.570844622998266,
+      "estimated_x_m": -351.3786318646513,
+      "estimated_y_m": -272.03500945410525,
+      "estimated_z_m": 7.0247949957847595,
+      "estimated_heading_deg": -146.88323268827114,
+      "fitness": -0.6017631293301582,
+      "overlap": 1.0,
+      "cluster_size": 3,
+      "evaluated_hypothesis_count": 2134,
       "truth_x_m": -390.8143615722656,
       "truth_y_m": -362.02740478515625,
       "truth_z_m": 6.942140579223633,
-      "xy_error_m": 1448.8647422662136,
-      "z_error_m": 25.77588653564453,
-      "heading_error_deg": 3.9257443763235926,
+      "xy_error_m": 98.25379379439852,
+      "z_error_m": 0.08265441656112671,
+      "heading_error_deg": 0.6849697562841754,
       "consensus_count": 0,
       "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity
+      "consensus_z_rmse_m": Infinity,
+      "correspondence_count": 10,
+      "correspondence_local_indices": [
+        10,
+        9,
+        11,
+        8,
+        0,
+        1,
+        14,
+        12,
+        2,
+        7
+      ],
+      "correspondence_global_indices": [
+        469,
+        418,
+        444,
+        430,
+        409,
+        421,
+        493,
+        449,
+        436,
+        422
+      ],
+      "correspondence_xy_rmse_m": 15.242044277656198,
+      "correspondence_z_rmse_m": 0.8216189878579184
     }
   ]
 }
