@@ -103,6 +103,7 @@ python3 LargeScale_Implement/Scripts/03_feature_detector.py --resolution 1p5m
 python3 LargeScale_Implement/Scripts/09_darces_all_sites.py --resolution 5m
 python3 LargeScale_Implement/Scripts/11_ransac_all_sites.py --resolution 5m
 python3 LargeScale_Implement/Scripts/12_moga_all_sites.py --resolution 5m
+python3 LargeScale_Implement/Scripts/13_pipeline_diagnostics.py --resolution all
 ```
 
 All scripts default to `5m`. The feature detector also accepts
@@ -212,6 +213,20 @@ evaluation and the truth overlay; it is never used to initialize or constrain
 a pose. Its output and
 traversal plot are written to `results/<resolution>_px/moga_all_sites.*` and
 `plots/<resolution>_px/moga/`.
+
+Generate a stage-by-stage diagnostic report after rerunning any localization
+stage with:
+
+```bash
+python3 LargeScale_Implement/Scripts/13_pipeline_diagnostics.py --resolution all
+```
+
+The report joins every site across DARCES, RANSAC, and MOGA, records each pose
+and error, and labels each transition as improved, worsened, unchanged, or not
+comparable. Combined CSV/Markdown data and a summary table are placed in
+`LargeScale_Implement/results/diagnostics/`; paper-style per-site radial and
+component-error plots are placed in each resolution's `plots/.../diagnostics/`
+directory.
 
 ## Coordinate conventions
 
