@@ -124,7 +124,14 @@ class PipelineConfig:
 
     @property
     def available_resolutions(self) -> tuple[str, ...]:
-        return tuple(sorted(self.feature_detection_targets))
+        """Return profiles from finest to coarsest physical cell size."""
+        return tuple(
+            name
+            for name, _target in sorted(
+                self.feature_detection_targets.items(),
+                key=lambda item: (item[1].raster.resolution_m, item[0]),
+            )
+        )
 
     def for_resolution(self, name: str) -> "PipelineConfig":
         """Return a pipeline view rooted in one resolution subdirectory."""

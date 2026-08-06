@@ -210,7 +210,12 @@ def write_markdown(path: Path, rows: list[dict[str, object]]) -> None:
 
 def summary_rows(rows: list[dict[str, object]]) -> list[dict[str, object]]:
     summaries: list[dict[str, object]] = []
-    resolutions = sorted({str(row["resolution"]) for row in rows})
+    present = {str(row["resolution"]) for row in rows}
+    resolutions = [
+        resolution
+        for resolution in load_pipeline_config().available_resolutions
+        if resolution in present
+    ]
     for resolution in resolutions:
         selected = [row for row in rows if row["resolution"] == resolution]
         for stage in STAGES:
