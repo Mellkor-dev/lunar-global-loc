@@ -18,6 +18,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from matching.darces import decimate_reference_points_xy
 from matching.ransac import exhaustive_ransac
 from pipeline_config import add_resolution_argument, load_resolution_config
 
@@ -34,6 +35,12 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("--minimum-overlap", type=float, default=0.50)
     parser.add_argument("--minimum-triangle-area", type=float, default=1.0)
     parser.add_argument("--maximum-refinement-iterations", type=int, default=5)
+    parser.add_argument(
+        "--minimum-fitness-improvement-m",
+        type=float,
+        default=0.01,
+        help="Minimum terrain-MAE reduction required to select RANSAC (default: 0.01 m)",
+    )
     parser.add_argument("--no-plots", action="store_true")
     return parser.parse_args()
 
@@ -195,9 +202,17 @@ def main() -> None:
     if not 0.0 < args.confidence < 1.0:
         raise ValueError("--confidence must lie in (0, 1)")
     config = load_resolution_config(args.resolution)
+    if args.minimum_fitness_improvement_m < 0.0:
+        raise ValueError("--minimum-fitness-improvement-m must be non-negative")
     darces_path = args.darces_results or config.results_path / "darces_all_sites.json"
     with darces_path.open("r", encoding="utf-8") as stream:
         darces_payload = json.load(stream)
+    darces_settings = darces_payload.get("settings", {})
+    if darces_settings.get("fitness_reference") != "raw_lidar_xy_decimated":
+        raise ValueError(
+            f"{darces_path} uses legacy grid-cell terrain fitness; rerun "
+            "Scripts/09_darces_all_sites.py before RANSAC"
+        )
     darces_sites = darces_payload.get("sites")
     if not isinstance(darces_sites, list):
         raise ValueError(f"{darces_path}: 'sites' must be a list")
@@ -247,6 +262,18 @@ def main() -> None:
                 local_grid = np.asarray(grid["elevation"], dtype=np.float64)
                 local_x = np.asarray(grid["x_centers_m"], dtype=np.float64)
                 local_y = np.asarray(grid["y_centers_m"], dtype=np.float64)
+            reference_spacing_m = config.orbital_raster.resolution_m / 2.0
+            reference_points_xyz = decimate_reference_points_xy(
+                np.asarray(
+                    np.load(
+                        config.leveled_maps_path
+                        / f"leveled_site_{site:02d}.npy",
+                        allow_pickle=False,
+                    ),
+                    dtype=np.float64,
+                ),
+                reference_spacing_m,
+            )
             local_indices = np.asarray(
                 darces["correspondence_local_indices"], dtype=np.int64
             )
@@ -271,6 +298,7 @@ def main() -> None:
                 minimum_overlap=args.minimum_overlap,
                 minimum_triangle_area_m2=args.minimum_triangle_area,
                 maximum_refinement_iterations=args.maximum_refinement_iterations,
+                reference_points_xyz=reference_points_xyz,
             )
             runtime_s = time.perf_counter() - start
         except Exception as error:
@@ -282,12 +310,14 @@ def main() -> None:
         if result["status"] in {"solution", "minimal_unverified"}:
             ransac_xy = np.asarray(result["translation_xy_m"], dtype=np.float64)
             rejected_outlier = int(result["outlier_count"]) > 0
-            improves_fitness = float(result["terrain_fitness"]) >= float(
+            fitness_improvement_m = float(result["terrain_fitness"]) - float(
                 darces["fitness"]
+            )
+            improves_fitness = (
+                fitness_improvement_m >= args.minimum_fitness_improvement_m
             )
             use_ransac_estimate = (
                 result["status"] == "solution"
-                and rejected_outlier
                 and improves_fitness
             )
             if use_ransac_estimate:
@@ -311,11 +341,7 @@ def main() -> None:
                 preservation_reason = (
                     "exactly three correspondences cannot be outlier-tested"
                     if result["status"] == "minimal_unverified"
-                    else (
-                        "RANSAC found no outliers"
-                        if not rejected_outlier
-                        else "RANSAC terrain fitness did not improve"
-                    )
+                    else "RANSAC terrain fitness improvement was below threshold"
                 )
             record = {
                 "site": site,
@@ -329,6 +355,11 @@ def main() -> None:
                 "fitness": estimate_fitness,
                 "overlap": estimate_overlap,
                 "preservation_reason": preservation_reason,
+                "fitness_improvement_m": fitness_improvement_m,
+                "ransac_rejected_outlier": rejected_outlier,
+                "fitness_reference": "raw_lidar_xy_decimated",
+                "fitness_reference_spacing_m": reference_spacing_m,
+                "fitness_reference_point_count": len(reference_points_xyz),
                 "ransac": serializable_ransac(result),
                 "darces": darces,
             }
@@ -386,6 +417,9 @@ def main() -> None:
             "minimum_overlap": args.minimum_overlap,
             "minimum_triangle_area_m2": args.minimum_triangle_area,
             "maximum_refinement_iterations": args.maximum_refinement_iterations,
+            "minimum_fitness_improvement_m": args.minimum_fitness_improvement_m,
+            "fitness_reference": "raw_lidar_xy_decimated",
+            "fitness_reference_spacing_factor": 0.5,
             "darces_results": str(darces_path.resolve()),
         },
         "sites": records,

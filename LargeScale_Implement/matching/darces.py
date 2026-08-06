@@ -802,6 +802,33 @@ def terrain_fitness(
     return -mean_absolute_error_m, overlap
 
 
+def decimate_reference_points_xy(
+    points_xyz: np.ndarray,
+    spacing_m: float,
+) -> np.ndarray:
+    """Retain one observed LiDAR point per XY cell of ``spacing_m``.
+
+    The retained sample is the observed point nearest each cell centre.  This
+    avoids averaging elevations or otherwise synthesising terrain while making
+    DARCES fitness sampling approximately uniform in the map plane.
+    """
+    points_xyz = _points_xyz(points_xyz, "points_xyz")
+    if not np.isfinite(spacing_m) or spacing_m <= 0.0:
+        raise ValueError("spacing_m must be finite and positive")
+
+    cell_xy = np.floor(points_xyz[:, :2] / spacing_m).astype(np.int64)
+    cell_centres_xy = (cell_xy.astype(np.float64) + 0.5) * spacing_m
+    distance_squared = np.sum(
+        (points_xyz[:, :2] - cell_centres_xy) ** 2,
+        axis=1,
+    )
+    order = np.lexsort((distance_squared, cell_xy[:, 1], cell_xy[:, 0]))
+    ordered_cells = cell_xy[order]
+    first_in_cell = np.ones(len(order), dtype=bool)
+    first_in_cell[1:] = np.any(ordered_cells[1:] != ordered_cells[:-1], axis=1)
+    return np.ascontiguousarray(points_xyz[order[first_in_cell]])
+
+
 def _local_grid_xyz(
     local_grid: np.ndarray,
     local_x_centers_m: np.ndarray,
@@ -1032,14 +1059,15 @@ def run_darces(
         raise ValueError("heading_tolerance_deg must be positive")
 
     if reference_points_xyz is None:
-        # Compatibility fallback: use finite 5 m local-grid cells.
+        # Compatibility fallback for direct callers and older tests.
         terrain_points_xyz = _local_grid_xyz(
             local_grid,
             local_x_centers_m,
             local_y_centers_m,
         )
     else:
-        # Preferred method: use observed LiDAR points decimated to 2.5 m.
+        # Preferred method: use observed LiDAR points decimated by the caller
+        # to half of the selected global-map cell spacing.
         terrain_points_xyz = _points_xyz(
             reference_points_xyz,
             "reference_points_xyz",

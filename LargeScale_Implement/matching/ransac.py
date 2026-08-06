@@ -129,6 +129,7 @@ def exhaustive_ransac(
     minimum_overlap: float = 0.50,
     minimum_triangle_area_m2: float = 1.0,
     maximum_refinement_iterations: int = 5,
+    reference_points_xyz: np.ndarray | None = None,
 ) -> dict[str, object]:
     """Test every unique three-match model and return the best consensus.
 
@@ -175,8 +176,10 @@ def exhaustive_ransac(
     global_points = global_features_xyz[global_indices]
     local_covariances = local_feature_covariances[local_indices]
     global_covariances = global_feature_covariances[global_indices]
-    terrain_points = _local_grid_xyz(
-        local_grid, local_x_centers_m, local_y_centers_m
+    terrain_points = (
+        _local_grid_xyz(local_grid, local_x_centers_m, local_y_centers_m)
+        if reference_points_xyz is None
+        else _points_xyz(reference_points_xyz, "reference_points_xyz")
     )
     interpolator = build_dem_interpolator(
         global_dem, global_x_centers_m, global_y_centers_m

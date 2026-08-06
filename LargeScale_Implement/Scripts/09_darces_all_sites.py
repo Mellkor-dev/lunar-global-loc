@@ -18,7 +18,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from matching.darces import run_darces
+from matching.darces import decimate_reference_points_xy, run_darces
 from pipeline_config import add_resolution_argument, load_resolution_config
 
 
@@ -121,6 +121,9 @@ def run_site(
     grid_path = (
         config.gridded_maps_path / f"grid_site_{site_number:02d}.npz"
     )
+    leveled_path = (
+        config.leveled_maps_path / f"leveled_site_{site_number:02d}.npy"
+    )
     odometry_path = (
         config.captures_path
         / "odom_scans"
@@ -157,6 +160,19 @@ def run_site(
             dtype=np.float64,
         )
 
+    reference_spacing_m = config.orbital_raster.resolution_m / 2.0
+    reference_points_xyz = decimate_reference_points_xy(
+        np.asarray(np.load(leveled_path, allow_pickle=False), dtype=np.float64),
+        reference_spacing_m,
+    )
+    base_result.update(
+        {
+            "fitness_reference": "raw_lidar_xy_decimated",
+            "fitness_reference_spacing_m": reference_spacing_m,
+            "fitness_reference_point_count": len(reference_points_xyz),
+        }
+    )
+
     start = time.perf_counter()
     result = run_darces(
         local_features_xyz=local_features_xyz,
@@ -183,6 +199,7 @@ def run_site(
         global_covariances=global_covariances,
         covariance_sigma_multiplier=covariance_sigma_multiplier,
         use_feature_consensus=use_feature_consensus,
+        reference_points_xyz=reference_points_xyz,
     )
     elapsed_seconds = time.perf_counter() - start
     base_result["runtime_s"] = elapsed_seconds
@@ -345,6 +362,8 @@ def main() -> None:
             "z_residual_tolerance_m": z_residual_tolerance_m,
             "covariance_sigma_multiplier": 2.0,
             "global_covariance_m2": global_covariances[0].tolist(),
+            "fitness_reference": "raw_lidar_xy_decimated",
+            "fitness_reference_spacing_factor": 0.5,
         },
         "sites": results,
     }
