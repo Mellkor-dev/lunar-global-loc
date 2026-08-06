@@ -104,6 +104,9 @@ python3 LargeScale_Implement/Scripts/09_darces_all_sites.py --resolution 5m
 python3 LargeScale_Implement/Scripts/11_ransac_all_sites.py --resolution 5m
 python3 LargeScale_Implement/Scripts/12_moga_all_sites.py --resolution 5m
 python3 LargeScale_Implement/Scripts/13_pipeline_diagnostics.py --resolution all
+python3 LargeScale_Implement/Scripts/14_results_presentation.py
+python3 LargeScale_Implement/Scripts/15_validate_dem_refinement.py
+python3 LargeScale_Implement/Scripts/16_build_10m_dem.py
 ```
 
 All scripts default to `5m`. The feature detector also accepts
@@ -227,6 +230,20 @@ comparable. Combined CSV/Markdown data and a summary table are placed in
 `LargeScale_Implement/results/diagnostics/`; paper-style per-site radial and
 component-error plots are placed in each resolution's `plots/.../diagnostics/`
 directory.
+
+For a concise presentation graphic instead of the full diagnostics, run
+`Scripts/14_results_presentation.py`. It writes a single cross-resolution PNG
+to `LargeScale_Implement/plots/results_summary/`.
+
+To compare the 0.25 m and 1.5 m OmniLRS DEMs on common 10 m and 1.5 m grids,
+run `Scripts/15_validate_dem_refinement.py`. Numeric products and metrics are
+written to `DEM/resolution_validation/`, with comparison figures under
+`plots/dem_resolution_validation/`.
+
+Build the 10 m/cell orbital prior from the native 1.5 m DEM with
+`Scripts/16_build_10m_dem.py`. The `10m` configuration profile is then
+available to every resolution-aware script, for example
+`Scripts/03_feature_detector.py --resolution 10m`.
 
 ## Coordinate conventions
 

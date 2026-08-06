@@ -102,12 +102,11 @@ def estimate_uncertainty(
         config.truth_features_path,
         config.features.kind,
     )
-    for key in ("detection_distance_m", "flatness_eps_m"):
-        if not np.isclose(
-            float(orbital_metadata[key]),
-            float(truth_metadata[key]),
-        ):
-            raise ValueError(f"Global and truth catalogues disagree on {key}")
+    if not np.isclose(
+        float(orbital_metadata["flatness_eps_m"]),
+        float(truth_metadata["flatness_eps_m"]),
+    ):
+        raise ValueError("Global and truth catalogues disagree on flatness_eps_m")
 
     gate_m = config.features.distance_m * config.match_gate_fraction
     orbital_index, truth_index, xy_distance = _mutual_nearest_matches(
@@ -171,6 +170,10 @@ def estimate_uncertainty(
         **counts,
         "feature_kind": config.features.kind,
         "detection_distance_m": config.features.distance_m,
+        "orbital_detection_distance_m": orbital_metadata["detection_distance_m"],
+        "truth_detection_distance_m": truth_metadata["detection_distance_m"],
+        "orbital_resolution_m": orbital_metadata["resolution_m"],
+        "truth_resolution_m": truth_metadata["resolution_m"],
         "flatness_threshold_m": config.features.flatness_threshold_m,
         "orbital_feature_path": str(config.global_features_path),
         "truth_feature_path": str(config.truth_features_path),

@@ -27,10 +27,12 @@ def test_feature_scale_is_consistent_across_rasters() -> None:
 def test_resolution_specific_detector_profiles() -> None:
     config = load_pipeline_config()
     targets = config.feature_detection_targets
-    assert set(targets) == {"0p25m", "1p5m", "5m"}
+    assert set(targets) == {"0p25m", "1p5m", "5m", "10m"}
     assert targets["0p25m"].radius_cells == 60
     assert targets["1p5m"].radius_cells == 10
     assert targets["5m"].radius_cells == 3
+    assert targets["10m"].radius_cells == 2
+    assert targets["10m"].raster.shape == (200, 200)
     for target in targets.values():
         assert np.isclose(
             target.radius_cells * target.raster.resolution_m,

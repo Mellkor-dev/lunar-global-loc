@@ -129,6 +129,19 @@ feature_detection:
       flatness_threshold_m: 0.05
       catalogue_role: global
 
+    10m:
+      dem: DEM/10m_px/orbital_dem_10m.npy
+      metadata: DEM/10m_px/orbital_dem_10m.yaml
+      output: DEM/10m_px/global_craters.npz
+      preview: plots/10m_px/global_features_preview.png
+      resolution_m: 10.0
+      shape: [200, 200]
+      first_cell_center_m: {x: -995.0, y: 995.0}
+      cell_radius: 2
+      detection_distance_m: 20
+      flatness_threshold_m: 0.05
+      catalogue_role: global
+
 global_feature_uncertainty:
   intrinsic_horizontal_sigma_m: 10.0
   intrinsic_vertical_sigma_m: 1.3

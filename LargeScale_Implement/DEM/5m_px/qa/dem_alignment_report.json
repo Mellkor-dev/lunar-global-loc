@@ -1,4 +1,8 @@
 {
+  "comparison": {
+    "selected_profile": "5m",
+    "operation": "truth minus selected DEM interpolated to truth centers"
+  },
   "coordinate_contract": {
     "origin": "center_of_dem",
     "x_direction": "east",
@@ -27,7 +31,7 @@
       "y": -999.75
     }
   },
-  "orbital_dem": {
+  "selected_dem": {
     "shape": [
       400,
       400
@@ -48,7 +52,7 @@
       "y": -997.5
     }
   },
-  "truth_minus_interpolated_prior": {
+  "truth_minus_interpolated_selected_dem": {
     "sample_count": 1768900,
     "mean_m": 0.00010451577019574266,
     "median_m": 0.0014035680890085445,

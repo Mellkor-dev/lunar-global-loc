@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Create an exact 5 m/cell orbital DEM from the 1.5 m truth DEM.
+"""Create an exact coarse orbital DEM from the 1.5 m truth DEM.
 
 The source DEM covers 2001 m x 2001 m using 1334 x 1334 cells.
-The output uses a centered 2000 m x 2000 m region with 400 x 400
-cells at exactly 5 m/cell.
+The selected resolution profile defines a centered target grid.
 
 Resampling is area-weighted averaging, not interpolation. This
 suppresses terrain smaller than the orbital-map resolution and is
@@ -253,9 +252,9 @@ def main() -> None:
     source_metadata = load_yaml(SOURCE_METADATA_PATH)
 
     metadata = {
-        "name": "apollo17_orbital_prior_5m",
+        "name": f"apollo17_orbital_prior_{args.resolution}",
         "description": (
-            "Area-averaged 5 m localization prior generated from the "
+            f"Area-averaged {TARGET_RESOLUTION_M:g} m localization prior generated from the "
             "1.5 m OmniLRS Apollo 17 simulation-truth DEM."
         ),
         "source": {
@@ -354,8 +353,8 @@ def main() -> None:
             default_flow_style=False,
         )
 
-    print("5 m orbital DEM created")
-    print("------------------------")
+    print(f"{TARGET_RESOLUTION_M:g} m orbital DEM created")
+    print("-------------------------")
     print(f"source shape          : {source_dem.shape}")
     print(f"source resolution     : {SOURCE_RESOLUTION_M:.6f} m")
     print(

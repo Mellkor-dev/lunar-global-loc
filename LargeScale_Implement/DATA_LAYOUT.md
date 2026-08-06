@@ -46,6 +46,9 @@ python3 Scripts/09_darces_all_sites.py --resolution 5m
 python3 Scripts/11_ransac_all_sites.py --resolution 5m
 python3 Scripts/12_moga_all_sites.py --resolution 5m
 python3 Scripts/13_pipeline_diagnostics.py --resolution all
+python3 Scripts/14_results_presentation.py
+python3 Scripts/15_validate_dem_refinement.py
+python3 Scripts/16_build_10m_dem.py
 ```
 
 For a selected `<resolution>`, pipeline products are read from and written to
