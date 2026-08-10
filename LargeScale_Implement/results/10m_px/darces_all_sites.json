@@ -36,7 +36,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 614,
-      "runtime_s": 8.26722375000827,
+      "runtime_s": 8.222039713989943,
       "estimated_x_m": -446.308273385734,
       "estimated_y_m": -159.82811284089658,
       "estimated_z_m": 8.49218475818634,
@@ -80,7 +80,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 547,
-      "runtime_s": 10.985566728995764,
+      "runtime_s": 11.034288916009245,
       "estimated_x_m": -546.1809127189846,
       "estimated_y_m": -554.9716723991335,
       "estimated_z_m": 7.463585376739502,
@@ -124,7 +124,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 935,
-      "runtime_s": 38.68730458500795,
+      "runtime_s": 38.62129594500584,
       "estimated_x_m": 22.529643208706553,
       "estimated_y_m": -9.687430691824353,
       "estimated_z_m": -0.3265777826309204,
@@ -170,7 +170,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 465,
-      "runtime_s": 27.692408559989417,
+      "runtime_s": 27.267645911997533,
       "estimated_x_m": 699.7752070101334,
       "estimated_y_m": 633.9245584036984,
       "estimated_z_m": -15.571349024772644,
@@ -214,7 +214,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 493,
-      "runtime_s": 13.049274958000751,
+      "runtime_s": 12.790375145006692,
       "estimated_x_m": -466.44482232408427,
       "estimated_y_m": -187.76613789850475,
       "estimated_z_m": 8.379233121871948,
@@ -256,7 +256,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 1102,
-      "runtime_s": 55.30316929500259,
+      "runtime_s": 54.468087204993935,
       "estimated_x_m": -5.59876484243869,
       "estimated_y_m": -58.4425202970134,
       "estimated_z_m": 0.06268537044525146,
@@ -300,7 +300,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 525,
-      "runtime_s": 3.0235104280000087,
+      "runtime_s": 3.0334835190005833,
       "estimated_x_m": 710.0976290086945,
       "estimated_y_m": 606.1727902425607,
       "estimated_z_m": -16.267627358436584,
@@ -352,7 +352,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 558,
-      "runtime_s": 0.354895675991429
+      "runtime_s": 0.34743907999654766
     },
     {
       "site": 11,
@@ -362,7 +362,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 595,
-      "runtime_s": 9.986705645991606,
+      "runtime_s": 9.93156604199612,
       "estimated_x_m": -331.28205128205127,
       "estimated_y_m": -206.4102564102564,
       "estimated_z_m": 7.0568727850914,
@@ -406,7 +406,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 712,
-      "runtime_s": 23.475790784999845,
+      "runtime_s": 23.362285406998126,
       "estimated_x_m": 203.36375711458018,
       "estimated_y_m": 400.8947787197489,
       "estimated_z_m": -1.5712082982063293,
@@ -446,7 +446,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 658,
-      "runtime_s": 3.3701389560010284,
+      "runtime_s": 3.3545349079940934,
       "estimated_x_m": -478.31451457944013,
       "estimated_y_m": -425.5152512719882,
       "estimated_z_m": 11.611363768577576,
@@ -488,7 +488,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 807,
-      "runtime_s": 45.08082075000857
+      "runtime_s": 44.91695265000453
     },
     {
       "site": 15,
@@ -498,7 +498,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 702,
-      "runtime_s": 10.727818239000044,
+      "runtime_s": 10.777533032000065,
       "estimated_x_m": -539.7557194612862,
       "estimated_y_m": -530.6564702289013,
       "estimated_z_m": 8.696498990058899,
@@ -544,7 +544,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 283,
-      "runtime_s": 6.314681349002058,
+      "runtime_s": 6.305188775004353,
       "estimated_x_m": -201.39377666396393,
       "estimated_y_m": -255.34917074604874,
       "estimated_z_m": 5.699626922607422,
@@ -586,7 +586,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 507,
-      "runtime_s": 3.045436738000717
+      "runtime_s": 3.050094274993171
     },
     {
       "site": 18,
@@ -596,7 +596,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 542,
-      "runtime_s": 55.131323891997454,
+      "runtime_s": 55.24149074399611,
       "estimated_x_m": 919.7283513930539,
       "estimated_y_m": 619.9907598110029,
       "estimated_z_m": -15.739060878753662,
@@ -644,7 +644,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 302,
-      "runtime_s": 16.98161995699047
+      "runtime_s": 17.13440619398898
     },
     {
       "site": 20,
@@ -654,7 +654,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 592,
-      "runtime_s": 87.5242029439978,
+      "runtime_s": 86.22024530499766,
       "estimated_x_m": -592.6684077843468,
       "estimated_y_m": -478.000405135602,
       "estimated_z_m": 12.257278680801392,
@@ -706,7 +706,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 364,
-      "runtime_s": 1.2993532179971226
+      "runtime_s": 1.2659265580005012
     },
     {
       "site": 22,
@@ -716,7 +716,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 458,
-      "runtime_s": 9.49153773400758
+      "runtime_s": 8.97052988599171
     },
     {
       "site": 23,
@@ -726,7 +726,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 517,
-      "runtime_s": 95.56175421300577,
+      "runtime_s": 95.20000253598846,
       "estimated_x_m": -249.99118005036848,
       "estimated_y_m": -378.85872078763066,
       "estimated_z_m": 6.823446035385132,
@@ -770,7 +770,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 779,
-      "runtime_s": 0.004818613000679761
+      "runtime_s": 0.0049075900024035946
     },
     {
       "site": 25,
@@ -780,7 +780,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 618,
-      "runtime_s": 2.839924138999777
+      "runtime_s": 2.8517109290114604
     },
     {
       "site": 26,
@@ -790,7 +790,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 483,
-      "runtime_s": 3.126970627999981
+      "runtime_s": 3.136702105999575
     },
     {
       "site": 27,
@@ -800,7 +800,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 542,
-      "runtime_s": 39.37018589999934,
+      "runtime_s": 39.43847330599965,
       "estimated_x_m": -205.01925528525342,
       "estimated_y_m": -154.57968320275586,
       "estimated_z_m": 3.82082462310791,
@@ -844,7 +844,7 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 5.0,
       "fitness_reference_point_count": 683,
-      "runtime_s": 35.173824992001755,
+      "runtime_s": 35.1174553460005,
       "estimated_x_m": 222.81491353483793,
       "estimated_y_m": -658.4498195845567,
       "estimated_z_m": -6.409273147583008,

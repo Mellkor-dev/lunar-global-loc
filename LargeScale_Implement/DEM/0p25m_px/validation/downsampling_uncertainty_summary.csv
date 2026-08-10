@@ -12,6 +12,10 @@ unmatched_or_rejected_orbital_count,278
 match_gate_m,7.5
 feature_kind,crater
 detection_distance_m,15.0
+orbital_detection_distance_m,15.0
+truth_detection_distance_m,15.0
+orbital_resolution_m,0.25
+truth_resolution_m,1.5
 flatness_threshold_m,0.05
 orbital_feature_path,/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/0p25m_px/global_craters.npz
 truth_feature_path,/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/1p5m_px/truth_craters.npz

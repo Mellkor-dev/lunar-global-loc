@@ -103,6 +103,19 @@ feature_detection:
       flatness_threshold_m: 0.05
       catalogue_role: global
 
+    1m:
+      dem: DEM/1m_px/orbital_dem_1m.npy
+      metadata: DEM/1m_px/orbital_dem_1m.yaml
+      output: DEM/1m_px/global_craters.npz
+      preview: plots/1m_px/global_features_preview.png
+      resolution_m: 1.0
+      shape: [2000, 2000]
+      first_cell_center_m: {x: -999.5, y: 999.5}
+      cell_radius: 15
+      detection_distance_m: 15
+      flatness_threshold_m: 0.05
+      catalogue_role: global
+
     1p5m:
       dem: DEM/1p5m_px/truth_dem_1p5m.npy
       metadata: DEM/1p5m_px/truth_dem_1p5m.yaml
@@ -115,6 +128,19 @@ feature_detection:
       detection_distance_m: 15
       flatness_threshold_m: 0.05
       catalogue_role: truth
+
+    2m:
+      dem: DEM/2m_px/orbital_dem_2m.npy
+      metadata: DEM/2m_px/orbital_dem_2m.yaml
+      output: DEM/2m_px/global_craters.npz
+      preview: plots/2m_px/global_features_preview.png
+      resolution_m: 2.0
+      shape: [1000, 1000]
+      first_cell_center_m: {x: -999.0, y: 999.0}
+      cell_radius: 8
+      detection_distance_m: 16
+      flatness_threshold_m: 0.05
+      catalogue_role: global
 
     5m:
       dem: DEM/5m_px/orbital_dem_5m.npy
@@ -129,11 +155,41 @@ feature_detection:
       flatness_threshold_m: 0.05
       catalogue_role: global
 
+    # Controlled alternative to 5m: identical grid and detector, but the DEM
+    # is block-averaged directly from the refined 0.25 m simulated terrain.
+    5m_refined:
+      dem: DEM/5m_refined_px/orbital_dem_5m_refined.npy
+      metadata: DEM/5m_refined_px/orbital_dem_5m_refined.yaml
+      output: DEM/5m_refined_px/global_craters.npz
+      preview: plots/5m_refined_px/global_features_preview.png
+      resolution_m: 5.0
+      shape: [400, 400]
+      first_cell_center_m: {x: -997.5, y: 997.5}
+      cell_radius: 3
+      detection_distance_m: 15
+      flatness_threshold_m: 0.05
+      catalogue_role: global
+
     10m:
       dem: DEM/10m_px/orbital_dem_10m.npy
       metadata: DEM/10m_px/orbital_dem_10m.yaml
       output: DEM/10m_px/global_craters.npz
       preview: plots/10m_px/global_features_preview.png
+      resolution_m: 10.0
+      shape: [200, 200]
+      first_cell_center_m: {x: -995.0, y: 995.0}
+      cell_radius: 2
+      detection_distance_m: 20
+      flatness_threshold_m: 0.05
+      catalogue_role: global
+
+    # Controlled alternative to 10m: identical grid and detector, but the DEM
+    # is block-averaged directly from the refined 0.25 m simulated terrain.
+    10m_refined:
+      dem: DEM/10m_refined_px/orbital_dem_10m_refined.npy
+      metadata: DEM/10m_refined_px/orbital_dem_10m_refined.yaml
+      output: DEM/10m_refined_px/global_craters.npz
+      preview: plots/10m_refined_px/global_features_preview.png
       resolution_m: 10.0
       shape: [200, 200]
       first_cell_center_m: {x: -995.0, y: 995.0}
