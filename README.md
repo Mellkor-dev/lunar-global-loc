@@ -7,11 +7,8 @@ local elevation maps, estimates feature uncertainty, and evaluates rover poses
 with DARCES-style geometric matching.
 
 The actively developed, resolution-aware implementation is in
-[`LargeScale_Implement/`](LargeScale_Implement/). The modules and scripts at the
-repository root are an earlier prototype and remain useful for reference and
-small synthetic experiments.
-
-![Detected crater features in the 5 m global DEM](LargeScale_Implement/plots/5m_px/global_features_preview.png)
+[`LargeScale_Implement/`](LargeScale_Implement/). Generated DEMs, scans, plots,
+and experiment results are intentionally kept outside the source tree.
 
 ## What is where
 
@@ -31,11 +28,8 @@ small synthetic experiments.
 │   ├── tests/                  Configuration, detector, and matcher tests
 │   ├── pipeline_config.py      Validated configuration and path projection
 │   └── DATA_LAYOUT.md          Resolution-directory conventions
-├── config/                     Configuration for the earlier prototype
-├── features/, maps/            Earlier feature and map modules
-├── matching/, refinement/      Earlier matching and refinement modules
-├── scripts/                    Earlier exploratory scripts
-└── sim/                        Earlier traversal recorder
+├── requirements.txt           Reproducible Python dependencies
+└── .github/                    CI, ownership, and contribution templates
 ```
 
 Within the main implementation, generated and captured data are grouped by
@@ -53,7 +47,7 @@ LargeScale_Implement/
 Resolution labels use `p` as the decimal separator. The currently configured
 profiles are `0p25m`, `1p5m`, and `5m`.
 
-## Data currently included
+## Data layout
 
 | Profile | Primary DEM | Shape | Current role |
 | --- | --- | ---: | --- |
@@ -61,25 +55,18 @@ profiles are `0p25m`, `1p5m`, and `5m`.
 | `1p5m` | `DEM/1p5m_px/truth_dem_1p5m.npy` | 1334 × 1334 | Truth/reference raster |
 | `5m` | `DEM/5m_px/orbital_dem_5m.npy` | 400 × 400 | Coarse orbital localization prior |
 
-The 5 m workspace also contains a complete example set of 28 captured sites,
-leveled/gridded local maps, local crater catalogues, validation products, and
-DARCES result files. Other resolutions can use the same pipeline once their
-corresponding inputs are placed in the projected subdirectories.
-
-The 0.25 m DEM is stored with **Git LFS** because it is approximately 244 MiB.
-After cloning, run `git lfs pull` before using that profile.
+Large generated and captured artifacts are not committed to the source branch.
+Place inputs in the paths above before running a profile. If a required input
+is later versioned with Git LFS, install Git LFS before cloning or pulling it.
 
 ## Installation
 
-Python 3.10 or newer is recommended. There is not yet a pinned requirements
-file, so install the core scientific dependencies directly:
+Python 3.10 or newer is recommended. Install the declared dependencies:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python3 -m pip install numpy scipy matplotlib pyyaml opencv-python pytest
-git lfs install
-git lfs pull
+python3 -m pip install -r requirements.txt
 ```
 
 OpenCV is used to accelerate large circular morphology operations on the
@@ -153,8 +140,6 @@ Detector radius, physical distance, flatness tolerance, DEM path, output path,
 and preview path are resolution-specific configuration values. Feature
 catalogues are compressed NumPy archives containing raster indices, map-frame
 XYZ coordinates, feature type, resolution, and detector metadata.
-
-![Downsampling feature-coordinate uncertainty](LargeScale_Implement/plots/5m_px/downsampling_uncertainty.png)
 
 ### 3. Process local LiDAR scans
 

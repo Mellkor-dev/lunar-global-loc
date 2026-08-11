@@ -1,8 +1,0 @@
-gauss_newton:
-  max_iterations: 50
-  e_converge: 1e-6   # relative change in objective function to declare convergence
-
-covariances:
-  # placeholders — populate from real odometry/sensor noise once Stage B is running
-  odometry_translation_sigma_m: 0.05
-  odometry_rotation_sigma_deg: 0.5
