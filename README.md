@@ -44,20 +44,27 @@ LargeScale_Implement/
 └── sim/<resolution>_px/
 ```
 
-Resolution labels use `p` as the decimal separator. The currently configured
-profiles are `0p25m`, `1p5m`, and `5m`.
+Resolution labels use `p` as the decimal separator. The configured profiles,
+in increasing cell-size order, are `0p25m`, `1m`, `1p5m`, `2m`, `5m`,
+`5m_refined`, `10m`, and `10m_refined`.
 
 ## Data layout
 
 | Profile | Primary DEM | Shape | Current role |
 | --- | --- | ---: | --- |
 | `0p25m` | `DEM/0p25m_px/apollo17_refined_0p25m_2000m.npy` | 8000 × 8000 | Native high-resolution OmniLRS DEM |
+| `1m` | `DEM/1m_px/orbital_dem_1m.npy` | 2000 × 2000 | Downsampled orbital experiment |
 | `1p5m` | `DEM/1p5m_px/truth_dem_1p5m.npy` | 1334 × 1334 | Truth/reference raster |
+| `2m` | `DEM/2m_px/orbital_dem_2m.npy` | 1000 × 1000 | Downsampled orbital experiment |
 | `5m` | `DEM/5m_px/orbital_dem_5m.npy` | 400 × 400 | Coarse orbital localization prior |
+| `5m_refined` | `DEM/5m_refined_px/orbital_dem_5m_refined.npy` | 400 × 400 | Refined-source comparison |
+| `10m` | `DEM/10m_px/orbital_dem_10m.npy` | 200 × 200 | Coarse orbital experiment |
+| `10m_refined` | `DEM/10m_refined_px/orbital_dem_10m_refined.npy` | 200 × 200 | Refined-source comparison |
 
 Large generated and captured artifacts are not committed to the source branch.
-Place inputs in the paths above before running a profile. If a required input
-is later versioned with Git LFS, install Git LFS before cloning or pulling it.
+Place inputs in the paths above before running a profile. Dataset manifests and
+metadata should travel with the externally stored arrays so that raster origin,
+shape, resolution, and coordinate conventions remain verifiable.
 
 ## Installation
 
@@ -163,7 +170,8 @@ Script 05 transforms scans into gravity-leveled rover-local coordinates and
 creates north-up elevation grids. Script 07 detects local crater features and
 stores feature covariance estimates used by matching.
 
-![Local crater detections at Site 08](LargeScale_Implement/plots/5m_px/local_features/local_craters_site_08.png)
+Generated local-feature previews are written beneath
+`LargeScale_Implement/plots/<resolution>_px/local_features/`.
 
 ### 4. Run localization
 
@@ -263,8 +271,9 @@ python3 -m pytest LargeScale_Implement/tests -q
 
 ## Important notes
 
-- Do not commit the 0.25 m DEM as an ordinary Git blob. Its path is already
-  tracked by Git LFS in `.gitattributes`.
+- Do not commit DEMs, captures, generated local maps, plots, or results to the
+  source branch. Keep them in external dataset storage and copy them into the
+  ignored resolution workspaces when running experiments.
 - Generated products should stay in their resolution workspace to avoid mixing
   incompatible cell sizes, feature radii, and coordinate vectors.
 - A selected resolution does not manufacture missing captures or local maps;
