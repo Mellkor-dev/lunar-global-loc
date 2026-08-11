@@ -112,6 +112,32 @@ def test_end_to_end_synthetic_2p5d_pose() -> None:
     assert np.isclose(result["tz"], expected_z, atol=1e-10)
     assert result["correspondence_count"] == 3
 
+    biased_reference = np.column_stack(
+        (local_xy, local_grid.ravel() + 1.0)
+    )
+    rejected = run_darces(
+        local_features_xyz=np.column_stack(
+            (feature_local_xy, feature_local_z)
+        ),
+        global_features_xyz=np.column_stack(
+            (feature_global_xy, feature_global_z)
+        ),
+        local_grid=local_grid,
+        global_dem=global_dem,
+        local_x_centers_m=local_x,
+        local_y_centers_m=local_y,
+        global_x_centers_m=global_x,
+        global_y_centers_m=global_y,
+        n_trials=100,
+        distance_tolerance_m=0.1,
+        z_residual_tolerance_m=0.1,
+        heading_measurement_deg=20.0,
+        minimum_cluster_size=1,
+        reference_points_xyz=biased_reference,
+        maximum_terrain_mae_m=0.4,
+    )
+    assert rejected is None
+
 
 def test_covariance_gate_is_not_clipped_by_lookup_tolerance() -> None:
     local = np.array(((0.0, 0.0), (20.0, 0.0), (5.0, 30.0)))

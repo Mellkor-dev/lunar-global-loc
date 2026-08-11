@@ -44,22 +44,21 @@ LargeScale_Implement/
 └── sim/<resolution>_px/
 ```
 
-Resolution labels use `p` as the decimal separator. The configured profiles,
-in increasing cell-size order, are `0p25m`, `1m`, `1p5m`, `2m`, `5m`,
-`5m_refined`, `10m`, and `10m_refined`.
+Resolution labels use `p` as the decimal separator. The selectable paper
+pipeline profiles, in increasing cell-size order, are `0p25m`, `0p5m`, `1m`,
+`2m`, `5m`, and `10m`. The native 1.5 m DEM remains the internal truth
+reference but is not a selectable experiment workspace.
 
 ## Data layout
 
 | Profile | Primary DEM | Shape | Current role |
 | --- | --- | ---: | --- |
 | `0p25m` | `DEM/0p25m_px/apollo17_refined_0p25m_2000m.npy` | 8000 × 8000 | Native high-resolution OmniLRS DEM |
+| `0p5m` | `DEM/0p5m_px/orbital_dem_0p5m.npy` | 4000 × 4000 | Downsampled orbital experiment |
 | `1m` | `DEM/1m_px/orbital_dem_1m.npy` | 2000 × 2000 | Downsampled orbital experiment |
-| `1p5m` | `DEM/1p5m_px/truth_dem_1p5m.npy` | 1334 × 1334 | Truth/reference raster |
 | `2m` | `DEM/2m_px/orbital_dem_2m.npy` | 1000 × 1000 | Downsampled orbital experiment |
 | `5m` | `DEM/5m_px/orbital_dem_5m.npy` | 400 × 400 | Coarse orbital localization prior |
-| `5m_refined` | `DEM/5m_refined_px/orbital_dem_5m_refined.npy` | 400 × 400 | Refined-source comparison |
 | `10m` | `DEM/10m_px/orbital_dem_10m.npy` | 200 × 200 | Coarse orbital experiment |
-| `10m_refined` | `DEM/10m_refined_px/orbital_dem_10m_refined.npy` | 200 × 200 | Refined-source comparison |
 
 Large generated and captured artifacts are not committed to the source branch.
 Place inputs in the paths above before running a profile. Dataset manifests and
@@ -93,7 +92,7 @@ Every numbered script accepts `--resolution`:
 
 ```bash
 python3 LargeScale_Implement/Scripts/00_inspect_DEM.py --resolution 0p25m
-python3 LargeScale_Implement/Scripts/03_feature_detector.py --resolution 1p5m
+python3 LargeScale_Implement/Scripts/03_feature_detector.py --resolution 0p5m
 python3 LargeScale_Implement/Scripts/09_darces_all_sites.py --resolution 5m
 python3 LargeScale_Implement/Scripts/11_ransac_all_sites.py --resolution 5m
 python3 LargeScale_Implement/Scripts/12_moga_all_sites.py --resolution 5m
@@ -209,6 +208,37 @@ evaluation and the truth overlay; it is never used to initialize or constrain
 a pose. Its output and
 traversal plot are written to `results/<resolution>_px/moga_all_sites.*` and
 `plots/<resolution>_px/moga/`.
+
+### Final DARCES defaults
+
+The Apollo tuning sweep selected the following resolution-independent DARCES
+defaults. Resolution-dependent XY and Z gates remain derived from each DEM's
+own feature-uncertainty report.
+
+| Parameter | Final default |
+|---|---:|
+| Accepted-hypothesis cap per site | 100,000 |
+| Heading tolerance | 5 deg |
+| Control-triangle RMS tolerance | 10 m |
+| Side-ratio tolerance | 0.12 |
+| Minimum triangle angle | 10 deg |
+| Minimum cluster size | 2 |
+| Cluster position radius | 50 m |
+| Cluster heading radius | 5 deg |
+| Top-ranked hypotheses retained for clustering | 5 |
+| Minimum DEM overlap | 0.50 |
+| Terrain elevation MAE | Used for hypothesis ranking; no hard cutoff |
+| Covariance gate multiplier | 2 sigma |
+| Distance and Z gate multipliers | 3 sigma each |
+| Feature-consensus gate | Disabled by default |
+| Optional consensus radius / minimum support | 15 m / 4 features |
+
+The defaults are used by both DARCES runners, so the standard future command
+only needs a resolution:
+
+```bash
+python3 LargeScale_Implement/Scripts/09_darces_all_sites.py --resolution 5m
+```
 
 Generate a stage-by-stage diagnostic report after rerunning any localization
 stage with:

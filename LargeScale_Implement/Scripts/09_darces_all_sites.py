@@ -18,44 +18,114 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from matching.darces import decimate_reference_points_xy, run_darces
+from matching.darces import (
+    DEFAULT_CLUSTER_HEADING_RADIUS_DEG,
+    DEFAULT_CLUSTER_POSITION_RADIUS_M,
+    DEFAULT_CONSENSUS_XY_TOLERANCE_M,
+    DEFAULT_CONTROL_RMS_TOLERANCE_M,
+    DEFAULT_COVARIANCE_SIGMA_MULTIPLIER,
+    DEFAULT_HEADING_TOLERANCE_DEG,
+    DEFAULT_MAXIMUM_TERRAIN_MAE_M,
+    DEFAULT_MINIMUM_CLUSTER_SIZE,
+    DEFAULT_MINIMUM_CONSENSUS_FEATURES,
+    DEFAULT_MINIMUM_OVERLAP,
+    DEFAULT_MINIMUM_TRIANGLE_ANGLE_DEG,
+    DEFAULT_SIDE_RATIO_TOLERANCE,
+    DEFAULT_TOP_HYPOTHESIS_COUNT,
+    DEFAULT_TRIALS_PER_SITE,
+    decimate_reference_points_xy,
+    run_darces,
+)
 from pipeline_config import add_resolution_argument, load_resolution_config
 
 
 # ALL-SITES EDIT 1: One reproducible CLI controls every independent site run.
 def parse_arguments() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
     add_resolution_argument(parser)
     parser.add_argument(
         "--trials",
         type=int,
-        default=100_000,
+        default=DEFAULT_TRIALS_PER_SITE,
         help="Maximum accepted control hypotheses per site (default: 100000)",
     )
     parser.add_argument("--seed", type=int, default=29)
-    parser.add_argument("--heading-tolerance", type=float, default=5.0)
-    parser.add_argument("--minimum-cluster-size", type=int, default=2)
-    parser.add_argument("--cluster-position-radius", type=float,default = 50.0)
-    parser.add_argument("--top-hypotheses",type=int, default = 5)
+    parser.add_argument(
+        "--heading-tolerance",
+        type=float,
+        default=DEFAULT_HEADING_TOLERANCE_DEG,
+    )
+    parser.add_argument(
+        "--minimum-cluster-size",
+        type=int,
+        default=DEFAULT_MINIMUM_CLUSTER_SIZE,
+    )
+    parser.add_argument(
+        "--cluster-position-radius",
+        type=float,
+        default=DEFAULT_CLUSTER_POSITION_RADIUS_M,
+    )
+    parser.add_argument(
+        "--top-hypotheses",
+        type=int,
+        default=DEFAULT_TOP_HYPOTHESIS_COUNT,
+    )
     parser.add_argument(
         "--control-rms-tolerance",
         type=float,
-        default=10.0,
+        default=DEFAULT_CONTROL_RMS_TOLERANCE_M,
         help=(
             "Maximum RMS XY alignment error of a control triangle in metres "
             "(default: 10)"
         ),
     )
-    parser.add_argument("--side-ratio-tolerance", type=float, default=0.12)
-    parser.add_argument("--minimum-triangle-angle", type=float, default=10.0)
-    parser.add_argument("--covariance-sigma-multiplier", type=float, default=2.0)
+    parser.add_argument(
+        "--side-ratio-tolerance",
+        type=float,
+        default=DEFAULT_SIDE_RATIO_TOLERANCE,
+    )
+    parser.add_argument(
+        "--minimum-triangle-angle",
+        type=float,
+        default=DEFAULT_MINIMUM_TRIANGLE_ANGLE_DEG,
+    )
+    parser.add_argument(
+        "--covariance-sigma-multiplier",
+        type=float,
+        default=DEFAULT_COVARIANCE_SIGMA_MULTIPLIER,
+    )
     parser.add_argument("--distance-tolerance-sigma", type=float, default=3.0)
     parser.add_argument("--z-residual-tolerance-sigma", type=float, default=3.0)
-    parser.add_argument("--minimum-overlap", type=float, default=0.50)
-    parser.add_argument("--cluster-heading-radius", type=float, default=5.0)
+    parser.add_argument(
+        "--minimum-overlap",
+        type=float,
+        default=DEFAULT_MINIMUM_OVERLAP,
+    )
+    parser.add_argument(
+        "--maximum-terrain-mae",
+        type=float,
+        default=DEFAULT_MAXIMUM_TERRAIN_MAE_M,
+        help="Maximum mean absolute LiDAR-to-DEM elevation residual in metres",
+    )
+    parser.add_argument(
+        "--cluster-heading-radius",
+        type=float,
+        default=DEFAULT_CLUSTER_HEADING_RADIUS_DEG,
+    )
     parser.add_argument("--reference-spacing-factor", type=float, default=0.50)
-    parser.add_argument("--consensus-radius",type=float,default=15.0)
-    parser.add_argument("--minimum-consensus-features", type=int, default=4)
+    parser.add_argument(
+        "--consensus-radius",
+        type=float,
+        default=DEFAULT_CONSENSUS_XY_TOLERANCE_M,
+    )
+    parser.add_argument(
+        "--minimum-consensus-features",
+        type=int,
+        default=DEFAULT_MINIMUM_CONSENSUS_FEATURES,
+    )
     parser.add_argument(
         "--use-feature-consensus",
         action="store_true",
@@ -223,6 +293,7 @@ def run_site(
         side_ratio_tolerance=args.side_ratio_tolerance,
         minimum_triangle_angle_deg=args.minimum_triangle_angle,
         minimum_overlap=args.minimum_overlap,
+        maximum_terrain_mae_m=args.maximum_terrain_mae,
         seed=args.seed + site_number,
         consensus_xy_tolerance_m=args.consensus_radius,
         minimum_consensus_features=args.minimum_consensus_features,
@@ -313,6 +384,11 @@ def main() -> None:
         raise ValueError("--z-residual-tolerance-sigma must be positive")
     if not 0.0 < args.minimum_overlap <= 1.0:
         raise ValueError("--minimum-overlap must lie in (0, 1]")
+    if (
+        args.maximum_terrain_mae is not None
+        and args.maximum_terrain_mae <= 0.0
+    ):
+        raise ValueError("--maximum-terrain-mae must be positive")
     if args.cluster_heading_radius <= 0.0:
         raise ValueError("--cluster-heading-radius must be positive")
     if args.reference_spacing_factor <= 0.0:
@@ -425,6 +501,7 @@ def main() -> None:
             "side_ratio_tolerance": args.side_ratio_tolerance,
             "minimum_triangle_angle_deg": args.minimum_triangle_angle,
             "minimum_overlap": args.minimum_overlap,
+            "maximum_terrain_mae_m": args.maximum_terrain_mae,
             "cluster_heading_radius_deg": args.cluster_heading_radius,
             "distance_tolerance_sigma_multiplier": args.distance_tolerance_sigma,
             "z_residual_tolerance_sigma_multiplier": args.z_residual_tolerance_sigma,
