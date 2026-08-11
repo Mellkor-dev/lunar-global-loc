@@ -1,0 +1,65 @@
+{
+  "comparison": {
+    "selected_profile": "1m",
+    "operation": "truth minus selected DEM interpolated to truth centers"
+  },
+  "coordinate_contract": {
+    "origin": "center_of_dem",
+    "x_direction": "east",
+    "y_direction": "north",
+    "raster_column_direction": "east",
+    "raster_row_direction": "south"
+  },
+  "truth_dem": {
+    "shape": [
+      1334,
+      1334
+    ],
+    "resolution_m": 1.5,
+    "edge_bounds_m": {
+      "x_min": -1000.5,
+      "x_max": 1000.5,
+      "y_min": -1000.5,
+      "y_max": 1000.5
+    },
+    "first_center_m": {
+      "x": -999.75,
+      "y": 999.75
+    },
+    "last_center_m": {
+      "x": 999.75,
+      "y": -999.75
+    }
+  },
+  "selected_dem": {
+    "shape": [
+      2000,
+      2000
+    ],
+    "resolution_m": 1.0,
+    "edge_bounds_m": {
+      "x_min": -1000.0,
+      "x_max": 1000.0,
+      "y_min": -1000.0,
+      "y_max": 1000.0
+    },
+    "first_center_m": {
+      "x": -999.5,
+      "y": 999.5
+    },
+    "last_center_m": {
+      "x": 999.5,
+      "y": -999.5
+    }
+  },
+  "truth_minus_interpolated_selected_dem": {
+    "sample_count": 1774224,
+    "mean_m": 0.0005635786717508646,
+    "median_m": 9.119510650634766e-06,
+    "standard_deviation_m": 0.014195604293428839,
+    "mae_m": 0.010203278876697369,
+    "rmse_m": 0.014206787186935256,
+    "absolute_p95_m": 0.019696950912475586,
+    "absolute_max_m": 0.41841816902160645
+  }
+}
