@@ -16,6 +16,8 @@ from pipeline_config import load_pipeline_config
 
 def test_feature_scale_is_consistent_across_rasters() -> None:
     config = load_pipeline_config()
+    assert config.truth_source_profile == "1p5m"
+    assert config.truth_source_label == "Apollo 17 native 1.5 m/px truth source"
     assert config.features.radius_for_resolution(
         config.orbital_raster.resolution_m
     ) == 3
@@ -28,21 +30,19 @@ def test_resolution_specific_detector_profiles() -> None:
     config = load_pipeline_config()
     targets = config.feature_detection_targets
     assert config.available_resolutions == (
-        "0p25m", "1m", "1p5m", "2m", "5m", "5m_refined",
-        "10m", "10m_refined",
+        "0p25m", "0p5m", "1m", "2m", "5m", "10m",
     )
     assert set(targets) == {
-        "0p25m", "1m", "1p5m", "2m", "5m", "5m_refined",
-        "10m", "10m_refined",
+        "0p25m", "0p5m", "1m", "1p5m", "2m", "5m", "10m",
     }
     assert targets["0p25m"].radius_cells == 60
+    assert targets["0p5m"].radius_cells == 30
     assert targets["1m"].radius_cells == 15
     assert targets["1p5m"].radius_cells == 10
+    assert not targets["1p5m"].selectable
     assert targets["2m"].radius_cells == 8
     assert targets["5m"].radius_cells == 3
     assert targets["10m"].radius_cells == 2
-    assert targets["5m_refined"].radius_cells == targets["5m"].radius_cells
-    assert targets["10m_refined"].radius_cells == targets["10m"].radius_cells
     assert targets["10m"].raster.shape == (200, 200)
     assert targets["1m"].raster.shape == (2000, 2000)
     assert targets["2m"].raster.shape == (1000, 1000)

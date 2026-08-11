@@ -20,7 +20,7 @@ from pipeline_config import load_resolution_config
 
 
 SOURCE_PROFILE = "0p25m"
-TARGET_PROFILES = ("1m", "2m", "5m_refined", "10m_refined")
+TARGET_PROFILES = ("0p5m", "1m", "2m")
 
 
 def sha256(path: Path) -> str:

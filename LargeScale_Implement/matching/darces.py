@@ -9,6 +9,28 @@ from itertools import combinations
 import numpy as np
 from scipy.interpolate import RegularGridInterpolator
 from scipy.spatial import cKDTree
+
+
+# Final Apollo tuning defaults. Keep these in one place so the public DARCES
+# API and both command-line runners cannot silently drift apart.
+DEFAULT_TRIALS_PER_SITE = 100_000
+DEFAULT_HEADING_TOLERANCE_DEG = 5.0
+DEFAULT_MINIMUM_OVERLAP = 0.50
+DEFAULT_CLUSTER_POSITION_RADIUS_M = 50.0
+DEFAULT_CLUSTER_HEADING_RADIUS_DEG = 5.0
+DEFAULT_MINIMUM_CLUSTER_SIZE = 2
+DEFAULT_SIDE_RATIO_TOLERANCE = 0.12
+DEFAULT_MINIMUM_TRIANGLE_ANGLE_DEG = 10.0
+DEFAULT_CONTROL_RMS_TOLERANCE_M = 10.0
+DEFAULT_TOP_HYPOTHESIS_COUNT = 5
+DEFAULT_COVARIANCE_SIGMA_MULTIPLIER = 2.0
+DEFAULT_CONSENSUS_XY_TOLERANCE_M = 15.0
+DEFAULT_MINIMUM_CONSENSUS_FEATURES = 4
+# Terrain MAE remains the DARCES hypothesis fitness used for ranking. The
+# historical pipeline did not impose a hard acceptance cutoff after ranking.
+DEFAULT_MAXIMUM_TERRAIN_MAE_M: float | None = None
+
+
 @dataclass(frozen=True)
 class TriangleHypothesis:
     """One ordered local/global control-triangle correspondence."""
@@ -990,27 +1012,32 @@ def run_darces(
     global_x_centers_m: np.ndarray,
     global_y_centers_m: np.ndarray,
     *,
-    n_trials: int = 100_000,
+    n_trials: int = DEFAULT_TRIALS_PER_SITE,
     distance_tolerance_m: float,
     z_residual_tolerance_m: float,
     heading_measurement_deg: float,
-    heading_tolerance_deg: float = 10.0,
-    minimum_overlap: float = 0.50,
-    cluster_position_radius_m: float | None = None,
-    cluster_heading_radius_deg: float = 5.0,
-    minimum_cluster_size: int = 2,
+    heading_tolerance_deg: float = DEFAULT_HEADING_TOLERANCE_DEG,
+    minimum_overlap: float = DEFAULT_MINIMUM_OVERLAP,
+    cluster_position_radius_m: float | None = (
+        DEFAULT_CLUSTER_POSITION_RADIUS_M
+    ),
+    cluster_heading_radius_deg: float = DEFAULT_CLUSTER_HEADING_RADIUS_DEG,
+    minimum_cluster_size: int = DEFAULT_MINIMUM_CLUSTER_SIZE,
     seed: int | None = None,
-    side_ratio_tolerance: float = 0.15,
-    minimum_triangle_angle_deg: float = 10.0,
-    control_rms_tolerance_m: float | None = None,
-    top_hypothesis_count: int = 5,
+    side_ratio_tolerance: float = DEFAULT_SIDE_RATIO_TOLERANCE,
+    minimum_triangle_angle_deg: float = DEFAULT_MINIMUM_TRIANGLE_ANGLE_DEG,
+    control_rms_tolerance_m: float | None = (
+        DEFAULT_CONTROL_RMS_TOLERANCE_M
+    ),
+    top_hypothesis_count: int = DEFAULT_TOP_HYPOTHESIS_COUNT,
     local_covariances: np.ndarray | None = None,
     global_covariances: np.ndarray | None = None,
-    covariance_sigma_multiplier: float = 2.0,
-    consensus_xy_tolerance_m: float = 15.0,
-    minimum_consensus_features: int = 4,
+    covariance_sigma_multiplier: float = DEFAULT_COVARIANCE_SIGMA_MULTIPLIER,
+    consensus_xy_tolerance_m: float = DEFAULT_CONSENSUS_XY_TOLERANCE_M,
+    minimum_consensus_features: int = DEFAULT_MINIMUM_CONSENSUS_FEATURES,
     use_feature_consensus: bool = False,
     reference_points_xyz: np.ndarray | None = None,
+    maximum_terrain_mae_m: float | None = DEFAULT_MAXIMUM_TERRAIN_MAE_M,
 ) -> dict[str, object] | None:
     """Run deterministic DARCES registration.
 
@@ -1057,6 +1084,9 @@ def run_darces(
 
     if heading_tolerance_deg <= 0.0:
         raise ValueError("heading_tolerance_deg must be positive")
+
+    if maximum_terrain_mae_m is not None and maximum_terrain_mae_m <= 0.0:
+        raise ValueError("maximum_terrain_mae_m must be positive or None")
 
     if reference_points_xyz is None:
         # Compatibility fallback for direct callers and older tests.
@@ -1229,6 +1259,18 @@ def run_darces(
         return None
 
     best, distinct_triangle_count, cluster_member_count = clustered
+
+    selected_terrain_mae_m = -best.fitness
+    if (
+        maximum_terrain_mae_m is not None
+        and selected_terrain_mae_m > maximum_terrain_mae_m
+    ):
+        print(
+            "DARCES: selected pose rejected by terrain MAE gate "
+            f"({selected_terrain_mae_m:.4f} m > "
+            f"{maximum_terrain_mae_m:.4f} m)"
+        )
+        return None
 
     # Expand the three control-point matches into all pose-compatible feature
     # correspondences for the downstream RANSAC stage.

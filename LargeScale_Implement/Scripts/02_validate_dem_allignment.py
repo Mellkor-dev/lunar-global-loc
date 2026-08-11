@@ -25,37 +25,24 @@ def raster_coordinates(
     rows: int,
     columns: int,
     resolution_m: float,
+    first_x_center_m: float,
+    first_y_center_m: float,
 ) -> tuple[np.ndarray, np.ndarray, tuple[float, float, float, float]]:
-    """Return x/y cell centers and edge bounds for a centered north-up DEM.
+    """Return configured x/y cell centers and edge bounds for a north-up DEM.
 
     Columns increase eastward.
     Rows increase southward.
     Map x increases eastward.
     Map y increases northward.
     """
-    width_m = columns * resolution_m
-    height_m = rows * resolution_m
-
-    x_min_edge = -width_m / 2.0
-    x_max_edge = width_m / 2.0
-    y_min_edge = -height_m / 2.0
-    y_max_edge = height_m / 2.0
-
-    x_centers = (
-        x_min_edge
-        + (np.arange(columns, dtype=np.float64) + 0.5) * resolution_m
-    )
-
-    y_centers = (
-        y_max_edge
-        - (np.arange(rows, dtype=np.float64) + 0.5) * resolution_m
-    )
+    x_centers = first_x_center_m + np.arange(columns) * resolution_m
+    y_centers = first_y_center_m - np.arange(rows) * resolution_m
 
     bounds = (
-        x_min_edge,
-        x_max_edge,
-        y_min_edge,
-        y_max_edge,
+        float(x_centers[0] - resolution_m / 2.0),
+        float(x_centers[-1] + resolution_m / 2.0),
+        float(y_centers[-1] - resolution_m / 2.0),
+        float(y_centers[0] + resolution_m / 2.0),
     )
 
     return x_centers, y_centers, bounds
@@ -127,6 +114,7 @@ def save_alignment_plot(
     truth_bounds: tuple[float, float, float, float],
     orbital_bounds: tuple[float, float, float, float],
     selected_profile: str,
+    truth_source_label: str,
     truth_resolution_m: float,
     selected_resolution_m: float,
     statistics: dict[str, float | int],
@@ -147,7 +135,7 @@ def save_alignment_plot(
         figsize=(15, 12),
         layout="constrained",
     )
-    truth_label = f"Truth reference — {truth_resolution_m:g} m/cell"
+    truth_label = truth_source_label
     selected_label = (
         f"Selected DEM ({selected_profile}) — "
         f"{selected_resolution_m:g} m/cell"
@@ -238,7 +226,7 @@ def save_alignment_plot(
     )
 
     figure.suptitle(
-        f"Apollo 17 DEM alignment: truth vs {selected_profile}",
+        f"DEM alignment: {truth_source_label} vs {selected_profile}",
         fontsize=14,
     )
 
@@ -255,6 +243,7 @@ def save_profile_plot(
     x_coordinates: np.ndarray,
     y_coordinates: np.ndarray,
     selected_profile: str,
+    truth_source_label: str,
     truth_resolution_m: float,
     selected_resolution_m: float,
 ) -> None:
@@ -279,7 +268,7 @@ def save_profile_plot(
     orbital_south_north = orbital_interpolator(south_north_points)
 
     figure, axes = plt.subplots(2, 2, figsize=(15, 9), layout="constrained")
-    truth_label = f"Truth reference ({truth_resolution_m:g} m)"
+    truth_label = truth_source_label
     selected_label = (
         f"Selected {selected_profile} DEM ({selected_resolution_m:g} m)"
     )
@@ -344,7 +333,9 @@ def save_profile_plot(
     axes[1, 1].set_ylabel("Elevation residual [m]")
     axes[1, 1].grid(True)
 
-    figure.suptitle(f"Centerline comparison: truth vs {selected_profile}")
+    figure.suptitle(
+        f"Centerline comparison: {truth_source_label} vs {selected_profile}"
+    )
     figure.savefig(PROFILE_PLOT_PATH, dpi=180)
     plt.close(figure)
 
@@ -394,12 +385,16 @@ def main() -> None:
         rows=truth.shape[0],
         columns=truth.shape[1],
         resolution_m=TRUTH_RESOLUTION_M,
+        first_x_center_m=CONFIG.truth_raster.first_x_center_m,
+        first_y_center_m=CONFIG.truth_raster.first_y_center_m,
     )
 
     orbital_x, orbital_y, orbital_bounds = raster_coordinates(
         rows=orbital.shape[0],
         columns=orbital.shape[1],
         resolution_m=ORBITAL_RESOLUTION_M,
+        first_x_center_m=CONFIG.orbital_raster.first_x_center_m,
+        first_y_center_m=CONFIG.orbital_raster.first_y_center_m,
     )
 
     truth_interpolator = build_interpolator(
@@ -431,6 +426,7 @@ def main() -> None:
         truth_bounds=truth_bounds,
         orbital_bounds=orbital_bounds,
         selected_profile=args.resolution,
+        truth_source_label=CONFIG.truth_source_label,
         truth_resolution_m=TRUTH_RESOLUTION_M,
         selected_resolution_m=ORBITAL_RESOLUTION_M,
         statistics=statistics,
@@ -446,6 +442,7 @@ def main() -> None:
         x_coordinates=np.linspace(common_x_min, common_x_max, 2000),
         y_coordinates=np.linspace(common_y_min, common_y_max, 2000),
         selected_profile=args.resolution,
+        truth_source_label=CONFIG.truth_source_label,
         truth_resolution_m=TRUTH_RESOLUTION_M,
         selected_resolution_m=ORBITAL_RESOLUTION_M,
     )
@@ -453,10 +450,12 @@ def main() -> None:
     report = {
         "comparison": {
             "selected_profile": args.resolution,
+            "truth_source_label": CONFIG.truth_source_label,
+            "truth_source_profile": CONFIG.truth_source_profile,
             "operation": "truth minus selected DEM interpolated to truth centers",
         },
         "coordinate_contract": {
-            "origin": "center_of_dem",
+            "origin": "configured_map_frame",
             "x_direction": "east",
             "y_direction": "north",
             "raster_column_direction": "east",
