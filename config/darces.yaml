@@ -1,0 +1,24 @@
+# DARCES + feature-detection parameters — scaled from Carle & Barfoot 2010
+# to lunaryard_20m (20m yard @ 0.025 m/px), rather than their 100km^2 @ 13-24m map.
+
+feature_detection:
+  n_cell_radius: 80        # D_detect = n * Lxy = 60 * 0.025 = 1.5 m
+  flatness_eps: 0.0065       # elevation delta (m)
+  use_minima: true          # true = crater-bowl detection (our case), false = peak detection (paper's Devon Island case)
+
+uncertainty:
+  global_feature_sigma_m: 0.4   # 1-sigma positional uncertainty of a detected global feature 
+  local_feature_sigma_m: 0.6    # local (lidar-derived) feature uncertainty;
+  z_dev_sigma_multiplier: 3     # E_zdev := 3 * sigma_rGz (paper's convention)
+
+orientation:
+  sigma_heading_deg: 1.0
+  sigma_roll_deg: 1.0
+  sigma_pitch_deg: 1.0
+
+hypothesis_search:
+  n_trials: 100              # random-seeded DARCES trials per scan, matches paper's 
+  min_hypotheses_for_valid_group: 1   # paper: group of high-fitness hypotheses 
+
+fitness:
+  reference_point_decimation: 2   # decimate lidar scan to Lxy/2 for fitness eval (Eq. 1)
