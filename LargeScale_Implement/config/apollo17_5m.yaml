@@ -157,7 +157,18 @@ feature_detection:
 
     # Controlled alternative to 5m: identical grid and detector, but the DEM
     # is block-averaged directly from the refined 0.25 m simulated terrain.
-    
+    5m_refined:
+      dem: DEM/5m_refined_px/orbital_dem_5m_refined.npy
+      metadata: DEM/5m_refined_px/orbital_dem_5m_refined.yaml
+      output: DEM/5m_refined_px/global_craters.npz
+      preview: plots/5m_refined_px/global_features_preview.png
+      resolution_m: 5.0
+      shape: [400, 400]
+      first_cell_center_m: {x: -997.5, y: 997.5}
+      cell_radius: 3
+      detection_distance_m: 15
+      flatness_threshold_m: 0.05
+      catalogue_role: global
 
     10m:
       dem: DEM/10m_px/orbital_dem_10m.npy
@@ -174,7 +185,18 @@ feature_detection:
 
     # Controlled alternative to 10m: identical grid and detector, but the DEM
     # is block-averaged directly from the refined 0.25 m simulated terrain.
-    
+    10m_refined:
+      dem: DEM/10m_refined_px/orbital_dem_10m_refined.npy
+      metadata: DEM/10m_refined_px/orbital_dem_10m_refined.yaml
+      output: DEM/10m_refined_px/global_craters.npz
+      preview: plots/10m_refined_px/global_features_preview.png
+      resolution_m: 10.0
+      shape: [200, 200]
+      first_cell_center_m: {x: -995.0, y: 995.0}
+      cell_radius: 2
+      detection_distance_m: 20
+      flatness_threshold_m: 0.05
+      catalogue_role: global
 
 global_feature_uncertainty:
   intrinsic_horizontal_sigma_m: 10.0
