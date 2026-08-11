@@ -40,12 +40,20 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--control-rms-tolerance",
         type=float,
-        default=None,
+        default=10.0,
         help=(
             "Maximum RMS XY alignment error of a control triangle in metres "
-            "(default: use the derived distance tolerance)"
+            "(default: 10)"
         ),
     )
+    parser.add_argument("--side-ratio-tolerance", type=float, default=0.12)
+    parser.add_argument("--minimum-triangle-angle", type=float, default=10.0)
+    parser.add_argument("--covariance-sigma-multiplier", type=float, default=2.0)
+    parser.add_argument("--distance-tolerance-sigma", type=float, default=3.0)
+    parser.add_argument("--z-residual-tolerance-sigma", type=float, default=3.0)
+    parser.add_argument("--minimum-overlap", type=float, default=0.50)
+    parser.add_argument("--cluster-heading-radius", type=float, default=5.0)
+    parser.add_argument("--reference-spacing-factor", type=float, default=0.50)
     parser.add_argument("--consensus-radius",type=float,default=15.0)
     parser.add_argument("--minimum-consensus-features", type=int, default=4)
     parser.add_argument(
@@ -128,7 +136,7 @@ def run_site(
     z_residual_tolerance_m: float,
     args: argparse.Namespace,    
     global_covariances: np.ndarray | None,
-    covariance_sigma_multiplier: float = 2.0,
+    covariance_sigma_multiplier: float,
     use_feature_consensus: bool = False,
 ) -> dict[str, object]:
     feature_path = (
@@ -177,7 +185,9 @@ def run_site(
             dtype=np.float64,
         )
 
-    reference_spacing_m = config.orbital_raster.resolution_m / 2.0
+    reference_spacing_m = (
+        config.orbital_raster.resolution_m * args.reference_spacing_factor
+    )
     reference_points_xyz = decimate_reference_points_xy(
         np.asarray(np.load(leveled_path, allow_pickle=False), dtype=np.float64),
         reference_spacing_m,
@@ -207,9 +217,12 @@ def run_site(
         heading_tolerance_deg=args.heading_tolerance,
         cluster_position_radius_m=args.cluster_position_radius,         
         top_hypothesis_count =  args.top_hypotheses,
-        cluster_heading_radius_deg=5.0,
+        cluster_heading_radius_deg=args.cluster_heading_radius,
         minimum_cluster_size=args.minimum_cluster_size,
         control_rms_tolerance_m=args.control_rms_tolerance,
+        side_ratio_tolerance=args.side_ratio_tolerance,
+        minimum_triangle_angle_deg=args.minimum_triangle_angle,
+        minimum_overlap=args.minimum_overlap,
         seed=args.seed + site_number,
         consensus_xy_tolerance_m=args.consensus_radius,
         minimum_consensus_features=args.minimum_consensus_features,
@@ -288,6 +301,22 @@ def main() -> None:
         and args.control_rms_tolerance <= 0.0
     ):
         raise ValueError("--control-rms-tolerance must be positive")
+    if not 0.0 <= args.side_ratio_tolerance < 1.0:
+        raise ValueError("--side-ratio-tolerance must lie in [0, 1)")
+    if not 0.0 < args.minimum_triangle_angle < 60.0:
+        raise ValueError("--minimum-triangle-angle must lie in (0, 60)")
+    if args.covariance_sigma_multiplier <= 0.0:
+        raise ValueError("--covariance-sigma-multiplier must be positive")
+    if args.distance_tolerance_sigma <= 0.0:
+        raise ValueError("--distance-tolerance-sigma must be positive")
+    if args.z_residual_tolerance_sigma <= 0.0:
+        raise ValueError("--z-residual-tolerance-sigma must be positive")
+    if not 0.0 < args.minimum_overlap <= 1.0:
+        raise ValueError("--minimum-overlap must lie in (0, 1]")
+    if args.cluster_heading_radius <= 0.0:
+        raise ValueError("--cluster-heading-radius must be positive")
+    if args.reference_spacing_factor <= 0.0:
+        raise ValueError("--reference-spacing-factor must be positive")
 
     config = load_resolution_config(args.resolution)
     result_directory = config.results_path
@@ -320,8 +349,12 @@ def main() -> None:
             len(global_features_xyz),
             axis=0,
         )
-    distance_tolerance_m = 3.0 * float(uncertainty["sigma_xy_m"])
-    z_residual_tolerance_m = 3.0 * float(uncertainty["sigma_z_m"])
+    distance_tolerance_m = (
+        args.distance_tolerance_sigma * float(uncertainty["sigma_xy_m"])
+    )
+    z_residual_tolerance_m = (
+        args.z_residual_tolerance_sigma * float(uncertainty["sigma_z_m"])
+    )
 
     # ALL-SITES EDIT 5: Available grid files define the tested site set.
     grid_paths = sorted(config.gridded_maps_path.glob("grid_site_*.npz"))
@@ -355,7 +388,7 @@ def main() -> None:
             z_residual_tolerance_m=z_residual_tolerance_m,
             args=args,            
             global_covariances=global_covariances,
-            covariance_sigma_multiplier=2.0,
+            covariance_sigma_multiplier=args.covariance_sigma_multiplier,
             use_feature_consensus=args.use_feature_consensus,
         )
         results.append(result)
@@ -389,15 +422,21 @@ def main() -> None:
                 if args.control_rms_tolerance is not None
                 else distance_tolerance_m
             ),
+            "side_ratio_tolerance": args.side_ratio_tolerance,
+            "minimum_triangle_angle_deg": args.minimum_triangle_angle,
+            "minimum_overlap": args.minimum_overlap,
+            "cluster_heading_radius_deg": args.cluster_heading_radius,
+            "distance_tolerance_sigma_multiplier": args.distance_tolerance_sigma,
+            "z_residual_tolerance_sigma_multiplier": args.z_residual_tolerance_sigma,
             "use_feature_consensus": args.use_feature_consensus,
             "consensus_xy_tolerance_m": args.consensus_radius,
             "minimum_consensus_features": args.minimum_consensus_features,
             "distance_tolerance_m": distance_tolerance_m,
             "z_residual_tolerance_m": z_residual_tolerance_m,
-            "covariance_sigma_multiplier": 2.0,
+            "covariance_sigma_multiplier": args.covariance_sigma_multiplier,
             "global_covariance_m2": global_covariances[0].tolist(),
             "fitness_reference": "raw_lidar_xy_decimated",
-            "fitness_reference_spacing_factor": 0.5,
+            "fitness_reference_spacing_factor": args.reference_spacing_factor,
         },
         "sites": results,
     }
