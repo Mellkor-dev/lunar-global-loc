@@ -5,8 +5,14 @@ All generated data is grouped by raster resolution. Directory labels use
 
 ```text
 DEM/
+  0p25m_px/      Native high-resolution simulated terrain
+  1m_px/         Downsampled orbital experiment
   1p5m_px/       Native truth DEM and truth feature catalogue
+  2m_px/         Downsampled orbital experiment
   5m_px/         Derived orbital prior, global features, QA, and validation
+  5m_refined_px/ Refined-source comparison at 5 m/cell
+  10m_px/        Coarse orbital experiment
+  10m_refined_px/ Refined-source comparison at 10 m/cell
 local_maps/
   <resolution>/  leveled/, gridded/, and features/
 plots/
@@ -21,9 +27,8 @@ sim/
 artifact used by the 5 m experiment. Scripts must load paths through
 `pipeline_config.load_pipeline_config()` rather than reconstructing them.
 
-New experiments should use the same layout, for example `0p25m_px`,
-`0p5m_px`, and `1p5m_px`, with a dedicated configuration selecting the
-matching directories.
+New experiments should use the same layout, with a dedicated configuration
+selecting matching directories for every artifact class.
 
 Feature detector inputs and parameters are listed under
 `feature_detection.resolutions` in `config/apollo17_5m.yaml`. Run one native

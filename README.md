@@ -7,11 +7,8 @@ local elevation maps, estimates feature uncertainty, and evaluates rover poses
 with DARCES-style geometric matching.
 
 The actively developed, resolution-aware implementation is in
-[`LargeScale_Implement/`](LargeScale_Implement/). The modules and scripts at the
-repository root are an earlier prototype and remain useful for reference and
-small synthetic experiments.
-
-![Detected crater features in the 5 m global DEM](LargeScale_Implement/plots/5m_px/global_features_preview.png)
+[`LargeScale_Implement/`](LargeScale_Implement/). Generated DEMs, scans, plots,
+and experiment results are intentionally kept outside the source tree.
 
 ## What is where
 
@@ -31,11 +28,8 @@ small synthetic experiments.
 │   ├── tests/                  Configuration, detector, and matcher tests
 │   ├── pipeline_config.py      Validated configuration and path projection
 │   └── DATA_LAYOUT.md          Resolution-directory conventions
-├── config/                     Configuration for the earlier prototype
-├── features/, maps/            Earlier feature and map modules
-├── matching/, refinement/      Earlier matching and refinement modules
-├── scripts/                    Earlier exploratory scripts
-└── sim/                        Earlier traversal recorder
+├── requirements.txt           Reproducible Python dependencies
+└── .github/                    CI, ownership, and contribution templates
 ```
 
 Within the main implementation, generated and captured data are grouped by
@@ -50,36 +44,36 @@ LargeScale_Implement/
 └── sim/<resolution>_px/
 ```
 
-Resolution labels use `p` as the decimal separator. The currently configured
-profiles are `0p25m`, `1p5m`, and `5m`.
+Resolution labels use `p` as the decimal separator. The configured profiles,
+in increasing cell-size order, are `0p25m`, `1m`, `1p5m`, `2m`, `5m`,
+`5m_refined`, `10m`, and `10m_refined`.
 
-## Data currently included
+## Data layout
 
 | Profile | Primary DEM | Shape | Current role |
 | --- | --- | ---: | --- |
 | `0p25m` | `DEM/0p25m_px/apollo17_refined_0p25m_2000m.npy` | 8000 × 8000 | Native high-resolution OmniLRS DEM |
+| `1m` | `DEM/1m_px/orbital_dem_1m.npy` | 2000 × 2000 | Downsampled orbital experiment |
 | `1p5m` | `DEM/1p5m_px/truth_dem_1p5m.npy` | 1334 × 1334 | Truth/reference raster |
+| `2m` | `DEM/2m_px/orbital_dem_2m.npy` | 1000 × 1000 | Downsampled orbital experiment |
 | `5m` | `DEM/5m_px/orbital_dem_5m.npy` | 400 × 400 | Coarse orbital localization prior |
+| `5m_refined` | `DEM/5m_refined_px/orbital_dem_5m_refined.npy` | 400 × 400 | Refined-source comparison |
+| `10m` | `DEM/10m_px/orbital_dem_10m.npy` | 200 × 200 | Coarse orbital experiment |
+| `10m_refined` | `DEM/10m_refined_px/orbital_dem_10m_refined.npy` | 200 × 200 | Refined-source comparison |
 
-The 5 m workspace also contains a complete example set of 28 captured sites,
-leveled/gridded local maps, local crater catalogues, validation products, and
-DARCES result files. Other resolutions can use the same pipeline once their
-corresponding inputs are placed in the projected subdirectories.
-
-The 0.25 m DEM is stored with **Git LFS** because it is approximately 244 MiB.
-After cloning, run `git lfs pull` before using that profile.
+Large generated and captured artifacts are not committed to the source branch.
+Place inputs in the paths above before running a profile. Dataset manifests and
+metadata should travel with the externally stored arrays so that raster origin,
+shape, resolution, and coordinate conventions remain verifiable.
 
 ## Installation
 
-Python 3.10 or newer is recommended. There is not yet a pinned requirements
-file, so install the core scientific dependencies directly:
+Python 3.10 or newer is recommended. Install the declared dependencies:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python3 -m pip install numpy scipy matplotlib pyyaml opencv-python pytest
-git lfs install
-git lfs pull
+python3 -m pip install -r requirements.txt
 ```
 
 OpenCV is used to accelerate large circular morphology operations on the
@@ -154,8 +148,6 @@ and preview path are resolution-specific configuration values. Feature
 catalogues are compressed NumPy archives containing raster indices, map-frame
 XYZ coordinates, feature type, resolution, and detector metadata.
 
-![Downsampling feature-coordinate uncertainty](LargeScale_Implement/plots/5m_px/downsampling_uncertainty.png)
-
 ### 3. Process local LiDAR scans
 
 Place site data under the selected `sim/<resolution>_px/` workspace:
@@ -178,7 +170,8 @@ Script 05 transforms scans into gravity-leveled rover-local coordinates and
 creates north-up elevation grids. Script 07 detects local crater features and
 stores feature covariance estimates used by matching.
 
-![Local crater detections at Site 08](LargeScale_Implement/plots/5m_px/local_features/local_craters_site_08.png)
+Generated local-feature previews are written beneath
+`LargeScale_Implement/plots/<resolution>_px/local_features/`.
 
 ### 4. Run localization
 
@@ -278,8 +271,9 @@ python3 -m pytest LargeScale_Implement/tests -q
 
 ## Important notes
 
-- Do not commit the 0.25 m DEM as an ordinary Git blob. Its path is already
-  tracked by Git LFS in `.gitattributes`.
+- Do not commit DEMs, captures, generated local maps, plots, or results to the
+  source branch. Keep them in external dataset storage and copy them into the
+  ignored resolution workspaces when running experiments.
 - Generated products should stay in their resolution workspace to avoid mixing
   incompatible cell sizes, feature radii, and coordinate vectors.
 - A selected resolution does not manufacture missing captures or local maps;
