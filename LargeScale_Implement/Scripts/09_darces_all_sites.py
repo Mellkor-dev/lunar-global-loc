@@ -37,8 +37,25 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("--minimum-cluster-size", type=int, default=2)
     parser.add_argument("--cluster-position-radius", type=float,default = 50.0)
     parser.add_argument("--top-hypotheses",type=int, default = 5)
+    parser.add_argument(
+        "--control-rms-tolerance",
+        type=float,
+        default=None,
+        help=(
+            "Maximum RMS XY alignment error of a control triangle in metres "
+            "(default: use the derived distance tolerance)"
+        ),
+    )
     parser.add_argument("--consensus-radius",type=float,default=15.0)
     parser.add_argument("--minimum-consensus-features", type=int, default=4)
+    parser.add_argument(
+        "--use-feature-consensus",
+        action="store_true",
+        help=(
+            "Require each control hypothesis to pass feature-consensus "
+            "screening (disabled by default)"
+        ),
+    )
     return parser.parse_args()
 
 
@@ -192,6 +209,7 @@ def run_site(
         top_hypothesis_count =  args.top_hypotheses,
         cluster_heading_radius_deg=5.0,
         minimum_cluster_size=args.minimum_cluster_size,
+        control_rms_tolerance_m=args.control_rms_tolerance,
         seed=args.seed + site_number,
         consensus_xy_tolerance_m=args.consensus_radius,
         minimum_consensus_features=args.minimum_consensus_features,
@@ -265,6 +283,11 @@ def main() -> None:
         raise ValueError("--trials must be positive")
     if args.minimum_cluster_size <= 0:
         raise ValueError("--minimum-cluster-size must be positive")
+    if (
+        args.control_rms_tolerance is not None
+        and args.control_rms_tolerance <= 0.0
+    ):
+        raise ValueError("--control-rms-tolerance must be positive")
 
     config = load_resolution_config(args.resolution)
     result_directory = config.results_path
@@ -333,7 +356,7 @@ def main() -> None:
             args=args,            
             global_covariances=global_covariances,
             covariance_sigma_multiplier=2.0,
-            use_feature_consensus=False,
+            use_feature_consensus=args.use_feature_consensus,
         )
         results.append(result)
         print(
@@ -358,6 +381,17 @@ def main() -> None:
             "seed": args.seed,
             "heading_tolerance_deg": args.heading_tolerance,
             "minimum_cluster_size": args.minimum_cluster_size,
+            "cluster_position_radius_m": args.cluster_position_radius,
+            "top_hypothesis_count": args.top_hypotheses,
+            "control_rms_tolerance_m": args.control_rms_tolerance,
+            "effective_control_rms_tolerance_m": (
+                args.control_rms_tolerance
+                if args.control_rms_tolerance is not None
+                else distance_tolerance_m
+            ),
+            "use_feature_consensus": args.use_feature_consensus,
+            "consensus_xy_tolerance_m": args.consensus_radius,
+            "minimum_consensus_features": args.minimum_consensus_features,
             "distance_tolerance_m": distance_tolerance_m,
             "z_residual_tolerance_m": z_residual_tolerance_m,
             "covariance_sigma_multiplier": 2.0,
