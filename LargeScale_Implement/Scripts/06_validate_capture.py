@@ -124,15 +124,10 @@ def rotation_difference_deg(
 def main() -> None:
     global CAPTURE_DIRECTORY, CLOUD_DIRECTORY, ODOM_DIRECTORY
     global TRANSFORM_DIRECTORY, OUTPUT_DIRECTORY, SUMMARY_PATH, EXTRINSIC_PATH
-    global EXPECTED_BASE_TO_LIDAR_TRANSLATION_M
     parser = argparse.ArgumentParser(description=__doc__)
     add_resolution_argument(parser)
     args = parser.parse_args()
     config = load_resolution_config(args.resolution)
-    EXPECTED_BASE_TO_LIDAR_TRANSLATION_M = np.asarray(
-        config.base_to_lidar_translation_m,
-        dtype=float,
-    )
     CAPTURE_DIRECTORY = config.captures_path
     CLOUD_DIRECTORY = CAPTURE_DIRECTORY / "pointcloud_scans"
     ODOM_DIRECTORY = CAPTURE_DIRECTORY / "odom_scans"
