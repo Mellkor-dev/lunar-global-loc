@@ -24,9 +24,8 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Generated experiment data (kept externally, e.g. Google Drive)
-LargeScale_Implement/DEM/
+# Raw captures and intermediate local maps remain external. Curated DEMs,
+# plots, and machine-readable results are versioned for reproducibility.
 LargeScale_Implement/local_maps/
-LargeScale_Implement/plots/
-LargeScale_Implement/results/
 LargeScale_Implement/sim/*_px/
+LargeScale_Implement/logs/

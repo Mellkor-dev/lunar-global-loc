@@ -1,18 +1,16 @@
 # Resolution experiment data layout
 
 All generated data is grouped by raster resolution. Directory labels use
-`p` as the decimal separator so they remain shell-friendly (`1p5m_px`).
+`p` as the decimal separator so they remain shell-friendly (`0p5m_px`).
 
 ```text
 DEM/
-  0p25m_px/      Native high-resolution simulated terrain
-  1m_px/         Downsampled orbital experiment
-  1p5m_px/       Native truth DEM and truth feature catalogue
-  2m_px/         Downsampled orbital experiment
-  5m_px/         Derived orbital prior, global features, QA, and validation
-  5m_refined_px/ Refined-source comparison at 5 m/cell
-  10m_px/        Coarse orbital experiment
-  10m_refined_px/ Refined-source comparison at 10 m/cell
+  0p25m_px/      High-resolution crater-refined experiment terrain
+  0p5m_px/       Aligned area-mean DEM product
+  1m_px/         Aligned area-mean DEM product
+  2m_px/         Aligned area-mean DEM product
+  5m_px/         Coarse DEM product, features, QA, and validation
+  10m_px/        Coarse DEM product, features, QA, and validation
 local_maps/
   <resolution>/  leveled/, gridded/, and features/
 plots/
@@ -23,20 +21,22 @@ sim/
   <resolution>/  odom_scans/, pointcloud_scans/, transform_scan/, validation/
 ```
 
-`config/apollo17_5m.yaml` is the authority for every input and generated
-artifact used by the 5 m experiment. Scripts must load paths through
+`config/apollo11.yaml` is the authority for every input and generated artifact
+used by the Apollo 11 experiment. Scripts must load paths through
 `pipeline_config.load_pipeline_config()` rather than reconstructing them.
+The configured 2 m/px profile is the truth source for DEM validation and
+global-feature uncertainty at every selected resolution.
 
 New experiments should use the same layout, with a dedicated configuration
 selecting matching directories for every artifact class.
 
 Feature detector inputs and parameters are listed under
-`feature_detection.resolutions` in `config/apollo17_5m.yaml`. Run one native
+`feature_detection.resolutions` in `config/apollo11.yaml`. Run one native
 raster or every configured raster with:
 
 ```bash
 python3 Scripts/03_feature_detector.py --resolution 0p25m
-python3 Scripts/03_feature_detector.py --resolution 1p5m
+python3 Scripts/03_feature_detector.py --resolution 0p5m
 python3 Scripts/03_feature_detector.py --resolution 5m
 python3 Scripts/03_feature_detector.py --resolution all
 ```
@@ -45,8 +45,8 @@ Every executable in `Scripts/` accepts the same single-workspace selector:
 
 ```bash
 python3 Scripts/00_inspect_DEM.py --resolution 0p25m
-python3 Scripts/05_local_scan_processing.py --resolution 1p5m
-python3 Scripts/07_local_feature_detection.py --resolution 1p5m
+python3 Scripts/05_local_scan_processing.py --resolution 0p5m
+python3 Scripts/07_local_feature_detection.py --resolution 0p5m
 python3 Scripts/09_darces_all_sites.py --resolution 5m
 python3 Scripts/11_ransac_all_sites.py --resolution 5m
 python3 Scripts/12_moga_all_sites.py --resolution 5m
@@ -62,6 +62,7 @@ the matching `DEM/<resolution>_px`, `local_maps/<resolution>_px`,
 `sim/<resolution>_px` directories. Script 05 additionally accepts
 `--grid-resolution` to override the profile's native cell size.
 
-Script 01 only creates an equal- or lower-resolution DEM from the configured
-1.5 m truth reference; it intentionally rejects an attempt to synthesize the
-native 0.25 m DEM from a coarser source.
+The installed 0.5, 1, 2, 5, and 10 m DEMs are aligned non-overlapping area
+means of the native 0.25 m terrain. All resolution workspaces link to the same
+428 synchronized OS1 scan/odometry/transform triplets stored under
+`sim/0p25m_px`.

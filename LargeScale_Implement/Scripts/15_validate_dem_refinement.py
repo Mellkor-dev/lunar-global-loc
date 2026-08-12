@@ -17,7 +17,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from pipeline_config import load_resolution_config
+from pipeline_config import load_pipeline_config
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -219,10 +219,12 @@ def plot_refinement_1p5m(
 
 def main() -> None:
     args = parse_arguments()
-    config_0p25 = load_resolution_config("0p25m")
-    config_1p5 = load_resolution_config("1p5m")
+    config = load_pipeline_config(
+        PROJECT_ROOT / "config" / "apollo17_5m.yaml"
+    )
+    config_0p25 = config.for_resolution("0p25m")
     dem_0p25 = np.load(config_0p25.orbital_dem_path, mmap_mode="r")
-    dem_1p5 = np.load(config_1p5.orbital_dem_path, mmap_mode="r")
+    dem_1p5 = np.load(config.truth_dem_path, mmap_mode="r")
     if dem_0p25.shape != (8000, 8000) or dem_1p5.shape != (1334, 1334):
         raise ValueError(
             f"Unexpected input shapes: 0.25 m {dem_0p25.shape}, 1.5 m {dem_1p5.shape}"
@@ -272,7 +274,7 @@ def main() -> None:
     report = {
         "inputs": {
             "dem_0p25m": str(config_0p25.orbital_dem_path),
-            "dem_1p5m": str(config_1p5.orbital_dem_path),
+            "dem_1p5m": str(config.truth_dem_path),
         },
         "comparison_10m": {
             "target_shape": [200, 200],

@@ -16,7 +16,20 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from matching.darces import run_darces
+from matching.darces import (
+    DEFAULT_CLUSTER_HEADING_RADIUS_DEG,
+    DEFAULT_CLUSTER_POSITION_RADIUS_M,
+    DEFAULT_CONTROL_RMS_TOLERANCE_M,
+    DEFAULT_HEADING_TOLERANCE_DEG,
+    DEFAULT_MAXIMUM_TERRAIN_MAE_M,
+    DEFAULT_MINIMUM_CLUSTER_SIZE,
+    DEFAULT_MINIMUM_TRIANGLE_ANGLE_DEG,
+    DEFAULT_MINIMUM_OVERLAP,
+    DEFAULT_SIDE_RATIO_TOLERANCE,
+    DEFAULT_TOP_HYPOTHESIS_COUNT,
+    DEFAULT_TRIALS_PER_SITE,
+    run_darces,
+)
 from pipeline_config import add_resolution_argument, load_resolution_config
 
 
@@ -25,12 +38,23 @@ SITE_NUMBER = 8
 
 # RUNNER EDIT 1: All experimental controls are explicit CLI parameters.
 def parse_arguments() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
     add_resolution_argument(parser)
-    parser.add_argument("--trials", type=int, default=100_000)
+    parser.add_argument("--trials", type=int, default=DEFAULT_TRIALS_PER_SITE)
     parser.add_argument("--seed", type=int, default=8)
-    parser.add_argument("--heading-tolerance", type=float, default=10.0)
-    parser.add_argument("--minimum-cluster-size", type=int, default=2)
+    parser.add_argument(
+        "--heading-tolerance",
+        type=float,
+        default=DEFAULT_HEADING_TOLERANCE_DEG,
+    )
+    parser.add_argument(
+        "--minimum-cluster-size",
+        type=int,
+        default=DEFAULT_MINIMUM_CLUSTER_SIZE,
+    )
     return parser.parse_args()
 
 
@@ -165,9 +189,15 @@ def main() -> None:
         z_residual_tolerance_m=z_residual_tolerance_m,
         heading_measurement_deg=heading_measurement_deg,
         heading_tolerance_deg=args.heading_tolerance,
-        cluster_position_radius_m=distance_tolerance_m,
-        cluster_heading_radius_deg=5.0,
+        cluster_position_radius_m=DEFAULT_CLUSTER_POSITION_RADIUS_M,
+        cluster_heading_radius_deg=DEFAULT_CLUSTER_HEADING_RADIUS_DEG,
         minimum_cluster_size=args.minimum_cluster_size,
+        control_rms_tolerance_m=DEFAULT_CONTROL_RMS_TOLERANCE_M,
+        side_ratio_tolerance=DEFAULT_SIDE_RATIO_TOLERANCE,
+        minimum_triangle_angle_deg=DEFAULT_MINIMUM_TRIANGLE_ANGLE_DEG,
+        minimum_overlap=DEFAULT_MINIMUM_OVERLAP,
+        maximum_terrain_mae_m=DEFAULT_MAXIMUM_TERRAIN_MAE_M,
+        top_hypothesis_count=DEFAULT_TOP_HYPOTHESIS_COUNT,
         seed=args.seed,
     )
 

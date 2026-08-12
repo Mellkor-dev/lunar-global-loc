@@ -177,6 +177,8 @@ def estimate_uncertainty(
         "flatness_threshold_m": config.features.flatness_threshold_m,
         "orbital_feature_path": str(config.global_features_path),
         "truth_feature_path": str(config.truth_features_path),
+        "truth_source_label": config.truth_source_label,
+        "truth_source_profile": config.truth_source_profile,
         "covariance_m2": uncertainty.covariance_m2.tolist(),
     }
     config.feature_uncertainty_path.parent.mkdir(parents=True, exist_ok=True)

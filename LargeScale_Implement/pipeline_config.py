@@ -12,7 +12,7 @@ import yaml
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "apollo17_5m.yaml"
+DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "apollo11.yaml"
 
 
 @dataclass(frozen=True)
@@ -92,6 +92,7 @@ class FeatureDetectionTarget:
     distance_m: float
     flatness_threshold_m: float
     catalogue_role: str
+    selectable: bool
 
 
 @dataclass(frozen=True)
@@ -121,6 +122,9 @@ class PipelineConfig:
     intrinsic_horizontal_sigma_m: float
     intrinsic_vertical_sigma_m: float
     match_gate_fraction: float
+    base_to_lidar_translation_m: tuple[float, float, float]
+    truth_source_label: str
+    truth_source_profile: str
 
     @property
     def available_resolutions(self) -> tuple[str, ...]:
@@ -128,19 +132,33 @@ class PipelineConfig:
         return tuple(
             name
             for name, _target in sorted(
-                self.feature_detection_targets.items(),
+                (
+                    item
+                    for item in self.feature_detection_targets.items()
+                    if item[1].selectable
+                ),
                 key=lambda item: (item[1].raster.resolution_m, item[0]),
             )
         )
 
     def for_resolution(self, name: str) -> "PipelineConfig":
         """Return a pipeline view rooted in one resolution subdirectory."""
-        if name not in self.feature_detection_targets:
+        if name not in self.available_resolutions:
             choices = ", ".join(self.available_resolutions)
             raise ValueError(f"Unknown resolution '{name}'; choose from {choices}")
 
         target = self.feature_detection_targets[name]
-        truth_target = self.feature_detection_targets.get("1p5m")
+        truth_targets = [
+            candidate
+            for candidate in self.feature_detection_targets.values()
+            if candidate.catalogue_role == "truth"
+        ]
+        if len(truth_targets) != 1:
+            names = ", ".join(target.name for target in truth_targets) or "none"
+            raise ValueError(
+                f"Exactly one truth detector target is required; found {names}"
+            )
+        truth_target = truth_targets[0]
         directory_name = target.output_path.parent.name
         local_root = PROJECT_ROOT / "local_maps" / directory_name
         simulation_root = PROJECT_ROOT / "sim" / directory_name
@@ -253,9 +271,28 @@ def load_pipeline_config(
         raw["global_feature_uncertainty"],
         "global_feature_uncertainty",
     )
+    sensor = _mapping(raw.get("sensor", {}), "sensor")
+    base_to_lidar_translation = np.asarray(
+        sensor.get("base_to_lidar_translation_m", [-0.15, 0.0, 0.415]),
+        dtype=np.float64,
+    )
+    if (
+        base_to_lidar_translation.shape != (3,)
+        or not np.isfinite(base_to_lidar_translation).all()
+    ):
+        raise ValueError(
+            "sensor.base_to_lidar_translation_m must contain three finite values"
+        )
 
+    truth_data = _mapping(raw["truth_dem"], "truth_dem")
+    truth_source_label = str(truth_data.get("source_label", "")).strip()
+    truth_source_profile = str(truth_data.get("source_profile", "")).strip()
+    if not truth_source_label or not truth_source_profile:
+        raise ValueError(
+            "truth_dem.source_label and truth_dem.source_profile are required"
+        )
     truth_raster = _raster_config(
-        _mapping(raw["truth_dem"], "truth_dem"),
+        truth_data,
         "truth_dem",
     )
     orbital_raster = _raster_config(
@@ -331,10 +368,35 @@ def load_pipeline_config(
             distance_m=distance_m,
             flatness_threshold_m=flatness,
             catalogue_role=role,
+            selectable=bool(target.get("selectable", True)),
+        )
+
+    if truth_source_profile not in feature_detection_targets:
+        raise ValueError(
+            f"Truth source profile '{truth_source_profile}' has no detector target"
+        )
+    configured_truth_target = feature_detection_targets[truth_source_profile]
+    if configured_truth_target.catalogue_role != "truth":
+        raise ValueError(
+            f"Truth source profile '{truth_source_profile}' must have "
+            "catalogue_role: truth"
         )
 
     def resolved(key: str) -> Path:
         return PROJECT_ROOT / str(paths[key])
+
+    if configured_truth_target.dem_path != resolved("truth_dem"):
+        raise ValueError("Truth detector DEM does not match paths.truth_dem")
+    if configured_truth_target.metadata_path != resolved("truth_metadata"):
+        raise ValueError(
+            "Truth detector metadata does not match paths.truth_metadata"
+        )
+    if configured_truth_target.output_path != resolved("truth_features"):
+        raise ValueError(
+            "Truth detector output does not match paths.truth_features"
+        )
+    if configured_truth_target.raster != truth_raster:
+        raise ValueError("Truth detector raster does not match truth_dem raster")
 
     return PipelineConfig(
         config_path=path,
@@ -368,4 +430,9 @@ def load_pipeline_config(
         match_gate_fraction=float(
             uncertainty["match_gate_fraction_of_detection_distance"]
         ),
+        base_to_lidar_translation_m=tuple(
+            float(value) for value in base_to_lidar_translation
+        ),
+        truth_source_label=truth_source_label,
+        truth_source_profile=truth_source_profile,
     )
