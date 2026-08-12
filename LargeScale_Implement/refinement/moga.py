@@ -1,4 +1,9 @@
-"""Multi-frame odometry-compensated global alignment in 2.5-D."""
+"""Covariance-weighted global feature alignment in 2.5-D.
+
+The low-level solver supports one or more poses that share landmark state.  The
+paper-faithful single-frame pipeline calls it once per site so landmarks and
+poses cannot leak information between otherwise independent frames.
+"""
 
 from __future__ import annotations
 
@@ -184,3 +189,29 @@ def solve_moga(
         "pose_covariances": pose_covariances,
         "posterior_covariance": posterior_covariance,
     }
+
+
+def solve_single_frame_moga(
+    problem: MogaProblem,
+    *,
+    heading_sigma_deg: float = 1.0,
+    maximum_function_evaluations: int = 300,
+    relative_tolerance: float = 1e-10,
+) -> dict[str, object]:
+    """Solve one independent single-frame MOGA problem.
+
+    Requiring exactly one pose makes accidental cross-site landmark sharing a
+    hard error instead of a silent departure from the paper's single-frame
+    configuration.
+    """
+    if problem.pose_count != 1:
+        raise ValueError(
+            "single-frame MOGA requires exactly one pose; "
+            f"received {problem.pose_count}"
+        )
+    return solve_moga(
+        problem,
+        heading_sigma_deg=heading_sigma_deg,
+        maximum_function_evaluations=maximum_function_evaluations,
+        relative_tolerance=relative_tolerance,
+    )
