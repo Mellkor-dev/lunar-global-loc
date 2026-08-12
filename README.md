@@ -1,9 +1,8 @@
 # Lunar Global Localization
 
 Experimental global localization for a lunar rover using terrain features
-extracted from digital elevation models (DEMs) and local LiDAR scans. This
-branch is configured for the Apollo 11 OmniLRS dataset and detects crater
-minima at multiple map resolutions, builds
+extracted from digital elevation models (DEMs) and local LiDAR scans. The main
+Apollo 17 pipeline detects crater minima at multiple map resolutions, builds
 local elevation maps, estimates feature uncertainty, and evaluates rover poses
 with DARCES-style geometric matching.
 
@@ -15,7 +14,7 @@ and experiment results are intentionally kept outside the source tree.
 
 ```text
 .
-├── LargeScale_Implement/       Apollo 11 localization pipeline
+├── LargeScale_Implement/       Main Apollo 17 pipeline
 │   ├── config/                 Shared experiment and resolution profiles
 │   ├── DEM/                    DEMs, feature catalogues, QA, and validation
 │   ├── Scripts/                Numbered pipeline entry points (00–09)
@@ -45,20 +44,21 @@ LargeScale_Implement/
 └── sim/<resolution>_px/
 ```
 
-Resolution labels use `p` as the decimal separator. The configured Apollo 11
-profiles, in increasing cell-size order, are `0p25m`, `0p5m`, `1m`, `2m`,
-`5m`, and `10m`.
+Resolution labels use `p` as the decimal separator. The selectable paper
+pipeline profiles, in increasing cell-size order, are `0p25m`, `0p5m`, `1m`,
+`2m`, `5m`, and `10m`. The native 1.5 m DEM remains the internal truth
+reference but is not a selectable experiment workspace.
 
 ## Data layout
 
 | Profile | Primary DEM | Shape | Current role |
 | --- | --- | ---: | --- |
-| `0p25m` | `DEM/0p25m_px/NAC_DTM_APOLLO11_2m_full_with_craters_0p25m.npy` | 1280 × 1200 | Crater-refined experiment DEM |
-| `0p5m` | `DEM/0p5m_px/NAC_DTM_APOLLO11_2m_full_with_craters_0p5m.npy` | 640 × 600 | Aligned area-mean product |
-| `1m` | `DEM/1m_px/NAC_DTM_APOLLO11_2m_full_with_craters_1m.npy` | 320 × 300 | Aligned area-mean product |
-| `2m` | `DEM/2m_px/NAC_DTM_APOLLO11_2m_full_with_craters_2m.npy` | 160 × 150 | Configured truth-source reference |
-| `5m` | `DEM/5m_px/NAC_DTM_APOLLO11_2m_full_with_craters_5m.npy` | 64 × 60 | Coarse localization prior |
-| `10m` | `DEM/10m_px/NAC_DTM_APOLLO11_2m_full_with_craters_10m.npy` | 32 × 30 | Coarse localization prior |
+| `0p25m` | `DEM/0p25m_px/apollo17_refined_0p25m_2000m.npy` | 8000 × 8000 | Native high-resolution OmniLRS DEM |
+| `0p5m` | `DEM/0p5m_px/orbital_dem_0p5m.npy` | 4000 × 4000 | Downsampled orbital experiment |
+| `1m` | `DEM/1m_px/orbital_dem_1m.npy` | 2000 × 2000 | Downsampled orbital experiment |
+| `2m` | `DEM/2m_px/orbital_dem_2m.npy` | 1000 × 1000 | Downsampled orbital experiment |
+| `5m` | `DEM/5m_px/orbital_dem_5m.npy` | 400 × 400 | Coarse orbital localization prior |
+| `10m` | `DEM/10m_px/orbital_dem_10m.npy` | 200 × 200 | Coarse orbital experiment |
 
 Large generated and captured artifacts are not committed to the source branch.
 Place inputs in the paths above before running a profile. Dataset manifests and
@@ -83,12 +83,10 @@ OpenCV is unavailable. The ROS capture utilities under
 
 ## Configuration and resolution selection
 
-[`LargeScale_Implement/config/apollo11.yaml`](LargeScale_Implement/config/apollo11.yaml)
-is the shared configuration authority. It contains the DEM, coordinate, OS1
-sensor, detector, and output settings for all six resolutions under
-`feature_detection.resolutions`.
-The `2m` profile is explicitly labelled as the Apollo 11 truth source; DEM
-alignment and global-feature uncertainty use it for every selected profile.
+[`LargeScale_Implement/config/apollo17_5m.yaml`](LargeScale_Implement/config/apollo17_5m.yaml)
+is the shared configuration authority. Despite its historical filename, it
+contains the detector inputs and parameters for all configured resolutions
+under `feature_detection.resolutions`.
 
 Every numbered script accepts `--resolution`:
 
@@ -151,14 +149,12 @@ XYZ coordinates, feature type, resolution, and detector metadata.
 
 ### 3. Process local LiDAR scans
 
-The native synchronized capture is stored under `sim/0p25m_px/`; the remaining
-resolution workspaces link to that exact capture so every experiment sees the
-same 428 frames. Each workspace exposes:
+Place site data under the selected `sim/<resolution>_px/` workspace:
 
 ```text
-pointcloud_scans/scan_site_001.npy
-odom_scans/odom_site_001.npy
-transform_scan/transform_site_001.npz
+pointcloud_scans/scan_site_XX.npy
+odom_scans/odom_site_XX.npy
+transform_scan/transform_site_XX.npz
 ```
 
 Then run:
@@ -213,6 +209,37 @@ a pose. Its output and
 traversal plot are written to `results/<resolution>_px/moga_all_sites.*` and
 `plots/<resolution>_px/moga/`.
 
+### Final DARCES defaults
+
+The Apollo tuning sweep selected the following resolution-independent DARCES
+defaults. Resolution-dependent XY and Z gates remain derived from each DEM's
+own feature-uncertainty report.
+
+| Parameter | Final default |
+|---|---:|
+| Accepted-hypothesis cap per site | 100,000 |
+| Heading tolerance | 5 deg |
+| Control-triangle RMS tolerance | 10 m |
+| Side-ratio tolerance | 0.12 |
+| Minimum triangle angle | 10 deg |
+| Minimum cluster size | 2 |
+| Cluster position radius | 50 m |
+| Cluster heading radius | 5 deg |
+| Top-ranked hypotheses retained for clustering | 5 |
+| Minimum DEM overlap | 0.50 |
+| Terrain elevation MAE | Used for hypothesis ranking; no hard cutoff |
+| Covariance gate multiplier | 2 sigma |
+| Distance and Z gate multipliers | 3 sigma each |
+| Feature-consensus gate | Disabled by default |
+| Optional consensus radius / minimum support | 15 m / 4 features |
+
+The defaults are used by both DARCES runners, so the standard future command
+only needs a resolution:
+
+```bash
+python3 LargeScale_Implement/Scripts/09_darces_all_sites.py --resolution 5m
+```
+
 Generate a stage-by-stage diagnostic report after rerunning any localization
 stage with:
 
@@ -231,9 +258,15 @@ For a concise presentation graphic instead of the full diagnostics, run
 `Scripts/14_results_presentation.py`. It writes a single cross-resolution PNG
 to `LargeScale_Implement/plots/results_summary/`.
 
-The Apollo 11 Drive package already supplies aligned 0.25, 0.5, 1, 2, 5, and
-10 m products. Each coarser array is an exact area-mean reduction of the native
-0.25 m array, so no DEM-building step is needed before feature detection.
+To compare the 0.25 m and 1.5 m OmniLRS DEMs on common 10 m and 1.5 m grids,
+run `Scripts/15_validate_dem_refinement.py`. Numeric products and metrics are
+written to `DEM/resolution_validation/`, with comparison figures under
+`plots/dem_resolution_validation/`.
+
+Build the 10 m/cell orbital prior from the native 1.5 m DEM with
+`Scripts/16_build_10m_dem.py`. The `10m` configuration profile is then
+available to every resolution-aware script, for example
+`Scripts/03_feature_detector.py --resolution 10m`.
 
 ## Coordinate conventions
 
@@ -247,11 +280,9 @@ The main pipeline uses a north-up Cartesian map frame:
 - row 0 is the northern edge
 - positive yaw is counter-clockwise
 
-The map origin is the OmniLRS Apollo 11 canonical rover start at global DEM
-coordinate `(-1089 m, 7256 m)`. The configured local raster spans x = -40 to
-260 m and y = -240 to 80 m. Raster-to-map conversion uses sample coordinates
-defined in the Drive metadata and shared configuration. Preserve these
-conventions when adding DEMs or local grids; silent offsets or row flips are a
+The map origin is at the center of the Apollo 17 crop. Raster-to-map conversion
+uses cell-center coordinates defined in the shared configuration. Preserve
+these conventions when adding DEMs or local grids; silent row flips are a
 common source of incorrect localization results.
 
 ## Tests
