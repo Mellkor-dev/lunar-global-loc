@@ -1,11 +1,45 @@
 {
   "settings": {
-    "trials_per_site": 1000000,
+    "trials_per_site": 100000,
     "seed": 29,
     "heading_tolerance_deg": 5.0,
     "minimum_cluster_size": 2,
+    "cluster_position_radius_m": 50.0,
+    "top_hypothesis_count": 5,
+    "control_rms_tolerance_m": 10.0,
+    "effective_control_rms_tolerance_m": 10.0,
+    "side_ratio_tolerance": 0.12,
+    "minimum_triangle_angle_deg": 10.0,
+    "minimum_overlap": 0.5,
+    "maximum_terrain_mae_m": null,
+    "cluster_heading_radius_deg": 5.0,
+    "distance_tolerance_sigma_multiplier": 3.0,
+    "z_residual_tolerance_sigma_multiplier": 3.0,
+    "use_feature_consensus": false,
+    "consensus_xy_tolerance_m": 15.0,
+    "minimum_consensus_features": 4,
     "distance_tolerance_m": 31.788317008207365,
-    "z_residual_tolerance_m": 3.917258650470207
+    "z_residual_tolerance_m": 3.917258650470207,
+    "covariance_sigma_multiplier": 2.0,
+    "global_covariance_m2": [
+      [
+        112.27745535714284,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        112.27745535714284,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.7049905927426294
+      ]
+    ],
+    "fitness_reference": "raw_lidar_xy_decimated",
+    "fitness_reference_spacing_factor": 0.5
   },
   "sites": [
     {
@@ -115,7 +149,10 @@
       "local_feature_count": 3,
       "heading_measurement_deg": -139.12382904054863,
       "status": "no_solution",
-      "runtime_s": 0.4332157989992993
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.125,
+      "fitness_reference_point_count": 24985,
+      "runtime_s": 0.5025129109999398
     },
     {
       "site": 19,
@@ -128,7 +165,10 @@
       "local_feature_count": 4,
       "heading_measurement_deg": -137.02000719215434,
       "status": "no_solution",
-      "runtime_s": 2.739894498998183
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.125,
+      "fitness_reference_point_count": 31729,
+      "runtime_s": 3.6097532749990933
     },
     {
       "site": 21,

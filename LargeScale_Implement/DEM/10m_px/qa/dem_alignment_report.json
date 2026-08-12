@@ -1,10 +1,12 @@
 {
   "comparison": {
     "selected_profile": "10m",
+    "truth_source_label": "Apollo 17 native 1.5 m/px truth source",
+    "truth_source_profile": "1p5m",
     "operation": "truth minus selected DEM interpolated to truth centers"
   },
   "coordinate_contract": {
-    "origin": "center_of_dem",
+    "origin": "configured_map_frame",
     "x_direction": "east",
     "y_direction": "north",
     "raster_column_direction": "east",
