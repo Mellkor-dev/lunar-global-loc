@@ -8,8 +8,9 @@ local elevation maps, estimates feature uncertainty, and evaluates rover poses
 with DARCES-style geometric matching.
 
 The actively developed, resolution-aware implementation is in
-[`LargeScale_Implement/`](LargeScale_Implement/). Generated DEMs, scans, plots,
-and experiment results are intentionally kept outside the source tree.
+[`LargeScale_Implement/`](LargeScale_Implement/). Curated DEMs, plots, and
+machine-readable experiment results are versioned for reproducibility; raw
+captures and intermediate local maps remain outside the repository.
 
 ## What is where
 
@@ -18,7 +19,7 @@ and experiment results are intentionally kept outside the source tree.
 ├── LargeScale_Implement/       Apollo 11 localization pipeline
 │   ├── config/                 Shared experiment and resolution profiles
 │   ├── DEM/                    DEMs, feature catalogues, QA, and validation
-│   ├── Scripts/                Numbered pipeline entry points (00–09)
+│   ├── Scripts/                Numbered pipeline entry points (00–18)
 │   ├── features/               Crater/peak detector
 │   ├── matching/               DARCES and RANSAC matching
 │   ├── refinement/             MOGA pose refinement
@@ -60,10 +61,11 @@ profiles, in increasing cell-size order, are `0p25m`, `0p5m`, `1m`, `2m`,
 | `5m` | `DEM/5m_px/NAC_DTM_APOLLO11_2m_full_with_craters_5m.npy` | 64 × 60 | Coarse localization prior |
 | `10m` | `DEM/10m_px/NAC_DTM_APOLLO11_2m_full_with_craters_10m.npy` | 32 × 30 | Coarse localization prior |
 
-Large generated and captured artifacts are not committed to the source branch.
-Place inputs in the paths above before running a profile. Dataset manifests and
-metadata should travel with the externally stored arrays so that raster origin,
-shape, resolution, and coordinate conventions remain verifiable.
+Curated DEM products, plots, and result files are committed; large binary DEMs
+and figures are stored through Git LFS. Raw captures under `sim/` and generated
+intermediate maps under `local_maps/` remain external. Their manifests and
+metadata should travel with the arrays so raster origin, shape, resolution, and
+coordinate conventions remain verifiable.
 
 ## Installation
 
@@ -270,9 +272,11 @@ python3 -m pytest LargeScale_Implement/tests -q
 
 ## Important notes
 
-- Do not commit DEMs, captures, generated local maps, plots, or results to the
-  source branch. Keep them in external dataset storage and copy them into the
-  ignored resolution workspaces when running experiments.
+- Commit curated DEMs, plots, and machine-readable results for reproducibility;
+  Git LFS handles the configured binary artifacts. Do not commit raw captures
+  or generated intermediate local maps—keep those in external dataset storage
+  and copy or link them into the ignored resolution workspaces when running
+  experiments.
 - Generated products should stay in their resolution workspace to avoid mixing
   incompatible cell sizes, feature radii, and coordinate vectors.
 - A selected resolution does not manufacture missing captures or local maps;
