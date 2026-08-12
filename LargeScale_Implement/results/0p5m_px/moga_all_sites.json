@@ -1,45 +1,58 @@
 {
   "settings": {
     "resolution": "0p5m",
+    "mode": "independent_single_frame_2p5d",
     "heading_sigma_deg": 1.0,
     "odometry_position_usage": "evaluation_only",
     "odometry_heading_usage": "heading_sensor_constraint",
+    "relative_odometry_usage": "none",
     "maximum_function_evaluations": 300,
     "relative_tolerance": 1e-10,
     "ransac_results": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/results/0p5m_px/ransac_all_sites.json"
   },
   "optimization": {
+    "mode": "independent_single_frame",
     "success": true,
-    "message": "`ftol` termination condition is satisfied.",
-    "status_code": 2,
-    "function_evaluations": 4,
-    "initial_cost": 4.840527316131058,
-    "final_cost": 0.36279207012763415,
-    "optimality": 6.952430037599541e-07
+    "solved_frames": 1,
+    "initial_cost": 4.840527316131059,
+    "final_cost": 0.3627920701276341,
+    "function_evaluations": 4
   },
-  "landmark_global_indices": [
-    359,
-    421,
-    430,
-    434
-  ],
-  "optimized_landmarks_xy_m": [
-    [
-      74.1063951978209,
-      -76.46975760093217
-    ],
-    [
-      45.815504965761285,
-      38.68230697905878
-    ],
-    [
-      -11.166756905138303,
-      -21.36871879914009
-    ],
-    [
-      38.244856829842746,
-      1.1561693348748057
-    ]
+  "site_optimizations": [
+    {
+      "site": 3,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 4,
+      "initial_cost": 4.840527316131059,
+      "final_cost": 0.3627920701276341,
+      "optimality": 7.237397907644549e-07,
+      "landmark_global_indices": [
+        434,
+        430,
+        421,
+        359
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          38.24485682206762,
+          1.1561693743265455
+        ],
+        [
+          -11.166756912244875,
+          -21.36871876149772
+        ],
+        [
+          45.8155049581255,
+          38.68230701507313
+        ],
+        [
+          74.10639518905445,
+          -76.46975756413559
+        ]
+      ]
+    }
   ],
   "sites": [
     {
@@ -71,33 +84,35 @@
       "initial_x_m": 20.49004126017445,
       "initial_y_m": -10.682637085189002,
       "initial_heading_deg": -43.54217352407363,
-      "estimated_x_m": 21.060597433484084,
-      "estimated_y_m": -10.872997680461966,
+      "estimated_x_m": 21.06059742123652,
+      "estimated_y_m": -10.872997624240554,
       "estimated_z_m": -0.058380126953125,
-      "estimated_heading_deg": -40.775245103839474,
+      "estimated_heading_deg": -40.775245104664585,
       "pose_covariance_xyyaw": [
         [
-          41.843136576096555,
-          0.016983796243384214,
-          -0.0010825011414487707
+          41.84313654740968,
+          0.016983797522089006,
+          -0.0010825012178975295
         ],
         [
-          0.016983796426829848,
-          41.91267596613499,
-          -0.004682598393420129
+          0.01698379725469934,
+          41.9126781395996,
+          -0.004682598291691443
         ],
         [
-          -0.0010825011415139328,
-          -0.004682598393452414,
-          0.0002984561271522912
+          -0.001082501217924669,
+          -0.004682598291708865,
+          0.00029845612718706346
         ]
       ],
       "truth_x_m": 23.901281356811523,
       "truth_y_m": -10.196999549865723,
       "truth_z_m": -0.5373302102088928,
-      "xy_error_m": 2.920010038479421,
+      "xy_error_m": 2.9200100373787032,
       "z_error_m": 0.4789500832557678,
-      "heading_error_deg": 0.05704805995361146
+      "heading_error_deg": 0.057048060778723673,
+      "moga_initial_cost": 4.840527316131059,
+      "moga_final_cost": 0.3627920701276341
     },
     {
       "site": 4,
