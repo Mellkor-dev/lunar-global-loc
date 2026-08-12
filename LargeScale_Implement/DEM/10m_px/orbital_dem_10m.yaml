@@ -1,0 +1,65 @@
+name: apollo17_orbital_prior_10m
+description: Area-averaged 10 m localization prior generated from the 1.5 m OmniLRS
+  Apollo 17 simulation-truth DEM.
+source:
+  dem_path: DEM/1p5m_px/truth_dem_1p5m.npy
+  metadata_path: DEM/1p5m_px/truth_dem_1p5m.yaml
+  shape:
+  - 1334
+  - 1334
+  resolution_m: 1.5
+  cell_edge_extent_m:
+  - 2001.0
+  - 2001.0
+  dem_sha256: 0b1eb51ef5be9e9dc5b215ead7191e23f54ed2fff3851119473b1335f8a9237b
+  metadata_sha256: 31f5ab80f1230f63f6d7bfcdfb24be3e00d11aebffebcb13a0fb04334c04790d
+target:
+  dem_path: DEM/10m_px/orbital_dem_10m.npy
+  valid_mask_path: DEM/10m_px/orbital_valid_mask_10m.npy
+  shape:
+  - 200
+  - 200
+  resolution_m: 10.0
+  cell_edge_extent_m:
+  - 2000.0
+  - 2000.0
+  resampling: area_weighted_average
+  array_orientation: preserved_from_source
+  source_array_edge_bounds_m:
+    column_min: 0.5
+    column_max: 2000.5
+    row_min: 0.5
+    row_max: 2000.5
+  first_cell_center_in_source_array_m:
+    column: 5.5
+    row: 5.5
+  last_cell_center_in_source_array_m:
+    column: 1995.5
+    row: 1995.5
+  cropped_border_m:
+    left: 0.5
+    right: 0.5
+    top: 0.5
+    bottom: 0.5
+elevation_statistics_m:
+  minimum: -58.4290771484375
+  maximum: 31.17767333984375
+  mean: -1.2702027559280396
+  standard_deviation: 14.531413078308105
+  relief: 89.60675048828125
+coordinate_status:
+  world_origin_verified: false
+  row_world_direction_verified: false
+  column_world_direction_verified: false
+  note: This product preserves source array orientation. World-coordinate metadata
+    must be populated after verifying the source DEM georeferencing.
+original_source_metadata:
+  center_coordinates:
+  - 30.77229
+  - 20.19113
+  pixel_size:
+  - 1.5
+  - -1.5
+  size:
+  - 1334
+  - 1334
