@@ -12,7 +12,7 @@ import yaml
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "apollo17_5m.yaml"
+DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "apollo11.yaml"
 
 
 @dataclass(frozen=True)
@@ -122,6 +122,7 @@ class PipelineConfig:
     intrinsic_horizontal_sigma_m: float
     intrinsic_vertical_sigma_m: float
     match_gate_fraction: float
+    base_to_lidar_translation_m: tuple[float, float, float]
     truth_source_label: str
     truth_source_profile: str
 
@@ -270,6 +271,18 @@ def load_pipeline_config(
         raw["global_feature_uncertainty"],
         "global_feature_uncertainty",
     )
+    sensor = _mapping(raw.get("sensor", {}), "sensor")
+    base_to_lidar_translation = np.asarray(
+        sensor.get("base_to_lidar_translation_m", [-0.15, 0.0, 0.415]),
+        dtype=np.float64,
+    )
+    if (
+        base_to_lidar_translation.shape != (3,)
+        or not np.isfinite(base_to_lidar_translation).all()
+    ):
+        raise ValueError(
+            "sensor.base_to_lidar_translation_m must contain three finite values"
+        )
 
     truth_data = _mapping(raw["truth_dem"], "truth_dem")
     truth_source_label = str(truth_data.get("source_label", "")).strip()
@@ -416,6 +429,9 @@ def load_pipeline_config(
         ),
         match_gate_fraction=float(
             uncertainty["match_gate_fraction_of_detection_distance"]
+        ),
+        base_to_lidar_translation_m=tuple(
+            float(value) for value in base_to_lidar_translation
         ),
         truth_source_label=truth_source_label,
         truth_source_profile=truth_source_profile,

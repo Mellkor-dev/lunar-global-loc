@@ -32,7 +32,7 @@ LOCAL_GRID_RESOLUTION_M = _DEFAULT_CONFIG.orbital_raster.resolution_m
 
 
 T_BASE_LIDAR = np.eye(4, dtype=np.float64)
-T_BASE_LIDAR[:3, 3] = (-0.15, 0.0, 0.415)
+T_BASE_LIDAR[:3, 3] = _DEFAULT_CONFIG.base_to_lidar_translation_m
 
 
 @dataclass(frozen=True)
@@ -380,6 +380,7 @@ def process_all_sites(
     gridded_directory: Path = GRIDDED_SCAN,
     resolution_m: float = LOCAL_GRID_RESOLUTION_M,
     max_neighbor_distance_m: float | None = None,
+    T_base_lidar: np.ndarray = T_BASE_LIDAR,
 ) -> list[LocalElevationGrid]:
     """Level and grid every site, saving reusable NumPy artifacts."""
     leveled_directory = Path(leveled_directory)
@@ -393,6 +394,7 @@ def process_all_sites(
         leveled = level_pointcloud(
             dataset.pointclouds[index],
             dataset.odometry[index],
+            T_base_lidar=T_base_lidar,
         )
         grid = grid_pointcloud_nearest(
             leveled.points_xyz,
@@ -472,12 +474,15 @@ def main() -> None:
     leveled_directory = args.leveled_directory or config.leveled_maps_path
     gridded_directory = args.gridded_directory or config.gridded_maps_path
     dataset = load_local_scan_dataset()
+    T_base_lidar = np.eye(4, dtype=np.float64)
+    T_base_lidar[:3, 3] = config.base_to_lidar_translation_m
     grids = process_all_sites(
         dataset,
         leveled_directory=leveled_directory,
         gridded_directory=gridded_directory,
         resolution_m=resolution_m,
         max_neighbor_distance_m=args.max_neighbor_distance,
+        T_base_lidar=T_base_lidar,
     )
     print()
     print(f"Saved {len(grids)} leveled clouds to {leveled_directory}")
