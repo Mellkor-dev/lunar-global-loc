@@ -19,3 +19,5 @@ truth_resolution_m,1.5
 flatness_threshold_m,0.05
 orbital_feature_path,/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/0p25m_px/global_craters.npz
 truth_feature_path,/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/1p5m_px/truth_craters.npz
+truth_source_label,Apollo 17 native 1.5 m/px truth source
+truth_source_profile,1p5m
