@@ -1,7 +1,7 @@
 {
   "comparison": {
     "selected_profile": "0p25m",
-    "truth_source_label": "Apollo 11 native 2 m/px truth source",
+    "truth_source_label": "Apollo 15 native 2 m/px truth source",
     "truth_source_profile": "2m",
     "operation": "truth minus selected DEM interpolated to truth centers"
   },
@@ -14,54 +14,54 @@
   },
   "truth_dem": {
     "shape": [
-      160,
-      150
+      1000,
+      1000
     ],
     "resolution_m": 2.0,
     "edge_bounds_m": {
-      "x_min": -41.0,
-      "x_max": 259.0,
-      "y_min": -241.0,
-      "y_max": 79.0
+      "x_min": -1702.0,
+      "x_max": 298.0,
+      "y_min": 200.0,
+      "y_max": 2200.0
     },
     "first_center_m": {
-      "x": -40.0,
-      "y": 78.0
+      "x": -1701.0,
+      "y": 2199.0
     },
     "last_center_m": {
-      "x": 258.0,
-      "y": -240.0
+      "x": 297.0,
+      "y": 201.0
     }
   },
   "selected_dem": {
     "shape": [
-      1280,
-      1200
+      8000,
+      8000
     ],
     "resolution_m": 0.25,
     "edge_bounds_m": {
-      "x_min": -40.125,
-      "x_max": 259.875,
-      "y_min": -240.125,
-      "y_max": 79.875
+      "x_min": -1701.125,
+      "x_max": 298.875,
+      "y_min": 200.875,
+      "y_max": 2200.875
     },
     "first_center_m": {
-      "x": -40.0,
-      "y": 79.75
+      "x": -1701.0,
+      "y": 2200.75
     },
     "last_center_m": {
-      "x": 259.75,
-      "y": -240.0
+      "x": 298.75,
+      "y": 201.0
     }
   },
   "truth_minus_interpolated_selected_dem": {
-    "sample_count": 24000,
-    "mean_m": -0.007924840291341146,
-    "median_m": -0.009033203125,
-    "standard_deviation_m": 0.03530048759382664,
-    "mae_m": 0.02504972839355469,
-    "rmse_m": 0.03617910333334939,
-    "absolute_p95_m": 0.0614013671875,
-    "absolute_max_m": 0.5223388671875
+    "sample_count": 1000000,
+    "mean_m": 0.11108092150878907,
+    "median_m": 0.0341796875,
+    "standard_deviation_m": 0.5174037924138033,
+    "mae_m": 0.37422869885253907,
+    "rmse_m": 0.5291934008729018,
+    "absolute_p95_m": 1.120361328125,
+    "absolute_max_m": 4.2154541015625
   }
 }

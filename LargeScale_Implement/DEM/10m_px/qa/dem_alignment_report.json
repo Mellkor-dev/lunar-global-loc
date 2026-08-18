@@ -1,7 +1,7 @@
 {
   "comparison": {
     "selected_profile": "10m",
-    "truth_source_label": "Apollo 11 native 2 m/px truth source",
+    "truth_source_label": "Apollo 15 native 2 m/px truth source",
     "truth_source_profile": "2m",
     "operation": "truth minus selected DEM interpolated to truth centers"
   },
@@ -14,54 +14,54 @@
   },
   "truth_dem": {
     "shape": [
-      160,
-      150
+      1000,
+      1000
     ],
     "resolution_m": 2.0,
     "edge_bounds_m": {
-      "x_min": -41.0,
-      "x_max": 259.0,
-      "y_min": -241.0,
-      "y_max": 79.0
+      "x_min": -1702.0,
+      "x_max": 298.0,
+      "y_min": 200.0,
+      "y_max": 2200.0
     },
     "first_center_m": {
-      "x": -40.0,
-      "y": 78.0
+      "x": -1701.0,
+      "y": 2199.0
     },
     "last_center_m": {
-      "x": 258.0,
-      "y": -240.0
+      "x": 297.0,
+      "y": 201.0
     }
   },
   "selected_dem": {
     "shape": [
-      32,
-      30
+      200,
+      200
     ],
     "resolution_m": 10.0,
     "edge_bounds_m": {
-      "x_min": -45.0,
-      "x_max": 255.0,
-      "y_min": -245.0,
-      "y_max": 75.0
+      "x_min": -1706.0,
+      "x_max": 294.0,
+      "y_min": 196.0,
+      "y_max": 2196.0
     },
     "first_center_m": {
-      "x": -40.0,
-      "y": 70.0
+      "x": -1701.0,
+      "y": 2191.0
     },
     "last_center_m": {
-      "x": 250.0,
-      "y": -240.0
+      "x": 289.0,
+      "y": 201.0
     }
   },
   "truth_minus_interpolated_selected_dem": {
-    "sample_count": 22776,
-    "mean_m": 0.03494525315854166,
-    "median_m": 0.043488769531222715,
-    "standard_deviation_m": 0.12583506167674932,
-    "mae_m": 0.0988163943302646,
-    "rmse_m": 0.13059721844475047,
-    "absolute_p95_m": 0.23443847656233174,
-    "absolute_max_m": 1.6515917968749818
+    "sample_count": 992016,
+    "mean_m": -0.5129013924122646,
+    "median_m": -0.21279296874990905,
+    "standard_deviation_m": 2.0363708112491787,
+    "mae_m": 1.6517530196242953,
+    "rmse_m": 2.099969980558312,
+    "absolute_p95_m": 3.7776708984372362,
+    "absolute_max_m": 10.768906249999873
   }
 }

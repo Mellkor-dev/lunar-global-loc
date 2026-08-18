@@ -17,18 +17,11 @@ from pipeline_config import load_pipeline_config
 def test_feature_scale_is_consistent_across_rasters() -> None:
     config = load_pipeline_config()
     assert config.truth_source_profile == "2m"
-    assert config.truth_source_label == "Apollo 11 native 2 m/px truth source"
-    assert np.allclose(
-        config.base_to_lidar_translation_m,
-        (-0.15, 0.0, 0.4131984),
-    )
+    assert config.truth_source_label == "Apollo 15 native 2 m/px truth source"
     assert config.features.radius_for_resolution(
         config.orbital_raster.resolution_m
-    ) == 3
-    assert (
-        config.feature_detection_targets[config.truth_source_profile].radius_cells
-        == 8
-    )
+    ) == 2
+    assert config.feature_detection_targets["2m"].radius_cells == 5
 
 
 def test_resolution_specific_detector_profiles() -> None:
@@ -40,15 +33,15 @@ def test_resolution_specific_detector_profiles() -> None:
     assert set(targets) == {
         "0p25m", "0p5m", "1m", "2m", "5m", "10m",
     }
-    assert targets["0p25m"].radius_cells == 60
-    assert targets["0p5m"].radius_cells == 30
-    assert targets["1m"].radius_cells == 15
-    assert targets["2m"].radius_cells == 8
-    assert targets["5m"].radius_cells == 3
-    assert targets["10m"].radius_cells == 2
-    assert targets["10m"].raster.shape == (32, 30)
-    assert targets["1m"].raster.shape == (320, 300)
-    assert targets["2m"].raster.shape == (160, 150)
+    assert targets["0p25m"].radius_cells == 40
+    assert targets["0p5m"].radius_cells == 20
+    assert targets["1m"].radius_cells == 10
+    assert targets["2m"].radius_cells == 5
+    assert targets["5m"].radius_cells == 2
+    assert targets["10m"].radius_cells == 1
+    assert targets["10m"].raster.shape == (200, 200)
+    assert targets["1m"].raster.shape == (2000, 2000)
+    assert targets["2m"].raster.shape == (1000, 1000)
     for target in targets.values():
         assert np.isclose(
             target.radius_cells * target.raster.resolution_m,
@@ -63,17 +56,22 @@ def test_resolution_workspace_paths_are_projected_consistently() -> None:
     assert config.gridded_maps_path.parts[-2:] == ("0p25m_px", "gridded")
     assert config.results_path.name == "0p25m_px"
     assert config.captures_path.name == "0p25m_px"
-    assert config.features.radius_cells == 60
+    assert config.features.radius_cells == 40
     assert config.truth_raster.resolution_m == 2.0
+    assert config.site_selection_maximum_sites == 100
+    assert config.site_selection_random_seed == 42
+    assert config.site_selection_manifest_path.name == "selected_sites.json"
+    assert np.isclose(config.stage_to_dem_vertical_offset_m, -1899.828)
+    assert np.isclose(config.stage_z_to_dem_datum(-0.08), -1899.908)
 
 
 def test_truth_raster_coordinate_contract() -> None:
     config = load_pipeline_config()
-    indices = np.array([[0, 0], [159, 149]])
+    indices = np.array([[0, 0], [999, 999]])
     elevation = np.zeros(config.truth_raster.shape)
     xyz = config.truth_raster.indices_to_xyz(indices, elevation)
-    assert np.allclose(xyz[0], (-40.0, 78.0, 0.0))
-    assert np.allclose(xyz[1], (258.0, -240.0, 0.0))
+    assert np.allclose(xyz[0], (-1701.0, 2199.0, 0.0))
+    assert np.allclose(xyz[1], (297.0, 201.0, 0.0))
 
 
 def test_masked_crater_detection_and_border_exclusion() -> None:

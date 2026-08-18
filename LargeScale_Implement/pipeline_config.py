@@ -12,7 +12,7 @@ import yaml
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "apollo11.yaml"
+DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "apollo15.yaml"
 
 
 @dataclass(frozen=True)
@@ -123,8 +123,16 @@ class PipelineConfig:
     intrinsic_vertical_sigma_m: float
     match_gate_fraction: float
     base_to_lidar_translation_m: tuple[float, float, float]
+    stage_to_dem_vertical_offset_m: float
+    site_selection_manifest_path: Path
+    site_selection_maximum_sites: int
+    site_selection_random_seed: int
     truth_source_label: str
     truth_source_profile: str
+
+    def stage_z_to_dem_datum(self, stage_z_m: float) -> float:
+        """Convert a stage-local elevation into the configured DEM datum."""
+        return float(stage_z_m) + self.stage_to_dem_vertical_offset_m
 
     @property
     def available_resolutions(self) -> tuple[str, ...]:
@@ -272,6 +280,14 @@ def load_pipeline_config(
         "global_feature_uncertainty",
     )
     sensor = _mapping(raw.get("sensor", {}), "sensor")
+    coordinates = _mapping(raw.get("coordinates", {}), "coordinates")
+    stage_to_dem_vertical_offset_m = float(
+        coordinates.get("stage_to_dem_vertical_offset_m", 0.0)
+    )
+    if not np.isfinite(stage_to_dem_vertical_offset_m):
+        raise ValueError(
+            "coordinates.stage_to_dem_vertical_offset_m must be finite"
+        )
     base_to_lidar_translation = np.asarray(
         sensor.get("base_to_lidar_translation_m", [-0.15, 0.0, 0.415]),
         dtype=np.float64,
@@ -283,6 +299,14 @@ def load_pipeline_config(
         raise ValueError(
             "sensor.base_to_lidar_translation_m must contain three finite values"
         )
+    site_selection = _mapping(raw.get("site_selection", {}), "site_selection")
+    site_selection_maximum_sites = int(site_selection.get("maximum_sites", 50))
+    site_selection_random_seed = int(site_selection.get("random_seed", 29))
+    if site_selection_maximum_sites <= 0:
+        raise ValueError("site_selection.maximum_sites must be positive")
+    site_selection_manifest = str(
+        site_selection.get("manifest", "sim/selected_sites.json")
+    )
 
     truth_data = _mapping(raw["truth_dem"], "truth_dem")
     truth_source_label = str(truth_data.get("source_label", "")).strip()
@@ -433,6 +457,10 @@ def load_pipeline_config(
         base_to_lidar_translation_m=tuple(
             float(value) for value in base_to_lidar_translation
         ),
+        stage_to_dem_vertical_offset_m=stage_to_dem_vertical_offset_m,
+        site_selection_manifest_path=PROJECT_ROOT / site_selection_manifest,
+        site_selection_maximum_sites=site_selection_maximum_sites,
+        site_selection_random_seed=site_selection_random_seed,
         truth_source_label=truth_source_label,
         truth_source_profile=truth_source_profile,
     )

@@ -220,7 +220,10 @@ def main() -> None:
         estimated_xy = np.asarray(result["t"], dtype=np.float64)
         truth_xy = odometry_pose[:2]
         estimated_z = float(result["tz"])
-        truth_z = float(odometry_pose[2])
+        truth_z_stage = float(odometry_pose[2])
+        truth_z = config.stage_z_to_dem_datum(truth_z_stage)
+        truth_xyz = odometry_pose[:3].copy()
+        truth_xyz[2] = truth_z
         payload["estimate"] = {
             "xy_m": estimated_xy.tolist(),
             "z_m": estimated_z,
@@ -239,7 +242,11 @@ def main() -> None:
             ).tolist(),
         }
         payload["evaluation_only"] = {
-            "truth_xyz_m": odometry_pose[:3].tolist(),
+            "truth_xyz_m": truth_xyz.tolist(),
+            "truth_z_stage_m": truth_z_stage,
+            "stage_to_dem_vertical_offset_m": (
+                config.stage_to_dem_vertical_offset_m
+            ),
             "xy_error_m": float(np.linalg.norm(estimated_xy - truth_xy)),
             "z_error_m": float(abs(estimated_z - truth_z)),
             "heading_error_deg": float(
