@@ -122,6 +122,10 @@ class PipelineConfig:
     intrinsic_horizontal_sigma_m: float
     intrinsic_vertical_sigma_m: float
     match_gate_fraction: float
+    base_to_lidar_translation_m: tuple[float, float, float]
+    site_selection_manifest_path: Path
+    site_selection_maximum_sites: int
+    site_selection_random_seed: int
     truth_source_label: str
     truth_source_profile: str
 
@@ -270,6 +274,26 @@ def load_pipeline_config(
         raw["global_feature_uncertainty"],
         "global_feature_uncertainty",
     )
+    sensor = _mapping(raw.get("sensor", {}), "sensor")
+    base_to_lidar_translation = np.asarray(
+        sensor.get("base_to_lidar_translation_m", [-0.15, 0.0, 0.415]),
+        dtype=np.float64,
+    )
+    if (
+        base_to_lidar_translation.shape != (3,)
+        or not np.isfinite(base_to_lidar_translation).all()
+    ):
+        raise ValueError(
+            "sensor.base_to_lidar_translation_m must contain three finite values"
+        )
+    site_selection = _mapping(raw.get("site_selection", {}), "site_selection")
+    site_selection_maximum_sites = int(site_selection.get("maximum_sites", 50))
+    site_selection_random_seed = int(site_selection.get("random_seed", 29))
+    if site_selection_maximum_sites <= 0:
+        raise ValueError("site_selection.maximum_sites must be positive")
+    site_selection_manifest = str(
+        site_selection.get("manifest", "sim/selected_sites.json")
+    )
 
     truth_data = _mapping(raw["truth_dem"], "truth_dem")
     truth_source_label = str(truth_data.get("source_label", "")).strip()
@@ -417,6 +441,12 @@ def load_pipeline_config(
         match_gate_fraction=float(
             uncertainty["match_gate_fraction_of_detection_distance"]
         ),
+        base_to_lidar_translation_m=tuple(
+            float(value) for value in base_to_lidar_translation
+        ),
+        site_selection_manifest_path=PROJECT_ROOT / site_selection_manifest,
+        site_selection_maximum_sites=site_selection_maximum_sites,
+        site_selection_random_seed=site_selection_random_seed,
         truth_source_label=truth_source_label,
         truth_source_profile=truth_source_profile,
     )

@@ -20,6 +20,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from pipeline_config import load_pipeline_config, load_resolution_config
+from traversal_presentation import environment_display_name
 
 
 STAGES = ("darces", "ransac", "moga")
@@ -29,6 +30,12 @@ STAGE_MARKERS = {"darces": "o", "ransac": "s", "moga": "^"}
 STAGE_PRIORITY = {stage: index for index, stage in enumerate(STAGES)}
 SUMMARY_COLOR = "#087f8c"
 COUNT_COLOR = "#90a4ae"
+
+
+def resolution_label(resolution: str) -> str:
+    """Return a compact human-readable DEM resolution label."""
+    value = resolution.removesuffix("m").replace("p", ".")
+    return f"{value} m/px"
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -47,6 +54,14 @@ def parse_arguments() -> argparse.Namespace:
         "--summary-csv",
         type=Path,
         help="Statistics CSV (default: same path as --output with .csv suffix)",
+    )
+    parser.add_argument(
+        "--results-root",
+        type=Path,
+        help=(
+            "Read per-resolution result directories from this root instead "
+            "of the active workspace results directory"
+        ),
     )
     parser.add_argument("--dpi", type=int, default=220)
     return parser.parse_args()
@@ -239,14 +254,19 @@ def plot_distribution(
     axis,
     resolution: str,
     selected: list[dict[str, object]],
+    total_sites: int,
 ) -> None:
     errors = np.asarray([float(record["xy_error_m"]) for record in selected])
     if len(errors) == 0:
         axis.text(0.5, 0.5, "No pose solution", transform=axis.transAxes,
-                  ha="center", va="center", color="0.45", fontsize=11)
+                  ha="center", va="center", color="0.40", fontsize=13,
+                  fontweight="bold")
         axis.set_xticks([])
         axis.set_yticks([])
-        axis.set_title(f"{resolution} error distribution", fontweight="bold")
+        axis.set_title(
+            f"{resolution_label(resolution)} — 0/{total_sites} solved",
+            fontsize=13, fontweight="bold", pad=26,
+        )
         return
     stats = error_statistics(errors)
     p10 = float(stats["p10_xy_error_m"])
@@ -261,39 +281,44 @@ def plot_distribution(
     jitter = rng.uniform(-0.105, 0.105, size=len(errors))
     colors = [STAGE_COLORS[str(record["selected_stage"])] for record in selected]
     axis.scatter(
-        jitter, errors, s=19, c=colors, alpha=0.42,
-        edgecolors="none", zorder=2,
+        jitter, errors, s=38, c=colors, alpha=0.72,
+        edgecolors="white", linewidths=0.45, zorder=2,
     )
     axis.add_patch(Rectangle(
         (-0.16, p25), 0.32, max(p75 - p25, np.finfo(float).eps),
         facecolor=SUMMARY_COLOR, edgecolor=SUMMARY_COLOR,
-        alpha=0.18, linewidth=1.8, zorder=3,
+        alpha=0.23, linewidth=2.5, zorder=3,
     ))
-    axis.vlines(0.0, p10, p90, color=SUMMARY_COLOR, linewidth=2.0, zorder=3)
+    axis.vlines(0.0, p10, p90, color=SUMMARY_COLOR, linewidth=3.0, zorder=3)
     axis.hlines((p10, p90), -0.08, 0.08, color=SUMMARY_COLOR,
-                linewidth=1.8, zorder=3)
+                linewidth=2.6, zorder=3)
     lower_std = min(std, mean * 0.98) if mean > 0.0 else 0.0
     axis.errorbar(
         0.0, mean, yerr=np.asarray([[lower_std], [std]]), fmt="o",
-        color="#d84315", ecolor="#d84315", capsize=5,
-        markersize=7, markeredgecolor="white", zorder=5,
+        color="#d84315", ecolor="#d84315", capsize=6,
+        elinewidth=2.2, capthick=2.2, markersize=8,
+        markeredgecolor="white", zorder=5,
     )
-    axis.scatter(0.0, median, marker="D", s=72, color="#003f5c",
-                 edgecolor="white", linewidth=0.9, zorder=6)
+    axis.scatter(0.0, median, marker="D", s=95, color="#003f5c",
+                 edgecolor="white", linewidth=1.1, zorder=6)
     axis.text(
-        0.96, 0.96,
-        f"median {median:.1f} m\nmean {mean:.1f} m\nσ {std:.1f} m",
-        transform=axis.transAxes, ha="right", va="top", fontsize=8.3,
-        bbox={"boxstyle": "round,pad=0.28", "facecolor": "white",
-              "edgecolor": "0.82", "alpha": 0.9},
+        0.5, 1.012,
+        f"Median {median:.1f} m · Mean {mean:.1f} m\nσ {std:.1f} m",
+        transform=axis.transAxes, ha="center", va="bottom", fontsize=8.5,
+        color="#37474f", fontweight="bold", clip_on=False,
+        linespacing=1.05,
     )
     if np.all(errors > 0.0):
         axis.set_yscale("log")
     axis.set_xlim(-0.28, 0.28)
-    axis.set_xticks((0.0,), (f"best/site\nn={len(errors)}",))
-    axis.set_title(f"{resolution} best-pose error", fontweight="bold")
-    axis.set_ylabel("Horizontal error [m]")
-    axis.grid(axis="y", alpha=0.18)
+    axis.set_xticks([])
+    axis.set_title(
+        f"{resolution_label(resolution)} — {len(errors)}/{total_sites} solved",
+        fontsize=13, fontweight="bold", pad=26,
+    )
+    axis.set_ylabel("Horizontal error [m]", fontsize=11)
+    axis.tick_params(axis="y", labelsize=10)
+    axis.grid(axis="y", alpha=0.28, linewidth=0.9)
 
 
 def plot_resolution_summary(axis, summaries: list[dict[str, object]]) -> None:
@@ -316,35 +341,38 @@ def plot_resolution_summary(axis, summaries: list[dict[str, object]]) -> None:
     if np.any(valid_band):
         axis.fill_between(
             x, p10, p90, where=valid_band, color=SUMMARY_COLOR,
-            alpha=0.16, interpolate=False, label="P10–P90 spread",
+            alpha=0.22, interpolate=False, label="P10–P90 spread",
         )
-    axis.plot(x, median, "D-", color="#003f5c", linewidth=2.3,
-              markersize=7, label="Median")
-    axis.plot(x, mean, "o--", color="#d84315", linewidth=1.8,
-              markersize=6, label="Mean")
+        axis.plot(x, p10, color=SUMMARY_COLOR, linewidth=1.6, alpha=0.70)
+        axis.plot(x, p90, color=SUMMARY_COLOR, linewidth=1.6, alpha=0.70)
+    axis.plot(x, median, "D-", color="#003f5c", linewidth=3.2,
+              markersize=9, label="Median", zorder=4)
+    axis.plot(x, mean, "o--", color="#d84315", linewidth=2.5,
+              markersize=7.5, label="Mean", zorder=4)
     valid_mean = np.isfinite(mean) & np.isfinite(std)
     if np.any(valid_mean):
         lower = np.minimum(std[valid_mean], mean[valid_mean] * 0.98)
         axis.errorbar(
             x[valid_mean], mean[valid_mean],
             yerr=np.vstack((lower, std[valid_mean])), fmt="none",
-            ecolor="#d84315", alpha=0.55, capsize=4,
-            linewidth=1.3, label="Mean ± 1σ",
+            ecolor="#d84315", alpha=0.72, capsize=5,
+            capthick=1.8, linewidth=1.8, label="Mean ± 1σ",
         )
     if np.any(np.isfinite(median) & (median > 0.0)):
         axis.set_yscale("log")
-    axis.set_xticks(x, labels)
-    axis.set_xlabel("DEM resolution [m/cell]")
-    axis.set_ylabel("Horizontal position error [m]")
+    axis.set_xticks(x, [resolution_label(label) for label in labels])
+    axis.set_xlabel("DEM resolution", fontsize=12)
+    axis.set_ylabel("Horizontal error [m]", fontsize=12)
+    axis.tick_params(axis="both", labelsize=10)
     axis.set_title(
-        "Best per-site localization across resolution",
-        fontsize=13, fontweight="bold", loc="left",
+        "Best per-site horizontal error and solved-site count",
+        fontsize=14, fontweight="bold", loc="left", pad=9,
     )
-    axis.grid(axis="y", alpha=0.2)
+    axis.grid(axis="y", alpha=0.28, linewidth=0.9)
 
     count_axis = axis.twinx()
     bars = count_axis.bar(
-        x, solved, width=0.58, color=COUNT_COLOR, alpha=0.13,
+        x, solved, width=0.58, color=COUNT_COLOR, alpha=0.20,
         edgecolor="none", zorder=0,
     )
     count_axis.set_ylim(0.0, max(float(np.max(totals)) * 1.20, 1.0))
@@ -356,9 +384,9 @@ def plot_resolution_summary(axis, summaries: list[dict[str, object]]) -> None:
             bar.get_x() + bar.get_width() / 2.0,
             bar.get_height() + max(float(np.max(totals)) * 0.018, 0.2),
             f"{count}/{total}", ha="center", va="bottom",
-            color="#455a64", fontsize=8.5, fontweight="bold",
+            color="#455a64", fontsize=10, fontweight="bold",
         )
-    axis.legend(loc="upper left", ncol=4, frameon=False, fontsize=8.5)
+    axis.legend(loc="upper left", ncol=4, frameon=False, fontsize=10)
 
 
 def write_summary_csv(path: Path, summaries: list[dict[str, object]]) -> None:
@@ -370,73 +398,82 @@ def write_summary_csv(path: Path, summaries: list[dict[str, object]]) -> None:
         writer.writerows(summaries)
 
 
-def make_figure(path: Path, summary_csv: Path, dpi: int) -> None:
+def make_figure(
+    path: Path,
+    summary_csv: Path,
+    dpi: int,
+    results_root: Path | None = None,
+) -> None:
     resolutions = list(load_pipeline_config().available_resolutions)
     plt.rcParams.update({
-        "font.size": 9.2,
+        "font.size": 10.5,
         "axes.spines.top": False,
         "axes.spines.right": False,
     })
-    figure = plt.figure(figsize=(18, 13), constrained_layout=False)
+    figure = plt.figure(figsize=(18, 8.4), constrained_layout=False)
     grid = figure.add_gridspec(
-        3, len(resolutions), height_ratios=(1.05, 1.0, 0.82),
-        hspace=0.43, wspace=0.48,
+        2, len(resolutions), height_ratios=(1.0, 0.88),
+        hspace=0.34, wspace=0.34,
     )
-    position_axes = [figure.add_subplot(grid[0, index]) for index in range(len(resolutions))]
-    distribution_axes = [figure.add_subplot(grid[1, index]) for index in range(len(resolutions))]
-    summary_axis = figure.add_subplot(grid[2, :])
+    distribution_axes = [
+        figure.add_subplot(grid[0, index]) for index in range(len(resolutions))
+    ]
+    summary_axis = figure.add_subplot(grid[1, :])
 
     summaries: list[dict[str, object]] = []
     for column, resolution in enumerate(resolutions):
         config = load_resolution_config(resolution)
+        resolution_results_path = (
+            config.results_path
+            if results_root is None
+            else results_root / f"{resolution}_px"
+        )
         records = {
-            stage: load_stage(config.results_path / f"{stage}_all_sites.json")
+            stage: load_stage(resolution_results_path / f"{stage}_all_sites.json")
             for stage in STAGES
         }
         truth = truth_by_site(config, records)
         selected = select_oracle_best(records)
         summaries.append(build_summary(resolution, len(truth), selected))
-        plot_positions(position_axes[column], resolution, truth, selected)
-        plot_distribution(distribution_axes[column], resolution, selected)
+        plot_distribution(
+            distribution_axes[column], resolution, selected, len(truth)
+        )
 
     plot_resolution_summary(summary_axis, summaries)
     write_summary_csv(summary_csv, summaries)
 
+    environment_name = environment_display_name(load_resolution_config(resolutions[0]))
     figure.suptitle(
-        "Localization Results Across DEM Resolutions",
-        fontsize=21, fontweight="bold", y=0.987,
+        f"{environment_name} Localization Accuracy vs DEM Resolution",
+        fontsize=21, fontweight="bold", y=0.985,
     )
     stage_handles = [
-        Line2D([], [], color="black", marker=".", linewidth=1.2,
-               markersize=5, label="Truth")
-    ] + [
         Line2D([], [], linestyle="none", marker=STAGE_MARKERS[stage],
-               color=STAGE_COLORS[stage], markersize=7,
-               label=f"Selected {STAGE_LABELS[stage]}")
+               color=STAGE_COLORS[stage], markersize=8,
+               label=STAGE_LABELS[stage])
         for stage in STAGES
     ]
     statistic_handles = [
         Patch(facecolor=SUMMARY_COLOR, edgecolor=SUMMARY_COLOR, alpha=0.18,
-              label="P25–P75 box / P10–P90 whisker"),
+              label="IQR / P10–P90"),
         Line2D([], [], linestyle="none", marker="D", color="#003f5c",
                markersize=7, label="Median"),
         Line2D([], [], linestyle="none", marker="o", color="#d84315",
                markersize=7, label="Mean ± 1σ"),
     ]
-    figure.legend(
+    distribution_axes[0].legend(
         handles=stage_handles + statistic_handles,
-        loc="upper center", ncol=7, frameon=False,
-        bbox_to_anchor=(0.5, 0.956), fontsize=9,
+        loc="lower center", ncol=2, frameon=True,
+        bbox_to_anchor=(0.5, 0.035), fontsize=8.3,
+        framealpha=0.92, borderpad=0.55, columnspacing=0.9,
+        handletextpad=0.55, labelspacing=0.45,
     )
     figure.text(
         0.5, 0.018,
-        "Best-pose error is the lowest ground-truth horizontal error among the available "
-        "DARCES, RANSAC and MOGA estimates at each site (evaluation-time selection).",
-        ha="center", va="bottom", fontsize=9, color="#5d4037",
-        bbox={"boxstyle": "round,pad=0.35", "facecolor": "#fff8e1",
-              "edgecolor": "#ffcc80", "alpha": 0.95},
+        "Best/site = lowest evaluation error among available DARCES, RANSAC and MOGA poses.",
+        ha="center", va="bottom", fontsize=10, color="#5d4037",
     )
-    figure.subplots_adjust(left=0.045, right=0.965, top=0.905, bottom=0.085)
+    figure.subplots_adjust(left=0.052, right=0.962, top=0.865, bottom=0.095)
     path.parent.mkdir(parents=True, exist_ok=True)
     figure.savefig(path, dpi=dpi, bbox_inches="tight", facecolor="white")
     plt.close(figure)
@@ -450,11 +487,14 @@ def main() -> None:
         if args.summary_csv is not None
         else output.with_suffix(".csv")
     )
-    make_figure(output, summary_csv, args.dpi)
+    results_root = args.results_root.resolve() if args.results_root else None
+    make_figure(output, summary_csv, args.dpi, results_root)
     print("Presentation results summary")
     print("----------------------------")
     print(f"PNG: {output}")
     print(f"CSV: {summary_csv}")
+    if results_root is not None:
+        print(f"Results root: {results_root}")
 
 
 if __name__ == "__main__":

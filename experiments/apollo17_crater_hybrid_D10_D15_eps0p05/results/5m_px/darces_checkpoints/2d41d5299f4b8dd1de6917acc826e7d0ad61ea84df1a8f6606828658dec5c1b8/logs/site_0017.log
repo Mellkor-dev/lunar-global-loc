@@ -1,0 +1,16 @@
+=== Site 17 ===
+Generated 15636 ordered hypotheses by deterministic edge lookup
+Hypothesis screening
+--------------------
+Passed all screening: 9
+Rejected by outside_map       : 71
+Rejected by heading           : 15163
+Rejected by vertical          : 393
+Rejected by feature_consensus : 0
+Rejected by overlap_or_fitness: 0
+Best fitness:             -3.6972
+Estimated XY translation: [-351.75198223 -357.67198149]
+Estimated Z translation:  10.1950
+Estimated heading:        -140.16 deg
+Distinct local triangles: 2
+Cluster members:          2

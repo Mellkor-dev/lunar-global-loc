@@ -1,0 +1,632 @@
+{
+  "signature": "e047d1a284c2f3e0d4532e57974b36d0cf092fb6115e783822b41d0e9b8430dd",
+  "settings": {
+    "trials_per_site": 100000,
+    "seed": 29,
+    "heading_tolerance_deg": 5.0,
+    "minimum_cluster_size": 2,
+    "cluster_position_radius_m": 50.0,
+    "top_hypothesis_count": 5,
+    "control_rms_tolerance_m": 10.0,
+    "effective_control_rms_tolerance_m": 10.0,
+    "side_ratio_tolerance": 0.12,
+    "minimum_triangle_angle_deg": 10.0,
+    "minimum_overlap": 0.5,
+    "maximum_terrain_mae_m": null,
+    "cluster_heading_radius_deg": 5.0,
+    "distance_tolerance_sigma_multiplier": 3.0,
+    "z_residual_tolerance_sigma_multiplier": 3.0,
+    "use_feature_consensus": false,
+    "consensus_xy_tolerance_m": 15.0,
+    "minimum_consensus_features": 4,
+    "distance_tolerance_m": 31.129647224241598,
+    "z_residual_tolerance_m": 3.90080432209209,
+    "covariance_sigma_multiplier": 2.0,
+    "global_covariance_m2": [
+      [
+        107.67277070063696,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        107.67277070063696,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.6906971510280362
+      ]
+    ],
+    "fitness_reference": "raw_lidar_xy_decimated",
+    "fitness_reference_spacing_factor": 0.5
+  },
+  "inputs": [
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/config/apollo17_5m.yaml",
+      "size": 6070,
+      "mtime_ns": 1786764910253880642
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/matching/darces.py",
+      "size": 43625,
+      "mtime_ns": 1786437104948570108
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/2m_px/global_craters.npz",
+      "size": 10721,
+      "mtime_ns": 1786765074679723796
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/2m_px/orbital_dem_2m.npy",
+      "size": 4000128,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/DEM/2m_px/validation/global_feature_uncertainty.json",
+      "size": 1152,
+      "mtime_ns": 1786766172280849463
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_01.npz",
+      "size": 5058,
+      "mtime_ns": 1786766173265723935
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_01.npz",
+      "size": 13444,
+      "mtime_ns": 1786456364630998125
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_01.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456364627716782
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_01.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_02.npz",
+      "size": 5003,
+      "mtime_ns": 1786766173704238286
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_02.npz",
+      "size": 12170,
+      "mtime_ns": 1786456364717221073
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_02.npy",
+      "size": 2981552,
+      "mtime_ns": 1786456364715230609
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_02.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_03.npz",
+      "size": 5215,
+      "mtime_ns": 1786766173990785270
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_03.npz",
+      "size": 19357,
+      "mtime_ns": 1786456364783164408
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_03.npy",
+      "size": 3130724,
+      "mtime_ns": 1786456364780951738
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_03.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_04.npz",
+      "size": 4848,
+      "mtime_ns": 1786766174304242326
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_04.npz",
+      "size": 11451,
+      "mtime_ns": 1786456364853087942
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_04.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456364850839528
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_04.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_05.npz",
+      "size": 4793,
+      "mtime_ns": 1786766174584538954
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_05.npz",
+      "size": 11976,
+      "mtime_ns": 1786456364926404650
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_05.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456364924438820
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_05.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_06.npz",
+      "size": 5168,
+      "mtime_ns": 1786766174848173163
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_06.npz",
+      "size": 22869,
+      "mtime_ns": 1786456364995943680
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_06.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456364993222349
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_06.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_07.npz",
+      "size": 4794,
+      "mtime_ns": 1786766175150461728
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_07.npz",
+      "size": 13257,
+      "mtime_ns": 1786456365061204462
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_07.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456365059346101
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_07.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_08.npz",
+      "size": 4738,
+      "mtime_ns": 1786766175455731933
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_08.npz",
+      "size": 10560,
+      "mtime_ns": 1786456365123637178
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_08.npy",
+      "size": 3081896,
+      "mtime_ns": 1786456365122611341
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_08.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_09.npz",
+      "size": 4684,
+      "mtime_ns": 1786766175743059819
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_09.npz",
+      "size": 10106,
+      "mtime_ns": 1786456365185940267
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_09.npy",
+      "size": 3097388,
+      "mtime_ns": 1786456365185039753
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_09.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_10.npz",
+      "size": 4683,
+      "mtime_ns": 1786766176032074988
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_10.npz",
+      "size": 13709,
+      "mtime_ns": 1786456365254096197
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_10.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456365252241986
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_10.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_11.npz",
+      "size": 4941,
+      "mtime_ns": 1786766176321206876
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_11.npz",
+      "size": 14334,
+      "mtime_ns": 1786456365319297995
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_11.npy",
+      "size": 2837972,
+      "mtime_ns": 1786456365316321783
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_11.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_12.npz",
+      "size": 5106,
+      "mtime_ns": 1786766176580603055
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_12.npz",
+      "size": 15576,
+      "mtime_ns": 1786456365416346267
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_12.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456365413014845
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_12.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_13.npz",
+      "size": 4954,
+      "mtime_ns": 1786766176819873416
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_13.npz",
+      "size": 13688,
+      "mtime_ns": 1786456365510458779
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_13.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456365507938985
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_13.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_14.npz",
+      "size": 5171,
+      "mtime_ns": 1786766177067706099
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_14.npz",
+      "size": 16911,
+      "mtime_ns": 1786456365586868557
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_14.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456365583169715
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_14.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_15.npz",
+      "size": 4956,
+      "mtime_ns": 1786766177365291838
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_15.npz",
+      "size": 14671,
+      "mtime_ns": 1786456365679156103
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_15.npy",
+      "size": 3122348,
+      "mtime_ns": 1786456365676570705
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_15.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_16.npz",
+      "size": 4845,
+      "mtime_ns": 1786766177638245237
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_16.npz",
+      "size": 8064,
+      "mtime_ns": 1786456365771103347
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_16.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456365768535757
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_16.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_17.npz",
+      "size": 5051,
+      "mtime_ns": 1786766177929856727
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_17.npz",
+      "size": 12385,
+      "mtime_ns": 1786456365865583665
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_17.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456365862768350
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_17.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_18.npz",
+      "size": 4996,
+      "mtime_ns": 1786766178250530288
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_18.npz",
+      "size": 12535,
+      "mtime_ns": 1786456365961163380
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_18.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456365958205853
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_18.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_19.npz",
+      "size": 4845,
+      "mtime_ns": 1786766178550496813
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_19.npz",
+      "size": 8288,
+      "mtime_ns": 1786456366053394960
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_19.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456366051730684
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_19.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_20.npz",
+      "size": 5167,
+      "mtime_ns": 1786766178848451068
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_20.npz",
+      "size": 13720,
+      "mtime_ns": 1786456366123500518
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_20.npy",
+      "size": 3137648,
+      "mtime_ns": 1786456366121686350
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_20.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_21.npz",
+      "size": 5042,
+      "mtime_ns": 1786766179116936851
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_21.npz",
+      "size": 9837,
+      "mtime_ns": 1786456366196333419
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_21.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456366194676322
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_21.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_22.npz",
+      "size": 4949,
+      "mtime_ns": 1786766179379900671
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_22.npz",
+      "size": 11305,
+      "mtime_ns": 1786456366263008630
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_22.npy",
+      "size": 3036728,
+      "mtime_ns": 1786456366261784491
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_22.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_23.npz",
+      "size": 5166,
+      "mtime_ns": 1786766179660505230
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_23.npz",
+      "size": 12162,
+      "mtime_ns": 1786456366332112056
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_23.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456366330085038
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_23.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_24.npz",
+      "size": 4739,
+      "mtime_ns": 1786766179921643442
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_24.npz",
+      "size": 18197,
+      "mtime_ns": 1786456366406739970
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_24.npy",
+      "size": 2914844,
+      "mtime_ns": 1786456366404539702
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_24.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_25.npz",
+      "size": 4791,
+      "mtime_ns": 1786766180175452424
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_25.npz",
+      "size": 15385,
+      "mtime_ns": 1786456366475339941
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_25.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456366473352585
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_25.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_26.npz",
+      "size": 5049,
+      "mtime_ns": 1786766180438288921
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_26.npz",
+      "size": 11590,
+      "mtime_ns": 1786456366547232900
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_26.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456366544311354
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_26.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_27.npz",
+      "size": 5004,
+      "mtime_ns": 1786766180735305591
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_27.npz",
+      "size": 12606,
+      "mtime_ns": 1786456366613152989
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_27.npy",
+      "size": 2859884,
+      "mtime_ns": 1786456366610087699
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_27.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/features/local_craters_site_28.npz",
+      "size": 5216,
+      "mtime_ns": 1786766181029520327
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/gridded/grid_site_28.npz",
+      "size": 14813,
+      "mtime_ns": 1786456366705172480
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/local_maps/2m_px/leveled/leveled_site_28.npy",
+      "size": 3145856,
+      "mtime_ns": 1786456366702417674
+    },
+    {
+      "path": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/sim/5m_px/odom_scans/odom_site_28.npy",
+      "size": 184,
+      "mtime_ns": 1786427612000000000
+    }
+  ]
+}

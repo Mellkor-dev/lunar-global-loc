@@ -1,0 +1,13 @@
+{
+  "site": 8,
+  "status": "no_solution",
+  "matching_inputs": {
+    "trials": 100000,
+    "seed": 8,
+    "local_feature_count": 3,
+    "global_feature_count": 293,
+    "heading_measurement_deg": -17.488095766108614,
+    "distance_tolerance_m": 31.53637770047313,
+    "z_residual_tolerance_m": 3.9122915668873373
+  }
+}

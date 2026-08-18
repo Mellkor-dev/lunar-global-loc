@@ -1,0 +1,16 @@
+=== Site 26 ===
+Generated 100000 ordered hypotheses by deterministic edge lookup
+Hypothesis screening
+--------------------
+Passed all screening: 2393
+Rejected by outside_map       : 68
+Rejected by heading           : 97041
+Rejected by vertical          : 498
+Rejected by feature_consensus : 0
+Rejected by overlap_or_fitness: 0
+Best fitness:             -0.0866
+Estimated XY translation: [-312.26182789 -350.91078193]
+Estimated Z translation:  5.6695
+Estimated heading:        92.45 deg
+Distinct local triangles: 5
+Cluster members:          5

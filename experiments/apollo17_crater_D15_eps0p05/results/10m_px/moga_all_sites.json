@@ -1,0 +1,1323 @@
+{
+  "settings": {
+    "resolution": "10m",
+    "mode": "independent_single_frame_2p5d",
+    "heading_sigma_deg": 1.0,
+    "odometry_position_usage": "evaluation_only",
+    "odometry_heading_usage": "heading_sensor_constraint",
+    "relative_odometry_usage": "none",
+    "maximum_function_evaluations": 300,
+    "relative_tolerance": 1e-10,
+    "ransac_results": "/home/soumyadeep/lunar-global-loc/LargeScale_Implement/results/10m_px/ransac_all_sites.json"
+  },
+  "optimization": {
+    "mode": "independent_single_frame",
+    "success": true,
+    "solved_frames": 15,
+    "initial_cost": 120.28928079752207,
+    "final_cost": 24.634905682073807,
+    "function_evaluations": 64
+  },
+  "site_optimizations": [
+    {
+      "site": 1,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 4,
+      "initial_cost": 1.8916411332354015,
+      "final_cost": 0.7935362367737081,
+      "optimality": 3.115554862986869e-07,
+      "landmark_global_indices": [
+        304,
+        341,
+        338,
+        321,
+        305
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          -403.85114799257207,
+          -216.14294195204042
+        ],
+        [
+          -444.0667405123288,
+          -286.01894262150574
+        ],
+        [
+          -389.0408294539138,
+          -111.67273451808725
+        ],
+        [
+          -474.1281776541344,
+          -310.4281456261032
+        ],
+        [
+          -373.91310438681325,
+          -240.73723526078365
+        ]
+      ]
+    },
+    {
+      "site": 2,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 4,
+      "initial_cost": 14.53451627839819,
+      "final_cost": 1.3532226971013208,
+      "optimality": 7.803931119099161e-07,
+      "landmark_global_indices": [
+        278,
+        331,
+        335,
+        315,
+        314
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          -485.9384584106203,
+          -640.9369670116362
+        ],
+        [
+          -546.7621773670062,
+          -689.9172509129227
+        ],
+        [
+          -498.25618531342354,
+          -515.304373111439
+        ],
+        [
+          -506.9402422586119,
+          -709.589803209491
+        ],
+        [
+          -527.1029366498944,
+          -719.2516056764528
+        ]
+      ]
+    },
+    {
+      "site": 3,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 5,
+      "initial_cost": 12.136988883671897,
+      "final_cost": 2.436157215046159,
+      "optimality": 6.706345110352174e-07,
+      "landmark_global_indices": [
+        351,
+        371,
+        342,
+        360,
+        325,
+        344
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          -537.5002917409943,
+          -300.60280513675053
+        ],
+        [
+          -582.7399178855161,
+          -414.8313530417728
+        ],
+        [
+          -486.44345216114175,
+          -418.1404961390722
+        ],
+        [
+          -578.7676672478959,
+          -297.8633981733258
+        ],
+        [
+          -406.59027395465216,
+          -364.67580336623973
+        ],
+        [
+          -507.95839705333947,
+          -393.8861442844438
+        ]
+      ]
+    },
+    {
+      "site": 4,
+      "success": true,
+      "message": "`xtol` termination condition is satisfied.",
+      "status_code": 3,
+      "function_evaluations": 4,
+      "initial_cost": 6.126997283039902,
+      "final_cost": 1.8242092084252952,
+      "optimality": 1.1689759515931542e-06,
+      "landmark_global_indices": [
+        50,
+        137,
+        53,
+        68,
+        51
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          804.5219696348933,
+          560.2918888031469
+        ],
+        [
+          583.6774388590817,
+          652.7413784255509
+        ],
+        [
+          734.065016909326,
+          591.8908713022033
+        ],
+        [
+          727.7090875061119,
+          469.56363434053975
+        ],
+        [
+          765.0264870903449,
+          570.512227129181
+        ]
+      ]
+    },
+    {
+      "site": 5,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 4,
+      "initial_cost": 8.564183635446005,
+      "final_cost": 0.23212806766159147,
+      "optimality": 9.019514113361993e-08,
+      "landmark_global_indices": [
+        305,
+        341,
+        304,
+        338
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          -373.6380039018732,
+          -242.69543169571074
+        ],
+        [
+          -442.2048471066591,
+          -284.40319339542486
+        ],
+        [
+          -408.25715462242204,
+          -216.58798989793456
+        ],
+        [
+          -385.8999943579064,
+          -106.31338499355915
+        ]
+      ]
+    },
+    {
+      "site": 6,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 5,
+      "initial_cost": 5.055886145919285,
+      "final_cost": 1.272850338911433,
+      "optimality": 3.0118160410097516e-08,
+      "landmark_global_indices": [
+        235,
+        208,
+        236,
+        221,
+        255
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          48.957976231083904,
+          -137.43672022185675
+        ],
+        [
+          74.76223055528612,
+          -77.43836509309135
+        ],
+        [
+          49.07639656134591,
+          35.272966244745845
+        ],
+        [
+          137.58351680657796,
+          -112.46258367602964
+        ],
+        [
+          -95.38012001066183,
+          -152.9352972876602
+        ]
+      ]
+    },
+    {
+      "site": 11,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 4,
+      "initial_cost": 6.78589120213376,
+      "final_cost": 1.3569475362193464,
+      "optimality": 9.606761752767312e-07,
+      "landmark_global_indices": [
+        313,
+        265,
+        280,
+        292,
+        287
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          -296.3624856465333,
+          -46.59983082597385
+        ],
+        [
+          -190.1758014695017,
+          -118.60129335445271
+        ],
+        [
+          -221.0758368914097,
+          -80.66388270336715
+        ],
+        [
+          -281.48044551916786,
+          -229.939665353375
+        ],
+        [
+          -325.9054304736232,
+          -159.19532776268167
+        ]
+      ]
+    },
+    {
+      "site": 12,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 4,
+      "initial_cost": 2.827788770330292,
+      "final_cost": 0.5681560408266034,
+      "optimality": 5.898588284480866e-08,
+      "landmark_global_indices": [
+        240,
+        238,
+        178
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          84.23955856550897,
+          462.2452862517685
+        ],
+        [
+          105.74544168670472,
+          390.7696874451324
+        ],
+        [
+          205.01499974778136,
+          461.9850263028892
+        ]
+      ]
+    },
+    {
+      "site": 14,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 4,
+      "initial_cost": 9.647011552022645,
+      "final_cost": 1.2802635465655066,
+      "optimality": 3.562534800494177e-07,
+      "landmark_global_indices": [
+        230,
+        246,
+        213,
+        232,
+        242
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          175.46216907643958,
+          617.2810680702185
+        ],
+        [
+          140.78730714486377,
+          682.7650833281298
+        ],
+        [
+          312.06795477528067,
+          629.3706549675248
+        ],
+        [
+          168.44234941068896,
+          576.4004630043559
+        ],
+        [
+          108.24021958237977,
+          499.18273060173806
+        ]
+      ]
+    },
+    {
+      "site": 15,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 5,
+      "initial_cost": 22.318548692989275,
+      "final_cost": 3.2202112362861177,
+      "optimality": 1.0648483339537052e-07,
+      "landmark_global_indices": [
+        309,
+        328,
+        331,
+        330,
+        358,
+        295
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          -393.9289035048352,
+          -570.3143992985997
+        ],
+        [
+          -469.2296521062559,
+          -505.0994930723756
+        ],
+        [
+          -535.9238918992974,
+          -677.1209552659446
+        ],
+        [
+          -518.329675685514,
+          -548.2182618444377
+        ],
+        [
+          -598.8085179910358,
+          -534.664712658089
+        ],
+        [
+          -473.7793588106949,
+          -594.5821778588296
+        ]
+      ]
+    },
+    {
+      "site": 18,
+      "success": true,
+      "message": "`xtol` termination condition is satisfied.",
+      "status_code": 3,
+      "function_evaluations": 4,
+      "initial_cost": 8.174206017651894,
+      "final_cost": 3.3965378276153615,
+      "optimality": 8.837987230947419e-07,
+      "landmark_global_indices": [
+        34,
+        37,
+        59,
+        41,
+        64,
+        75,
+        61
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          936.080839189238,
+          561.1737860893026
+        ],
+        [
+          941.9055655161266,
+          693.6560178772298
+        ],
+        [
+          876.8580485706543,
+          733.5176813837608
+        ],
+        [
+          942.7726068895022,
+          610.2061130950367
+        ],
+        [
+          864.1747335254054,
+          610.2366435142343
+        ],
+        [
+          833.0419254384276,
+          689.7320886707805
+        ],
+        [
+          870.1662808704818,
+          666.4776694158745
+        ]
+      ]
+    },
+    {
+      "site": 19,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 4,
+      "initial_cost": 6.5888017256677935,
+      "final_cost": 2.781039685093888,
+      "optimality": 2.3179352481861315e-07,
+      "landmark_global_indices": [
+        372,
+        342,
+        371,
+        350,
+        358,
+        357
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          -649.418299983754,
+          -476.2396310311817
+        ],
+        [
+          -485.8015314027838,
+          -410.1503769924199
+        ],
+        [
+          -583.4641575390671,
+          -430.51287814912774
+        ],
+        [
+          -680.1144488790189,
+          -393.6076088815773
+        ],
+        [
+          -601.5993217123408,
+          -525.5771114974795
+        ],
+        [
+          -519.6022404841347,
+          -423.91239344827727
+        ]
+      ]
+    },
+    {
+      "site": 20,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 4,
+      "initial_cost": 5.499492993466257,
+      "final_cost": 0.7689145860006109,
+      "optimality": 3.623374911221333e-08,
+      "landmark_global_indices": [
+        292,
+        299,
+        291,
+        289,
+        286,
+        275
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          -283.6873667134921,
+          -240.35673100250625
+        ],
+        [
+          -189.8882325181044,
+          -304.8974155559417
+        ],
+        [
+          -203.55012667468895,
+          -374.98541723176044
+        ],
+        [
+          -208.5416505980663,
+          -233.9757240816997
+        ],
+        [
+          -227.5391557934563,
+          -345.38288047458025
+        ],
+        [
+          -296.79346767077016,
+          -290.4018316011956
+        ]
+      ]
+    },
+    {
+      "site": 23,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 4,
+      "initial_cost": 3.6627832813446712,
+      "final_cost": 1.398189459975072,
+      "optimality": 1.7814469188692783e-07,
+      "landmark_global_indices": [
+        286,
+        292,
+        275,
+        291,
+        320
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          -225.79753763408365,
+          -342.1912567201716
+        ],
+        [
+          -286.43204052004296,
+          -234.8482561978273
+        ],
+        [
+          -296.63778069575466,
+          -293.4073355443938
+        ],
+        [
+          -205.81663928756993,
+          -369.1800818515069
+        ],
+        [
+          -390.316001810008,
+          -445.3730696872185
+        ]
+      ]
+    },
+    {
+      "site": 27,
+      "success": true,
+      "message": "`ftol` termination condition is satisfied.",
+      "status_code": 2,
+      "function_evaluations": 5,
+      "initial_cost": 6.474543202204802,
+      "final_cost": 1.9525419995717919,
+      "optimality": 8.547275776038532e-08,
+      "landmark_global_indices": [
+        289,
+        258,
+        263,
+        280,
+        284
+      ],
+      "optimized_landmarks_xy_m": [
+        [
+          -202.09653045515108,
+          -233.37931412894343
+        ],
+        [
+          -121.79831442133126,
+          -50.35141148303586
+        ],
+        [
+          -140.3663276319364,
+          -78.37665655651645
+        ],
+        [
+          -220.04708047655058,
+          -83.78535655642767
+        ],
+        [
+          -300.6917470253256,
+          -159.10726128654593
+        ]
+      ]
+    }
+  ],
+  "sites": [
+    {
+      "site": 1,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": -446.308273385734,
+      "initial_y_m": -159.82811284089658,
+      "initial_heading_deg": -0.396778833791632,
+      "estimated_x_m": -447.60114829830394,
+      "estimated_y_m": -161.8271840935236,
+      "estimated_z_m": 8.49218475818634,
+      "estimated_heading_deg": -0.3214743839768982,
+      "pose_covariance_xyyaw": [
+        [
+          45.910223489206466,
+          0.6383748630366171,
+          -0.020861140814518668
+        ],
+        [
+          0.6383748630382247,
+          44.699949718559026,
+          -0.00896936341483745
+        ],
+        [
+          -0.02086114081452324,
+          -0.0089693634148257,
+          0.0002931054526850241
+        ]
+      ],
+      "truth_x_m": -0.005049131810665131,
+      "truth_y_m": -0.0011176990810781717,
+      "truth_z_m": -0.49565547704696655,
+      "xy_error_m": 475.9516191313565,
+      "z_error_m": 8.987840235233307,
+      "heading_error_deg": 0.04927050673852709,
+      "moga_initial_cost": 1.8916411332354015,
+      "moga_final_cost": 0.7935362367737081
+    },
+    {
+      "site": 2,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": -546.1809127189846,
+      "initial_y_m": -554.9716723991335,
+      "initial_heading_deg": 2.836187702768557,
+      "estimated_x_m": -539.0868022936639,
+      "estimated_y_m": -559.1590966678194,
+      "estimated_z_m": 7.463585376739502,
+      "estimated_heading_deg": -1.7491110920183723,
+      "pose_covariance_xyyaw": [
+        [
+          47.11395979692651,
+          0.7317742450585092,
+          -0.028051514702501057
+        ],
+        [
+          0.7317742450713496,
+          44.624658165116365,
+          -0.007635302154251654
+        ],
+        [
+          -0.028051514702513738,
+          -0.007635302154242173,
+          0.0002926883421774518
+        ]
+      ],
+      "truth_x_m": 12.267229080200195,
+      "truth_y_m": -0.6570590734481812,
+      "truth_z_m": -0.8115395307540894,
+      "xy_error_m": 784.803028733501,
+      "z_error_m": 8.275124907493591,
+      "heading_error_deg": 0.18276365654688873,
+      "moga_initial_cost": 14.53451627839819,
+      "moga_final_cost": 1.3532226971013208
+    },
+    {
+      "site": 3,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": -495.7493776646562,
+      "initial_y_m": -283.6958672661458,
+      "initial_heading_deg": -37.40535663140856,
+      "estimated_x_m": -491.2601588892753,
+      "estimated_y_m": -279.1606253315585,
+      "estimated_z_m": 9.506296396255493,
+      "estimated_heading_deg": -40.66666588316791,
+      "pose_covariance_xyyaw": [
+        [
+          39.15344185068099,
+          -0.6310860332880832,
+          -0.02483954239599041
+        ],
+        [
+          -0.6310860332910035,
+          37.20801841956674,
+          0.00735194099963499
+        ],
+        [
+          -0.024839542395986573,
+          0.0073519409996384835,
+          0.00028937235261081927
+        ]
+      ],
+      "truth_x_m": 23.901281356811523,
+      "truth_y_m": -10.196999549865723,
+      "truth_z_m": -0.5373302102088928,
+      "xy_error_m": 581.1477794073182,
+      "z_error_m": 10.043626606464386,
+      "heading_error_deg": 0.05153116071795186,
+      "moga_initial_cost": 12.136988883671897,
+      "moga_final_cost": 2.436157215046159
+    },
+    {
+      "site": 4,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": 699.7752070101334,
+      "initial_y_m": 633.9245584036984,
+      "initial_heading_deg": -63.150201109322744,
+      "estimated_x_m": 696.2525950026816,
+      "estimated_y_m": 632.6755551683314,
+      "estimated_z_m": -15.571349024772644,
+      "estimated_heading_deg": -64.7252328884334,
+      "pose_covariance_xyyaw": [
+        [
+          45.588182001000916,
+          0.48840298297471385,
+          -0.01825982772943316
+        ],
+        [
+          0.4884029829928842,
+          44.630634731988266,
+          -0.007670180173789597
+        ],
+        [
+          -0.018259827729435792,
+          -0.00767018017378074,
+          0.00028676354056826527
+        ]
+      ],
+      "truth_x_m": 36.56502151489258,
+      "truth_y_m": -34.223609924316406,
+      "truth_z_m": -2.5595836639404297,
+      "xy_error_m": 938.0523391663589,
+      "z_error_m": 13.011765360832214,
+      "heading_error_deg": 0.06610204862579802,
+      "moga_initial_cost": 6.126997283039902,
+      "moga_final_cost": 1.8242092084252952
+    },
+    {
+      "site": 5,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": -466.44482232408427,
+      "initial_y_m": -187.76613789850475,
+      "initial_heading_deg": -151.31385242626055,
+      "estimated_x_m": -470.04420734416595,
+      "estimated_y_m": -190.4142567723579,
+      "estimated_z_m": 8.379233121871948,
+      "estimated_heading_deg": -147.39622236309967,
+      "pose_covariance_xyyaw": [
+        [
+          55.6765437032973,
+          0.442522877946411,
+          -0.0065516036626860836
+        ],
+        [
+          0.44252287781407773,
+          56.88520242613589,
+          -0.02003658434919516
+        ],
+        [
+          -0.006551603662635292,
+          -0.0200365843491993,
+          0.00029664400642384994
+        ]
+      ],
+      "truth_x_m": 19.5212345123291,
+      "truth_y_m": -46.497894287109375,
+      "truth_z_m": -2.1845808029174805,
+      "xy_error_m": 510.28055151174505,
+      "z_error_m": 10.563813924789429,
+      "heading_error_deg": 0.05066422592892226,
+      "moga_initial_cost": 8.564183635446005,
+      "moga_final_cost": 0.23212806766159147
+    },
+    {
+      "site": 6,
+      "status": "solution",
+      "initial_source": "ransac",
+      "initial_x_m": -1.9004111301373072,
+      "initial_y_m": -62.130815413477066,
+      "initial_heading_deg": -146.97238927341718,
+      "estimated_x_m": -0.8685516232055717,
+      "estimated_y_m": -60.47719906492991,
+      "estimated_z_m": 0.06268537044525146,
+      "estimated_heading_deg": -149.10679027104356,
+      "pose_covariance_xyyaw": [
+        [
+          44.6560465498186,
+          0.35462049123775685,
+          -0.00808370630159675
+        ],
+        [
+          0.354620491266612,
+          44.970890767354696,
+          -0.012432877388238717
+        ],
+        [
+          -0.008083706301600617,
+          -0.012432877388227362,
+          0.0002834120750646962
+        ]
+      ],
+      "truth_x_m": -0.9627990126609802,
+      "truth_y_m": -59.02731704711914,
+      "truth_z_m": -0.45432978868484497,
+      "xy_error_m": 1.452941993332905,
+      "z_error_m": 0.5170151591300964,
+      "heading_error_deg": 0.15022597141332092,
+      "moga_initial_cost": 5.055886145919285,
+      "moga_final_cost": 1.272850338911433
+    },
+    {
+      "site": 7,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -8.252805709838867,
+      "truth_y_m": -83.77835845947266,
+      "truth_z_m": -1.3806068897247314,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 8,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -11.781176567077637,
+      "truth_y_m": -93.33480834960938,
+      "truth_z_m": -2.9016098976135254,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 9,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -18.610734939575195,
+      "truth_y_m": -138.35015869140625,
+      "truth_z_m": -2.200972080230713,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 10,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -23.69623565673828,
+      "truth_y_m": -150.10791015625,
+      "truth_z_m": -0.596463680267334,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 11,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": -331.28205128205127,
+      "initial_y_m": -206.4102564102564,
+      "initial_heading_deg": -112.61986494804043,
+      "estimated_x_m": -328.3616727907592,
+      "estimated_y_m": -201.84551910460354,
+      "estimated_z_m": 7.0568727850914,
+      "estimated_heading_deg": -110.50678193907468,
+      "pose_covariance_xyyaw": [
+        [
+          46.061710633684,
+          -1.4289025133075253,
+          0.021861473567315586
+        ],
+        [
+          -1.4289025133233455,
+          45.67332038203904,
+          -0.019091357134337007
+        ],
+        [
+          0.021861473567322834,
+          -0.019091357134336902,
+          0.00029208794544417646
+        ]
+      ],
+      "truth_x_m": -26.17138671875,
+      "truth_y_m": -156.74221801757812,
+      "truth_z_m": -0.03909933567047119,
+      "xy_error_m": 305.5376846891879,
+      "z_error_m": 7.095972120761871,
+      "heading_error_deg": 0.031625307029107125,
+      "moga_initial_cost": 6.78589120213376,
+      "moga_final_cost": 1.3569475362193464
+    },
+    {
+      "site": 12,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": 203.36375711458018,
+      "initial_y_m": 400.8947787197489,
+      "initial_heading_deg": -97.69605172201656,
+      "estimated_x_m": 203.40293721334166,
+      "estimated_y_m": 402.53270113427936,
+      "estimated_z_m": -1.5712082982063293,
+      "estimated_heading_deg": -95.82645243068698,
+      "pose_covariance_xyyaw": [
+        [
+          74.42642682766859,
+          0.7693771521664594,
+          0.010725078873361889
+        ],
+        [
+          0.7693771522713249,
+          75.584117836275,
+          0.021490601982056247
+        ],
+        [
+          0.010725078873391214,
+          0.021490601982057135,
+          0.00029957791261913357
+        ]
+      ],
+      "truth_x_m": -27.199756622314453,
+      "truth_y_m": -174.37538146972656,
+      "truth_z_m": 1.2406376600265503,
+      "xy_error_m": 621.2894157943557,
+      "z_error_m": 2.8118459582328796,
+      "heading_error_deg": 0.11517559348893147,
+      "moga_initial_cost": 2.827788770330292,
+      "moga_final_cost": 0.5681560408266034
+    },
+    {
+      "site": 13,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -30.75284194946289,
+      "truth_y_m": -198.97962951660156,
+      "truth_z_m": 2.7760562896728516,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 14,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": 248.56633402505028,
+      "initial_y_m": 582.2288084171882,
+      "initial_heading_deg": -135.78678396895492,
+      "estimated_x_m": 248.23554943934576,
+      "estimated_y_m": 587.384534845335,
+      "estimated_z_m": 0.2783616781234741,
+      "estimated_heading_deg": -132.12509434498742,
+      "pose_covariance_xyyaw": [
+        [
+          44.478877726707644,
+          0.26370049363906745,
+          0.003922039748722115
+        ],
+        [
+          0.2637004935405436,
+          45.72767636986934,
+          0.019367716474016146
+        ],
+        [
+          0.003922039748682578,
+          0.01936771647401622,
+          0.000288057685567138
+        ]
+      ],
+      "truth_x_m": -50.64036178588867,
+      "truth_y_m": -224.77685546875,
+      "truth_z_m": 3.8478145599365234,
+      "xy_error_m": 865.4091137881676,
+      "z_error_m": 3.5694528818130493,
+      "heading_error_deg": 0.18413297886752494,
+      "moga_initial_cost": 9.647011552022645,
+      "moga_final_cost": 1.2802635465655066
+    },
+    {
+      "site": 15,
+      "status": "solution",
+      "initial_source": "ransac",
+      "initial_x_m": -535.5399834254758,
+      "initial_y_m": -524.3016693933778,
+      "initial_heading_deg": 142.5714884569366,
+      "estimated_x_m": -539.9502125447689,
+      "estimated_y_m": -528.1257302680148,
+      "estimated_z_m": 8.660060822963715,
+      "estimated_heading_deg": 148.12645149156722,
+      "pose_covariance_xyyaw": [
+        [
+          37.568745209467984,
+          0.5233196832937708,
+          -0.012574697756749447
+        ],
+        [
+          0.5233196832610076,
+          37.52142550435183,
+          -0.012019027063317084
+        ],
+        [
+          -0.012574697756746184,
+          -0.012019027063332249,
+          0.00028880173531691607
+        ]
+      ],
+      "truth_x_m": -16.422508239746094,
+      "truth_y_m": 6.153733253479004,
+      "truth_z_m": 0.1715155839920044,
+      "xy_error_m": 748.0212579303495,
+      "z_error_m": 8.48854523897171,
+      "heading_error_deg": 0.3224567166248937,
+      "moga_initial_cost": 22.318548692989275,
+      "moga_final_cost": 3.2202112362861177
+    },
+    {
+      "site": 16,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -178.57537841796875,
+      "truth_y_m": -323.9828796386719,
+      "truth_z_m": 6.217787742614746,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 17,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -102.15924835205078,
+      "truth_y_m": -266.02862548828125,
+      "truth_z_m": 3.638662815093994,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 18,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": 919.7283513930539,
+      "initial_y_m": 619.9907598110029,
+      "initial_heading_deg": -139.23374675268127,
+      "estimated_x_m": 919.7882224258761,
+      "estimated_y_m": 615.9625667093994,
+      "estimated_z_m": -15.739060878753662,
+      "estimated_heading_deg": -139.0374749034123,
+      "pose_covariance_xyyaw": [
+        [
+          32.11382508768364,
+          0.26126855511090064,
+          0.0105400281139193
+        ],
+        [
+          0.26126855514398173,
+          31.91148686986884,
+          0.00722129503601053
+        ],
+        [
+          0.010540028113932037,
+          0.007221295036001144,
+          0.0002913196065887639
+        ]
+      ],
+      "truth_x_m": -131.5979461669922,
+      "truth_y_m": -290.22393798828125,
+      "truth_z_m": 5.277122974395752,
+      "xy_error_m": 1388.0154382443268,
+      "z_error_m": 21.016183853149414,
+      "heading_error_deg": 0.08635413713633752,
+      "moga_initial_cost": 8.174206017651894,
+      "moga_final_cost": 3.3965378276153615
+    },
+    {
+      "site": 19,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": -621.392674786236,
+      "initial_y_m": -483.2412515707905,
+      "initial_heading_deg": -163.58921540312227,
+      "estimated_x_m": -624.7717695161338,
+      "estimated_y_m": -484.40510010486696,
+      "estimated_z_m": 11.211032390594482,
+      "estimated_heading_deg": -163.23332452542022,
+      "pose_covariance_xyyaw": [
+        [
+          37.50832341396896,
+          -0.45190905722512476,
+          0.01185954136886239
+        ],
+        [
+          -0.45190905727569763,
+          37.44049814155129,
+          -0.011002912751782367
+        ],
+        [
+          0.011859541368873901,
+          -0.011002912751781491,
+          0.00028875167881028285
+        ]
+      ],
+      "truth_x_m": -162.78665161132812,
+      "truth_y_m": -310.0521240234375,
+      "truth_z_m": 5.476531028747559,
+      "xy_error_m": 493.790653449383,
+      "z_error_m": 5.734501361846924,
+      "heading_error_deg": 0.15389355091310242,
+      "moga_initial_cost": 6.5888017256677935,
+      "moga_final_cost": 2.781039685093888
+    },
+    {
+      "site": 20,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": -193.06514487013544,
+      "initial_y_m": -338.42552907038964,
+      "initial_heading_deg": -139.36959164839908,
+      "estimated_x_m": -186.96623734194245,
+      "estimated_y_m": -340.1461686838352,
+      "estimated_z_m": 7.438794136047363,
+      "estimated_heading_deg": -137.04820023813792,
+      "pose_covariance_xyyaw": [
+        [
+          37.53562154962081,
+          0.59092160272413,
+          0.01230221371515894
+        ],
+        [
+          0.5909216027283382,
+          37.7000701944971,
+          0.014132540609758791
+        ],
+        [
+          0.012302213715160704,
+          0.01413254060975082,
+          0.0002942209831501119
+        ]
+      ],
+      "truth_x_m": -194.00518798828125,
+      "truth_y_m": -337.96356201171875,
+      "truth_z_m": 6.880199909210205,
+      "xy_error_m": 7.369572449386779,
+      "z_error_m": 0.5585942268371582,
+      "heading_error_deg": 0.02819304598359761,
+      "moga_initial_cost": 5.499492993466257,
+      "moga_final_cost": 0.7689145860006109
+    },
+    {
+      "site": 21,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -211.0142364501953,
+      "truth_y_m": -352.2628173828125,
+      "truth_z_m": 5.4391608238220215,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 22,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -236.06866455078125,
+      "truth_y_m": -371.45111083984375,
+      "truth_z_m": 5.889065742492676,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 23,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": -249.99118005036848,
+      "initial_y_m": -378.85872078763066,
+      "initial_heading_deg": -160.59637426214428,
+      "estimated_x_m": -250.34466261806296,
+      "estimated_y_m": -375.65553377186797,
+      "estimated_z_m": 6.823446035385132,
+      "estimated_heading_deg": -159.28464701478424,
+      "pose_covariance_xyyaw": [
+        [
+          44.853156705185526,
+          0.33916632009220216,
+          0.011063858881773133
+        ],
+        [
+          0.3391663200221444,
+          44.69444936324648,
+          0.00877406884994253
+        ],
+        [
+          0.011063858881764381,
+          0.008774068849952832,
+          0.00028621668439326634
+        ]
+      ],
+      "truth_x_m": -252.51278686523438,
+      "truth_y_m": -377.9277648925781,
+      "truth_z_m": 6.394556045532227,
+      "xy_error_m": 3.1406682437176303,
+      "z_error_m": 0.4288899898529053,
+      "heading_error_deg": 0.3423712808494824,
+      "moga_initial_cost": 3.6627832813446712,
+      "moga_final_cost": 1.398189459975072
+    },
+    {
+      "site": 24,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -279.89703369140625,
+      "truth_y_m": -394.0205078125,
+      "truth_z_m": 5.653914928436279,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 25,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -301.57952880859375,
+      "truth_y_m": -399.9701232910156,
+      "truth_z_m": 3.864340305328369,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 26,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -312.87744140625,
+      "truth_y_m": -352.31488037109375,
+      "truth_z_m": 5.095863342285156,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    },
+    {
+      "site": 27,
+      "status": "solution",
+      "initial_source": "darces",
+      "initial_x_m": -205.01925528525342,
+      "initial_y_m": -154.57968320275586,
+      "initial_heading_deg": 162.9487381444465,
+      "estimated_x_m": -204.5405868338354,
+      "estimated_y_m": -153.14248824564427,
+      "estimated_z_m": 3.82082462310791,
+      "estimated_heading_deg": 165.0615341608003,
+      "pose_covariance_xyyaw": [
+        [
+          44.72189716484425,
+          -0.06953970791158248,
+          0.009222056252772986
+        ],
+        [
+          -0.0695397078401756,
+          44.44179123776094,
+          -0.002163482388466759
+        ],
+        [
+          0.009222056252759715,
+          -0.002163482388483401,
+          0.00028691170710943523
+        ]
+      ],
+      "truth_x_m": -355.8419494628906,
+      "truth_y_m": -339.0829162597656,
+      "truth_z_m": 6.069794654846191,
+      "xy_error_m": 239.7205562806067,
+      "z_error_m": 2.2489700317382812,
+      "heading_error_deg": 0.17410980278406513,
+      "moga_initial_cost": 6.474543202204802,
+      "moga_final_cost": 1.9525419995717919
+    },
+    {
+      "site": 28,
+      "status": "feature_pose_unavailable",
+      "initial_source": "none",
+      "truth_x_m": -390.8143615722656,
+      "truth_y_m": -362.02740478515625,
+      "truth_z_m": 6.942140579223633,
+      "xy_error_m": null,
+      "z_error_m": null,
+      "heading_error_deg": null
+    }
+  ]
+}

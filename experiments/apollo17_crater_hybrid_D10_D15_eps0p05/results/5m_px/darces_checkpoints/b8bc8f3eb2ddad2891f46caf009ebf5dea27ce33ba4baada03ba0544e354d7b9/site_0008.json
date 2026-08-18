@@ -1,0 +1,9 @@
+{
+  "signature": "b8bc8f3eb2ddad2891f46caf009ebf5dea27ce33ba4baada03ba0544e354d7b9",
+  "result": {
+    "site": 8,
+    "local_feature_count": 1,
+    "heading_measurement_deg": -114.39735521942477,
+    "status": "skipped_insufficient_features"
+  }
+}

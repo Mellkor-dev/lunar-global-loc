@@ -1,0 +1,11 @@
+=== Site 23 ===
+Generated 781 ordered hypotheses by deterministic edge lookup
+Hypothesis screening
+--------------------
+Passed all screening: 20
+Rejected by outside_map       : 4
+Rejected by heading           : 757
+Rejected by vertical          : 0
+Rejected by feature_consensus : 0
+Rejected by overlap_or_fitness: 0
+DARCES: no valid high-fitness pose cluster found

@@ -21,9 +21,9 @@ def test_feature_scale_is_consistent_across_rasters() -> None:
     assert config.features.radius_for_resolution(
         config.orbital_raster.resolution_m
     ) == 3
-    assert config.features.radius_for_resolution(
-        config.truth_raster.resolution_m
-    ) == 10
+    truth_target = config.feature_detection_targets["1p5m"]
+    assert truth_target.radius_cells == 10
+    assert np.isclose(truth_target.distance_m, 15.0)
 
 
 def test_resolution_specific_detector_profiles() -> None:
@@ -62,6 +62,9 @@ def test_resolution_workspace_paths_are_projected_consistently() -> None:
     assert config.captures_path.name == "0p25m_px"
     assert config.features.radius_cells == 60
     assert config.truth_raster.resolution_m == 1.5
+    assert config.site_selection_maximum_sites == 50
+    assert config.site_selection_random_seed == 29
+    assert config.site_selection_manifest_path.name == "selected_sites.json"
 
 
 def test_truth_raster_coordinate_contract() -> None:
