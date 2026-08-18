@@ -18,6 +18,12 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from features.dilation_detector import detect_craters, detect_peaks
 from pipeline_config import add_resolution_argument, load_resolution_config
+from site_selection import (
+    filter_paths_to_sites,
+    remove_unselected_site_artifacts,
+    selected_sites_for_config,
+)
+from traversal_presentation import environment_display_name
 
 
 CONFIG = load_resolution_config("5m")
@@ -72,7 +78,7 @@ def save_preview(
         y_centers_m[0] + half_cell,
     )
 
-    figure, axis = plt.subplots(figsize=(8, 7))
+    figure, axis = plt.subplots(figsize=(9.2, 7.5), layout="constrained")
     image = axis.imshow(
         masked_elevation,
         origin="upper",
@@ -85,23 +91,50 @@ def save_preview(
             feature_xy_m[:, 1],
             marker="x",
             color="red",
-            s=55,
-            linewidths=1.8,
+            s=28,
+            linewidths=1.2,
             label=f"Detected {CONFIG.features.kind}",
         )
 
-    axis.scatter(0.0, 0.0, marker="^", color="black", s=45, label="Rover")
-    axis.legend()
-    axis.set_title(
-        f"Site {site_number:02d}: local {CONFIG.features.kind} features "
-        f"(N={len(feature_xy_m)})"
+    axis.scatter(0.0, 0.0, marker="^", color="black", s=40, label="Rover")
+    axis.legend(
+        loc="upper right",
+        fontsize=10,
+        framealpha=0.88,
+        borderpad=0.45,
+        handletextpad=0.55,
     )
-    axis.set_xlabel("Rover-local x [m]")
-    axis.set_ylabel("Rover-local y [m]")
+    axis.set_title(
+        f"{environment_display_name(CONFIG)} Site {site_number:02d} "
+        f"local {CONFIG.features.kind}s — gridded to {RESOLUTION_M:g}m/px\n"
+        f"n={DETECTION_RADIUS_CELLS}, D={DETECTION_DISTANCE_M:g}m, "
+        f"No.={len(feature_xy_m)}",
+        fontsize=18,
+        fontweight="bold",
+        pad=9,
+    )
+    axis.set_xlabel("Rover-local x [m]", fontsize=14)
+    axis.set_ylabel("Rover-local y [m]", fontsize=14)
+    axis.tick_params(axis="both", labelsize=11)
     axis.set_aspect("equal")
-    figure.colorbar(image, ax=axis, label="Leveled elevation [m]")
-    figure.tight_layout()
-    figure.savefig(path, dpi=170)
+    colorbar = figure.colorbar(
+        image,
+        ax=axis,
+        label="Leveled elevation [m]",
+        fraction=0.026,
+        pad=0.018,
+        shrink=0.55,
+        aspect=26,
+    )
+    colorbar.ax.tick_params(labelsize=9)
+    colorbar.set_label("Leveled elevation [m]", fontsize=11, labelpad=6)
+    figure.savefig(
+        path,
+        dpi=250,
+        bbox_inches="tight",
+        pad_inches=0.04,
+        facecolor="white",
+    )
     plt.close(figure)
 
 def crater_feature_covariances(
@@ -345,9 +378,25 @@ def main() -> None:
     FLATNESS_EPS_M = CONFIG.features.flatness_threshold_m
     MIN_VALID_FRACTION = CONFIG.features.local_min_valid_fraction
 
-    grid_paths = sorted(GRID_DIRECTORY.glob("grid_site_*.npz"))
+    selected_sites = selected_sites_for_config(CONFIG)
+    grid_paths = filter_paths_to_sites(
+        GRID_DIRECTORY.glob("grid_site_*.npz"), selected_sites
+    )
     if not grid_paths:
         raise FileNotFoundError(f"No local grids found in {GRID_DIRECTORY}")
+    found_sites = {int(path.stem.rsplit("_", 1)[1]) for path in grid_paths}
+    missing_sites = sorted(set(selected_sites).difference(found_sites))
+    if missing_sites:
+        raise FileNotFoundError(
+            f"Selected sites have no local grids: {missing_sites}"
+        )
+
+    removed_catalogues = remove_unselected_site_artifacts(
+        FEATURE_DIRECTORY, "local_craters_site_*.npz", selected_sites
+    )
+    removed_previews = remove_unselected_site_artifacts(
+        PREVIEW_DIRECTORY, "local_craters_site_*.png", selected_sites
+    )
 
     rows = [process_grid(path) for path in grid_paths]
     with SUMMARY_PATH.open("w", encoding="utf-8", newline="") as stream:
@@ -370,6 +419,12 @@ def main() -> None:
     print(f"Feature catalogues: {FEATURE_DIRECTORY}")
     print(f"Preview plots:      {PREVIEW_DIRECTORY}")
     print(f"Summary:            {SUMMARY_PATH}")
+    print(f"Shared site manifest: {CONFIG.site_selection_manifest_path}")
+    if removed_catalogues or removed_previews:
+        print(
+            "Removed stale unselected artifacts: "
+            f"catalogues={removed_catalogues}, previews={removed_previews}"
+        )
 
 
 if __name__ == "__main__":

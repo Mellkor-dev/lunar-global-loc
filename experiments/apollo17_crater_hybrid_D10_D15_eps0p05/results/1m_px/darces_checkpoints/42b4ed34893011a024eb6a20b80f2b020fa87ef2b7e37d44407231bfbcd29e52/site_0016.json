@@ -1,0 +1,13 @@
+{
+  "signature": "42b4ed34893011a024eb6a20b80f2b020fa87ef2b7e37d44407231bfbcd29e52",
+  "result": {
+    "site": 16,
+    "local_feature_count": 5,
+    "heading_measurement_deg": -138.39500865476546,
+    "status": "no_solution",
+    "fitness_reference": "raw_lidar_xy_decimated",
+    "fitness_reference_spacing_m": 0.5,
+    "fitness_reference_point_count": 6420,
+    "runtime_s": 12.269376687996555
+  }
+}

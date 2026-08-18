@@ -1,0 +1,206 @@
+experiment:
+  name: apollo17_carle_5m
+  description: >
+    Carle et al. global localization using a 1.5 m simulation-truth
+    Apollo 17 DEM and a degraded 5 m orbital localization prior.
+
+site_selection:
+  maximum_sites: 50
+  random_seed: 29
+  manifest: sim/selected_sites.json
+
+paths:
+  truth_dem: DEM/1p5m_px/truth_dem_1p5m.npy
+  truth_metadata: DEM/1p5m_px/truth_dem_1p5m.yaml
+
+  orbital_dem: DEM/5m_px/orbital_dem_5m.npy
+  orbital_metadata: DEM/5m_px/orbital_dem_5m.yaml
+  orbital_valid_mask: DEM/5m_px/orbital_valid_mask_5m.npy
+  global_features: DEM/5m_px/global_craters.npz
+  truth_features: DEM/1p5m_px/truth_craters.npz
+  feature_uncertainty: DEM/5m_px/validation/global_feature_uncertainty.json
+  dem_qa: DEM/5m_px/qa
+  feature_validation: DEM/5m_px/validation
+
+  raw_local_maps: local_maps/5m_px/raw
+  leveled_local_maps: local_maps/5m_px/leveled
+  gridded_local_maps: local_maps/5m_px/gridded
+  local_features: local_maps/5m_px/features
+  plots: plots/5m_px
+  results: results/5m_px
+  captures: sim/5m_px
+  capture_validation: sim/5m_px/validation
+
+truth_dem:
+  source_label: Apollo 17 native 1.5 m/px truth source
+  source_profile: 1p5m
+  resolution_m: 1.5
+  shape: [1334, 1334]
+  cell_edge_extent_m: [2001.0, 2001.0]
+  path: DEM/1p5m_px/dem.npy
+  metadata_path: DEM/1p5m_px/dem.yaml
+  edge_bounds_m:
+    x_min: -1000.5
+    x_max: 1000.5
+    y_min: -1000.5
+    y_max: 1000.5
+
+  first_cell_center_m:
+    x: -999.75
+    y: 999.75
+
+orbital_dem:
+  resolution_m: 5.0
+  shape: [400,400]
+  cell_edge_extent_m: [2000.0, 2000.0]
+  resampling_method: area_weighted_average
+  source_border_crop_m: 0.5
+
+  edge_bounds_m:
+    x_min: -1000.0
+    x_max: 1000.0
+    y_min: -1000.0
+    y_max: 1000.0
+
+  first_cell_center_m:
+    x: -997.5
+    y: 997.5
+
+coordinates:
+  geographic_center:
+    longitude_deg_east: 30.77229
+    latitude_deg_north: 20.19113
+
+  map_frame:
+    name: map
+    origin_description: center_of_apollo17_crop
+    origin_x_m: 0.0
+    origin_y_m: 0.0
+    x_direction: east
+    y_direction: north
+    z_direction: up
+    positive_yaw: counter_clockwise
+
+  raster:
+    column_direction: east
+    row_direction: south
+    column_to_map_x_sign: 1
+    row_to_map_y_sign: -1
+
+sensor:
+  base_to_lidar_translation_m: [-0.15, 0.0, 0.415]
+
+feature_detection:
+  feature_kind: crater
+  cell_radius: 3
+  detection_distance_m: 15
+  flatness_threshold_m: 0.05
+  local_min_valid_fraction: 0.10
+
+  # Native detector inputs.  Keys are accepted by
+  # Scripts/03_feature_detector.py --resolution.
+  resolutions:
+    0p25m:
+      dem: DEM/0p25m_px/apollo17_refined_0p25m_2000m.npy
+      metadata: DEM/0p25m_px/apollo17_refined_0p25m_2000m.json
+      output: DEM/0p25m_px/global_craters.npz
+      preview: plots/0p25m_px/global_features_preview.png
+      resolution_m: 0.25
+      shape: [8000, 8000]
+      first_cell_center_m: {x: -999.875, y: 999.875}
+      cell_radius: 60
+      detection_distance_m: 15
+      flatness_threshold_m: 0.05
+      catalogue_role: global
+
+    0p5m:
+      dem: DEM/0p5m_px/orbital_dem_0p5m.npy
+      metadata: DEM/0p5m_px/orbital_dem_0p5m.yaml
+      output: DEM/0p5m_px/global_craters.npz
+      preview: plots/0p5m_px/global_features_preview.png
+      resolution_m: 0.5
+      shape: [4000, 4000]
+      first_cell_center_m: {x: -999.75, y: 999.75}
+      cell_radius: 30
+      detection_distance_m: 15
+      flatness_threshold_m: 0.05
+      catalogue_role: global
+
+    1m:
+      dem: DEM/1m_px/orbital_dem_1m.npy
+      metadata: DEM/1m_px/orbital_dem_1m.yaml
+      output: DEM/1m_px/global_craters.npz
+      preview: plots/1m_px/global_features_preview.png
+      resolution_m: 1.0
+      shape: [2000, 2000]
+      first_cell_center_m: {x: -999.5, y: 999.5}
+      cell_radius: 15
+      detection_distance_m: 15
+      flatness_threshold_m: 0.05
+      catalogue_role: global
+
+    # Truth-reference detector profile. It is processed by --resolution all
+    # but is intentionally hidden from the selectable paper-pipeline matrix.
+    1p5m:
+      dem: DEM/1p5m_px/truth_dem_1p5m.npy
+      metadata: DEM/1p5m_px/truth_dem_1p5m.yaml
+      output: DEM/1p5m_px/truth_craters.npz
+      preview: plots/1p5m_px/truth_features_preview.png
+      resolution_m: 1.5
+      shape: [1334, 1334]
+      first_cell_center_m: {x: -999.75, y: 999.75}
+      cell_radius: 10
+      detection_distance_m: 15
+      flatness_threshold_m: 0.05
+      catalogue_role: truth
+      selectable: false
+
+    2m:
+      dem: DEM/2m_px/orbital_dem_2m.npy
+      metadata: DEM/2m_px/orbital_dem_2m.yaml
+      output: DEM/2m_px/global_craters.npz
+      preview: plots/2m_px/global_features_preview.png
+      resolution_m: 2.0
+      shape: [1000, 1000]
+      first_cell_center_m: {x: -999.0, y: 999.0}
+      cell_radius: 8
+      detection_distance_m: 16
+      flatness_threshold_m: 0.05
+      catalogue_role: global
+
+    5m:
+      dem: DEM/5m_px/orbital_dem_5m.npy
+      metadata: DEM/5m_px/orbital_dem_5m.yaml
+      output: DEM/5m_px/global_craters.npz
+      preview: plots/5m_px/global_features_preview.png
+      resolution_m: 5.0
+      shape: [400, 400]
+      first_cell_center_m: {x: -997.5, y: 997.5}
+      cell_radius: 3
+      detection_distance_m: 15
+      flatness_threshold_m: 0.05
+      catalogue_role: global
+
+    10m:
+      dem: DEM/10m_px/orbital_dem_10m.npy
+      metadata: DEM/10m_px/orbital_dem_10m.yaml
+      output: DEM/10m_px/global_craters.npz
+      preview: plots/10m_px/global_features_preview.png
+      resolution_m: 10.0
+      shape: [200, 200]
+      first_cell_center_m: {x: -995.0, y: 995.0}
+      cell_radius: 2
+      detection_distance_m: 20
+      flatness_threshold_m: 0.05
+      catalogue_role: global
+
+global_feature_uncertainty:
+  intrinsic_horizontal_sigma_m: 10.0
+  intrinsic_vertical_sigma_m: 1.3
+  match_gate_fraction_of_detection_distance: 0.5
+
+darces:
+  enabled: false
+
+moga:
+  enabled: false

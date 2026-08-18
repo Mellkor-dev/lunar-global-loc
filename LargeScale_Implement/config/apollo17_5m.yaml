@@ -4,6 +4,11 @@ experiment:
     Carle et al. global localization using a 1.5 m simulation-truth
     Apollo 17 DEM and a degraded 5 m orbital localization prior.
 
+site_selection:
+  maximum_sites: 50
+  random_seed: 29
+  manifest: sim/selected_sites.json
+
 paths:
   truth_dem: DEM/1p5m_px/truth_dem_1p5m.npy
   truth_metadata: DEM/1p5m_px/truth_dem_1p5m.yaml
@@ -82,8 +87,13 @@ coordinates:
     column_to_map_x_sign: 1
     row_to_map_y_sign: -1
 
+sensor:
+  base_to_lidar_translation_m: [-0.15, 0.0, 0.415]
+
 feature_detection:
   feature_kind: crater
+  # Uniform physical detector scale used for the controlled DEM-resolution
+  # comparison. Coarse grids use the nearest integer-cell realization.
   cell_radius: 3
   detection_distance_m: 15
   flatness_threshold_m: 0.05
@@ -155,6 +165,7 @@ feature_detection:
       resolution_m: 2.0
       shape: [1000, 1000]
       first_cell_center_m: {x: -999.0, y: 999.0}
+      # Nearest exact integer-grid realization of the 15 m target scale.
       cell_radius: 8
       detection_distance_m: 16
       flatness_threshold_m: 0.05
@@ -181,6 +192,7 @@ feature_detection:
       resolution_m: 10.0
       shape: [200, 200]
       first_cell_center_m: {x: -995.0, y: 995.0}
+      # Nearest exact integer-grid realization of the 15 m target scale.
       cell_radius: 2
       detection_distance_m: 20
       flatness_threshold_m: 0.05

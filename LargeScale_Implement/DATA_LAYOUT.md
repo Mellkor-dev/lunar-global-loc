@@ -1,5 +1,14 @@
 # Resolution experiment data layout
 
+## Shared capture-site selection
+
+`sim/selected_sites.json` is the authoritative experiment-wide sample. When a
+dataset contains more than 50 synchronized cloud/odometry/transform captures,
+the pipeline selects 50 unique site IDs without replacement using the seed in
+the active YAML configuration. Every DEM resolution and every local stage uses
+the same IDs. Run `Scripts/20_select_sites.py --resolution 0p25m --refresh` to
+intentionally regenerate the manifest; ordinary reruns reuse it.
+
 All generated data is grouped by raster resolution. Directory labels use
 `p` as the decimal separator so they remain shell-friendly (`0p5m_px`).
 Apollo 17 DEM validation and global-feature uncertainty always reference the
@@ -55,6 +64,7 @@ python3 Scripts/13_pipeline_diagnostics.py --resolution all
 python3 Scripts/14_results_presentation.py
 python3 Scripts/15_validate_dem_refinement.py
 python3 Scripts/16_build_10m_dem.py
+python3 Scripts/19_monitor_darces_runtime.py --resolution all
 ```
 
 For a selected `<resolution>`, pipeline products are read from and written to
@@ -62,6 +72,16 @@ the matching `DEM/<resolution>_px`, `local_maps/<resolution>_px`,
 `plots/<resolution>_px`, `results/<resolution>_px`, and
 `sim/<resolution>_px` directories. Script 05 additionally accepts
 `--grid-resolution` to override the profile's native cell size.
+
+Script 10 preserves the two-panel `traversal/darces_traversal_map.png`
+diagnostic and also writes the presentation-oriented grayscale contour map
+`traversal/darces_prediction_contour_map.png`. The contour map displays the
+lowest-ground-truth-XY-error available DARCES, RANSAC, or MOGA estimate at
+each site for evaluation and presentation only; this selection is never fed
+back into localization. Its companion
+`darces_prediction_contour_map_site_mapping.csv` records the display-order to
+raw-capture-site mapping used to draw a smooth spatial route without changing
+localization identities or results.
 
 Script 01 only creates an equal- or lower-resolution DEM from the configured
 1.5 m truth reference; it intentionally rejects an attempt to synthesize the

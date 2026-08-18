@@ -1,0 +1,16 @@
+=== Site 22 ===
+Generated 19972 ordered hypotheses by deterministic edge lookup
+Hypothesis screening
+--------------------
+Passed all screening: 460
+Rejected by outside_map       : 110
+Rejected by heading           : 19314
+Rejected by vertical          : 87
+Rejected by feature_consensus : 0
+Rejected by overlap_or_fitness: 1
+Best fitness:             -0.4982
+Estimated XY translation: [-231.57116998 -375.90202277]
+Estimated Z translation:  5.9835
+Estimated heading:        -156.06 deg
+Distinct local triangles: 3
+Cluster members:          3

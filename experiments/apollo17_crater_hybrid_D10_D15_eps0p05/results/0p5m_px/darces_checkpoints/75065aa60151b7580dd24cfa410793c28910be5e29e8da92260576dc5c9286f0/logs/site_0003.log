@@ -1,0 +1,16 @@
+=== Site 03 ===
+Generated 22344 ordered hypotheses by deterministic edge lookup
+Hypothesis screening
+--------------------
+Passed all screening: 467
+Rejected by outside_map       : 0
+Rejected by heading           : 21766
+Rejected by vertical          : 111
+Rejected by feature_consensus : 0
+Rejected by overlap_or_fitness: 0
+Best fitness:             -0.1720
+Estimated XY translation: [21.07846262 -9.52455935]
+Estimated Z translation:  -0.0355
+Estimated heading:        -43.07 deg
+Distinct local triangles: 4
+Cluster members:          5

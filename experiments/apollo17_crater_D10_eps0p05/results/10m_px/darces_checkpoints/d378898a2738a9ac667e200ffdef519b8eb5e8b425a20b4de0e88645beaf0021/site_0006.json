@@ -1,0 +1,47 @@
+{
+  "signature": "d378898a2738a9ac667e200ffdef519b8eb5e8b425a20b4de0e88645beaf0021",
+  "result": {
+    "site": 6,
+    "local_feature_count": 23,
+    "heading_measurement_deg": -149.25701624245687,
+    "status": "solution",
+    "fitness_reference": "raw_lidar_xy_decimated",
+    "fitness_reference_spacing_m": 5.0,
+    "fitness_reference_point_count": 1102,
+    "runtime_s": 151.27508496900555,
+    "estimated_x_m": 3.000972370844778,
+    "estimated_y_m": -64.54525311110982,
+    "estimated_z_m": -0.23602092266082764,
+    "estimated_heading_deg": -150.1177190155725,
+    "fitness": -0.3557645761575893,
+    "overlap": 1.0,
+    "cluster_size": 5,
+    "evaluated_hypothesis_count": 1513,
+    "truth_x_m": -0.9627990126609802,
+    "truth_y_m": -59.02731704711914,
+    "truth_z_m": -0.45432978868484497,
+    "xy_error_m": 6.79404901270134,
+    "z_error_m": 0.21830886602401733,
+    "heading_error_deg": 0.8607027731156336,
+    "consensus_count": 0,
+    "consensus_xy_rmse_m": Infinity,
+    "consensus_z_rmse_m": Infinity,
+    "correspondence_count": 5,
+    "correspondence_local_indices": [
+      1,
+      22,
+      3,
+      2,
+      17
+    ],
+    "correspondence_global_indices": [
+      217,
+      260,
+      234,
+      236,
+      249
+    ],
+    "correspondence_xy_rmse_m": 6.849126761195007,
+    "correspondence_z_rmse_m": 0.4302606979447372
+  }
+}

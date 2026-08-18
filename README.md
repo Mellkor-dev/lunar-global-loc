@@ -1,5 +1,17 @@
 # Lunar Global Localization
 
+Local experiments use one persisted random site sample across all DEM
+resolutions. The default policy selects exactly 50 synchronized capture sites
+without replacement when more than 50 are available, otherwise it selects all
+available sites. Inspect or intentionally regenerate the sample with:
+
+```bash
+python3 LargeScale_Implement/Scripts/20_select_sites.py \
+  --resolution 0p25m --refresh
+```
+
+The selected IDs are stored in `LargeScale_Implement/sim/selected_sites.json`.
+
 Experimental global localization for a lunar rover using terrain features
 extracted from digital elevation models (DEMs) and local LiDAR scans. The main
 Apollo 17 pipeline detects crater minima at multiple map resolutions, builds
@@ -185,7 +197,8 @@ python3 LargeScale_Implement/Scripts/08_darces_run.py \
 # All captured sites
 python3 LargeScale_Implement/Scripts/09_darces_all_sites.py \
   --resolution 5m \
-  --trials 100000
+  --trials 100000 \
+  --workers 6
 
 # Covariance-aware exhaustive consensus refinement
 python3 LargeScale_Implement/Scripts/11_ransac_all_sites.py \
@@ -195,6 +208,28 @@ python3 LargeScale_Implement/Scripts/11_ransac_all_sites.py \
 python3 LargeScale_Implement/Scripts/12_moga_all_sites.py \
   --resolution 5m
 ```
+
+`--workers` evaluates independent sites in separate processes without changing
+the per-site seed or numerical DARCES settings. Each completed site is written
+atomically beneath `results/<resolution>_px/darces_checkpoints/`; rerunning the
+same command resumes compatible checkpoints. Use `--no-resume` for a deliberate
+fresh run or `--sites 1 8 15` for a bounded subset. Worker detail logs are kept
+beside the checkpoints. The runner atomically refreshes
+`results/<resolution>_px/darces_runtime_by_site.csv` after every completed
+site. It records feature count, hypothesis cap, generated and screened
+hypothesis counts, evaluated hypotheses, runtime, and localization errors.
+
+For one combined table across resolutions, or to monitor an already-running
+legacy process, use:
+
+```bash
+python3 LargeScale_Implement/Scripts/19_monitor_darces_runtime.py \
+  --resolution all
+```
+
+Add `--watch --interval-seconds 30 --launcher-pid <PID>` for a live ledger in
+`results/diagnostics/darces_runtime_by_site.csv`; the monitor stops when the
+launcher exits.
 
 Results are written to `LargeScale_Implement/results/<resolution>_px/` as JSON
 and CSV files. RANSAC diagnostic plots are written below

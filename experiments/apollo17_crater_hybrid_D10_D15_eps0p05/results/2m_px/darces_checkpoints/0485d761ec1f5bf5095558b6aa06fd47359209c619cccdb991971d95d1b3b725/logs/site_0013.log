@@ -1,0 +1,16 @@
+=== Site 13 ===
+Generated 33116 ordered hypotheses by deterministic edge lookup
+Hypothesis screening
+--------------------
+Passed all screening: 600
+Rejected by outside_map       : 179
+Rejected by heading           : 32088
+Rejected by vertical          : 249
+Rejected by feature_consensus : 0
+Rejected by overlap_or_fitness: 0
+Best fitness:             -0.1884
+Estimated XY translation: [ -32.72019036 -198.23944738]
+Estimated Z translation:  3.2726
+Estimated heading:        -99.29 deg
+Distinct local triangles: 3
+Cluster members:          3
