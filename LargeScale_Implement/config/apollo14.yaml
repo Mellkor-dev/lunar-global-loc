@@ -1,0 +1,213 @@
+experiment:
+  name: apollo14_curated_forward_os1
+  description: Apollo 14 global localization on the curated forward trajectory using the native 2 m/px
+    DEM as truth, aligned crater-refined DEM products from 0.25 to 10 m/px, and synchronized OS1-128 captures
+    in the native global DEM frame.
+site_selection:
+  maximum_sites: 100
+  random_seed: 42
+  manifest: sim/selected_sites.json
+paths:
+  truth_dem: DEM/2m_px/NAC_DTM_APOLLO14_2m_full_with_craters_2m.npy
+  truth_metadata: DEM/2m_px/NAC_DTM_APOLLO14_2m_full_with_craters_2m.json
+  orbital_dem: DEM/5m_px/NAC_DTM_APOLLO14_2m_full_with_craters_5m.npy
+  orbital_metadata: DEM/5m_px/NAC_DTM_APOLLO14_2m_full_with_craters_5m.json
+  orbital_valid_mask: DEM/5m_px/orbital_valid_mask_5m.npy
+  global_features: DEM/5m_px/global_craters.npz
+  truth_features: DEM/2m_px/global_craters.npz
+  feature_uncertainty: DEM/5m_px/validation/global_feature_uncertainty.json
+  dem_qa: DEM/5m_px/qa
+  feature_validation: DEM/5m_px/validation
+  raw_local_maps: local_maps/5m_px/raw
+  leveled_local_maps: local_maps/5m_px/leveled
+  gridded_local_maps: local_maps/5m_px/gridded
+  local_features: local_maps/5m_px/features
+  plots: plots/5m_px
+  results: results/5m_px
+  captures: sim/5m_px
+  capture_validation: sim/5m_px/validation
+truth_dem:
+  source_label: Apollo 14 native 2 m/px truth source
+  source_profile: 2m
+  resolution_m: 2.0
+  shape:
+  - 1000
+  - 1000
+  cell_edge_extent_m:
+  - 2000.0
+  - 2000.0
+  path: DEM/2m_px/NAC_DTM_APOLLO14_2m_full_with_craters_2m.npy
+  metadata_path: DEM/2m_px/NAC_DTM_APOLLO14_2m_full_with_craters_2m.json
+  edge_bounds_m:
+    x_min: -300.0
+    x_max: 1700.0
+    y_min: -6600.0
+    y_max: -4600.0
+  first_cell_center_m:
+    x: -300.0
+    y: -4602.0
+orbital_dem:
+  resolution_m: 5.0
+  shape:
+  - 400
+  - 400
+  cell_edge_extent_m:
+  - 2000.0
+  - 2000.0
+  resampling_method: aligned_non_overlapping_area_mean
+  edge_bounds_m:
+    x_min: -300.0
+    x_max: 1700.0
+    y_min: -6600.0
+    y_max: -4600.0
+  first_cell_center_m:
+    x: -300.0
+    y: -4605.0
+coordinates:
+  # Robust surface alignment of 680,537 curated-forward LiDAR returns to the
+  # native 0.25 m terrain: z_DEM = z_stage + offset.
+  stage_to_dem_vertical_offset_m: -1006.809
+  geographic_center:
+    longitude_deg_east: -17.457183333333333
+    latitude_deg_north: -3.438141666666666
+  global_dem_offset_m:
+    x: 0.0
+    y: 0.0
+  canonical_starting_position_global_m:
+    x: 700.0
+    y: -5600.0
+  map_frame:
+    name: global_dem
+    origin_description: native OmniLRS global DEM frame
+    origin_x_m: 0.0
+    origin_y_m: 0.0
+    x_direction: east
+    y_direction: north
+    z_direction: up
+    positive_yaw: counter_clockwise
+  raster:
+    column_direction: east
+    row_direction: south
+    column_to_map_x_sign: 1
+    row_to_map_y_sign: -1
+sensor:
+  profile: os1_rev7_128ch20hz1024res_rtx
+  pointcloud_topic: /os_cloud_node/points
+  target_frame: global_dem
+  base_frame: os1_lidar
+  lidar_frame: os1_lidar
+  base_to_lidar_translation_m:
+  - 0.0
+  - 0.0
+  - 0.0
+feature_detection:
+  feature_kind: peak
+  cell_radius: 2
+  detection_distance_m: 10
+  flatness_threshold_m: 0.10
+  local_min_valid_fraction: 0.1
+  resolutions:
+    0p25m:
+      dem: DEM/0p25m_px/NAC_DTM_APOLLO14_2m_full_with_craters_0p25m.npy
+      metadata: DEM/0p25m_px/NAC_DTM_APOLLO14_2m_full_with_craters_0p25m.json
+      output: DEM/0p25m_px/global_craters.npz
+      preview: plots/0p25m_px/global_features_preview.png
+      resolution_m: 0.25
+      shape:
+      - 8000
+      - 8000
+      first_cell_center_m:
+        x: -300.0
+        y: -4600.25
+      cell_radius: 40
+      detection_distance_m: 10.0
+      flatness_threshold_m: 0.10
+      catalogue_role: global
+    0p5m:
+      dem: DEM/0p5m_px/NAC_DTM_APOLLO14_2m_full_with_craters_0p5m.npy
+      metadata: DEM/0p5m_px/NAC_DTM_APOLLO14_2m_full_with_craters_0p5m.json
+      output: DEM/0p5m_px/global_craters.npz
+      preview: plots/0p5m_px/global_features_preview.png
+      resolution_m: 0.5
+      shape:
+      - 4000
+      - 4000
+      first_cell_center_m:
+        x: -300.0
+        y: -4600.5
+      cell_radius: 20
+      detection_distance_m: 10.0
+      flatness_threshold_m: 0.10
+      catalogue_role: global
+    1m:
+      dem: DEM/1m_px/NAC_DTM_APOLLO14_2m_full_with_craters_1m.npy
+      metadata: DEM/1m_px/NAC_DTM_APOLLO14_2m_full_with_craters_1m.json
+      output: DEM/1m_px/global_craters.npz
+      preview: plots/1m_px/global_features_preview.png
+      resolution_m: 1.0
+      shape:
+      - 2000
+      - 2000
+      first_cell_center_m:
+        x: -300.0
+        y: -4601.0
+      cell_radius: 10
+      detection_distance_m: 10.0
+      flatness_threshold_m: 0.10
+      catalogue_role: global
+    2m:
+      dem: DEM/2m_px/NAC_DTM_APOLLO14_2m_full_with_craters_2m.npy
+      metadata: DEM/2m_px/NAC_DTM_APOLLO14_2m_full_with_craters_2m.json
+      output: DEM/2m_px/global_craters.npz
+      preview: plots/2m_px/global_features_preview.png
+      resolution_m: 2.0
+      shape:
+      - 1000
+      - 1000
+      first_cell_center_m:
+        x: -300.0
+        y: -4602.0
+      cell_radius: 5
+      detection_distance_m: 10.0
+      flatness_threshold_m: 0.10
+      catalogue_role: truth
+    5m:
+      dem: DEM/5m_px/NAC_DTM_APOLLO14_2m_full_with_craters_5m.npy
+      metadata: DEM/5m_px/NAC_DTM_APOLLO14_2m_full_with_craters_5m.json
+      output: DEM/5m_px/global_craters.npz
+      preview: plots/5m_px/global_features_preview.png
+      resolution_m: 5.0
+      shape:
+      - 400
+      - 400
+      first_cell_center_m:
+        x: -300.0
+        y: -4605.0
+      cell_radius: 2
+      detection_distance_m: 10.0
+      flatness_threshold_m: 0.10
+      catalogue_role: global
+    10m:
+      dem: DEM/10m_px/NAC_DTM_APOLLO14_2m_full_with_craters_10m.npy
+      metadata: DEM/10m_px/NAC_DTM_APOLLO14_2m_full_with_craters_10m.json
+      output: DEM/10m_px/global_craters.npz
+      preview: plots/10m_px/global_features_preview.png
+      resolution_m: 10.0
+      shape:
+      - 200
+      - 200
+      first_cell_center_m:
+        x: -300.0
+        y: -4610.0
+      cell_radius: 1
+      detection_distance_m: 10.0
+      flatness_threshold_m: 0.10
+      catalogue_role: global
+global_feature_uncertainty:
+  intrinsic_horizontal_sigma_m: 10.0
+  intrinsic_vertical_sigma_m: 1.3
+  match_gate_fraction_of_detection_distance: 0.5
+darces:
+  enabled: false
+moga:
+  enabled: false

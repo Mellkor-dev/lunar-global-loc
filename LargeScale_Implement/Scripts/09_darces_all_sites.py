@@ -4,11 +4,17 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from contextlib import redirect_stderr, redirect_stdout
 import csv
+import hashlib
 import json
+import os
 from pathlib import Path
+import re
 import sys
 import time
+import traceback
 
 import numpy as np
 from scipy.spatial.transform import Rotation
@@ -37,6 +43,7 @@ from matching.darces import (
     run_darces,
 )
 from pipeline_config import add_resolution_argument, load_resolution_config
+from site_selection import selected_sites_for_config
 
 
 # ALL-SITES EDIT 1: One reproducible CLI controls every independent site run.
@@ -133,6 +140,34 @@ def parse_arguments() -> argparse.Namespace:
             "Require each control hypothesis to pass feature-consensus "
             "screening (disabled by default)"
         ),
+    )
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=1,
+        help=(
+            "Independent site processes. Results remain deterministic because "
+            "each site uses seed + site number"
+        ),
+    )
+    parser.add_argument(
+        "--checkpoint-directory",
+        type=Path,
+        help=(
+            "Checkpoint root (default: "
+            "results/<resolution>_px/darces_checkpoints)"
+        ),
+    )
+    parser.add_argument(
+        "--no-resume",
+        action="store_true",
+        help="Ignore compatible per-site checkpoints and recompute every site",
+    )
+    parser.add_argument(
+        "--sites",
+        type=int,
+        nargs="+",
+        help="Run only these site numbers (default: every gridded site)",
     )
     return parser.parse_args()
 
@@ -312,6 +347,8 @@ def run_site(
     # ALL-SITES EDIT 4: Odometry XYZ enters only after DARCES returns.
     estimated_xy = np.asarray(result["t"], dtype=np.float64)
     estimated_z = float(result["tz"])
+    truth_z_stage = float(odometry_pose[2])
+    truth_z = config.stage_z_to_dem_datum(truth_z_stage)
     base_result.update(
         {
             "status": "solution",
@@ -327,11 +364,15 @@ def run_site(
             ),
             "truth_x_m": float(odometry_pose[0]),
             "truth_y_m": float(odometry_pose[1]),
-            "truth_z_m": float(odometry_pose[2]),
+            "truth_z_m": truth_z,
+            "truth_z_stage_m": truth_z_stage,
+            "stage_to_dem_vertical_offset_m": (
+                config.stage_to_dem_vertical_offset_m
+            ),
             "xy_error_m": float(
                 np.linalg.norm(estimated_xy - odometry_pose[:2])
             ),
-            "z_error_m": float(abs(estimated_z - odometry_pose[2])),
+            "z_error_m": float(abs(estimated_z - truth_z)),
             "heading_error_deg": _angle_error_deg(
                 float(result["heading_deg"]),
                 heading_measurement_deg,
@@ -359,6 +400,285 @@ def run_site(
         }
     )
     return base_result
+
+
+_WORKER_CONTEXT: dict[str, object] | None = None
+
+
+def _initialize_worker(context: dict[str, object]) -> None:
+    """Install immutable shared inputs once in each worker process."""
+    global _WORKER_CONTEXT
+    _WORKER_CONTEXT = context
+
+
+def _run_site_from_context(
+    site_number: int,
+    context: dict[str, object],
+) -> dict[str, object]:
+    return run_site(
+        site_number,
+        config=context["config"],
+        global_features_xyz=context["global_features_xyz"],
+        global_dem=context["global_dem"],
+        global_x_centers_m=context["global_x_centers_m"],
+        global_y_centers_m=context["global_y_centers_m"],
+        distance_tolerance_m=context["distance_tolerance_m"],
+        z_residual_tolerance_m=context["z_residual_tolerance_m"],
+        args=context["args"],
+        global_covariances=context["global_covariances"],
+        covariance_sigma_multiplier=context["covariance_sigma_multiplier"],
+        use_feature_consensus=context["use_feature_consensus"],
+    )
+
+
+def _run_site_worker(site_number: int) -> dict[str, object]:
+    """Run one site and keep verbose DARCES output in a site-specific log."""
+    if _WORKER_CONTEXT is None:
+        raise RuntimeError("DARCES worker context was not initialized")
+    log_directory = Path(_WORKER_CONTEXT["site_log_directory"])
+    log_path = log_directory / f"site_{site_number:04d}.log"
+    with log_path.open("w", encoding="utf-8", buffering=1) as stream:
+        with redirect_stdout(stream), redirect_stderr(stream):
+            print(f"=== Site {site_number:02d} ===", flush=True)
+            try:
+                return _run_site_from_context(site_number, _WORKER_CONTEXT)
+            except BaseException:
+                traceback.print_exc()
+                raise
+
+
+def _settings_payload(
+    args: argparse.Namespace,
+    *,
+    distance_tolerance_m: float,
+    z_residual_tolerance_m: float,
+    global_covariances: np.ndarray,
+) -> dict[str, object]:
+    """Return numerical settings that define a reproducible DARCES run."""
+    return {
+        "trials_per_site": args.trials,
+        "seed": args.seed,
+        "heading_tolerance_deg": args.heading_tolerance,
+        "minimum_cluster_size": args.minimum_cluster_size,
+        "cluster_position_radius_m": args.cluster_position_radius,
+        "top_hypothesis_count": args.top_hypotheses,
+        "control_rms_tolerance_m": args.control_rms_tolerance,
+        "effective_control_rms_tolerance_m": (
+            args.control_rms_tolerance
+            if args.control_rms_tolerance is not None
+            else distance_tolerance_m
+        ),
+        "side_ratio_tolerance": args.side_ratio_tolerance,
+        "minimum_triangle_angle_deg": args.minimum_triangle_angle,
+        "minimum_overlap": args.minimum_overlap,
+        "maximum_terrain_mae_m": args.maximum_terrain_mae,
+        "cluster_heading_radius_deg": args.cluster_heading_radius,
+        "distance_tolerance_sigma_multiplier": args.distance_tolerance_sigma,
+        "z_residual_tolerance_sigma_multiplier": args.z_residual_tolerance_sigma,
+        "use_feature_consensus": args.use_feature_consensus,
+        "consensus_xy_tolerance_m": args.consensus_radius,
+        "minimum_consensus_features": args.minimum_consensus_features,
+        "distance_tolerance_m": distance_tolerance_m,
+        "z_residual_tolerance_m": z_residual_tolerance_m,
+        "covariance_sigma_multiplier": args.covariance_sigma_multiplier,
+        "global_covariance_m2": global_covariances[0].tolist(),
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_factor": args.reference_spacing_factor,
+    }
+
+
+def _input_token(path: Path) -> dict[str, object]:
+    path = path.resolve()
+    stat = path.stat()
+    return {
+        "path": str(path),
+        "size": stat.st_size,
+        "mtime_ns": stat.st_mtime_ns,
+    }
+
+
+def _checkpoint_signature(
+    *,
+    config,
+    settings: dict[str, object],
+    site_numbers: list[int],
+) -> tuple[str, dict[str, object]]:
+    """Fingerprint numerical settings and every per-site input file."""
+    input_paths = [
+        config.config_path,
+        Path(run_darces.__code__.co_filename),
+        config.global_features_path,
+        config.orbital_dem_path,
+        config.feature_uncertainty_path,
+    ]
+    for site_number in site_numbers:
+        input_paths.extend(
+            (
+                config.local_features_path
+                / f"local_craters_site_{site_number:02d}.npz",
+                config.gridded_maps_path / f"grid_site_{site_number:02d}.npz",
+                config.leveled_maps_path / f"leveled_site_{site_number:02d}.npy",
+                config.captures_path
+                / "odom_scans"
+                / f"odom_site_{site_number:02d}.npy",
+            )
+        )
+    manifest = {
+        "settings": settings,
+        "inputs": [_input_token(path) for path in input_paths],
+    }
+    encoded = json.dumps(
+        manifest,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest(), manifest
+
+
+def _atomic_write_json(path: Path, payload: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    try:
+        with temporary.open("w", encoding="utf-8") as stream:
+            json.dump(payload, stream, indent=2)
+            stream.write("\n")
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _atomic_write_csv(path: Path, results: list[dict[str, object]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    fieldnames = sorted({key for result in results for key in result})
+    try:
+        with temporary.open("w", encoding="utf-8", newline="") as stream:
+            writer = csv.DictWriter(stream, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(results)
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _hypothesis_counts_from_log(
+    path: Path,
+) -> tuple[int | None, int | None]:
+    """Return ordered and fully screened hypothesis counts from a site log."""
+    if not path.is_file():
+        return None, None
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return None, None
+    generated_match = re.search(
+        r"Generated\s+([0-9]+)\s+ordered hypotheses",
+        text,
+    )
+    screened_match = re.search(r"Passed all screening:\s*([0-9]+)", text)
+    return (
+        int(generated_match.group(1)) if generated_match else None,
+        int(screened_match.group(1)) if screened_match else None,
+    )
+
+
+def _write_runtime_ledger(
+    path: Path,
+    *,
+    resolution: str,
+    settings: dict[str, object],
+    signature: str,
+    completed: dict[int, dict[str, object]],
+    site_log_directory: Path,
+) -> None:
+    """Atomically refresh the completed-site runtime/hypothesis table."""
+    rows: list[dict[str, object]] = []
+    hypothesis_cap = settings.get("trials_per_site")
+    for site_number, result in sorted(completed.items()):
+        generated, screened = _hypothesis_counts_from_log(
+            site_log_directory / f"site_{site_number:04d}.log"
+        )
+        runtime = result.get("runtime_s")
+        rate = None
+        if generated is not None and runtime is not None and float(runtime) > 0.0:
+            rate = generated / float(runtime)
+        rows.append(
+            {
+                "resolution": resolution,
+                "site": site_number,
+                "status": result.get("status"),
+                "local_feature_count": result.get("local_feature_count"),
+                "hypothesis_cap": hypothesis_cap,
+                "generated_hypothesis_count": generated,
+                "screened_hypothesis_count": screened,
+                "evaluated_hypothesis_count": result.get(
+                    "evaluated_hypothesis_count"
+                ),
+                "runtime_s": runtime,
+                "generated_hypotheses_per_s": rate,
+                "cluster_size": result.get("cluster_size"),
+                "correspondence_count": result.get("correspondence_count"),
+                "xy_error_m": result.get("xy_error_m"),
+                "heading_error_deg": result.get("heading_error_deg"),
+                "checkpoint_signature": signature,
+            }
+        )
+    _atomic_write_csv(path, rows)
+
+
+def _load_checkpoint(path: Path, signature: str) -> dict[str, object] | None:
+    if not path.is_file():
+        return None
+    try:
+        with path.open("r", encoding="utf-8") as stream:
+            payload = json.load(stream)
+        if payload.get("signature") != signature:
+            return None
+        result = payload["result"]
+        if int(result["site"]) <= 0:
+            return None
+        return result
+    except (KeyError, TypeError, ValueError, json.JSONDecodeError):
+        return None
+
+
+def _save_checkpoint(
+    path: Path,
+    signature: str,
+    result: dict[str, object],
+) -> None:
+    _atomic_write_json(path, {"signature": signature, "result": result})
+
+
+def _print_site_result(
+    result: dict[str, object],
+    *,
+    completed_count: int,
+    total_count: int,
+    trials: int,
+    resumed: bool,
+    log_path: Path | None = None,
+) -> None:
+    site_number = int(result["site"])
+    source = "checkpoint" if resumed else "worker"
+    print(
+        f"[{completed_count:3d}/{total_count}] Site {site_number:02d}: "
+        f"status={result['status']}, "
+        f"features={result['local_feature_count']}, "
+        f"runtime={float(result.get('runtime_s', 0.0)):.2f}s "
+        f"({source})",
+        flush=True,
+    )
+    if result["status"] == "solution":
+        print(
+            f"  xy_error={result['xy_error_m']:.3f}m, "
+            f"z_error={result['z_error_m']:.3f}m, "
+            f"heading_error={result['heading_error_deg']:.3f}deg, "
+            f"hypothesis_cap={trials}",
+            flush=True,
+        )
+    if log_path is not None:
+        print(f"  detail_log={log_path}", flush=True)
 
 
 def main() -> None:
@@ -393,6 +713,8 @@ def main() -> None:
         raise ValueError("--cluster-heading-radius must be positive")
     if args.reference_spacing_factor <= 0.0:
         raise ValueError("--reference-spacing-factor must be positive")
+    if args.workers <= 0:
+        raise ValueError("--workers must be positive")
 
     config = load_resolution_config(args.resolution)
     result_directory = config.results_path
@@ -432,14 +754,31 @@ def main() -> None:
         args.z_residual_tolerance_sigma * float(uncertainty["sigma_z_m"])
     )
 
-    # ALL-SITES EDIT 5: Available grid files define the tested site set.
-    grid_paths = sorted(config.gridded_maps_path.glob("grid_site_*.npz"))
-    site_numbers = [
+    # The dataset-level manifest defines one common site set for every resolution.
+    grid_paths = config.gridded_maps_path.glob("grid_site_*.npz")
+    available_grid_sites = sorted(
         int(path.stem.rsplit("_", 1)[1])
         for path in grid_paths
-    ]
-    if not site_numbers:
+    )
+    if not available_grid_sites:
         raise FileNotFoundError("No gridded local sites were found")
+    selected_sites = selected_sites_for_config(config)
+    missing_selected = sorted(set(selected_sites).difference(available_grid_sites))
+    if missing_selected:
+        raise FileNotFoundError(
+            f"Selected sites have no local grids: {missing_selected}"
+        )
+    site_numbers = selected_sites
+    if args.sites is not None:
+        requested_sites = sorted(set(args.sites))
+        if any(site <= 0 for site in requested_sites):
+            raise ValueError("--sites values must be positive")
+        unavailable = sorted(set(requested_sites).difference(selected_sites))
+        if unavailable:
+            raise ValueError(
+                f"Requested sites are outside the shared site manifest: {unavailable}"
+            )
+        site_numbers = requested_sites
 
     print("DARCES all-sites evaluation")
     print("---------------------------")
@@ -448,84 +787,184 @@ def main() -> None:
     print(f"Global features:      {len(global_features_xyz)}")
     print(f"Distance tolerance:   {distance_tolerance_m:.3f} m")
     print(f"Z residual tolerance: {z_residual_tolerance_m:.3f} m")
+    print(f"Worker processes:      {args.workers}")
     print()
 
-    results = []
-    for site_number in site_numbers:
-        print(f"=== Site {site_number:02d} ===")
-        result = run_site(
-            site_number,
-            config=config,
-            global_features_xyz=global_features_xyz,
-            global_dem=global_dem,
-            global_x_centers_m=global_x_centers_m,
-            global_y_centers_m=global_y_centers_m,
-            distance_tolerance_m=distance_tolerance_m,
-            z_residual_tolerance_m=z_residual_tolerance_m,
-            args=args,            
-            global_covariances=global_covariances,
-            covariance_sigma_multiplier=args.covariance_sigma_multiplier,
-            use_feature_consensus=args.use_feature_consensus,
-        )
-        results.append(result)
-        print(
-            f"status={result['status']}, "
-            f"features={result['local_feature_count']}, "
-            f"runtime={float(result.get('runtime_s', 0.0)):.2f}s"
-        )
-        if result["status"] == "solution":
-            print(
-                f"xy_error={result['xy_error_m']:.3f}m, "
-                f"z_error={result['z_error_m']:.3f}m, "
-                f"heading_error={result['heading_error_deg']:.3f}deg"
-                f"Hypothesis cap:       {args.trials}"
+    settings = _settings_payload(
+        args,
+        distance_tolerance_m=distance_tolerance_m,
+        z_residual_tolerance_m=z_residual_tolerance_m,
+        global_covariances=global_covariances,
+    )
+    # The datum conversion affects saved truth-Z values and error metrics. Keep
+    # it in the checkpoint fingerprint so an offset change cannot silently
+    # reuse records evaluated against a different vertical datum.
+    settings["stage_to_dem_vertical_offset_m"] = (
+        config.stage_to_dem_vertical_offset_m
+    )
+    signature, checkpoint_manifest = _checkpoint_signature(
+        config=config,
+        settings=settings,
+        site_numbers=site_numbers,
+    )
+    checkpoint_root = (
+        args.checkpoint_directory.resolve()
+        if args.checkpoint_directory is not None
+        else result_directory / "darces_checkpoints"
+    )
+    checkpoint_run_directory = checkpoint_root / signature
+    site_log_directory = checkpoint_run_directory / "logs"
+    site_log_directory.mkdir(parents=True, exist_ok=True)
+    _atomic_write_json(
+        checkpoint_run_directory / "manifest.json",
+        {
+            "signature": signature,
+            **checkpoint_manifest,
+        },
+    )
+
+    completed: dict[int, dict[str, object]] = {}
+    if not args.no_resume:
+        for site_number in site_numbers:
+            checkpoint_path = (
+                checkpoint_run_directory / f"site_{site_number:04d}.json"
             )
-        print()
+            result = _load_checkpoint(checkpoint_path, signature)
+            if result is not None and int(result["site"]) == site_number:
+                completed[site_number] = result
+
+    pending = [site for site in site_numbers if site not in completed]
+    print(f"Checkpoint signature: {signature[:16]}")
+    print(f"Checkpoint directory: {checkpoint_run_directory}")
+    print(f"Resumed sites:        {len(completed)}")
+    print(f"Pending sites:        {len(pending)}")
+    print()
+
+    runtime_ledger_path = result_directory / "darces_runtime_by_site.csv"
+    _write_runtime_ledger(
+        runtime_ledger_path,
+        resolution=args.resolution,
+        settings=settings,
+        signature=signature,
+        completed=completed,
+        site_log_directory=site_log_directory,
+    )
+
+    total_count = len(site_numbers)
+    for completed_count, site_number in enumerate(sorted(completed), start=1):
+        _print_site_result(
+            completed[site_number],
+            completed_count=completed_count,
+            total_count=total_count,
+            trials=args.trials,
+            resumed=True,
+        )
+
+    context: dict[str, object] = {
+        "config": config,
+        "global_features_xyz": global_features_xyz,
+        "global_dem": global_dem,
+        "global_x_centers_m": global_x_centers_m,
+        "global_y_centers_m": global_y_centers_m,
+        "distance_tolerance_m": distance_tolerance_m,
+        "z_residual_tolerance_m": z_residual_tolerance_m,
+        "args": args,
+        "global_covariances": global_covariances,
+        "covariance_sigma_multiplier": args.covariance_sigma_multiplier,
+        "use_feature_consensus": args.use_feature_consensus,
+        "site_log_directory": site_log_directory,
+    }
+
+    if args.workers == 1:
+        for site_number in pending:
+            print(f"=== Site {site_number:02d} ===", flush=True)
+            result = _run_site_from_context(site_number, context)
+            completed[site_number] = result
+            _save_checkpoint(
+                checkpoint_run_directory / f"site_{site_number:04d}.json",
+                signature,
+                result,
+            )
+            _write_runtime_ledger(
+                runtime_ledger_path,
+                resolution=args.resolution,
+                settings=settings,
+                signature=signature,
+                completed=completed,
+                site_log_directory=site_log_directory,
+            )
+            _print_site_result(
+                result,
+                completed_count=len(completed),
+                total_count=total_count,
+                trials=args.trials,
+                resumed=False,
+            )
+    elif pending:
+        with ProcessPoolExecutor(
+            max_workers=args.workers,
+            initializer=_initialize_worker,
+            initargs=(context,),
+        ) as executor:
+            futures = {
+                executor.submit(_run_site_worker, site_number): site_number
+                for site_number in pending
+            }
+            for future in as_completed(futures):
+                site_number = futures[future]
+                result = future.result()
+                if int(result["site"]) != site_number:
+                    raise RuntimeError(
+                        f"Worker returned Site {result['site']} for Site "
+                        f"{site_number}"
+                    )
+                completed[site_number] = result
+                _save_checkpoint(
+                    checkpoint_run_directory / f"site_{site_number:04d}.json",
+                    signature,
+                    result,
+                )
+                _write_runtime_ledger(
+                    runtime_ledger_path,
+                    resolution=args.resolution,
+                    settings=settings,
+                    signature=signature,
+                    completed=completed,
+                    site_log_directory=site_log_directory,
+                )
+                _print_site_result(
+                    result,
+                    completed_count=len(completed),
+                    total_count=total_count,
+                    trials=args.trials,
+                    resumed=False,
+                    log_path=(
+                        site_log_directory / f"site_{site_number:04d}.log"
+                    ),
+                )
+
+    results = [completed[site_number] for site_number in site_numbers]
 
     # ALL-SITES EDIT 6: Machine-readable JSON and flat CSV share one result.
     result_directory.mkdir(parents=True, exist_ok=True)
     payload = {
-        "settings": {
-            "trials_per_site": args.trials,
-            "seed": args.seed,
-            "heading_tolerance_deg": args.heading_tolerance,
-            "minimum_cluster_size": args.minimum_cluster_size,
-            "cluster_position_radius_m": args.cluster_position_radius,
-            "top_hypothesis_count": args.top_hypotheses,
-            "control_rms_tolerance_m": args.control_rms_tolerance,
-            "effective_control_rms_tolerance_m": (
-                args.control_rms_tolerance
-                if args.control_rms_tolerance is not None
-                else distance_tolerance_m
-            ),
-            "side_ratio_tolerance": args.side_ratio_tolerance,
-            "minimum_triangle_angle_deg": args.minimum_triangle_angle,
-            "minimum_overlap": args.minimum_overlap,
-            "maximum_terrain_mae_m": args.maximum_terrain_mae,
-            "cluster_heading_radius_deg": args.cluster_heading_radius,
-            "distance_tolerance_sigma_multiplier": args.distance_tolerance_sigma,
-            "z_residual_tolerance_sigma_multiplier": args.z_residual_tolerance_sigma,
-            "use_feature_consensus": args.use_feature_consensus,
-            "consensus_xy_tolerance_m": args.consensus_radius,
-            "minimum_consensus_features": args.minimum_consensus_features,
-            "distance_tolerance_m": distance_tolerance_m,
-            "z_residual_tolerance_m": z_residual_tolerance_m,
-            "covariance_sigma_multiplier": args.covariance_sigma_multiplier,
-            "global_covariance_m2": global_covariances[0].tolist(),
-            "fitness_reference": "raw_lidar_xy_decimated",
-            "fitness_reference_spacing_factor": args.reference_spacing_factor,
+        "settings": settings,
+        "execution": {
+            "worker_processes": args.workers,
+            "checkpoint_signature": signature,
         },
         "sites": results,
     }
-    with json_path.open("w", encoding="utf-8") as stream:
-        json.dump(payload, stream, indent=2)
-        stream.write("\n")
-
-    fieldnames = sorted({key for result in results for key in result})
-    with csv_path.open("w", encoding="utf-8", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(results)
+    _atomic_write_json(json_path, payload)
+    _atomic_write_csv(csv_path, results)
+    _write_runtime_ledger(
+        runtime_ledger_path,
+        resolution=args.resolution,
+        settings=settings,
+        signature=signature,
+        completed=completed,
+        site_log_directory=site_log_directory,
+    )
 
     statuses = {
         status: sum(result["status"] == status for result in results)
@@ -537,6 +976,7 @@ def main() -> None:
         print(f"{status}: {count}")
     print(f"JSON: {json_path}")
     print(f"CSV:  {csv_path}")
+    print(f"Runtime ledger: {runtime_ledger_path}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,118 @@
+{
+  "dem": {
+    "0p25m": {
+      "shape": [
+        8000,
+        8000
+      ],
+      "dtype": "float32",
+      "finite": true,
+      "metadata_resolution_m": 0.25,
+      "metadata_shape": [
+        8000,
+        8000
+      ],
+      "sample_area_mean_max_abs_m": 0.0
+    },
+    "0p5m": {
+      "shape": [
+        4000,
+        4000
+      ],
+      "dtype": "float32",
+      "finite": true,
+      "metadata_resolution_m": 0.5,
+      "metadata_shape": [
+        4000,
+        4000
+      ],
+      "sample_area_mean_max_abs_m": 6.103515625e-05
+    },
+    "1m": {
+      "shape": [
+        2000,
+        2000
+      ],
+      "dtype": "float32",
+      "finite": true,
+      "metadata_resolution_m": 1.0,
+      "metadata_shape": [
+        2000,
+        2000
+      ],
+      "sample_area_mean_max_abs_m": 6.103515625e-05
+    },
+    "2m": {
+      "shape": [
+        1000,
+        1000
+      ],
+      "dtype": "float32",
+      "finite": true,
+      "metadata_resolution_m": 2.0,
+      "metadata_shape": [
+        1000,
+        1000
+      ],
+      "sample_area_mean_max_abs_m": 6.103515625e-05
+    },
+    "5m": {
+      "shape": [
+        400,
+        400
+      ],
+      "dtype": "float32",
+      "finite": true,
+      "metadata_resolution_m": 5.0,
+      "metadata_shape": [
+        400,
+        400
+      ],
+      "sample_area_mean_max_abs_m": 6.103515625e-05
+    },
+    "10m": {
+      "shape": [
+        200,
+        200
+      ],
+      "dtype": "float32",
+      "finite": true,
+      "metadata_resolution_m": 10.0,
+      "metadata_shape": [
+        200,
+        200
+      ],
+      "sample_area_mean_max_abs_m": 5.9585571307252394e-05
+    }
+  },
+  "captures": {
+    "available_complete_sites": 254,
+    "max_pose_transform_translation_error_m": 0.0,
+    "max_pose_transform_quaternion_error": 0.0,
+    "point_count_min": 240881,
+    "point_count_max": 262144
+  },
+  "selection": {
+    "selected_count": 100,
+    "maximum_sites": 100,
+    "random_seed": 42,
+    "unique": true,
+    "xy_min_m": [
+      653.0653666970207,
+      -5539.075610544716
+    ],
+    "xy_max_m": [
+      858.9459836882357,
+      -5486.791740122756
+    ],
+    "all_inside_dem": true
+  },
+  "vertical_datum": {
+    "convention": "z_dem_m = z_stage_m + stage_to_dem_vertical_offset_m",
+    "stage_to_dem_vertical_offset_m": -1006.809,
+    "fit_source": "680537 transformed terrain returns against native 0.25 m DEM",
+    "fit_median_m": -1006.8088303377453,
+    "robust_sigma_m": 0.12784330495842186,
+    "application": "ground-truth Z evaluation only"
+  }
+}

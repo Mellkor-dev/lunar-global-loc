@@ -8,127 +8,750 @@
     "minimum_fitness_improvement_m": 0.01,
     "fitness_reference": "raw_lidar_xy_decimated",
     "fitness_reference_spacing_factor": 0.5,
-    "darces_results": "/home/soumyadeep/apollo11/LargeScale_Implement/results/0p25m_px/darces_all_sites.json"
+    "stage_to_dem_vertical_offset_m": -1006.809,
+    "darces_results": "/home/soumyadeep/apollo14/LargeScale_Implement/results/0p25m_px/darces_all_sites.json"
   },
   "sites": [
     {
-      "site": 1,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 1,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.3354636445625361,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 2,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 2,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.016074124752462313,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 3,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 3,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.27115534389542706,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 4,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 4,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.3757481892226202,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 5,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 5,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.3435462470377334,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 6,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 6,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.08962271423604948,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 7,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 7,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.15495664397498485,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 8,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 8,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.20988147298495227,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 9,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 9,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 2.8178919137656173,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
       "site": 10,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.011951526001212187,
+      "estimated_x_m": 651.0677616614869,
+      "estimated_y_m": -5510.037378408307,
+      "estimated_z_m": -1006.951428681612,
+      "estimated_heading_deg": 20.151023358737394,
+      "fitness": -0.36757317237395776,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
+      "fitness_improvement_m": -0.0837864878072136,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.125,
+      "fitness_reference_point_count": 32983,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 4,
+        "inlier_count": 4,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          1,
+          2,
+          0,
+          3
+        ],
+        "inlier_global_indices": [
+          54,
+          57,
+          52,
+          59
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.9399768901668704,
+            -0.3412381074150712
+          ],
+          [
+            0.3412381074150711,
+            0.9399768901668702
+          ]
+        ],
+        "translation_xy_m": [
+          650.8793365652541,
+          -5510.0690373624175
+        ],
+        "translation_z_m": -1006.9385083168745,
+        "heading_deg": 19.95232422055209,
+        "terrain_fitness": -0.45135966018117135,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.019775270522410078,
+        "mahalanobis_squared": [
+          0.0010360634936392023,
+          0.0033391526847323734,
+          0.03621138836008778,
+          0.04558590686754581
+        ],
+        "residuals_xyz_m": [
+          [
+            -0.03546066814362803,
+            -0.3475614488861538,
+            0.012920364737510681
+          ],
+          [
+            0.6031979738164637,
+            0.18957495707400085,
+            -0.020909234881401062
+          ],
+          [
+            -1.9031318306662115,
+            -1.0073096775413433,
+            -0.012920364737510681
+          ],
+          [
+            1.3353945249931485,
+            1.1652961693553152,
+            0.2032727748155594
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 4
+      },
       "darces": {
         "site": 10,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -1.1715860802315958,
+        "local_feature_count": 4,
+        "heading_measurement_deg": 21.41643342507076,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 32983,
+        "runtime_s": 0.04995693099044729,
+        "estimated_x_m": 651.0677616614869,
+        "estimated_y_m": -5510.037378408307,
+        "estimated_z_m": -1006.951428681612,
+        "estimated_heading_deg": 20.151023358737394,
+        "fitness": -0.36757317237395776,
+        "overlap": 1.0,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 2,
+        "truth_x_m": 653.0653666970207,
+        "truth_y_m": -5508.912417601022,
+        "truth_z_m": -1006.8656099911697,
+        "truth_z_stage_m": -0.05660999116964427,
+        "stage_to_dem_vertical_offset_m": -1006.809,
+        "xy_error_m": 2.292588645160161,
+        "z_error_m": 0.08581869044235191,
+        "heading_error_deg": 1.2654100663333736,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 4,
+        "correspondence_local_indices": [
+          1,
+          2,
+          0,
+          3
+        ],
+        "correspondence_global_indices": [
+          54,
+          57,
+          52,
+          59
+        ],
+        "correspondence_xy_rmse_m": 1.4721342746693444,
+        "correspondence_z_rmse_m": 0.09752720791232918
+      },
+      "truth_x_m": 653.0653666970207,
+      "truth_y_m": -5508.912417601022,
+      "truth_z_m": -1006.8656099911697,
+      "truth_z_stage_m": -0.05660999116964427,
+      "stage_to_dem_vertical_offset_m": -1006.809,
+      "xy_error_m": 2.292588645160161,
+      "z_error_m": 0.08581869044235191,
+      "heading_error_deg": 1.2654100663333736
+    },
+    {
+      "site": 13,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 13,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 45.4146948200915,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 31288,
+        "runtime_s": 0.023568489006720483
+      }
+    },
+    {
+      "site": 14,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 14,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 44.5554176231704,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 31022,
+        "runtime_s": 0.02368321400717832
+      }
+    },
+    {
+      "site": 16,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 16,
+        "local_feature_count": 4,
+        "heading_measurement_deg": 44.95433990952211,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 32663,
+        "runtime_s": 0.04517739999573678
+      }
+    },
+    {
+      "site": 18,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 18,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 44.80020466290187,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 31401,
+        "runtime_s": 0.02199560399458278
+      }
+    },
+    {
+      "site": 23,
+      "status": "solution",
+      "estimate_source": "ransac",
+      "runtime_s": 0.012470285000745207,
+      "estimated_x_m": 660.6253346889448,
+      "estimated_y_m": -5501.376982927418,
+      "estimated_z_m": -1006.6884580850601,
+      "estimated_heading_deg": 46.045751717553806,
+      "fitness": -0.24396063529092893,
+      "overlap": 1.0,
+      "preservation_reason": null,
+      "fitness_improvement_m": 0.04251452072404599,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.125,
+      "fitness_reference_point_count": 29468,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 4,
+        "inlier_count": 4,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          2,
+          1,
+          0,
+          3
+        ],
+        "inlier_global_indices": [
+          55,
+          54,
+          52,
+          59
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.6940837431944982,
+            -0.7198942682318801
+          ],
+          [
+            0.7198942682318804,
+            0.6940837431944978
+          ]
+        ],
+        "translation_xy_m": [
+          660.6253346889448,
+          -5501.376982927418
+        ],
+        "translation_z_m": -1006.6884580850601,
+        "heading_deg": 46.045751717553806,
+        "terrain_fitness": -0.24396063529092893,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.09345784475609754,
+        "mahalanobis_squared": [
+          0.01762828426797671,
+          0.047081906418337933,
+          0.13983378309385716,
+          0.29122579844177665
+        ],
+        "residuals_xyz_m": [
+          [
+            -0.7904890640303393,
+            -1.1435222198233532,
+            0.07201457023620605
+          ],
+          [
+            -1.0944235567702663,
+            0.3826960194710409,
+            0.44666576385498047
+          ],
+          [
+            -3.370799933961507,
+            -2.307771155808041,
+            -0.13808411359786987
+          ],
+          [
+            5.255712554761999,
+            3.0685973561594437,
+            -0.07201457023620605
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 4
+      },
+      "darces": {
+        "site": 23,
+        "local_feature_count": 4,
+        "heading_measurement_deg": 45.01641903321937,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 29468,
+        "runtime_s": 0.041853040995192714,
+        "estimated_x_m": 660.3544858245212,
+        "estimated_y_m": -5501.758038768861,
+        "estimated_z_m": -1006.6164435148239,
+        "estimated_heading_deg": 46.08112689753142,
+        "fitness": -0.2864751560149749,
+        "overlap": 1.0,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 2,
+        "truth_x_m": 662.4121236448009,
+        "truth_y_m": -5499.585756918119,
+        "truth_z_m": -1006.676345770627,
+        "truth_z_stage_m": 0.1326542293730154,
+        "stage_to_dem_vertical_offset_m": -1006.809,
+        "xy_error_m": 2.9921032466326785,
+        "z_error_m": 0.05990225580308106,
+        "heading_error_deg": 1.064707864312055,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 4,
+        "correspondence_local_indices": [
+          2,
+          1,
+          0,
+          3
+        ],
+        "correspondence_global_indices": [
+          55,
+          54,
+          52,
+          59
+        ],
+        "correspondence_xy_rmse_m": 3.8034961238098157,
+        "correspondence_z_rmse_m": 0.27117285393185353
+      },
+      "truth_x_m": 662.4121236448009,
+      "truth_y_m": -5499.585756918119,
+      "truth_z_m": -1006.676345770627,
+      "truth_z_stage_m": 0.1326542293730154,
+      "stage_to_dem_vertical_offset_m": -1006.809,
+      "xy_error_m": 2.530040590417142,
+      "z_error_m": 0.012112314433124993,
+      "heading_error_deg": 1.0293326843344346
+    },
+    {
+      "site": 24,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 24,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 19.355451073282893,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 33391,
+        "runtime_s": 0.02087958100310061
+      }
+    },
+    {
+      "site": 30,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 30,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -0.16667110086677617,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 32100,
+        "runtime_s": 0.0013186739961383864
+      }
+    },
+    {
+      "site": 33,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 33,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 43.54897219830171,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 31825,
+        "runtime_s": 0.0012969579984201118
+      }
+    },
+    {
+      "site": 36,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 36,
+        "local_feature_count": 5,
+        "heading_measurement_deg": -10.645208482925279,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 34675,
+        "runtime_s": 0.04496624300372787
+      }
+    },
+    {
+      "site": 39,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 39,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 0.9894447322646083,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 35555,
+        "runtime_s": 0.0013569389993790537
+      }
+    },
+    {
+      "site": 41,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 41,
+        "local_feature_count": 5,
+        "heading_measurement_deg": 0.07915359413011744,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 37382,
+        "runtime_s": 0.04659261398774106
+      }
+    },
+    {
+      "site": 43,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 43,
+        "local_feature_count": 4,
+        "heading_measurement_deg": 29.259795057386466,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 35987,
+        "runtime_s": 0.03137136000441387
+      }
+    },
+    {
+      "site": 53,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 53,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -2.2412983266538062,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 32636,
+        "runtime_s": 0.0012585929944179952
+      }
+    },
+    {
+      "site": 54,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 54,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -7.701112172122993,
         "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 61,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 61,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 44.58257406094856,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 24456,
+        "runtime_s": 0.0013308509951457381
+      }
+    },
+    {
+      "site": 66,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 66,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -11.690018913226197,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 28236,
+        "runtime_s": 0.0013942369987489656
+      }
+    },
+    {
+      "site": 69,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 69,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 0.3301456481838429,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 28774,
+        "runtime_s": 0.001319204005994834
+      }
+    },
+    {
+      "site": 70,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 70,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -0.1397815874948478,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 71,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 71,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -0.3085181092122478,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 72,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 72,
+        "local_feature_count": 2,
+        "heading_measurement_deg": 0.1682355351773335,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 73,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 73,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -0.4189489949718158,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 40406,
+        "runtime_s": 0.017681601995718665
+      }
+    },
+    {
+      "site": 76,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 76,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -1.1292826878834028,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 77,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 77,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -0.977764438375635,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 79,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 79,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 0.8071539751741564,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 32462,
+        "runtime_s": 0.0012347680021775886
+      }
+    },
+    {
+      "site": 80,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 80,
+        "local_feature_count": 1,
+        "heading_measurement_deg": 0.7635348912758074,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 82,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 82,
+        "local_feature_count": 2,
+        "heading_measurement_deg": 0.3186492843369334,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 83,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 83,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -0.3522399068460678,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 29784,
+        "runtime_s": 0.001242532001924701
+      }
+    },
+    {
+      "site": 84,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 84,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -0.3453293507419563,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 30826,
+        "runtime_s": 0.0014659919979749247
+      }
+    },
+    {
+      "site": 87,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 87,
+        "local_feature_count": 2,
+        "heading_measurement_deg": 0.22409871341562324,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 88,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 88,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -0.001453835467480003,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 90,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 90,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -0.1696399900727368,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 97,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 97,
+        "local_feature_count": 2,
+        "heading_measurement_deg": 0.13388442503061293,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 98,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 98,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -0.016346699993469542,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 42452,
+        "runtime_s": 0.02032274600060191
       }
     },
     {
@@ -138,33 +761,13 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 100,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.1196703133436849,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 101,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 101,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.031421406337885406,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 102,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 102,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.07932197073912321,
-        "status": "skipped_insufficient_features"
+        "local_feature_count": 3,
+        "heading_measurement_deg": 0.4457712235792012,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 40068,
+        "runtime_s": 0.001229251007316634
       }
     },
     {
@@ -174,9 +777,13 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 103,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.16328789087285003,
-        "status": "skipped_insufficient_features"
+        "local_feature_count": 3,
+        "heading_measurement_deg": -0.09070152651350882,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 39894,
+        "runtime_s": 0.018389696997473948
       }
     },
     {
@@ -186,8 +793,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 104,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.10007517252253637,
+        "local_feature_count": 2,
+        "heading_measurement_deg": 0.5353604626810283,
         "status": "skipped_insufficient_features"
       }
     },
@@ -198,9 +805,13 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 105,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.002697841761801768,
-        "status": "skipped_insufficient_features"
+        "local_feature_count": 4,
+        "heading_measurement_deg": 10.224014118555395,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 18956,
+        "runtime_s": 0.001319180999416858
       }
     },
     {
@@ -210,9 +821,13 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 106,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.0761861215629819,
-        "status": "skipped_insufficient_features"
+        "local_feature_count": 3,
+        "heading_measurement_deg": -5.4984406956167975,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 42573,
+        "runtime_s": 0.018049542006338015
       }
     },
     {
@@ -222,44 +837,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 107,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.06855988489415403,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 108,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 108,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.09992047822679931,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 109,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 109,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.11595726887975225,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 11,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 11,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -1.8326516863045685,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -5.527717642721197,
         "status": "skipped_insufficient_features"
       }
     },
@@ -270,32 +849,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 110,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.11398875443517528,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 111,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 111,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.04139609119973349,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 112,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 112,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.04603616399909539,
+        "local_feature_count": 2,
+        "heading_measurement_deg": 0.17549991037541424,
         "status": "skipped_insufficient_features"
       }
     },
@@ -306,33 +861,13 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 113,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.042476719751183334,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 114,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 114,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.0031698959738594126,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 115,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 115,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.07390445454731163,
-        "status": "skipped_insufficient_features"
+        "local_feature_count": 3,
+        "heading_measurement_deg": 0.4013755049303118,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 44773,
+        "runtime_s": 0.01920350900036283
       }
     },
     {
@@ -342,69 +877,13 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 116,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.14349801805426382,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 117,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 117,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.13681185225797177,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 118,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 118,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 0.015912030399465392,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 119,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 119,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.030623866979942307,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 12,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 12,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -1.3325228097069708,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 120,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 120,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.09745048868141312,
-        "status": "skipped_insufficient_features"
+        "local_feature_count": 4,
+        "heading_measurement_deg": 1.0140002198286726,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 36751,
+        "runtime_s": 0.03367843599698972
       }
     },
     {
@@ -415,7 +894,7 @@
       "darces": {
         "site": 121,
         "local_feature_count": 2,
-        "heading_measurement_deg": -0.06931437449591737,
+        "heading_measurement_deg": -0.10116940700685847,
         "status": "skipped_insufficient_features"
       }
     },
@@ -426,9 +905,13 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 122,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.0012144623882060623,
-        "status": "skipped_insufficient_features"
+        "local_feature_count": 4,
+        "heading_measurement_deg": -0.2270786969332281,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 35633,
+        "runtime_s": 0.018834597009117715
       }
     },
     {
@@ -439,55 +922,7 @@
       "darces": {
         "site": 123,
         "local_feature_count": 1,
-        "heading_measurement_deg": 0.031247859315148712,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 124,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 124,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.18715528260670897,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 125,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 125,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.41463494561660563,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 126,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 126,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.050809166980080554,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 127,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 127,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.20948879221389188,
+        "heading_measurement_deg": -0.23968345675788988,
         "status": "skipped_insufficient_features"
       }
     },
@@ -498,57 +933,13 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 128,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.28160287084161184,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 129,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 129,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.16209972458329464,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 13,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 13,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.5649718089329808,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 130,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 130,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.04381492404409617,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 131,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 131,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.011674864415418531,
-        "status": "skipped_insufficient_features"
+        "local_feature_count": 3,
+        "heading_measurement_deg": 0.999109564094237,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.125,
+        "fitness_reference_point_count": 40434,
+        "runtime_s": 0.00121557799866423
       }
     },
     {
@@ -558,20 +949,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 132,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.0024426418586012276,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 133,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 133,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.10549235988061369,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -0.2911486619980697,
         "status": "skipped_insufficient_features"
       }
     },
@@ -582,44 +961,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 134,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.12412688937943156,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 135,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 135,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.08945506685725141,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 136,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 136,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.007471621378338934,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 137,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 137,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.20936644193353574,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -0.1834522893526085,
         "status": "skipped_insufficient_features"
       }
     },
@@ -630,8 +973,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 138,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.07450025840440092,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -28.37816933253156,
         "status": "skipped_insufficient_features"
       }
     },
@@ -642,20 +985,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 139,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.13253246505905894,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 14,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 14,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.011739787870840915,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -51.36699962412441,
         "status": "skipped_insufficient_features"
       }
     },
@@ -667,67 +998,7 @@
       "darces": {
         "site": 140,
         "local_feature_count": 0,
-        "heading_measurement_deg": 0.14389947661923638,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 141,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 141,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.09654019372072668,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 142,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 142,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.01706804760218333,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 143,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 143,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.00986034736021304,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 144,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 144,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.005881208574452822,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 145,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 145,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.02478238607643067,
+        "heading_measurement_deg": -50.19953007293755,
         "status": "skipped_insufficient_features"
       }
     },
@@ -739,7 +1010,7 @@
       "darces": {
         "site": 146,
         "local_feature_count": 0,
-        "heading_measurement_deg": 0.0540103428402971,
+        "heading_measurement_deg": -0.041409577231133726,
         "status": "skipped_insufficient_features"
       }
     },
@@ -751,19 +1022,7 @@
       "darces": {
         "site": 147,
         "local_feature_count": 0,
-        "heading_measurement_deg": 0.025896611871982184,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 148,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 148,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.04017005802586835,
+        "heading_measurement_deg": -0.08029335980524611,
         "status": "skipped_insufficient_features"
       }
     },
@@ -775,19 +1034,7 @@
       "darces": {
         "site": 149,
         "local_feature_count": 0,
-        "heading_measurement_deg": 0.017834577059579724,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 15,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 15,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.17939818991766346,
+        "heading_measurement_deg": 0.09430013246914419,
         "status": "skipped_insufficient_features"
       }
     },
@@ -798,8 +1045,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 150,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -3.938496311525569,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -0.2464566338975055,
         "status": "skipped_insufficient_features"
       }
     },
@@ -811,55 +1058,7 @@
       "darces": {
         "site": 151,
         "local_feature_count": 0,
-        "heading_measurement_deg": 0.3167954192560964,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 152,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 152,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 1.4060405033300778,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 153,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 153,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 1.1469860195408317,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 154,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 154,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.6107488878201843,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 155,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 155,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.030394175836511713,
+        "heading_measurement_deg": 0.3265598767191461,
         "status": "skipped_insufficient_features"
       }
     },
@@ -871,7 +1070,7 @@
       "darces": {
         "site": 156,
         "local_feature_count": 0,
-        "heading_measurement_deg": -0.3228212220784353,
+        "heading_measurement_deg": -0.001214105516800747,
         "status": "skipped_insufficient_features"
       }
     },
@@ -883,7 +1082,7 @@
       "darces": {
         "site": 157,
         "local_feature_count": 0,
-        "heading_measurement_deg": -0.28139397554239604,
+        "heading_measurement_deg": 0.04252251845663024,
         "status": "skipped_insufficient_features"
       }
     },
@@ -895,7 +1094,7 @@
       "darces": {
         "site": 158,
         "local_feature_count": 0,
-        "heading_measurement_deg": -0.11904628660152908,
+        "heading_measurement_deg": -0.10491516470180341,
         "status": "skipped_insufficient_features"
       }
     },
@@ -907,31 +1106,7 @@
       "darces": {
         "site": 159,
         "local_feature_count": 0,
-        "heading_measurement_deg": 0.05923292380089569,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 16,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 16,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.24417910391278727,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 160,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 160,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.17549001439263182,
+        "heading_measurement_deg": 0.03438748729898099,
         "status": "skipped_insufficient_features"
       }
     },
@@ -943,7 +1118,7 @@
       "darces": {
         "site": 161,
         "local_feature_count": 0,
-        "heading_measurement_deg": 0.14926023997307056,
+        "heading_measurement_deg": -0.9253907114125379,
         "status": "skipped_insufficient_features"
       }
     },
@@ -955,19 +1130,7 @@
       "darces": {
         "site": 162,
         "local_feature_count": 0,
-        "heading_measurement_deg": 0.06798356855441369,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 163,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 163,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.007110805814995558,
+        "heading_measurement_deg": -1.007605617047581,
         "status": "skipped_insufficient_features"
       }
     },
@@ -979,7 +1142,7 @@
       "darces": {
         "site": 164,
         "local_feature_count": 0,
-        "heading_measurement_deg": -0.04299612420696146,
+        "heading_measurement_deg": -51.6079892466221,
         "status": "skipped_insufficient_features"
       }
     },
@@ -991,31 +1154,7 @@
       "darces": {
         "site": 165,
         "local_feature_count": 0,
-        "heading_measurement_deg": -0.005524997425494065,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 166,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 166,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.06271430812780654,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 167,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 167,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.0705206032480593,
+        "heading_measurement_deg": -47.749698636822885,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1027,7 +1166,7 @@
       "darces": {
         "site": 168,
         "local_feature_count": 0,
-        "heading_measurement_deg": 0.08195250718019108,
+        "heading_measurement_deg": -27.649919026529766,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1039,43 +1178,7 @@
       "darces": {
         "site": 169,
         "local_feature_count": 0,
-        "heading_measurement_deg": 0.028340051476979093,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 17,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 17,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 1.5687407735434318,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 170,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 170,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.018823530676959504,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 171,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 171,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.02311245608934841,
+        "heading_measurement_deg": 0.11832103500359865,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1087,31 +1190,7 @@
       "darces": {
         "site": 172,
         "local_feature_count": 0,
-        "heading_measurement_deg": -0.06683651504589033,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 173,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 173,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.06096924582696862,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 174,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 174,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.03486032811440132,
+        "heading_measurement_deg": -0.22209378960778053,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1123,19 +1202,7 @@
       "darces": {
         "site": 175,
         "local_feature_count": 0,
-        "heading_measurement_deg": 0.04882332838645638,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 176,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 176,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.07574186860775421,
+        "heading_measurement_deg": -47.31333153584155,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1146,44 +1213,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 177,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.08128138149572835,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 178,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 178,
         "local_feature_count": 1,
-        "heading_measurement_deg": 0.021950449829388766,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 179,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 179,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.06995247123249168,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 18,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 18,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.24567956354919332,
+        "heading_measurement_deg": -44.92199332715446,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1194,8 +1225,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 180,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 0.011516702772505973,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -45.158954144236574,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1206,68 +1237,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 181,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 0.4814910661742953,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 182,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 182,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -0.3362648115455074,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 183,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 183,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.8795861172344037,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 184,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 184,
         "local_feature_count": 1,
-        "heading_measurement_deg": -0.6198416990910394,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 185,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 185,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.1871384573935339,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 186,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 186,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 0.11096925136912292,
+        "heading_measurement_deg": -45.05965179376306,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1279,91 +1250,7 @@
       "darces": {
         "site": 187,
         "local_feature_count": 1,
-        "heading_measurement_deg": 0.331783758866709,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 188,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 188,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 0.27711401672072455,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 189,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 189,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 0.03898830759955648,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 19,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 19,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.8381011703849377,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 190,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 190,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -0.1107109612483179,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 191,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 191,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -0.04523718991113923,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 192,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 192,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.03183919649714745,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 193,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 193,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -0.01926943120927066,
+        "heading_measurement_deg": -1.3980974349744029,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1374,8 +1261,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 194,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.06573860611791954,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -45.04879182873569,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1386,32 +1273,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 195,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 0.00985862905497132,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 196,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 196,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 0.10866054614293187,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 197,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 197,
         "local_feature_count": 1,
-        "heading_measurement_deg": 0.00322915656839585,
+        "heading_measurement_deg": -44.63189395561606,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1422,8 +1285,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 198,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -47.11198865708689,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -19.755018122705007,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1434,24 +1297,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 199,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -100.23149406478862,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 36983,
-        "runtime_s": 0.08569568300299579
-      }
-    },
-    {
-      "site": 20,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 20,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.656672489798474,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -43.35935116504697,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1462,13 +1309,9 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 200,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -107.3886681037075,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 35152,
-        "runtime_s": 0.08674883200001204
+        "local_feature_count": 0,
+        "heading_measurement_deg": -51.920002781545676,
+        "status": "skipped_insufficient_features"
       }
     },
     {
@@ -1478,20 +1321,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 201,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -99.16062848736077,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 202,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 202,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -91.80672657921212,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -17.736053185170473,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1502,8 +1333,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 203,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -88.90826061711356,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -25.06032227546084,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1514,49 +1345,9 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 204,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -88.53339214624326,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -53.63188288352155,
         "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 205,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 205,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -88.8983467389308,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 206,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 206,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.70626502051402,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 207,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 207,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -90.2804516591521,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 28910,
-        "runtime_s": 0.10030868500325596
       }
     },
     {
@@ -1566,13 +1357,9 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 208,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -90.48569423562343,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 27204,
-        "runtime_s": 0.10358296399499523
+        "local_feature_count": 0,
+        "heading_measurement_deg": -44.58542508273986,
+        "status": "skipped_insufficient_features"
       }
     },
     {
@@ -1582,32 +1369,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 209,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.45147479573319,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 21,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 21,
         "local_feature_count": 0,
-        "heading_measurement_deg": -0.14172051453925918,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 210,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 210,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -90.13536323543708,
+        "heading_measurement_deg": -44.493046080957896,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1618,8 +1381,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 211,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.94407019084741,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -45.004129897932444,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1630,8 +1393,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 212,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.84767462000565,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -45.226195919365196,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1642,20 +1405,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 213,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.87848403696051,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 214,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 214,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.92488981773495,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -45.1445106478819,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1666,8 +1417,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 215,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.00167736007343,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -45.24332247813931,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1678,20 +1429,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 216,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.07420006371751,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 217,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 217,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.1297007408366,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -44.923426990035885,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1702,13 +1441,9 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 218,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -90.11253287272841,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 30772,
-        "runtime_s": 0.09524558499833802
+        "local_feature_count": 0,
+        "heading_measurement_deg": 4.497228635513646,
+        "status": "skipped_insufficient_features"
       }
     },
     {
@@ -1718,32 +1453,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 219,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.16051093868137,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 22,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 22,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.20692009126052463,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 220,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 220,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.2896672304627,
+        "local_feature_count": 0,
+        "heading_measurement_deg": 2.5919917269129797,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1754,29 +1465,9 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 221,
-        "local_feature_count": 4,
-        "heading_measurement_deg": -90.88228561939636,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 34312,
-        "runtime_s": 0.2546371510034078
-      }
-    },
-    {
-      "site": 222,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 222,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -89.30523445589175,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 32483,
-        "runtime_s": 0.09868218599876855
+        "local_feature_count": 0,
+        "heading_measurement_deg": -27.5843840814309,
+        "status": "skipped_insufficient_features"
       }
     },
     {
@@ -1786,8 +1477,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 223,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.61315627663696,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -48.255786660187866,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1798,24 +1489,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 224,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -89.95644139397272,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 33129,
-        "runtime_s": 0.09321747100329958
-      }
-    },
-    {
-      "site": 225,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 225,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.15947886912777,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -45.19400440486166,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1826,8 +1501,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 226,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.21536849972769,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -44.54586364835258,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1838,144 +1513,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 227,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.08765259777138,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 228,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 228,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.97270027533234,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 229,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 229,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.96540022538525,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 23,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 23,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.06896098282364715,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 230,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 230,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.9592658029007,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 231,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 231,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.05155245494035,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 232,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 232,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.69583631558054,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 233,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 233,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.14718058940868,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 234,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 234,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.15449875915573,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 235,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 235,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.14333895453183,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 236,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 236,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -89.97209679125604,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 39699,
-        "runtime_s": 0.08023670300462982
-      }
-    },
-    {
-      "site": 237,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 237,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.93073846631958,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -45.19576653348243,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1986,56 +1525,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 238,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.94004742414533,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 239,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 239,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.76557542742636,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 24,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 24,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.01585506457302278,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 240,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 240,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.25432256114141,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 241,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 241,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.14145480430473,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -44.192601779328875,
         "status": "skipped_insufficient_features"
       }
     },
@@ -2046,20 +1537,8 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 242,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -90.0753791271315,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 243,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 243,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.98445953026933,
+        "local_feature_count": 0,
+        "heading_measurement_deg": -95.901946483427,
         "status": "skipped_insufficient_features"
       }
     },
@@ -2071,79 +1550,7 @@
       "darces": {
         "site": 244,
         "local_feature_count": 1,
-        "heading_measurement_deg": -89.89237144129615,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 245,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 245,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.87810188031857,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 246,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 246,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.92719279074173,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 247,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 247,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -90.0127401430235,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 248,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 248,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -101.00928404719264,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 249,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 249,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -108.2797641414029,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 25,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 25,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.059817645545901056,
+        "heading_measurement_deg": -137.16893425185307,
         "status": "skipped_insufficient_features"
       }
     },
@@ -2155,31 +1562,7 @@
       "darces": {
         "site": 250,
         "local_feature_count": 1,
-        "heading_measurement_deg": -83.5561579305226,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 251,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 251,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -78.06461889885907,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 252,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 252,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -83.38405818384007,
+        "heading_measurement_deg": -164.5539115510065,
         "status": "skipped_insufficient_features"
       }
     },
@@ -2190,3077 +1573,13 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 253,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -88.56526314600924,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 254,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 254,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -90.8766937818722,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 255,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 255,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -91.1052479487652,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 256,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 256,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -90.73507685705056,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 257,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 257,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -90.10969501499909,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 258,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 258,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.6620544642588,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 259,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 259,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.61289915070658,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 26,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 26,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -0.10589940185594611,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 260,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 260,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.72268795810913,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 261,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 261,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.9198470959446,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 262,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 262,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.98026017893295,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 263,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 263,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -90.08178518172916,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 264,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 264,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.93687190568221,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 265,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 265,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.87862603478867,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 266,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 266,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.79488633931285,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 267,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 267,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.83375248821498,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 268,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 268,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.81652388283473,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 269,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 269,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.90709304599338,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 27,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 27,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -0.09751379506931689,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 270,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 270,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -90.01551040395518,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 271,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 271,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.07575989426438,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 272,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 272,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -90.05702689682187,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 273,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 273,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.98398465894618,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 274,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 274,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.99203581187273,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 275,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 275,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -89.84819026184896,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 276,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 276,
         "local_feature_count": 3,
-        "heading_measurement_deg": -85.74609539704446,
+        "heading_measurement_deg": -63.83204717351927,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 36573,
-        "runtime_s": 0.0005300049961078912
-      }
-    },
-    {
-      "site": 277,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 277,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.12106957852222,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 278,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 278,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -91.3302608544181,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 34276,
-        "runtime_s": 0.07461011100531323
-      }
-    },
-    {
-      "site": 279,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 279,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -91.2429657173679,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 28,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 28,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -0.10402213289407003,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 280,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 280,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -90.68444082385014,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 281,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 281,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -90.12237253687468,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 34622,
-        "runtime_s": 0.07238948000303935
-      }
-    },
-    {
-      "site": 282,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 282,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -89.80901236420856,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 34453,
-        "runtime_s": 0.07883025099727092
-      }
-    },
-    {
-      "site": 283,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 283,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -89.75430347197074,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 33224,
-        "runtime_s": 0.07423631800338626
-      }
-    },
-    {
-      "site": 284,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 284,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -89.84833444784904,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 30953,
-        "runtime_s": 0.06881272600003285
-      }
-    },
-    {
-      "site": 285,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 285,
-        "local_feature_count": 4,
-        "heading_measurement_deg": -89.93045829518137,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 32354,
-        "runtime_s": 0.17334874399966793
-      }
-    },
-    {
-      "site": 286,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 286,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -90.0249495731914,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 31891,
-        "runtime_s": 0.08033233199967071
-      }
-    },
-    {
-      "site": 287,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 287,
-        "local_feature_count": 4,
-        "heading_measurement_deg": -90.1051342596436,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 29354,
-        "runtime_s": 0.16654402599669993
-      }
-    },
-    {
-      "site": 288,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 288,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -90.13769707170793,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 29611,
-        "runtime_s": 0.06827337799768429
-      }
-    },
-    {
-      "site": 289,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 289,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.13078409450128,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 29,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 29,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.1010727659725338,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 290,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 290,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -90.02288947828455,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 29661,
-        "runtime_s": 0.07404148200294003
-      }
-    },
-    {
-      "site": 291,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 291,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -90.00126441125407,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 29535,
-        "runtime_s": 0.06650905900460202
-      }
-    },
-    {
-      "site": 292,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 292,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.92446634736818,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 293,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 293,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.91786378265866,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 294,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 294,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.94819153270268,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 295,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 295,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -89.92428222891522,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 296,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 296,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -90.05440726397946,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 297,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 297,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -150.41260368570778,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 25410,
-        "runtime_s": 0.07438001300033648
-      }
-    },
-    {
-      "site": 298,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 298,
-        "local_feature_count": 3,
-        "heading_measurement_deg": 179.3823324522805,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 27728,
-        "runtime_s": 0.07971906099555781
-      }
-    },
-    {
-      "site": 299,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 299,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 172.63567410408197,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 30,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 30,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 0.02386655209148357,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 300,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 300,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 175.16333005093165,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 301,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 301,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 178.6602354474215,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 302,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 302,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -179.69078929362976,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 31108,
-        "runtime_s": 0.07315754199953517
-      }
-    },
-    {
-      "site": 303,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 303,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -179.1900415432811,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 31269,
-        "runtime_s": 0.11315050900157075
-      }
-    },
-    {
-      "site": 304,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 304,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -179.37286856015643,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 33354,
-        "runtime_s": 0.12164183799905004
-      }
-    },
-    {
-      "site": 305,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 305,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -179.68730047996752,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 306,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 306,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -179.93793493999345,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 307,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 307,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 179.96311510445452,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 308,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 308,
-        "local_feature_count": 3,
-        "heading_measurement_deg": 179.60144303095453,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 36859,
-        "runtime_s": 0.12465893699845765
-      }
-    },
-    {
-      "site": 309,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 309,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 179.7887076465556,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 31,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 31,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -0.0354596451083465,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 310,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 310,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.91982166981313,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 311,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 311,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 179.9227935952668,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 312,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 312,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.97880578090687,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 313,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 313,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.99753926075917,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 314,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 314,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.99773700904774,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 315,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 315,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.9604180793617,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 316,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 316,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.99432090327997,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 317,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 317,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.99612592180463,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 318,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 318,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -179.95766819957979,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 319,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 319,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 179.99090072719625,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 32,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 32,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.048895813430207984,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 320,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 320,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 179.94037524037103,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 321,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 321,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.92027568275964,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 322,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 322,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -179.9598795366393,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 323,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 323,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -179.85971632250303,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 324,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 324,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -179.89350163134935,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 325,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 325,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -179.9984613409977,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 326,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 326,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.99510632811723,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 327,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 327,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 179.95543800275453,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 328,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 328,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.8470269474312,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 329,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 329,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.83553613207292,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 33,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 33,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.11887758902936328,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 330,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 330,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 179.90998684115812,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 331,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 331,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.97885118259322,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 332,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 332,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.86407428471,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 333,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 333,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.83473889767987,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 334,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 334,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.8884406959077,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 335,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 335,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.9922748702395,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 336,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 336,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.87223598559788,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 337,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 337,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.78466171054563,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 338,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 338,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.82021976869993,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 339,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 339,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.68976885972336,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 34,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 34,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.1256239840401904,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 340,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 340,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.99379556793448,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 341,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 341,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.7354250418315,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 342,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 342,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.69802280085585,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 343,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 343,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.60807242513627,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 344,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 344,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.9189614848078,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 345,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 345,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.91633566032277,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 346,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 346,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.74557365468013,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 347,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 347,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.83515729274612,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 348,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 348,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.9487746046538,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 349,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 349,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.8595340335648,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 35,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 35,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.06910168207504142,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 350,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 350,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.8771279070793,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 351,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 351,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.92432210869296,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 352,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 352,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.97040215270877,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 353,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 353,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.92590659885263,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 354,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 354,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.8524782839481,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 355,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 355,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.80700288565973,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 356,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 356,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.89731126053738,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 357,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 357,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.68625343605373,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 358,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 358,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.74958937079614,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 359,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 359,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.92229316962974,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 36,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 36,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.06391904233262571,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 360,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 360,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.98685529830826,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 361,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 361,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.9006990605594,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 362,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 362,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.85029842598993,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 363,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 363,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.9325754670276,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 364,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 364,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.93247240144123,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 365,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 365,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.83587430841854,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 366,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 366,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.8822451039624,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 367,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 367,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.95547993546023,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 368,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 368,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.95253843459884,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 369,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 369,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.95104138949196,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 37,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 37,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.036550841918580795,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 370,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 370,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.9731420358628,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 371,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 371,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.91683382964638,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 372,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 372,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.99447328888917,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 373,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 373,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.88357185004634,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 374,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 374,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.8908963050722,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 375,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 375,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -179.9472764926015,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 376,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 376,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.8917046647698,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 377,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 377,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.80430920329812,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 378,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 378,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.9084585192196,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 379,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 379,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.90887006603563,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 38,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 38,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.042690022492793904,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 380,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 380,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.9388564969346,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 381,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 381,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.94378569563935,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 382,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 382,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.71189441528284,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 383,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 383,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.99177754712724,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 384,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 384,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.61641682057078,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 385,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 385,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.54234510317733,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 386,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 386,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.60317429641103,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 387,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 387,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.79654866288212,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 388,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 388,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.99662166599134,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 389,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 389,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.85798599166338,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 39,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 39,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.0014868973330438616,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 390,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 390,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.820582396005,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 391,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 391,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.78483349122465,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 392,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 392,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.9525077433817,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 393,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 393,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.9927744398834,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 394,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 394,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.90634754949667,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 395,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 395,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -179.90844903148508,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 396,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 396,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.9756864746733,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 397,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 397,
-        "local_feature_count": 3,
-        "heading_measurement_deg": 179.93080235840745,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 30733,
-        "runtime_s": 0.037619501003064215
-      }
-    },
-    {
-      "site": 398,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 398,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.93377795978506,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 399,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 399,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 179.79458773470787,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 40,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 40,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.061726512228526736,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 400,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 400,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.88460990273455,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 401,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 401,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.90138178582532,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 402,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 402,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.8376581917038,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 403,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 403,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -179.89478861373678,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 404,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 404,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -179.99618717903724,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 405,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 405,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.97030065904426,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 406,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 406,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.8901088419992,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 407,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 407,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.83472923780948,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 408,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 408,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.8396690912272,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 409,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 409,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.98249843351633,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 41,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 41,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.10101383503877244,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 410,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 410,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.89945780880882,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 411,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 411,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -179.87046740259626,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 412,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 412,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.9105424891537,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 413,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 413,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.9312910427571,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 414,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 414,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.95090933717447,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 415,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 415,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.88634599715954,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 416,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 416,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.81009458337593,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 417,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 417,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.82551469408907,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 418,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 418,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.996281263603,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 419,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 419,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.92373730351224,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 42,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 42,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.1394022009352586,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 420,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 420,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.89460666302733,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 421,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 421,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.92608718223855,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 422,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 422,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.97825718374722,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 423,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 423,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 179.99553325955728,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 424,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 424,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 179.96032650934131,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 425,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 425,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.86030818737603,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 426,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 426,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 179.93257122438226,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 427,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 427,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 179.98912164426775,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 428,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 428,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -179.83767335958888,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 43,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 43,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.10458598181899313,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 44,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 44,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.10657827236877145,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 45,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 45,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.10639617957096166,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 46,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 46,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.05962363962378015,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 47,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 47,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.02444090833528863,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 48,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 48,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.051932943314520294,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 49,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 49,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.031826005923248274,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 50,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 50,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.012617920383030575,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 51,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 51,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -4.3289440250794025,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 52,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 52,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -4.031958227792325,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 53,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 53,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -1.895675274323688,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 54,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 54,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.2337594858298045,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 55,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 55,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.5498008467082539,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 56,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 56,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.6577269227360658,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 57,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 57,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 0.45038270825733645,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 58,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 58,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.15979341249493434,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 59,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 59,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.13010099203743036,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 60,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 60,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.2664102764507117,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 61,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 61,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -0.16319361524419612,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 62,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 62,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.052346909812964124,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 63,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 63,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.030110298351351594,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 64,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 64,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.0909847335249949,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 65,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 65,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.09451442000166643,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 66,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 66,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.01504529782126174,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 67,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 67,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.04426850714282868,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 68,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 68,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.14066137399561823,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 69,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 69,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.1079298240894273,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 70,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 70,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.133186747145341,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 71,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 71,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.042095079016227215,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 72,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 72,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.06668252538951405,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 73,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 73,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.14949370858195846,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 74,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 74,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.11456718608596586,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 75,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 75,
-        "local_feature_count": 3,
-        "heading_measurement_deg": 0.07251528720637065,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.125,
-        "fitness_reference_point_count": 24778,
-        "runtime_s": 0.03438058900064789
-      }
-    },
-    {
-      "site": 76,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 76,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.10064266580964014,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 77,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 77,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.07384324607228306,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 78,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 78,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.08937596048993468,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 79,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 79,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.02962177241666035,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 80,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 80,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.08255509192562072,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 81,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 81,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.0612590309715909,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 82,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 82,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.0712653605558577,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 83,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 83,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.0782013141187474,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 84,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 84,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.0002139840668950456,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 85,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 85,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.09871377075915251,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 86,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 86,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.09004137974366841,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 87,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 87,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.011464387235419947,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 88,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 88,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.007274908791518211,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 89,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 89,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.035239910434854374,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 90,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 90,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.14951641356515574,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 91,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 91,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.16601036724751267,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 92,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 92,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.028333165252541145,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 93,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 93,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.07527273960564171,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 94,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 94,
-        "local_feature_count": 0,
-        "heading_measurement_deg": 0.33076357527453737,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 95,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 95,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.1906701993705456,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 96,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 96,
-        "local_feature_count": 1,
-        "heading_measurement_deg": 0.013546926759974464,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 97,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 97,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.07710350253023779,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 98,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 98,
-        "local_feature_count": 0,
-        "heading_measurement_deg": -0.0321022166560608,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 99,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 99,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -0.006138862669633054,
-        "status": "skipped_insufficient_features"
+        "fitness_reference_point_count": 41181,
+        "runtime_s": 0.0258404199994402
       }
     }
   ]

@@ -1,7 +1,7 @@
 {
   "comparison": {
     "selected_profile": "0p25m",
-    "truth_source_label": "Apollo 11 native 2 m/px truth source",
+    "truth_source_label": "Apollo 14 native 2 m/px truth source",
     "truth_source_profile": "2m",
     "operation": "truth minus selected DEM interpolated to truth centers"
   },
@@ -14,54 +14,54 @@
   },
   "truth_dem": {
     "shape": [
-      160,
-      150
+      1000,
+      1000
     ],
     "resolution_m": 2.0,
     "edge_bounds_m": {
-      "x_min": -41.0,
-      "x_max": 259.0,
-      "y_min": -241.0,
-      "y_max": 79.0
+      "x_min": -301.0,
+      "x_max": 1699.0,
+      "y_min": -6601.0,
+      "y_max": -4601.0
     },
     "first_center_m": {
-      "x": -40.0,
-      "y": 78.0
+      "x": -300.0,
+      "y": -4602.0
     },
     "last_center_m": {
-      "x": 258.0,
-      "y": -240.0
+      "x": 1698.0,
+      "y": -6600.0
     }
   },
   "selected_dem": {
     "shape": [
-      1280,
-      1200
+      8000,
+      8000
     ],
     "resolution_m": 0.25,
     "edge_bounds_m": {
-      "x_min": -40.125,
-      "x_max": 259.875,
-      "y_min": -240.125,
-      "y_max": 79.875
+      "x_min": -300.125,
+      "x_max": 1699.875,
+      "y_min": -6600.125,
+      "y_max": -4600.125
     },
     "first_center_m": {
-      "x": -40.0,
-      "y": 79.75
+      "x": -300.0,
+      "y": -4600.25
     },
     "last_center_m": {
-      "x": 259.75,
-      "y": -240.0
+      "x": 1699.75,
+      "y": -6600.0
     }
   },
   "truth_minus_interpolated_selected_dem": {
-    "sample_count": 24000,
-    "mean_m": -0.007924840291341146,
-    "median_m": -0.009033203125,
-    "standard_deviation_m": 0.03530048759382664,
-    "mae_m": 0.02504972839355469,
-    "rmse_m": 0.03617910333334939,
-    "absolute_p95_m": 0.0614013671875,
-    "absolute_max_m": 0.5223388671875
+    "sample_count": 1000000,
+    "mean_m": 0.0595574833984375,
+    "median_m": 0.05572509765625,
+    "standard_deviation_m": 0.11685868363102155,
+    "mae_m": 0.09408447119140625,
+    "rmse_m": 0.13116038185645215,
+    "absolute_p95_m": 0.2437744140625,
+    "absolute_max_m": 1.6619873046875
   }
 }

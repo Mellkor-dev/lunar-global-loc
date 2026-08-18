@@ -1,7 +1,7 @@
 {
   "comparison": {
     "selected_profile": "2m",
-    "truth_source_label": "Apollo 11 native 2 m/px truth source",
+    "truth_source_label": "Apollo 14 native 2 m/px truth source",
     "truth_source_profile": "2m",
     "operation": "truth minus selected DEM interpolated to truth centers"
   },
@@ -14,48 +14,48 @@
   },
   "truth_dem": {
     "shape": [
-      160,
-      150
+      1000,
+      1000
     ],
     "resolution_m": 2.0,
     "edge_bounds_m": {
-      "x_min": -41.0,
-      "x_max": 259.0,
-      "y_min": -241.0,
-      "y_max": 79.0
+      "x_min": -301.0,
+      "x_max": 1699.0,
+      "y_min": -6601.0,
+      "y_max": -4601.0
     },
     "first_center_m": {
-      "x": -40.0,
-      "y": 78.0
+      "x": -300.0,
+      "y": -4602.0
     },
     "last_center_m": {
-      "x": 258.0,
-      "y": -240.0
+      "x": 1698.0,
+      "y": -6600.0
     }
   },
   "selected_dem": {
     "shape": [
-      160,
-      150
+      1000,
+      1000
     ],
     "resolution_m": 2.0,
     "edge_bounds_m": {
-      "x_min": -41.0,
-      "x_max": 259.0,
-      "y_min": -241.0,
-      "y_max": 79.0
+      "x_min": -301.0,
+      "x_max": 1699.0,
+      "y_min": -6601.0,
+      "y_max": -4601.0
     },
     "first_center_m": {
-      "x": -40.0,
-      "y": 78.0
+      "x": -300.0,
+      "y": -4602.0
     },
     "last_center_m": {
-      "x": 258.0,
-      "y": -240.0
+      "x": 1698.0,
+      "y": -6600.0
     }
   },
   "truth_minus_interpolated_selected_dem": {
-    "sample_count": 24000,
+    "sample_count": 1000000,
     "mean_m": 0.0,
     "median_m": 0.0,
     "standard_deviation_m": 0.0,
