@@ -20,6 +20,11 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from pipeline_config import add_resolution_argument, load_resolution_config
+from site_selection import selected_sites_for_config
+from traversal_presentation import (
+    environment_display_name,
+    generate_darces_prediction_contour_map,
+)
 
 
 SITE_PATTERN = re.compile(r"odom_site_(\d+)\.npy$")
@@ -55,11 +60,42 @@ def parse_arguments() -> argparse.Namespace:
         action="store_true",
         help="Do not overlay the selected resolution's global feature catalogue",
     )
+    parser.add_argument(
+        "--contour-output",
+        type=Path,
+        help="Override traversal/darces_prediction_contour_map.png",
+    )
+    parser.add_argument(
+        "--contour-interval",
+        type=float,
+        default=2.0,
+        help="Elevation contour interval for the presentation map in metres",
+    )
+    parser.add_argument(
+        "--contour-error-label-threshold",
+        type=float,
+        default=50.0,
+        help="Show numeric prediction errors only at or above this distance",
+    )
+    parser.add_argument(
+        "--contour-padding",
+        type=float,
+        default=70.0,
+        help="Map padding around sites and predictions in the contour figure",
+    )
+    parser.add_argument(
+        "--no-contour-map",
+        action="store_true",
+        help="Generate only the original two-panel diagnostic map",
+    )
     parser.add_argument("--show", action="store_true", help="Also open the figure interactively")
     return parser.parse_args()
 
 
-def load_odometry(directory: Path) -> tuple[np.ndarray, np.ndarray]:
+def load_odometry(
+    directory: Path,
+    selected_sites: list[int] | None = None,
+) -> tuple[np.ndarray, np.ndarray]:
     records: list[tuple[int, np.ndarray]] = []
     for path in directory.glob("odom_site_*.npy"):
         match = SITE_PATTERN.search(path.name)
@@ -71,6 +107,12 @@ def load_odometry(directory: Path) -> tuple[np.ndarray, np.ndarray]:
         records.append((int(match.group(1)), pose))
     if not records:
         raise FileNotFoundError(f"No odom_site_*.npy files found in {directory}")
+    if selected_sites is not None:
+        selected = set(selected_sites)
+        records = [item for item in records if item[0] in selected]
+        missing = sorted(selected.difference(site for site, _pose in records))
+        if missing:
+            raise FileNotFoundError(f"Selected odometry sites are missing: {missing}")
     records.sort(key=lambda item: item[0])
     return (
         np.asarray([site for site, _ in records], dtype=np.int64),
@@ -223,11 +265,17 @@ def main() -> None:
     output_path = args.output or (
         config.plots_path / "traversal" / "darces_traversal_map.png"
     )
+    contour_output_path = args.contour_output or (
+        config.plots_path / "traversal" / "darces_prediction_contour_map.png"
+    )
     results_path = args.results or (
         config.results_path / "darces_all_sites.json"
     )
 
-    sites, poses = load_odometry(config.captures_path / "odom_scans")
+    selected_sites = selected_sites_for_config(config)
+    sites, poses = load_odometry(
+        config.captures_path / "odom_scans", selected_sites
+    )
     estimates = load_estimates(results_path)
     dem = np.load(config.orbital_dem_path, mmap_mode="r", allow_pickle=False)
     if dem.shape != config.orbital_raster.shape:
@@ -284,7 +332,7 @@ def main() -> None:
             f"max {np.max(errors):.1f} m"
         )
     fig.suptitle(
-        f"Apollo 17 traverse over {args.resolution} DEM\n"
+        f"{environment_display_name(config)} traverse over {args.resolution} DEM\n"
         f"{len(sites)} sites · {trajectory_distance:.1f} m sampled path · "
         f"{solution_count} DARCES solutions · {error_summary}",
         fontsize=14,
@@ -301,6 +349,20 @@ def main() -> None:
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=180, bbox_inches="tight")
+    contour_summary = None
+    if not args.no_contour_map:
+        contour_summary = generate_darces_prediction_contour_map(
+            config=config,
+            sites=sites,
+            poses=poses,
+            estimates=estimates,
+            dem=np.asarray(dem),
+            output_path=contour_output_path,
+            contour_interval_m=args.contour_interval,
+            error_label_threshold_m=args.contour_error_label_threshold,
+            padding_m=args.contour_padding,
+            maximum_background_size=args.max_background_size,
+        )
     print("Traversal/DARCES map")
     print("--------------------")
     print(f"Resolution:        {args.resolution}")
@@ -311,6 +373,11 @@ def main() -> None:
     print(f"Solutions plotted: {solution_count}")
     print(f"Global features:   {len(global_features)}")
     print(f"Saved plot:        {output_path}")
+    if contour_summary is not None:
+        print(f"Contour map:       {contour_summary['output_path']}")
+        print(f"Site mapping:      {contour_summary['mapping_path']}")
+        print(f"Spatial path:      {contour_summary['route_length_m']:.3f} m")
+        print(f"Largest link:      {contour_summary['largest_route_link_m']:.3f} m")
     if args.show:
         plt.show()
     else:

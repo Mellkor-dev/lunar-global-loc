@@ -1,0 +1,209 @@
+experiment:
+  name: haworth_craters_os1
+  description: 'Haworth south-pole global localization using the native 1 m/px source as the truth reference,
+    its crater-refined multi-resolution DEM products, and 316 synchronized OS1-128 rover captures. Map
+    coordinates are expressed relative to the OmniLRS canonical starting position (-930 m, 2129 m).
+
+    '
+site_selection:
+  maximum_sites: 100
+  random_seed: 42
+  manifest: sim/selected_sites.json
+paths:
+  truth_dem: DEM/1m_px/Haworth_sfs_dem_1m_v3_full_with_craters_1m.npy
+  truth_metadata: DEM/1m_px/Haworth_sfs_dem_1m_v3_full_with_craters_1m.json
+  orbital_dem: DEM/5m_px/Haworth_sfs_dem_1m_v3_full_with_craters_5m.npy
+  orbital_metadata: DEM/5m_px/Haworth_sfs_dem_1m_v3_full_with_craters_5m.json
+  orbital_valid_mask: DEM/5m_px/orbital_valid_mask_5m.npy
+  global_features: DEM/5m_px/global_craters.npz
+  truth_features: DEM/1m_px/global_craters.npz
+  feature_uncertainty: DEM/5m_px/validation/global_feature_uncertainty.json
+  dem_qa: DEM/5m_px/qa
+  feature_validation: DEM/5m_px/validation
+  raw_local_maps: local_maps/5m_px/raw
+  leveled_local_maps: local_maps/5m_px/leveled
+  gridded_local_maps: local_maps/5m_px/gridded
+  local_features: local_maps/5m_px/features
+  plots: plots/5m_px
+  results: results/5m_px
+  captures: sim/5m_px
+  capture_validation: sim/5m_px/validation
+truth_dem:
+  source_label: Haworth native 1 m/px truth source
+  source_profile: 1m
+  resolution_m: 1.0
+  shape:
+  - 400
+  - 400
+  cell_edge_extent_m:
+  - 400.0
+  - 400.0
+  path: DEM/1m_px/Haworth_sfs_dem_1m_v3_full_with_craters_1m.npy
+  metadata_path: DEM/1m_px/Haworth_sfs_dem_1m_v3_full_with_craters_1m.json
+  edge_bounds_m:
+    x_min: -120.0
+    x_max: 280.0
+    y_min: -279.0
+    y_max: 121.0
+  first_cell_center_m:
+    x: -120.0
+    y: 120.0
+orbital_dem:
+  resolution_m: 5.0
+  shape:
+  - 80
+  - 80
+  cell_edge_extent_m:
+  - 400.0
+  - 400.0
+  resampling_method: aligned_non_overlapping_area_mean
+  edge_bounds_m:
+    x_min: -120.0
+    x_max: 280.0
+    y_min: -279.0
+    y_max: 121.0
+  first_cell_center_m:
+    x: -120.0
+    y: 116.0
+coordinates:
+  geographic_center:
+    longitude_deg_east: -21.008266666666668
+    latitude_deg_north: -86.84653333333333
+  global_dem_offset_m:
+    x: -930.0
+    y: 2129.0
+  map_frame:
+    name: odom
+    origin_description: omniLRS_canonical_starting_position
+    origin_x_m: 0.0
+    origin_y_m: 0.0
+    x_direction: east
+    y_direction: north
+    z_direction: up
+    positive_yaw: counter_clockwise
+  raster:
+    column_direction: east
+    row_direction: south
+    column_to_map_x_sign: 1
+    row_to_map_y_sign: -1
+sensor:
+  profile: os1_rev7_128ch20hz1024res_rtx
+  pointcloud_topic: /os_cloud_node/points
+  target_frame: odom
+  base_frame: base_link
+  lidar_frame: os1_lidar
+  base_to_lidar_translation_m:
+  - -0.15
+  - 0.0
+  - 0.4131984
+feature_detection:
+  feature_kind: crater
+  cell_radius: 1
+  detection_distance_m: 5
+  flatness_threshold_m: 0.01
+  local_min_valid_fraction: 0.1
+  resolutions:
+    0p25m:
+      dem: DEM/0p25m_px/Haworth_sfs_dem_1m_v3_full_with_craters_0p25m.npy
+      metadata: DEM/0p25m_px/Haworth_sfs_dem_1m_v3_full_with_craters_0p25m.json
+      output: DEM/0p25m_px/global_craters.npz
+      preview: plots/0p25m_px/global_features_preview.png
+      resolution_m: 0.25
+      shape:
+      - 1600
+      - 1600
+      first_cell_center_m:
+        x: -120.0
+        y: 120.75
+      cell_radius: 24
+      detection_distance_m: 6
+      flatness_threshold_m: 0.01
+      catalogue_role: global
+    0p5m:
+      dem: DEM/0p5m_px/Haworth_sfs_dem_1m_v3_full_with_craters_0p5m.npy
+      metadata: DEM/0p5m_px/Haworth_sfs_dem_1m_v3_full_with_craters_0p5m.json
+      output: DEM/0p5m_px/global_craters.npz
+      preview: plots/0p5m_px/global_features_preview.png
+      resolution_m: 0.5
+      shape:
+      - 800
+      - 800
+      first_cell_center_m:
+        x: -120.0
+        y: 120.5
+      cell_radius: 12
+      detection_distance_m: 6
+      flatness_threshold_m: 0.01
+      catalogue_role: global
+    1m:
+      dem: DEM/1m_px/Haworth_sfs_dem_1m_v3_full_with_craters_1m.npy
+      metadata: DEM/1m_px/Haworth_sfs_dem_1m_v3_full_with_craters_1m.json
+      output: DEM/1m_px/global_craters.npz
+      preview: plots/1m_px/global_features_preview.png
+      resolution_m: 1.0
+      shape:
+      - 400
+      - 400
+      first_cell_center_m:
+        x: -120.0
+        y: 120.0
+      cell_radius: 6
+      detection_distance_m: 6
+      flatness_threshold_m: 0.01
+      catalogue_role: truth
+    2m:
+      dem: DEM/2m_px/Haworth_sfs_dem_1m_v3_full_with_craters_2m.npy
+      metadata: DEM/2m_px/Haworth_sfs_dem_1m_v3_full_with_craters_2m.json
+      output: DEM/2m_px/global_craters.npz
+      preview: plots/2m_px/global_features_preview.png
+      resolution_m: 2.0
+      shape:
+      - 200
+      - 200
+      first_cell_center_m:
+        x: -120.0
+        y: 119.0
+      cell_radius: 3
+      detection_distance_m: 6
+      flatness_threshold_m: 0.01
+      catalogue_role: global
+    5m:
+      dem: DEM/5m_px/Haworth_sfs_dem_1m_v3_full_with_craters_5m.npy
+      metadata: DEM/5m_px/Haworth_sfs_dem_1m_v3_full_with_craters_5m.json
+      output: DEM/5m_px/global_craters.npz
+      preview: plots/5m_px/global_features_preview.png
+      resolution_m: 5.0
+      shape:
+      - 80
+      - 80
+      first_cell_center_m:
+        x: -120.0
+        y: 116.0
+      cell_radius: 1
+      detection_distance_m: 5
+      flatness_threshold_m: 0.01
+      catalogue_role: global
+    10m:
+      dem: DEM/10m_px/Haworth_sfs_dem_1m_v3_full_with_craters_10m.npy
+      metadata: DEM/10m_px/Haworth_sfs_dem_1m_v3_full_with_craters_10m.json
+      output: DEM/10m_px/global_craters.npz
+      preview: plots/10m_px/global_features_preview.png
+      resolution_m: 10.0
+      shape:
+      - 40
+      - 40
+      first_cell_center_m:
+        x: -120.0
+        y: 111.0
+      cell_radius: 1
+      detection_distance_m: 10
+      flatness_threshold_m: 0.01
+      catalogue_role: global
+global_feature_uncertainty:
+  intrinsic_horizontal_sigma_m: 10.0
+  intrinsic_vertical_sigma_m: 1.3
+  match_gate_fraction_of_detection_distance: 1.0
+darces:
+  enabled: false
+moga:
+  enabled: false

@@ -17,6 +17,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from pipeline_config import add_resolution_argument, load_resolution_config
+from site_selection import selected_sites_for_config
 
 
 # Known Husky-to-LiDAR translation from the USD/TF setup.
@@ -163,19 +164,26 @@ def main() -> None:
     transform_sites = set(transform_files)
 
     all_sites = sorted(cloud_sites | odom_sites | transform_sites)
-    complete_sites = sorted(cloud_sites & odom_sites & transform_sites)
+    all_complete_sites = sorted(cloud_sites & odom_sites & transform_sites)
+    selected_sites = selected_sites_for_config(config)
+    missing_selected = sorted(set(selected_sites).difference(all_complete_sites))
+    if missing_selected:
+        raise FileNotFoundError(
+            f"Selected sites have incomplete captures: {missing_selected}"
+        )
+    complete_sites = selected_sites
 
     print("Dataset files")
     print("-------------")
     print(f"Cloud sites:      {sorted(cloud_sites)}")
     print(f"Odometry sites:   {sorted(odom_sites)}")
     print(f"Transform sites:  {sorted(transform_sites)}")
-    print(f"Complete sites:   {complete_sites}")
+    print(f"All complete:     {len(all_complete_sites)} sites")
+    print(f"Selected sites:   {complete_sites}")
+    print(f"Site manifest:    {config.site_selection_manifest_path}")
     print()
 
-    incomplete_sites = sorted(
-        set(all_sites) - set(complete_sites)
-    )
+    incomplete_sites = sorted(set(all_sites) - set(all_complete_sites))
 
     if incomplete_sites:
         print(f"WARNING: incomplete sites: {incomplete_sites}")

@@ -200,7 +200,10 @@ def _process_target(config: PipelineConfig, target: FeatureDetectionTarget) -> i
         dem,
         target.raster,
         xyz,
-        title=f"Apollo 17 {target.name} {target.catalogue_role} DEM features",
+        title=(
+            f"{config.config_path.stem.replace('_', ' ').title()} "
+            f"{target.name} {target.catalogue_role} DEM features"
+        ),
         radius_cells=target.radius_cells,
         kind=config.features.kind,
         distance_m=target.distance_m,

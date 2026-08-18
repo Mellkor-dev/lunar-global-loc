@@ -20,6 +20,10 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from pipeline_config import add_resolution_argument, load_resolution_config
+from site_selection import (
+    remove_unselected_site_artifacts,
+    selected_sites_for_config,
+)
 
 _DEFAULT_CONFIG = load_resolution_config("5m")
 CAPTURE_PATH = _DEFAULT_CONFIG.captures_path
@@ -188,6 +192,7 @@ def load_local_scan_dataset(
     pointcloud_directory: Path | None = None,
     odometry_directory: Path | None = None,
     transform_directory: Path | None = None,
+    selected_sites: Sequence[int] | None = None,
 ) -> LocalScanDataset:
     """Load, validate, preprocess, and align all inputs by site number."""
     pointcloud_directory = pointcloud_directory or POINTCLOUD_SCAN
@@ -210,7 +215,16 @@ def load_local_scan_dataset(
             f"transform={sorted(site_sets[2])}"
         )
 
-    site_numbers = np.asarray(sorted(site_sets[0]), dtype=np.int64)
+    available_sites = sorted(site_sets[0])
+    if selected_sites is not None:
+        requested = sorted(set(int(site) for site in selected_sites))
+        missing = sorted(set(requested).difference(available_sites))
+        if missing:
+            raise FileNotFoundError(
+                f"Selected sites are missing synchronized captures: {missing}"
+            )
+        available_sites = requested
+    site_numbers = np.asarray(available_sites, dtype=np.int64)
     pointclouds = tuple(
         _preprocess_pointcloud(cloud_files[site])
         for site in site_numbers
@@ -473,9 +487,16 @@ def main() -> None:
     resolution_m = args.grid_resolution or config.orbital_raster.resolution_m
     leveled_directory = args.leveled_directory or config.leveled_maps_path
     gridded_directory = args.gridded_directory or config.gridded_maps_path
-    dataset = load_local_scan_dataset()
+    selected_sites = selected_sites_for_config(config)
+    dataset = load_local_scan_dataset(selected_sites=selected_sites)
     T_base_lidar = np.eye(4, dtype=np.float64)
     T_base_lidar[:3, 3] = config.base_to_lidar_translation_m
+    removed_leveled = remove_unselected_site_artifacts(
+        leveled_directory, "leveled_site_*.npy", selected_sites
+    )
+    removed_gridded = remove_unselected_site_artifacts(
+        gridded_directory, "grid_site_*.npz", selected_sites
+    )
     grids = process_all_sites(
         dataset,
         leveled_directory=leveled_directory,
@@ -487,6 +508,12 @@ def main() -> None:
     print()
     print(f"Saved {len(grids)} leveled clouds to {leveled_directory}")
     print(f"Saved {len(grids)} local grids to {gridded_directory}")
+    print(f"Shared site manifest: {config.site_selection_manifest_path}")
+    if removed_leveled or removed_gridded:
+        print(
+            "Removed stale unselected artifacts: "
+            f"leveled={removed_leveled}, gridded={removed_gridded}"
+        )
 
 
 if __name__ == "__main__":
