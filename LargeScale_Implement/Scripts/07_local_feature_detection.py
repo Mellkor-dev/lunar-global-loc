@@ -18,6 +18,11 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from features.dilation_detector import detect_craters, detect_peaks
 from pipeline_config import add_resolution_argument, load_resolution_config
+from site_selection import (
+    filter_paths_to_sites,
+    remove_unselected_site_artifacts,
+    selected_sites_for_config,
+)
 
 
 CONFIG = load_resolution_config("5m")
@@ -345,9 +350,25 @@ def main() -> None:
     FLATNESS_EPS_M = CONFIG.features.flatness_threshold_m
     MIN_VALID_FRACTION = CONFIG.features.local_min_valid_fraction
 
-    grid_paths = sorted(GRID_DIRECTORY.glob("grid_site_*.npz"))
+    selected_sites = selected_sites_for_config(CONFIG)
+    grid_paths = filter_paths_to_sites(
+        GRID_DIRECTORY.glob("grid_site_*.npz"), selected_sites
+    )
     if not grid_paths:
         raise FileNotFoundError(f"No local grids found in {GRID_DIRECTORY}")
+    found_sites = {int(path.stem.rsplit("_", 1)[1]) for path in grid_paths}
+    missing_sites = sorted(set(selected_sites).difference(found_sites))
+    if missing_sites:
+        raise FileNotFoundError(
+            f"Selected sites have no local grids: {missing_sites}"
+        )
+
+    removed_catalogues = remove_unselected_site_artifacts(
+        FEATURE_DIRECTORY, "local_craters_site_*.npz", selected_sites
+    )
+    removed_previews = remove_unselected_site_artifacts(
+        PREVIEW_DIRECTORY, "local_craters_site_*.png", selected_sites
+    )
 
     rows = [process_grid(path) for path in grid_paths]
     with SUMMARY_PATH.open("w", encoding="utf-8", newline="") as stream:
@@ -370,6 +391,12 @@ def main() -> None:
     print(f"Feature catalogues: {FEATURE_DIRECTORY}")
     print(f"Preview plots:      {PREVIEW_DIRECTORY}")
     print(f"Summary:            {SUMMARY_PATH}")
+    print(f"Shared site manifest: {CONFIG.site_selection_manifest_path}")
+    if removed_catalogues or removed_previews:
+        print(
+            "Removed stale unselected artifacts: "
+            f"catalogues={removed_catalogues}, previews={removed_previews}"
+        )
 
 
 if __name__ == "__main__":

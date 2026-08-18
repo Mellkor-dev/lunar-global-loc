@@ -20,6 +20,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from pipeline_config import add_resolution_argument, load_resolution_config
+from site_selection import selected_sites_for_config
 from refinement.moga import (
     FeatureObservation,
     MogaProblem,
@@ -46,7 +47,10 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def load_odometry(directory: Path) -> tuple[np.ndarray, np.ndarray]:
+def load_odometry(
+    directory: Path,
+    selected_sites: list[int] | None = None,
+) -> tuple[np.ndarray, np.ndarray]:
     records: list[tuple[int, np.ndarray]] = []
     for path in directory.glob("odom_site_*.npy"):
         match = ODOMETRY_PATTERN.fullmatch(path.name)
@@ -58,6 +62,12 @@ def load_odometry(directory: Path) -> tuple[np.ndarray, np.ndarray]:
         records.append((int(match.group(1)), pose))
     if not records:
         raise FileNotFoundError(f"No odometry scans found in {directory}")
+    if selected_sites is not None:
+        selected = set(selected_sites)
+        records = [item for item in records if item[0] in selected]
+        missing = sorted(selected.difference(site for site, _pose in records))
+        if missing:
+            raise FileNotFoundError(f"Selected odometry sites are missing: {missing}")
     records.sort(key=lambda item: item[0])
     return np.asarray([item[0] for item in records]), np.stack([item[1] for item in records])
 
@@ -215,7 +225,10 @@ def main() -> None:
     if not isinstance(records, list):
         raise ValueError(f"{ransac_path}: 'sites' must be a list")
     records_by_site = {int(record["site"]): record for record in records}
-    site_numbers, odometry = load_odometry(config.captures_path / "odom_scans")
+    selected_sites = selected_sites_for_config(config)
+    site_numbers, odometry = load_odometry(
+        config.captures_path / "odom_scans", selected_sites
+    )
     if set(site_numbers) != set(records_by_site):
         raise ValueError("RANSAC result sites and odometry sites do not match")
     records_by_site = {int(site): records_by_site[int(site)] for site in site_numbers}
@@ -244,9 +257,6 @@ def main() -> None:
             relative_tolerance=args.relative_tolerance,
         )
         site_runs[site] = (problem, elevation, initial_source, solution)
-    if not site_runs:
-        raise ValueError("No feature-derived RANSAC/DARCES poses are available for MOGA")
-
     truth_index = {int(site): index for index, site in enumerate(site_numbers)}
     output_sites: list[dict[str, object]] = []
     for site_value in site_numbers:
@@ -313,7 +323,13 @@ def main() -> None:
         },
         "optimization": {
             "mode": "independent_single_frame",
-            "success": all(bool(run[3]["success"]) for run in site_runs.values()),
+            "success": bool(site_runs)
+            and all(bool(run[3]["success"]) for run in site_runs.values()),
+            "message": (
+                "Independent single-frame refinements completed"
+                if site_runs
+                else "No feature-derived RANSAC/DARCES poses were available"
+            ),
             "solved_frames": len(site_runs),
             "initial_cost": float(
                 sum(float(run[3]["initial_cost"]) for run in site_runs.values())
@@ -360,12 +376,16 @@ def main() -> None:
     plot_path = config.plots_path / "moga" / "moga_traversal.png"
     if not args.no_plot:
         plotted_sites = np.asarray(list(site_runs), dtype=np.int64)
-        initial_poses = np.vstack(
-            [site_runs[int(site)][0].initial_poses[0] for site in plotted_sites]
-        )
-        optimized_poses = np.vstack(
-            [np.asarray(site_runs[int(site)][3]["poses"])[0] for site in plotted_sites]
-        )
+        if len(plotted_sites):
+            initial_poses = np.vstack(
+                [site_runs[int(site)][0].initial_poses[0] for site in plotted_sites]
+            )
+            optimized_poses = np.vstack(
+                [np.asarray(site_runs[int(site)][3]["poses"])[0] for site in plotted_sites]
+            )
+        else:
+            initial_poses = np.empty((0, 3), dtype=np.float64)
+            optimized_poses = np.empty((0, 3), dtype=np.float64)
         plot_solution(
             plot_path, plotted_sites, odometry[:, :2], initial_poses, optimized_poses
         )
@@ -383,7 +403,10 @@ def main() -> None:
     print(f"Initial cost:  {initial_cost:.6f}")
     print(f"Final cost:    {final_cost:.6f}")
     errors = [site["xy_error_m"] for site in output_sites if site["xy_error_m"] is not None]
-    print(f"Median XY err: {np.median(errors):.3f} m (available feature poses only)")
+    if errors:
+        print(f"Median XY err: {np.median(errors):.3f} m (available feature poses only)")
+    else:
+        print("Median XY err: N/A (no available feature poses)")
     print(f"JSON:          {output_json}")
     print(f"CSV:           {output_csv}")
     if not args.no_plot:

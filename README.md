@@ -1,5 +1,10 @@
 # Lunar Global Localization
 
+This workspace uses one persisted random sample of at most 50 synchronized
+capture sites across every DEM resolution and localization stage. The selected
+IDs are stored in `LargeScale_Implement/sim/selected_sites.json`; inspect or
+intentionally regenerate them with `LargeScale_Implement/Scripts/20_select_sites.py`.
+
 Experimental global localization for a lunar rover using terrain features
 extracted from digital elevation models (DEMs) and local LiDAR scans. This
 branch is configured for the Apollo 11 OmniLRS dataset and detects crater
@@ -189,7 +194,8 @@ python3 LargeScale_Implement/Scripts/08_darces_run.py \
 # All captured sites
 python3 LargeScale_Implement/Scripts/09_darces_all_sites.py \
   --resolution 5m \
-  --trials 100000
+  --trials 100000 \
+  --workers 6
 
 # Covariance-aware exhaustive consensus refinement
 python3 LargeScale_Implement/Scripts/11_ransac_all_sites.py \
@@ -199,6 +205,13 @@ python3 LargeScale_Implement/Scripts/11_ransac_all_sites.py \
 python3 LargeScale_Implement/Scripts/12_moga_all_sites.py \
   --resolution 5m
 ```
+
+`--workers` evaluates independent sites in separate processes without changing
+the per-site seed or numerical DARCES settings. Each completed site is written
+atomically beneath `results/<resolution>_px/darces_checkpoints/`; rerunning the
+same command resumes compatible checkpoints. Use `--no-resume` for a deliberate
+fresh run or `--sites 1 8 15` for a bounded subset. Worker detail logs are kept
+beside the checkpoints.
 
 Results are written to `LargeScale_Implement/results/<resolution>_px/` as JSON
 and CSV files. RANSAC diagnostic plots are written below
