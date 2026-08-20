@@ -1,0 +1,14 @@
+{
+  "format": "lunar_global_loc_synchronized_v1",
+  "created_utc": "2026-08-09T15:37:43.065809+00:00",
+  "sequence": "apollo11_full_dtm_flat_craters_os1_01",
+  "master_timestamp": "PointCloud2.header.stamp",
+  "pose_source": "TF lookup at the PointCloud2 timestamp",
+  "pointcloud_topic": "/os_cloud_node/points",
+  "target_frame": "odom",
+  "base_frame": "base_link",
+  "configured_lidar_frame": "os1_lidar",
+  "sensor_profile": "os1_rev7_128ch20hz1024res_rtx",
+  "pose_format": "[x, y, z, qx, qy, qz, qw]",
+  "transform_format": "T_target_lidar, source-to-target"
+}
