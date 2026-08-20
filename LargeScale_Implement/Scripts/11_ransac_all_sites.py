@@ -21,6 +21,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from matching.darces import decimate_reference_points_xy
 from matching.ransac import exhaustive_ransac
 from pipeline_config import add_resolution_argument, load_resolution_config
+from traversal_presentation import environment_display_name
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -128,6 +129,9 @@ def plot_correspondences(
     global_indices: np.ndarray,
     result: dict[str, object],
     darces: dict[str, object],
+    *,
+    environment_name: str,
+    resolution_m: float,
 ) -> None:
     rotation = np.asarray(result["rotation"], dtype=np.float64)
     translation = np.asarray(result["translation_xy_m"], dtype=np.float64)
@@ -141,7 +145,7 @@ def plot_correspondences(
             strict=True,
         )
     }
-    figure, axis = plt.subplots(figsize=(8, 7))
+    figure, axis = plt.subplots(figsize=(9.2, 7.5), layout="constrained")
     for index, (local_index, global_index) in enumerate(
         zip(local_indices, global_indices, strict=True)
     ):
@@ -156,44 +160,71 @@ def plot_correspondences(
             [projected[index, 0], targets[index, 0]],
             [projected[index, 1], targets[index, 1]],
             color=color,
-            linewidth=1.2,
-            alpha=0.8,
+            linewidth=2.2,
+            alpha=0.9,
+            solid_capstyle="round",
+            zorder=2,
             label=label,
         )
     axis.scatter(
         targets[:, 0], targets[:, 1], marker="o", facecolors="none",
-        edgecolors="black", s=65, label="Global feature",
+        edgecolors="black", linewidths=2.0, s=145, zorder=4,
+        label="Global feature",
     )
     axis.scatter(
         projected[:, 0], projected[:, 1], marker="x", color="#1565c0",
-        s=60, label="Transformed local feature",
+        s=135, linewidths=2.5, zorder=5,
+        label="Transformed local feature",
     )
     axis.scatter(
         translation[0], translation[1], marker="^", color="#6a1b9a",
-        s=85, label="RANSAC pose",
+        edgecolors="white", linewidths=1.0, s=190, zorder=6,
+        label="RANSAC pose",
     )
     if "estimated_x_m" in darces and "estimated_y_m" in darces:
         axis.scatter(
             darces["estimated_x_m"], darces["estimated_y_m"], marker="+",
-            color="#ef6c00", s=90, label="DARCES pose",
+            color="#ef6c00", linewidths=2.8, s=190, zorder=7,
+            label="DARCES pose",
         )
     if "truth_x_m" in darces and "truth_y_m" in darces:
         axis.scatter(
             darces["truth_x_m"], darces["truth_y_m"], marker="*",
-            color="#00838f", s=100, label="Truth (evaluation only)",
+            color="#00838f", edgecolors="white", linewidths=0.9,
+            s=220, zorder=8, label="Truth (evaluation only)",
         )
     axis.set_title(
-        f"Site {site:02d}: RANSAC {result['inlier_count']}/"
-        f"{result['input_correspondence_count']} inliers"
+        f"{environment_name} Site {site:02d} "
+        f"{resolution_m:g}m/px RANSAC correspondences\n"
+        f"Inliers={result['inlier_count']}/"
+        f"{result['input_correspondence_count']}",
+        fontsize=18,
+        fontweight="bold",
+        pad=9,
     )
-    axis.set_xlabel("Map x / east [m]")
-    axis.set_ylabel("Map y / north [m]")
+    axis.set_xlabel("Map x / east [m]", fontsize=14)
+    axis.set_ylabel("Map y / north [m]", fontsize=14)
+    axis.tick_params(axis="both", labelsize=11)
     axis.set_aspect("equal", adjustable="datalim")
     axis.grid(alpha=0.25)
-    axis.legend(fontsize=8)
-    figure.tight_layout()
+    axis.legend(
+        loc="upper right",
+        fontsize=10.5,
+        framealpha=0.92,
+        borderpad=0.55,
+        handletextpad=0.6,
+        handlelength=2.0,
+        labelspacing=0.4,
+        markerscale=1.0,
+    )
     path.parent.mkdir(parents=True, exist_ok=True)
-    figure.savefig(path, dpi=170)
+    figure.savefig(
+        path,
+        dpi=250,
+        bbox_inches="tight",
+        pad_inches=0.04,
+        facecolor="white",
+    )
     plt.close(figure)
 
 
@@ -397,6 +428,8 @@ def main() -> None:
                     global_indices,
                     result,
                     darces,
+                    environment_name=environment_display_name(config),
+                    resolution_m=config.orbital_raster.resolution_m,
                 )
         else:
             records.append(

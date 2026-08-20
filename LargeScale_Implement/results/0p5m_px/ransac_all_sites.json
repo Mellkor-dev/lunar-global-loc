@@ -12,776 +12,410 @@
   },
   "sites": [
     {
-      "site": 2,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 2,
-        "local_feature_count": 5,
-        "heading_measurement_deg": -20.974839005495397,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 15711,
-        "runtime_s": 2.2170406359946355
-      }
-    },
-    {
-      "site": 6,
+      "site": 12,
       "status": "solution",
       "estimate_source": "darces",
-      "runtime_s": 0.15124857099726796,
-      "estimated_x_m": -2.2628842449377915,
-      "estimated_y_m": -2.2743386973004007,
-      "estimated_z_m": 1779.2239277809858,
-      "estimated_heading_deg": -42.94896730614721,
-      "fitness": -0.2308175130730656,
-      "overlap": 0.9916004619745914,
+      "runtime_s": 0.08820789499441162,
+      "estimated_x_m": 4.018962283180764,
+      "estimated_y_m": -7.060174984946785,
+      "estimated_z_m": 1779.2642450779676,
+      "estimated_heading_deg": -36.70515995546222,
+      "fitness": -0.20521162380765542,
+      "overlap": 0.999759807846277,
       "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
-      "fitness_improvement_m": -0.007368066262101458,
+      "fitness_improvement_m": -0.11597255526866809,
       "ransac_rejected_outlier": false,
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.25,
-      "fitness_reference_point_count": 28573,
+      "fitness_reference_point_count": 12490,
       "ransac": {
         "status": "solution",
         "input_correspondence_count": 8,
         "inlier_count": 8,
         "outlier_count": 0,
         "inlier_local_indices": [
-          7,
-          9,
-          4,
-          6,
+          3,
           5,
+          6,
           8,
+          4,
+          7,
           2,
-          3
+          9
         ],
         "inlier_global_indices": [
+          26,
           43,
+          44,
+          50,
+          34,
           47,
-          21,
-          41,
-          39,
-          38,
-          12,
-          16
+          16,
+          46
         ],
         "outlier_local_indices": [],
         "outlier_global_indices": [],
         "rotation": [
           [
-            0.7279260507641624,
-            0.6856556458010751
+            0.7974143731644582,
+            0.6034321150475285
           ],
           [
-            -0.6856556458010752,
-            0.7279260507641625
+            -0.6034321150475285,
+            0.7974143731644583
           ]
         ],
         "translation_xy_m": [
-          -1.896557923327208,
-          -1.6655833737147248
+          3.125465606986186,
+          -9.80289840019814
         ],
-        "translation_z_m": 1779.2997128739953,
-        "heading_deg": -43.287191812563165,
-        "terrain_fitness": -0.23818557933516707,
-        "terrain_overlap": 0.991425471599062,
-        "median_mahalanobis_squared": 0.36772170475090793,
+        "translation_z_m": 1779.0687642544508,
+        "heading_deg": -37.116102272199065,
+        "terrain_fitness": -0.3211841790763235,
+        "terrain_overlap": 0.999839871897518,
+        "median_mahalanobis_squared": 0.1586593499728478,
         "mahalanobis_squared": [
-          0.006463267122927373,
-          0.3120435822181918,
-          0.2651041070651077,
-          0.3633826146677014,
-          0.3720607948341144,
-          0.6302778910297883,
-          1.0603661437263938,
-          1.6130905330918315
+          0.2792402491575889,
+          0.21951138478100718,
+          0.07230966697220959,
+          0.023168245566709933,
+          0.072660347134724,
+          0.09780731516468846,
+          1.2059827604521158,
+          1.707192491310987
         ],
         "residuals_xyz_m": [
           [
-            -0.5791559419218633,
-            0.6135231987102507,
-            -0.009256772696971893
+            -2.677090268465662,
+            -4.857204719396222,
+            0.059821948409080505
           ],
           [
-            5.82704874758852,
-            -0.7997825372939524,
-            0.009256772696971893
+            2.137408395011212,
+            -4.165922750929894,
+            -0.20829524099826813
           ],
           [
-            -5.181824855676787,
-            1.4553248231296043,
-            -0.09807660430669785
+            -2.3737798578590414,
+            0.4698598222875585,
+            -0.1954808235168457
           ],
           [
-            3.292038747377763,
-            5.410911810180627,
-            -0.05582093447446823
+            -1.5422982263170013,
+            0.22240206505255067,
+            0.04979412257671356
           ],
           [
-            6.357966330032344,
-            0.5757105636169584,
-            -0.09385522454977036
+            1.9544528220659991,
+            2.0239424716260572,
+            -0.04979412257671356
           ],
           [
-            5.319230903120882,
-            6.138954463247309,
-            0.2623504772782326
+            0.6279439839744754,
+            1.2721900716576027,
+            0.3944433182477951
           ],
           [
-            -5.935511105199829,
-            -4.634435660151979,
-            1.0360543504357338
+            -10.832133597976778,
+            2.510192415703953,
+            -0.42613716423511505
           ],
           [
-            -9.09979282532106,
-            -8.760206661438826,
-            0.5866526141762733
+            12.705496749566791,
+            2.524540623998406,
+            0.6152831166982651
           ]
         ],
         "mahalanobis_threshold_squared": 7.814727903251179,
         "model_count_tested": 56
       },
       "darces": {
-        "site": 6,
-        "local_feature_count": 11,
-        "heading_measurement_deg": -42.51573793248288,
+        "site": 12,
+        "local_feature_count": 10,
+        "heading_measurement_deg": -39.71688393994657,
         "status": "solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 28573,
-        "runtime_s": 47.47807149201981,
-        "estimated_x_m": -2.2628842449377915,
-        "estimated_y_m": -2.2743386973004007,
-        "estimated_z_m": 1779.2239277809858,
-        "estimated_heading_deg": -42.94896730614721,
-        "fitness": -0.2308175130730656,
-        "overlap": 0.9916004619745914,
-        "cluster_size": 3,
-        "evaluated_hypothesis_count": 244,
-        "truth_x_m": 3.7302491664886475,
-        "truth_y_m": -3.090923309326172,
-        "truth_z_m": 0.2786865234375,
-        "xy_error_m": 6.04850878446524,
-        "z_error_m": 1778.9452412575483,
-        "heading_error_deg": 0.43322937366434644,
+        "fitness_reference_point_count": 12490,
+        "runtime_s": 52.72643976699328,
+        "estimated_x_m": 4.018962283180764,
+        "estimated_y_m": -7.060174984946785,
+        "estimated_z_m": 1779.2642450779676,
+        "estimated_heading_deg": -36.70515995546222,
+        "fitness": -0.20521162380765542,
+        "overlap": 0.999759807846277,
+        "cluster_size": 5,
+        "evaluated_hypothesis_count": 179,
+        "truth_x_m": 8.534244537353516,
+        "truth_y_m": -6.865278720855713,
+        "truth_z_m": 0.2811279296875,
+        "xy_error_m": 4.519486518245632,
+        "z_error_m": 1778.9831171482801,
+        "heading_error_deg": 3.011723984484348,
         "consensus_count": 0,
         "consensus_xy_rmse_m": Infinity,
         "consensus_z_rmse_m": Infinity,
         "correspondence_count": 8,
         "correspondence_local_indices": [
-          7,
-          9,
+          3,
+          5,
+          6,
+          8,
           4,
-          6,
-          5,
-          8,
+          7,
           2,
-          3
+          9
         ],
         "correspondence_global_indices": [
+          26,
           43,
-          47,
-          21,
-          41,
-          39,
-          38,
-          12,
-          16
-        ],
-        "correspondence_xy_rmse_m": 7.340454636859405,
-        "correspondence_z_rmse_m": 0.404025575223934
-      },
-      "truth_x_m": 3.7302491664886475,
-      "truth_y_m": -3.090923309326172,
-      "truth_z_m": 0.2786865234375,
-      "xy_error_m": 6.04850878446524,
-      "z_error_m": 1778.9452412575483,
-      "heading_error_deg": 0.43322937366434644
-    },
-    {
-      "site": 7,
-      "status": "solution",
-      "estimate_source": "darces",
-      "runtime_s": 0.292483324999921,
-      "estimated_x_m": 3.054149158279859,
-      "estimated_y_m": -4.715447337273721,
-      "estimated_z_m": 1779.485860913992,
-      "estimated_heading_deg": -40.50023532325318,
-      "fitness": -0.12606616487505332,
-      "overlap": 0.9936892681702464,
-      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
-      "fitness_improvement_m": -0.09040339234118769,
-      "ransac_rejected_outlier": false,
-      "fitness_reference": "raw_lidar_xy_decimated",
-      "fitness_reference_spacing_m": 0.25,
-      "fitness_reference_point_count": 27889,
-      "ransac": {
-        "status": "solution",
-        "input_correspondence_count": 10,
-        "inlier_count": 10,
-        "outlier_count": 0,
-        "inlier_local_indices": [
-          7,
-          6,
-          12,
-          10,
-          9,
-          2,
-          3,
-          13,
-          8,
-          5
-        ],
-        "inlier_global_indices": [
-          31,
-          21,
+          44,
           50,
-          44,
-          43,
-          12,
-          16,
-          52,
-          35,
-          13
-        ],
-        "outlier_local_indices": [],
-        "outlier_global_indices": [],
-        "rotation": [
-          [
-            0.7880717389184306,
-            0.6155834097164096
-          ],
-          [
-            -0.6155834097164095,
-            0.7880717389184306
-          ]
-        ],
-        "translation_xy_m": [
-          1.9843846831420429,
-          -4.969890641645243
-        ],
-        "translation_z_m": 1779.4718891233206,
-        "heading_deg": -37.99432411697658,
-        "terrain_fitness": -0.216469557216241,
-        "terrain_overlap": 0.9932589910000359,
-        "median_mahalanobis_squared": 0.4786096360130063,
-        "mahalanobis_squared": [
-          0.0689986233928608,
-          0.07908610913626926,
-          0.026265678210321056,
-          0.07749650660339043,
-          0.1115870220286968,
-          0.9286916812334953,
-          0.9845888734398229,
-          0.8456322499973158,
-          1.9103204031248353,
-          3.0504280521160263
-        ],
-        "residuals_xyz_m": [
-          [
-            -0.6203384362770663,
-            2.6310398451994814,
-            -0.07797946035861969
-          ],
-          [
-            -2.4609483250277293,
-            -1.6442875505230354,
-            0.013971790671348572
-          ],
-          [
-            0.05253857102302106,
-            1.7024872054033544,
-            -0.013971790671348572
-          ],
-          [
-            -0.578280076727534,
-            2.8710404170015753,
-            -0.016540780663490295
-          ],
-          [
-            3.2243429755040225,
-            -1.2247889254184052,
-            -0.09285397827625275
-          ],
-          [
-            4.622651481156879,
-            -7.394429692033356,
-            0.6893714517354965
-          ],
-          [
-            -8.226741000454851,
-            6.250922523840583,
-            0.20876918733119965
-          ],
-          [
-            6.129045498196149,
-            -7.0285023256587635,
-            0.34608010947704315
-          ],
-          [
-            -9.251486432007228,
-            -11.224754824061748,
-            -0.0637253075838089
-          ],
-          [
-            7.109215744614346,
-            15.061273326250323,
-            1.041735514998436
-          ]
-        ],
-        "mahalanobis_threshold_squared": 7.814727903251179,
-        "model_count_tested": 119
-      },
-      "darces": {
-        "site": 7,
-        "local_feature_count": 14,
-        "heading_measurement_deg": -39.06206289246691,
-        "status": "solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 27889,
-        "runtime_s": 116.550043722993,
-        "estimated_x_m": 3.054149158279859,
-        "estimated_y_m": -4.715447337273721,
-        "estimated_z_m": 1779.485860913992,
-        "estimated_heading_deg": -40.50023532325318,
-        "fitness": -0.12606616487505332,
-        "overlap": 0.9936892681702464,
-        "cluster_size": 5,
-        "evaluated_hypothesis_count": 1014,
-        "truth_x_m": 4.510462284088135,
-        "truth_y_m": -3.7341771125793457,
-        "truth_z_m": 0.3763427734375,
-        "xy_error_m": 1.7560578504916118,
-        "z_error_m": 1779.1095181405544,
-        "heading_error_deg": 1.4381724307862669,
-        "consensus_count": 0,
-        "consensus_xy_rmse_m": Infinity,
-        "consensus_z_rmse_m": Infinity,
-        "correspondence_count": 10,
-        "correspondence_local_indices": [
-          7,
-          6,
-          12,
-          10,
-          9,
-          2,
-          3,
-          13,
-          8,
-          5
-        ],
-        "correspondence_global_indices": [
-          31,
-          21,
-          50,
-          44,
-          43,
-          12,
-          16,
-          52,
-          35,
-          13
-        ],
-        "correspondence_xy_rmse_m": 9.226211474745691,
-        "correspondence_z_rmse_m": 0.42450474475075695
-      },
-      "truth_x_m": 4.510462284088135,
-      "truth_y_m": -3.7341771125793457,
-      "truth_z_m": 0.3763427734375,
-      "xy_error_m": 1.7560578504916118,
-      "z_error_m": 1779.1095181405544,
-      "heading_error_deg": 1.4381724307862669
-    },
-    {
-      "site": 9,
-      "status": "solution",
-      "estimate_source": "darces",
-      "runtime_s": 0.5883454589638859,
-      "estimated_x_m": 4.207550210302457,
-      "estimated_y_m": -5.1091262429356625,
-      "estimated_z_m": 1779.7090556621552,
-      "estimated_heading_deg": -41.89881543381584,
-      "fitness": -0.3142319739186445,
-      "overlap": 0.9936555262792955,
-      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
-      "fitness_improvement_m": -0.03466173435824882,
-      "ransac_rejected_outlier": false,
-      "fitness_reference": "raw_lidar_xy_decimated",
-      "fitness_reference_spacing_m": 0.25,
-      "fitness_reference_point_count": 28844,
-      "ransac": {
-        "status": "solution",
-        "input_correspondence_count": 12,
-        "inlier_count": 12,
-        "outlier_count": 0,
-        "inlier_local_indices": [
-          8,
-          7,
-          15,
-          11,
-          10,
-          14,
-          12,
-          9,
-          16,
-          5,
-          13,
-          4
-        ],
-        "inlier_global_indices": [
-          19,
-          18,
-          44,
-          33,
-          23,
-          35,
-          38,
-          16,
-          52,
-          12,
-          34,
-          15
-        ],
-        "outlier_local_indices": [],
-        "outlier_global_indices": [],
-        "rotation": [
-          [
-            0.7632658807432132,
-            0.64608451095293
-          ],
-          [
-            -0.6460845109529301,
-            0.7632658807432132
-          ]
-        ],
-        "translation_xy_m": [
-          6.715324140874034,
-          -3.854333343291156
-        ],
-        "translation_z_m": 1779.71170514822,
-        "heading_deg": -40.24703715453009,
-        "terrain_fitness": -0.3488937082768933,
-        "terrain_overlap": 0.992996810428512,
-        "median_mahalanobis_squared": 0.46289790737695335,
-        "mahalanobis_squared": [
-          0.06944994470532254,
-          0.401302874265239,
-          0.3618999090104244,
-          0.17223560657887405,
-          0.40373337605552245,
-          0.5606474155578673,
-          1.0049967712272423,
-          0.421398092286788,
-          1.277617030573531,
-          0.5043977224671188,
-          2.026149709813552,
-          2.956506204285966
-        ],
-        "residuals_xyz_m": [
-          [
-            2.2765422491172025,
-            -1.5046120501826152,
-            -0.06725603342056274
-          ],
-          [
-            6.6688282260651235,
-            0.14937100236882372,
-            0.0026494860649108887
-          ],
-          [
-            4.3864623358701245,
-            4.565742640711056,
-            0.026658356189727783
-          ],
-          [
-            3.2767418764767378,
-            -1.1917762462344683,
-            -0.3525920510292053
-          ],
-          [
-            -0.21803243518947113,
-            6.5620041158038624,
-            -0.1722537875175476
-          ],
-          [
-            4.007465904829881,
-            -6.749564356593083,
-            0.09879332780838013
-          ],
-          [
-            9.913458854371228,
-            -2.0167251243724778,
-            -0.401944100856781
-          ],
-          [
-            -5.752807477093452,
-            0.7275789370812671,
-            0.48503369092941284
-          ],
-          [
-            10.876711687510095,
-            -4.690263989543993,
-            0.1547229290008545
-          ],
-          [
-            -5.022192480540362,
-            -4.017260272430775,
-            0.5071837306022644
-          ],
-          [
-            -13.619282625378375,
-            6.258735472273685,
-            -0.0026494860649108887
-          ],
-          [
-            -16.793896116038756,
-            1.906769871118712,
-            -0.8768633008003235
-          ]
-        ],
-        "mahalanobis_threshold_squared": 7.814727903251179,
-        "model_count_tested": 220
-      },
-      "darces": {
-        "site": 9,
-        "local_feature_count": 17,
-        "heading_measurement_deg": -37.76336249359943,
-        "status": "solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 28844,
-        "runtime_s": 165.84139616100583,
-        "estimated_x_m": 4.207550210302457,
-        "estimated_y_m": -5.1091262429356625,
-        "estimated_z_m": 1779.7090556621552,
-        "estimated_heading_deg": -41.89881543381584,
-        "fitness": -0.3142319739186445,
-        "overlap": 0.9936555262792955,
-        "cluster_size": 5,
-        "evaluated_hypothesis_count": 1756,
-        "truth_x_m": 6.133005142211914,
-        "truth_y_m": -4.976420879364014,
-        "truth_z_m": 0.4110107421875,
-        "xy_error_m": 1.9300226445135653,
-        "z_error_m": 1779.2980449199677,
-        "heading_error_deg": 4.135452940216396,
-        "consensus_count": 0,
-        "consensus_xy_rmse_m": Infinity,
-        "consensus_z_rmse_m": Infinity,
-        "correspondence_count": 12,
-        "correspondence_local_indices": [
-          8,
-          7,
-          15,
-          11,
-          10,
-          14,
-          12,
-          9,
-          16,
-          5,
-          13,
-          4
-        ],
-        "correspondence_global_indices": [
-          19,
-          18,
-          44,
-          33,
-          23,
-          35,
-          38,
-          16,
-          52,
-          12,
-          34,
-          15
-        ],
-        "correspondence_xy_rmse_m": 9.976003245334013,
-        "correspondence_z_rmse_m": 0.3673255821468787
-      },
-      "truth_x_m": 6.133005142211914,
-      "truth_y_m": -4.976420879364014,
-      "truth_z_m": 0.4110107421875,
-      "xy_error_m": 1.9300226445135653,
-      "z_error_m": 1779.2980449199677,
-      "heading_error_deg": 4.135452940216396
-    },
-    {
-      "site": 14,
-      "status": "solution",
-      "estimate_source": "ransac",
-      "runtime_s": 0.07276786904549226,
-      "estimated_x_m": 2.53280686861687,
-      "estimated_y_m": -4.850876739450662,
-      "estimated_z_m": 1779.0273685455322,
-      "estimated_heading_deg": -38.93844209340879,
-      "fitness": -0.36019657102862496,
-      "overlap": 0.9888194049649423,
-      "preservation_reason": null,
-      "fitness_improvement_m": 0.043235274937830415,
-      "ransac_rejected_outlier": false,
-      "fitness_reference": "raw_lidar_xy_decimated",
-      "fitness_reference_spacing_m": 0.25,
-      "fitness_reference_point_count": 21108,
-      "ransac": {
-        "status": "solution",
-        "input_correspondence_count": 7,
-        "inlier_count": 7,
-        "outlier_count": 0,
-        "inlier_local_indices": [
-          8,
-          5,
-          3,
-          7,
-          0,
-          6,
-          2
-        ],
-        "inlier_global_indices": [
-          52,
-          42,
           34,
           47,
+          16,
+          46
+        ],
+        "correspondence_xy_rmse_m": 7.399942799514337,
+        "correspondence_z_rmse_m": 0.3881493166237527
+      },
+      "truth_x_m": 8.534244537353516,
+      "truth_y_m": -6.865278720855713,
+      "truth_z_m": 0.2811279296875,
+      "xy_error_m": 4.519486518245632,
+      "z_error_m": 1778.9831171482801,
+      "heading_error_deg": 3.011723984484348
+    },
+    {
+      "site": 17,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.6752891130017815,
+      "estimated_x_m": 9.491874826136844,
+      "estimated_y_m": -17.787929403553356,
+      "estimated_z_m": 1779.158580482006,
+      "estimated_heading_deg": -40.54117670805412,
+      "fitness": -0.2850717820483816,
+      "overlap": 0.9944319460067491,
+      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
+      "fitness_improvement_m": -0.04389887451189772,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 17780,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 13,
+        "inlier_count": 13,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          3,
+          8,
+          2,
+          13,
+          6,
+          11,
+          9,
+          10,
+          5,
+          1,
           12,
+          4,
+          0
+        ],
+        "inlier_global_indices": [
+          44,
+          36,
+          27,
+          47,
+          34,
+          51,
+          50,
+          48,
           46,
-          35
+          29,
+          53,
+          35,
+          12
         ],
         "outlier_local_indices": [],
         "outlier_global_indices": [],
         "rotation": [
           [
-            0.7778216471644054,
-            0.6284850715828106
+            0.756805078436403,
+            0.6536406300505426
           ],
           [
-            -0.6284850715828108,
-            0.7778216471644054
+            -0.6536406300505423,
+            0.756805078436403
           ]
         ],
         "translation_xy_m": [
-          2.53280686861687,
-          -4.850876739450662
+          10.973384712535884,
+          -14.737069281015891
         ],
-        "translation_z_m": 1779.0273685455322,
-        "heading_deg": -38.93844209340879,
-        "terrain_fitness": -0.36019657102862496,
-        "terrain_overlap": 0.9888194049649423,
-        "median_mahalanobis_squared": 0.6426017512524393,
+        "translation_z_m": 1779.442450851202,
+        "heading_deg": -40.81665552046571,
+        "terrain_fitness": -0.3289706565602793,
+        "terrain_overlap": 0.9941507311586052,
+        "median_mahalanobis_squared": 0.7161672867432762,
         "mahalanobis_squared": [
-          0.025149232271028783,
-          0.19653425118790901,
-          0.3600806232177447,
-          0.6426017512524393,
-          0.6601856489887742,
-          3.0623674345995178,
-          2.288216928299378
+          0.060354729096435536,
+          0.6879582245992051,
+          0.7115582688272558,
+          0.9731845680475021,
+          0.912233691404728,
+          0.1831649632398749,
+          0.2850382527189603,
+          0.4171948128393914,
+          0.888314974598302,
+          0.7161672867432762,
+          1.16497996795149,
+          1.6744838130570694,
+          2.431139193731437
         ],
         "residuals_xyz_m": [
           [
-            1.1145367595109263,
-            -0.15655495372521244,
-            0.16378343105316162
-          ],
-          [
-            -4.096394045994515,
-            -0.5879086338858981,
-            -0.31726351380348206
-          ],
-          [
-            -1.5716125474386473,
-            5.893590558753807,
-            -0.21949291229248047
-          ],
-          [
-            6.550382910082874,
-            3.0595929022716852,
-            0.5783056020736694
-          ],
-          [
-            -4.963174838530762,
-            -6.9690372403239,
+            2.5844925399877603,
+            0.11161324165616904,
             0.0
           ],
           [
-            16.82514377289317,
-            5.922449663728195,
-            0.6138684153556824
+            4.012785981505155,
+            6.603038031761287,
+            0.6061359941959381
           ],
           [
-            -13.858882010523024,
-            -7.162132296818669,
-            -0.42852240800857544
+            3.600372343466951,
+            6.73297852322834,
+            0.602584034204483
+          ],
+          [
+            1.1068034618344882,
+            9.675149842205041,
+            0.47982701659202576
+          ],
+          [
+            -2.828689494044861,
+            8.776429808190809,
+            0.5344905108213425
+          ],
+          [
+            0.4267653863580563,
+            -3.9928948382121803,
+            -0.2714582532644272
+          ],
+          [
+            2.832025095288593,
+            -3.5019942885962294,
+            -0.446581638418138
+          ],
+          [
+            -6.36795072052216,
+            1.930726800360567,
+            -0.18675541318953037
+          ],
+          [
+            9.537035858077274,
+            1.8297099208284884,
+            -0.2718124985694885
+          ],
+          [
+            -8.578829342485914,
+            2.2989883628691814,
+            -0.09667065739631653
+          ],
+          [
+            7.820778076050765,
+            -8.091821710440392,
+            -0.21106797456741333
+          ],
+          [
+            -6.995480556681761,
+            -11.266612747484103,
+            0.41610509157180786
+          ],
+          [
+            -7.150108628834353,
+            -11.105310946366956,
+            1.2950616776943207
           ]
         ],
         "mahalanobis_threshold_squared": 7.814727903251179,
-        "model_count_tested": 35
+        "model_count_tested": 286
       },
       "darces": {
-        "site": 14,
-        "local_feature_count": 9,
-        "heading_measurement_deg": -41.33108907836607,
+        "site": 17,
+        "local_feature_count": 15,
+        "heading_measurement_deg": -39.84202365654841,
         "status": "solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 21108,
-        "runtime_s": 11.844653484004084,
-        "estimated_x_m": 1.538579814178373,
-        "estimated_y_m": -5.486082170153384,
-        "estimated_z_m": 1778.863585114479,
-        "estimated_heading_deg": -39.51242326624116,
-        "fitness": -0.40343184596645537,
-        "overlap": 0.9894352851999242,
-        "cluster_size": 2,
-        "evaluated_hypothesis_count": 146,
-        "truth_x_m": 10.047952651977539,
-        "truth_y_m": -8.223517417907715,
-        "truth_z_m": 0.2745361328125,
-        "xy_error_m": 8.938846560285173,
-        "z_error_m": 1778.5890489816666,
-        "heading_error_deg": 1.8186658121249195,
+        "fitness_reference_point_count": 17780,
+        "runtime_s": 138.98959778599965,
+        "estimated_x_m": 9.491874826136844,
+        "estimated_y_m": -17.787929403553356,
+        "estimated_z_m": 1779.158580482006,
+        "estimated_heading_deg": -40.54117670805412,
+        "fitness": -0.2850717820483816,
+        "overlap": 0.9944319460067491,
+        "cluster_size": 4,
+        "evaluated_hypothesis_count": 832,
+        "truth_x_m": 12.359783172607422,
+        "truth_y_m": -10.166851043701172,
+        "truth_z_m": 0.103271484375,
+        "xy_error_m": 8.142833269247435,
+        "z_error_m": 1779.055308997631,
+        "heading_error_deg": 0.6991530515057036,
         "consensus_count": 0,
         "consensus_xy_rmse_m": Infinity,
         "consensus_z_rmse_m": Infinity,
-        "correspondence_count": 7,
+        "correspondence_count": 13,
         "correspondence_local_indices": [
-          8,
-          5,
           3,
-          7,
-          0,
+          8,
+          2,
+          13,
           6,
-          2
+          11,
+          9,
+          10,
+          5,
+          1,
+          12,
+          4,
+          0
         ],
         "correspondence_global_indices": [
-          52,
-          42,
-          34,
+          44,
+          36,
+          27,
           47,
-          12,
+          34,
+          51,
+          50,
+          48,
           46,
-          35
+          29,
+          53,
+          35,
+          12
         ],
-        "correspondence_xy_rmse_m": 10.416614894114867,
-        "correspondence_z_rmse_m": 0.4018463212225445
+        "correspondence_xy_rmse_m": 9.536123059659797,
+        "correspondence_z_rmse_m": 0.49530230046764256
       },
-      "truth_x_m": 10.047952651977539,
-      "truth_y_m": -8.223517417907715,
-      "truth_z_m": 0.2745361328125,
-      "xy_error_m": 8.237239907344382,
-      "z_error_m": 1778.7528324127197,
-      "heading_error_deg": 2.392646984957281
+      "truth_x_m": 12.359783172607422,
+      "truth_y_m": -10.166851043701172,
+      "truth_z_m": 0.103271484375,
+      "xy_error_m": 8.142833269247435,
+      "z_error_m": 1779.055308997631,
+      "heading_error_deg": 0.6991530515057036
     },
     {
       "site": 18,
       "status": "solution",
       "estimate_source": "darces",
-      "runtime_s": 0.00785821198951453,
+      "runtime_s": 0.008173320005880669,
       "estimated_x_m": 19.718896451020946,
       "estimated_y_m": -17.62919497661415,
       "estimated_z_m": 1779.192521482706,
@@ -871,7 +505,7 @@
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
         "fitness_reference_point_count": 19086,
-        "runtime_s": 11.334011353988899,
+        "runtime_s": 9.133734383009141,
         "estimated_x_m": 19.718896451020946,
         "estimated_y_m": -17.62919497661415,
         "estimated_z_m": 1779.192521482706,
@@ -913,799 +547,2558 @@
       "heading_error_deg": 0.7898119535557839
     },
     {
-      "site": 26,
+      "site": 20,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 26,
-        "local_feature_count": 5,
-        "heading_measurement_deg": -39.3638236300559,
+        "site": 20,
+        "local_feature_count": 6,
+        "heading_measurement_deg": -38.27391643548647,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 19832,
-        "runtime_s": 1.6003136229992379
+        "fitness_reference_point_count": 20325,
+        "runtime_s": 2.971439865010325
       }
     },
     {
-      "site": 35,
+      "site": 22,
       "status": "solution",
-      "estimate_source": "ransac",
-      "runtime_s": 0.1304749900009483,
-      "estimated_x_m": 21.492179030721573,
-      "estimated_y_m": -14.658864922784595,
-      "estimated_z_m": 1779.326150342822,
-      "estimated_heading_deg": -45.03716613672893,
-      "fitness": -0.5118730119904241,
-      "overlap": 0.9973674313651749,
-      "preservation_reason": null,
-      "fitness_improvement_m": 0.12642621509427776,
+      "estimate_source": "darces",
+      "runtime_s": 0.12332384999899659,
+      "estimated_x_m": 8.024908924733886,
+      "estimated_y_m": -6.188627889860207,
+      "estimated_z_m": 1779.4077159762383,
+      "estimated_heading_deg": -41.10511179305972,
+      "fitness": -0.3010549467463844,
+      "overlap": 0.992808988764045,
+      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
+      "fitness_improvement_m": 0.00624472675257004,
       "ransac_rejected_outlier": false,
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.25,
-      "fitness_reference_point_count": 21272,
+      "fitness_reference_point_count": 22250,
       "ransac": {
         "status": "solution",
         "input_correspondence_count": 8,
         "inlier_count": 8,
         "outlier_count": 0,
         "inlier_local_indices": [
-          5,
-          4,
-          9,
-          10,
+          0,
+          2,
           7,
+          3,
+          5,
           6,
-          1,
-          8
+          4,
+          1
         ],
         "inlier_global_indices": [
-          24,
-          26,
+          31,
+          42,
+          53,
+          40,
           50,
-          48,
-          29,
-          34,
-          22,
-          49
+          51,
+          47,
+          35
         ],
         "outlier_local_indices": [],
         "outlier_global_indices": [],
         "rotation": [
           [
-            0.7066479524669952,
-            0.7075653123734962
+            0.770053733225796,
+            0.6379790340951766
           ],
           [
-            -0.7075653123734961,
-            0.706647952466995
+            -0.6379790340951766,
+            0.7700537332257962
           ]
         ],
         "translation_xy_m": [
-          21.492179030721573,
-          -14.658864922784595
+          8.387868622794013,
+          -7.53426784479867
         ],
-        "translation_z_m": 1779.326150342822,
-        "heading_deg": -45.03716613672893,
-        "terrain_fitness": -0.5118730119904241,
-        "terrain_overlap": 0.9973674313651749,
-        "median_mahalanobis_squared": 0.8945712587450503,
+        "translation_z_m": 1779.2715367525816,
+        "heading_deg": -39.64128570534833,
+        "terrain_fitness": -0.29481021999381435,
+        "terrain_overlap": 0.9926741573033708,
+        "median_mahalanobis_squared": 0.3830749681966643,
         "mahalanobis_squared": [
-          0.06870679405959994,
-          0.4542614401841525,
-          0.6334183899364945,
-          1.202907777967629,
-          1.0887904609628973,
-          0.7003520565272032,
-          3.060098280031263,
-          1.9512645102511905
+          0.076354764999112,
+          0.11545937811245341,
+          0.11905540963969974,
+          0.22955427833456646,
+          0.5365956580587622,
+          0.9171797729385854,
+          1.825495281555153,
+          2.2641411368453266
         ],
         "residuals_xyz_m": [
           [
-            -2.2675744137049634,
-            1.2436085790770974,
-            -0.1289801150560379
+            2.424684096860233,
+            -1.1353272970569108,
+            -0.1516176015138626
           ],
           [
-            2.081578018778366,
-            -0.682243837842563,
-            -0.9105643779039383
+            -2.6251245038394817,
+            -2.2884044689853287,
+            -0.13617922365665436
           ],
           [
-            5.875805545482713,
-            3.8914609643398244,
-            0.6021270006895065
+            0.6795474249848326,
+            0.9867612090923075,
+            0.45542924106121063
           ],
           [
-            8.937941373154594,
-            -0.42866590201173693,
-            0.9697587937116623
+            0.25113041555648685,
+            5.0299736089121065,
+            -0.040992721915245056
           ],
           [
-            7.133910185901957,
-            1.8060041800565791,
-            1.0828315168619156
+            7.521691480161721,
+            -1.6810213505920135,
+            0.040992721915245056
           ],
           [
-            -8.711488273767173,
-            1.3148753533609465,
-            0.02497921884059906
+            -7.249826036053559,
+            6.878472960279737,
+            0.17917655408382416
           ],
           [
-            1.1370050286815072,
-            -3.266584355573656,
-            -2.4135759621858597
+            13.730558430946274,
+            -2.150466380967316,
+            0.4037654846906662
           ],
           [
-            -14.187177464527018,
-            -3.8784549814064917,
-            -0.02497921884059906
+            -14.732661308616507,
+            -5.63998828068258,
+            -0.19684268534183502
           ]
         ],
         "mahalanobis_threshold_squared": 7.814727903251179,
-        "model_count_tested": 55
+        "model_count_tested": 56
       },
       "darces": {
-        "site": 35,
-        "local_feature_count": 12,
-        "heading_measurement_deg": -41.86620246456552,
+        "site": 22,
+        "local_feature_count": 9,
+        "heading_measurement_deg": -39.267137363970704,
         "status": "solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 21272,
-        "runtime_s": 44.0852973459987,
-        "estimated_x_m": 18.935820644880927,
-        "estimated_y_m": -14.650582221573654,
-        "estimated_z_m": 1779.455130457878,
-        "estimated_heading_deg": -43.63668545853479,
-        "fitness": -0.6382992270847019,
-        "overlap": 0.9969443399774351,
+        "fitness_reference_point_count": 22250,
+        "runtime_s": 36.302146262998576,
+        "estimated_x_m": 8.024908924733886,
+        "estimated_y_m": -6.188627889860207,
+        "estimated_z_m": 1779.4077159762383,
+        "estimated_heading_deg": -41.10511179305972,
+        "fitness": -0.3010549467463844,
+        "overlap": 0.992808988764045,
         "cluster_size": 5,
-        "evaluated_hypothesis_count": 314,
-        "truth_x_m": 26.538867950439453,
-        "truth_y_m": -21.722379684448242,
-        "truth_z_m": -0.051025390625,
-        "xy_error_m": 10.383479555836773,
-        "z_error_m": 1779.506155848503,
-        "heading_error_deg": 1.7704829939692672,
+        "evaluated_hypothesis_count": 138,
+        "truth_x_m": 16.350055694580078,
+        "truth_y_m": -13.349465370178223,
+        "truth_z_m": 0.2919921875,
+        "xy_error_m": 10.981150311283775,
+        "z_error_m": 1779.1157237887383,
+        "heading_error_deg": 1.8379744290890017,
         "consensus_count": 0,
         "consensus_xy_rmse_m": Infinity,
         "consensus_z_rmse_m": Infinity,
         "correspondence_count": 8,
         "correspondence_local_indices": [
-          5,
-          4,
-          9,
-          10,
+          0,
+          2,
           7,
+          3,
+          5,
           6,
-          1,
-          8
+          4,
+          1
         ],
         "correspondence_global_indices": [
-          24,
-          26,
+          31,
+          42,
+          53,
+          40,
           50,
-          48,
-          29,
-          34,
-          22,
-          49
+          51,
+          47,
+          35
         ],
-        "correspondence_xy_rmse_m": 8.387005852080136,
-        "correspondence_z_rmse_m": 1.0650706574652273
+        "correspondence_xy_rmse_m": 9.073668565613593,
+        "correspondence_z_rmse_m": 0.3133207018492385
       },
-      "truth_x_m": 26.538867950439453,
-      "truth_y_m": -21.722379684448242,
-      "truth_z_m": -0.051025390625,
-      "xy_error_m": 8.681146804463307,
-      "z_error_m": 1779.377175733447,
-      "heading_error_deg": 3.1709636721633956
+      "truth_x_m": 16.350055694580078,
+      "truth_y_m": -13.349465370178223,
+      "truth_z_m": 0.2919921875,
+      "xy_error_m": 10.981150311283775,
+      "z_error_m": 1779.1157237887383,
+      "heading_error_deg": 1.8379744290890017
     },
     {
-      "site": 36,
+      "site": 23,
       "status": "solution",
       "estimate_source": "darces",
-      "runtime_s": 0.3774405680014752,
-      "estimated_x_m": 22.29019992498029,
-      "estimated_y_m": -22.286130233445146,
-      "estimated_z_m": 1778.9194882512093,
-      "estimated_heading_deg": -38.01504976097416,
-      "fitness": -0.26469878511793205,
-      "overlap": 0.9977913052847062,
+      "runtime_s": 0.0738820529950317,
+      "estimated_x_m": 9.754458123341312,
+      "estimated_y_m": -9.759566279287736,
+      "estimated_z_m": 1779.3516844511032,
+      "estimated_heading_deg": -42.13867317667127,
+      "fitness": -0.25796954091668395,
+      "overlap": 0.995098550422359,
       "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
-      "fitness_improvement_m": -0.05164608148823224,
+      "fitness_improvement_m": -0.014302494916243691,
       "ransac_rejected_outlier": false,
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.25,
-      "fitness_reference_point_count": 18563,
+      "fitness_reference_point_count": 19178,
       "ransac": {
         "status": "solution",
-        "input_correspondence_count": 11,
-        "inlier_count": 11,
+        "input_correspondence_count": 7,
+        "inlier_count": 7,
         "outlier_count": 0,
         "inlier_local_indices": [
-          11,
-          5,
-          7,
-          2,
-          6,
-          1,
+          0,
           4,
-          9,
-          13,
-          10,
-          3
+          3,
+          1,
+          6,
+          5,
+          2
         ],
         "inlier_global_indices": [
-          50,
+          26,
+          40,
           42,
-          36,
-          43,
-          41,
-          29,
-          35,
-          52,
+          23,
           47,
-          48,
-          49
+          21,
+          35
         ],
         "outlier_local_indices": [],
         "outlier_global_indices": [],
         "rotation": [
           [
-            0.80618231127188,
-            0.5916672045942124
+            0.7259816469098783,
+            0.687714074561529
           ],
           [
-            -0.5916672045942124,
-            0.8061823112718799
+            -0.6877140745615289,
+            0.7259816469098784
           ]
         ],
         "translation_xy_m": [
-          20.68735920341839,
-          -21.638532549353133
+          12.439824149431107,
+          -9.85778196747761
         ],
-        "translation_z_m": 1778.9194882512093,
-        "heading_deg": -36.2754075662766,
-        "terrain_fitness": -0.3163448666061643,
-        "terrain_overlap": 0.9970371168453375,
-        "median_mahalanobis_squared": 0.2732280780463339,
+        "translation_z_m": 1779.2900273799896,
+        "heading_deg": -43.44942934908558,
+        "terrain_fitness": -0.27227203583292764,
+        "terrain_overlap": 0.9954635519866514,
+        "median_mahalanobis_squared": 0.32853763580596745,
         "mahalanobis_squared": [
-          0.21913606533786373,
-          0.019564738517621343,
-          0.23327033604361158,
-          0.2732280780463339,
-          0.1205466994555161,
-          0.11751430013263796,
-          0.5328635460664574,
-          0.4415987489549784,
-          1.3675741857471158,
-          2.0079077388255393,
-          4.263856556609512
+          0.0199051060218024,
+          0.14967589808393347,
+          0.09799104409996119,
+          0.32853763580596745,
+          0.5523911508754532,
+          0.7173411752110979,
+          1.5948516956452028
         ],
         "residuals_xyz_m": [
           [
-            -3.6135595363529305,
-            3.352570473893426,
+            -0.1456321039645232,
+            1.4042518567159448,
+            -0.061657071113586426
+          ],
+          [
+            3.091736602735704,
+            2.646044060447416,
+            -0.026311635971069336
+          ],
+          [
+            0.6028658134012055,
+            -3.0808931818064575,
+            -0.16066265106201172
+          ],
+          [
+            5.5397662984194085,
+            1.9474513312471302,
+            0.18575429916381836
+          ],
+          [
+            7.19641570626014,
+            -0.3575443111281107,
+            0.405426025390625
+          ],
+          [
+            -2.995419347474904,
+            -2.0921690248367266,
+            1.0828678905963898
+          ],
+          [
+            -13.289732969377056,
+            -0.4671407306391835,
             0.0
-          ],
-          [
-            0.8869671580980736,
-            -0.6998161359255999,
-            -0.12553590908646584
-          ],
-          [
-            -4.0747356167693205,
-            2.442796290188337,
-            0.24111265037208796
-          ],
-          [
-            -4.948117251094768,
-            0.9874233074188439,
-            -0.29224638640880585
-          ],
-          [
-            1.2377764866004597,
-            -3.4181017061943635,
-            -0.05154120735824108
-          ],
-          [
-            3.367492463041497,
-            -0.9951205559984082,
-            0.11107034981250763
-          ],
-          [
-            -4.884015538807688,
-            -5.843890638182902,
-            0.1379317194223404
-          ],
-          [
-            -0.7997017273339395,
-            -6.767718099683226,
-            -0.21082735061645508
-          ],
-          [
-            10.698259026348182,
-            0.6990594687363476,
-            0.8044041991233826
-          ],
-          [
-            13.028649178066246,
-            -7.107909578080996,
-            0.20421934127807617
-          ],
-          [
-            -10.89901464179582,
-            17.350707173828596,
-            -0.9657008796930313
           ]
         ],
         "mahalanobis_threshold_squared": 7.814727903251179,
-        "model_count_tested": 164
+        "model_count_tested": 35
       },
       "darces": {
-        "site": 36,
-        "local_feature_count": 14,
-        "heading_measurement_deg": -40.45894715148988,
+        "site": 23,
+        "local_feature_count": 7,
+        "heading_measurement_deg": -39.39300905701032,
         "status": "solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 18563,
-        "runtime_s": 125.78545173999737,
-        "estimated_x_m": 22.29019992498029,
-        "estimated_y_m": -22.286130233445146,
-        "estimated_z_m": 1778.9194882512093,
-        "estimated_heading_deg": -38.01504976097416,
-        "fitness": -0.26469878511793205,
-        "overlap": 0.9977913052847062,
+        "fitness_reference_point_count": 19178,
+        "runtime_s": 17.482204455998726,
+        "estimated_x_m": 9.754458123341312,
+        "estimated_y_m": -9.759566279287736,
+        "estimated_z_m": 1779.3516844511032,
+        "estimated_heading_deg": -42.13867317667127,
+        "fitness": -0.25796954091668395,
+        "overlap": 0.995098550422359,
         "cluster_size": 4,
-        "evaluated_hypothesis_count": 541,
-        "truth_x_m": 27.270973205566406,
-        "truth_y_m": -22.418659210205078,
-        "truth_z_m": -0.204345703125,
-        "xy_error_m": 4.982536141593117,
-        "z_error_m": 1779.1238339543343,
-        "heading_error_deg": 2.4438973905157297,
+        "evaluated_hypothesis_count": 44,
+        "truth_x_m": 17.130788803100586,
+        "truth_y_m": -13.996265411376953,
+        "truth_z_m": 0.2733154296875,
+        "xy_error_m": 8.506460711306637,
+        "z_error_m": 1779.0783690214157,
+        "heading_error_deg": 2.745664119660944,
         "consensus_count": 0,
         "consensus_xy_rmse_m": Infinity,
         "consensus_z_rmse_m": Infinity,
-        "correspondence_count": 11,
+        "correspondence_count": 7,
         "correspondence_local_indices": [
-          11,
-          5,
-          7,
-          2,
-          6,
-          1,
+          0,
           4,
-          9,
-          13,
-          10,
-          3
+          3,
+          1,
+          6,
+          5,
+          2
         ],
         "correspondence_global_indices": [
-          50,
+          26,
+          40,
           42,
-          36,
-          43,
-          41,
-          29,
-          35,
-          52,
+          23,
           47,
-          48,
-          49
+          21,
+          35
         ],
-        "correspondence_xy_rmse_m": 9.719127451221562,
-        "correspondence_z_rmse_m": 0.4111092332858943
+        "correspondence_xy_rmse_m": 7.10218376405348,
+        "correspondence_z_rmse_m": 0.47871396055687904
       },
-      "truth_x_m": 27.270973205566406,
-      "truth_y_m": -22.418659210205078,
-      "truth_z_m": -0.204345703125,
-      "xy_error_m": 4.982536141593117,
-      "z_error_m": 1779.1238339543343,
-      "heading_error_deg": 2.4438973905157297
+      "truth_x_m": 17.130788803100586,
+      "truth_y_m": -13.996265411376953,
+      "truth_z_m": 0.2733154296875,
+      "xy_error_m": 8.506460711306637,
+      "z_error_m": 1779.0783690214157,
+      "heading_error_deg": 2.745664119660944
     },
     {
-      "site": 37,
+      "site": 30,
       "status": "solution",
       "estimate_source": "darces",
-      "runtime_s": 0.041040328971575946,
-      "estimated_x_m": 22.601945383795254,
-      "estimated_y_m": -22.273721972113023,
-      "estimated_z_m": 1778.9778295345604,
-      "estimated_heading_deg": -33.357925862291474,
-      "fitness": -0.392116372773941,
-      "overlap": 0.9988717562993606,
+      "runtime_s": 0.11650262400507927,
+      "estimated_x_m": 19.564374851239613,
+      "estimated_y_m": -15.878274779142423,
+      "estimated_z_m": 1779.1019817143679,
+      "estimated_heading_deg": -42.72325401255627,
+      "fitness": -0.315151699347121,
+      "overlap": 0.9972330984077264,
       "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
-      "fitness_improvement_m": -0.44104941560876126,
+      "fitness_improvement_m": -0.30191146395212926,
       "ransac_rejected_outlier": false,
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.25,
-      "fitness_reference_point_count": 21272,
+      "fitness_reference_point_count": 19155,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 8,
+        "inlier_count": 8,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          1,
+          3,
+          6,
+          5,
+          4,
+          2,
+          7,
+          0
+        ],
+        "inlier_global_indices": [
+          39,
+          43,
+          51,
+          53,
+          44,
+          29,
+          49,
+          12
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.701699192342797,
+            0.7124733282484805
+          ],
+          [
+            -0.7124733282484809,
+            0.7016991923427971
+          ]
+        ],
+        "translation_xy_m": [
+          14.654316275315871,
+          -20.47246331384679
+        ],
+        "translation_z_m": 1778.9834787342697,
+        "heading_deg": -45.436510088327104,
+        "terrain_fitness": -0.6170631632992503,
+        "terrain_overlap": 0.9979117723831897,
+        "median_mahalanobis_squared": 0.5404475154867744,
+        "mahalanobis_squared": [
+          0.586499235727132,
+          0.051049303175230654,
+          0.0468124801634632,
+          0.4943957952464167,
+          0.06832290729564812,
+          1.08617336090626,
+          1.7914116075468127,
+          2.45078336684081
+        ],
+        "residuals_xyz_m": [
+          [
+            -7.879377775363379,
+            -1.428951410439332,
+            -0.1349730398505926
+          ],
+          [
+            -0.9802846118451178,
+            -1.641059130851069,
+            -0.18893755041062832
+          ],
+          [
+            1.1796698813386257,
+            -1.8948641659500396,
+            0.06059200502932072
+          ],
+          [
+            -6.917297341812528,
+            -2.122416851271552,
+            -0.20836334489285946
+          ],
+          [
+            0.1814419073608171,
+            2.7082174470900497,
+            -0.06059200502932072
+          ],
+          [
+            -0.0786582531817146,
+            10.830912599611882,
+            0.23445811308920383
+          ],
+          [
+            12.916309203714839,
+            -2.519837492663573,
+            0.6698973868042231
+          ],
+          [
+            1.5781969897884593,
+            -3.9320009955263657,
+            2.1144922468811274
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 56
+      },
+      "darces": {
+        "site": 30,
+        "local_feature_count": 8,
+        "heading_measurement_deg": -38.77604678854181,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 19155,
+        "runtime_s": 16.265270304997102,
+        "estimated_x_m": 19.564374851239613,
+        "estimated_y_m": -15.878274779142423,
+        "estimated_z_m": 1779.1019817143679,
+        "estimated_heading_deg": -42.72325401255627,
+        "fitness": -0.315151699347121,
+        "overlap": 0.9972330984077264,
+        "cluster_size": 4,
+        "evaluated_hypothesis_count": 68,
+        "truth_x_m": 22.628347396850586,
+        "truth_y_m": -18.482574462890625,
+        "truth_z_m": 0.127685546875,
+        "xy_error_m": 4.021231727099145,
+        "z_error_m": 1778.9742961674929,
+        "heading_error_deg": 3.9472072240144485,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 8,
+        "correspondence_local_indices": [
+          1,
+          3,
+          6,
+          5,
+          4,
+          2,
+          7,
+          0
+        ],
+        "correspondence_global_indices": [
+          39,
+          43,
+          51,
+          53,
+          44,
+          29,
+          49,
+          12
+        ],
+        "correspondence_xy_rmse_m": 10.008115503915484,
+        "correspondence_z_rmse_m": 0.8500853065283739
+      },
+      "truth_x_m": 22.628347396850586,
+      "truth_y_m": -18.482574462890625,
+      "truth_z_m": 0.127685546875,
+      "xy_error_m": 4.021231727099145,
+      "z_error_m": 1778.9742961674929,
+      "heading_error_deg": 3.9472072240144485
+    },
+    {
+      "site": 38,
+      "status": "solution",
+      "estimate_source": "ransac",
+      "runtime_s": 0.037163158995099366,
+      "estimated_x_m": 28.336788691034315,
+      "estimated_y_m": -35.28086387724082,
+      "estimated_z_m": 1778.5917058736086,
+      "estimated_heading_deg": -32.63799150433151,
+      "fitness": -0.34723426677899183,
+      "overlap": 0.999255596320519,
+      "preservation_reason": null,
+      "fitness_improvement_m": 0.04880352929264564,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 18807,
       "ransac": {
         "status": "solution",
         "input_correspondence_count": 6,
         "inlier_count": 6,
         "outlier_count": 0,
         "inlier_local_indices": [
-          2,
-          5,
+          3,
+          1,
           4,
           0,
-          3,
-          1
+          5,
+          2
         ],
         "inlier_global_indices": [
-          43,
-          52,
-          50,
-          35,
-          29,
-          34
+          44,
+          34,
+          46,
+          26,
+          48,
+          35
         ],
         "outlier_local_indices": [],
         "outlier_global_indices": [],
         "rotation": [
           [
-            0.8804055863542991,
-            0.4742214709564958
+            0.8420949654037048,
+            0.5393292771969022
           ],
           [
-            -0.47422147095649586,
-            0.8804055863542989
+            -0.539329277196902,
+            0.8420949654037048
           ]
         ],
         "translation_xy_m": [
-          26.51338416128177,
-          -21.002243239289935
+          28.336788691034315,
+          -35.28086387724082
         ],
-        "translation_z_m": 1778.7632355205715,
-        "heading_deg": -28.308672177792037,
-        "terrain_fitness": -0.8331657883827023,
-        "terrain_overlap": 0.9973674313651749,
-        "median_mahalanobis_squared": 0.3667938214398347,
+        "translation_z_m": 1778.5917058736086,
+        "heading_deg": -32.63799150433151,
+        "terrain_fitness": -0.34723426677899183,
+        "terrain_overlap": 0.999255596320519,
+        "median_mahalanobis_squared": 0.424391367023224,
         "mahalanobis_squared": [
-          0.11364799373244773,
-          0.047710274836580774,
-          0.45756606925725773,
-          0.3334870431573074,
-          0.400100599722362,
-          0.7630353701725647
+          0.02795964677320812,
+          0.12213836021070701,
+          0.34505369855902374,
+          0.5037290354874242,
+          0.5688432831628574,
+          1.0990645082942596
         ],
         "residuals_xyz_m": [
           [
-            2.872821843741008,
-            -1.3182957230820627,
-            -0.2145940139889717
+            -1.0386742604933445,
+            -0.06432897666468307,
+            -0.1884952038526535
           ],
           [
-            0.27655891634012875,
-            2.2400520928637917,
-            0.058745454996824265
+            -3.374203736426761,
+            -0.8063376870149668,
+            -0.1630709543824196
           ],
           [
-            -0.2070290755041313,
-            5.6526529945934065,
-            -0.5745058543980122
+            3.049697731183599,
+            4.73068413974444,
+            0.3405538350343704
           ],
           [
-            0.7574216875804183,
-            -6.032619667132387,
-            -0.013580325990915298
+            -3.4230926618247963,
+            6.64315073780314,
+            -0.010380402207374573
           ],
           [
-            4.83657670791413,
-            -3.9659253392759446,
-            0.3039037398993969
+            7.358201072925141,
+            0.2319149979591515,
+            0.3956344872713089
           ],
           [
-            -8.53635008007155,
-            3.424135642033221,
-            0.013580325990915298
+            -2.5719281453638416,
+            -10.735083211827089,
+            0.010380402207374573
           ]
         ],
         "mahalanobis_threshold_squared": 7.814727903251179,
         "model_count_tested": 20
       },
       "darces": {
-        "site": 37,
-        "local_feature_count": 8,
-        "heading_measurement_deg": -35.166051378509735,
+        "site": 38,
+        "local_feature_count": 7,
+        "heading_measurement_deg": -36.41550851501793,
         "status": "solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 21272,
-        "runtime_s": 10.578294451028341,
-        "estimated_x_m": 22.601945383795254,
-        "estimated_y_m": -22.273721972113023,
-        "estimated_z_m": 1778.9778295345604,
-        "estimated_heading_deg": -33.357925862291474,
-        "fitness": -0.392116372773941,
-        "overlap": 0.9988717562993606,
+        "fitness_reference_point_count": 18807,
+        "runtime_s": 14.177713285011123,
+        "estimated_x_m": 28.20034658172275,
+        "estimated_y_m": -36.477310514118756,
+        "estimated_z_m": 1778.754776827991,
+        "estimated_heading_deg": -34.18679721605797,
+        "fitness": -0.39603779607163747,
+        "overlap": 0.999361939703302,
         "cluster_size": 3,
-        "evaluated_hypothesis_count": 30,
-        "truth_x_m": 28.076244354248047,
-        "truth_y_m": -23.026575088500977,
-        "truth_z_m": -0.0062255859375,
-        "xy_error_m": 5.525824556820055,
-        "z_error_m": 1778.984055120498,
-        "heading_error_deg": 1.8081255162182686,
+        "evaluated_hypothesis_count": 38,
+        "truth_x_m": 28.903059005737305,
+        "truth_y_m": -23.614961624145508,
+        "truth_z_m": -0.0653076171875,
+        "xy_error_m": 12.881530332932513,
+        "z_error_m": 1778.8200844451785,
+        "heading_error_deg": 2.228711298959979,
         "consensus_count": 0,
         "consensus_xy_rmse_m": Infinity,
         "consensus_z_rmse_m": Infinity,
         "correspondence_count": 6,
         "correspondence_local_indices": [
-          2,
-          5,
+          3,
+          1,
           4,
           0,
-          3,
-          1
+          5,
+          2
         ],
         "correspondence_global_indices": [
-          43,
-          52,
-          50,
-          35,
-          29,
-          34
+          44,
+          34,
+          46,
+          26,
+          48,
+          35
         ],
-        "correspondence_xy_rmse_m": 7.032065710017172,
-        "correspondence_z_rmse_m": 0.3070181729548431
+        "correspondence_xy_rmse_m": 6.959138017816096,
+        "correspondence_z_rmse_m": 0.32141247365757253
       },
-      "truth_x_m": 28.076244354248047,
-      "truth_y_m": -23.026575088500977,
-      "truth_z_m": -0.0062255859375,
-      "xy_error_m": 5.525824556820055,
-      "z_error_m": 1778.984055120498,
-      "heading_error_deg": 1.8081255162182686
+      "truth_x_m": 28.903059005737305,
+      "truth_y_m": -23.614961624145508,
+      "truth_z_m": -0.0653076171875,
+      "xy_error_m": 11.679637727604742,
+      "z_error_m": 1778.657013490796,
+      "heading_error_deg": 3.777517010686438
     },
     {
-      "site": 39,
+      "site": 43,
       "status": "solution",
-      "estimate_source": "darces",
-      "runtime_s": 0.021049424016382545,
-      "estimated_x_m": 24.52627727426024,
-      "estimated_y_m": -28.63426471733645,
-      "estimated_z_m": 1778.4641904830933,
-      "estimated_heading_deg": -37.51454869254437,
-      "fitness": -0.6161933037926283,
-      "overlap": 0.999444696854965,
-      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
-      "fitness_improvement_m": -0.036550849086094184,
+      "estimate_source": "ransac",
+      "runtime_s": 0.01813593199767638,
+      "estimated_x_m": 19.173068664026623,
+      "estimated_y_m": -18.01606468675216,
+      "estimated_z_m": 1779.1237860321999,
+      "estimated_heading_deg": -40.992079421954976,
+      "fitness": -0.3748787083302063,
+      "overlap": 0.9984585521808632,
+      "preservation_reason": null,
+      "fitness_improvement_m": 0.10959703608273341,
       "ransac_rejected_outlier": false,
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.25,
-      "fitness_reference_point_count": 19809,
+      "fitness_reference_point_count": 17516,
       "ransac": {
         "status": "solution",
         "input_correspondence_count": 5,
         "inlier_count": 5,
         "outlier_count": 0,
         "inlier_local_indices": [
-          0,
           2,
-          3,
+          1,
+          0,
           4,
-          1
+          3
         ],
         "inlier_global_indices": [
-          17,
-          50,
-          47,
-          52,
-          23
+          39,
+          31,
+          37,
+          51,
+          50
         ],
         "outlier_local_indices": [],
         "outlier_global_indices": [],
         "rotation": [
           [
-            0.7719754150766914,
-            0.6356523881156824
+            0.7548002667198794,
+            0.6559546915447725
           ],
           [
-            -0.6356523881156823,
-            0.7719754150766915
+            -0.6559546915447728,
+            0.7548002667198798
           ]
         ],
         "translation_xy_m": [
-          21.116462122041426,
-          -25.018456622750072
+          19.173068664026623,
+          -18.01606468675216
         ],
-        "translation_z_m": 1778.5583931207657,
-        "heading_deg": -39.46838768453804,
-        "terrain_fitness": -0.6527441528787225,
-        "terrain_overlap": 0.999444696854965,
-        "median_mahalanobis_squared": 0.3888823607653853,
+        "translation_z_m": 1779.1237860321999,
+        "heading_deg": -40.992079421954976,
+        "terrain_fitness": -0.3748787083302063,
+        "terrain_overlap": 0.9984585521808632,
+        "median_mahalanobis_squared": 0.2753078370852771,
         "mahalanobis_squared": [
-          0.20968414278598746,
-          0.14780368211245637,
-          0.40461177378568625,
-          0.3888823607653853,
-          0.3955002027194006
+          0.03004654771318078,
+          0.002017740515685279,
+          0.2753078370852771,
+          0.8623765928006928,
+          1.2140610370648233
         ],
         "residuals_xyz_m": [
           [
-            -3.7211805929972783,
-            3.0663233006017805,
+            0.7978445325345369,
+            -1.588284663475843,
+            -0.06039386987686157
+          ],
+          [
+            -0.14141916263023546,
+            -0.4513593281123889,
             0.0
           ],
           [
-            -3.975694828609022,
-            -0.38046393682905943,
-            -0.08783614635467529
+            -4.691859628907089,
+            -2.774259854878924,
+            -0.12404584884643555
           ],
           [
-            -1.1700509340713268,
-            5.25921228435859,
-            0.5285288095474243
+            3.3474770032976195,
+            -5.247360884776612,
+            1.0019925236701965
           ],
           [
-            3.5979425959383633,
-            -4.541934169383886,
-            0.4105410575866699
-          ],
-          [
-            5.268983759739243,
-            -3.403137478747418,
-            -0.2833232283592224
+            0.6879572557051858,
+            10.061264731243767,
+            0.7621211409568787
           ]
         ],
         "mahalanobis_threshold_squared": 7.814727903251179,
         "model_count_tested": 10
       },
       "darces": {
-        "site": 39,
-        "local_feature_count": 6,
-        "heading_measurement_deg": -38.47246738279622,
+        "site": 43,
+        "local_feature_count": 9,
+        "heading_measurement_deg": -40.713282001243165,
         "status": "solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 19809,
-        "runtime_s": 7.459755178017076,
-        "estimated_x_m": 24.52627727426024,
-        "estimated_y_m": -28.63426471733645,
-        "estimated_z_m": 1778.4641904830933,
-        "estimated_heading_deg": -37.51454869254437,
-        "fitness": -0.6161933037926283,
-        "overlap": 0.999444696854965,
-        "cluster_size": 2,
-        "evaluated_hypothesis_count": 37,
-        "truth_x_m": 29.70754623413086,
-        "truth_y_m": -24.237674713134766,
-        "truth_z_m": -0.0882568359375,
-        "xy_error_m": 6.79525950200321,
-        "z_error_m": 1778.5524473190308,
-        "heading_error_deg": 0.9579186902518586,
+        "fitness_reference_point_count": 17516,
+        "runtime_s": 26.566562311010784,
+        "estimated_x_m": 18.718892287653453,
+        "estimated_y_m": -16.16732892532012,
+        "estimated_z_m": 1779.1237860321999,
+        "estimated_heading_deg": -38.272201679954385,
+        "fitness": -0.4844757444129397,
+        "overlap": 0.9967458323818223,
+        "cluster_size": 4,
+        "evaluated_hypothesis_count": 91,
+        "truth_x_m": 32.84788513183594,
+        "truth_y_m": -26.799724578857422,
+        "truth_z_m": -0.2008056640625,
+        "xy_error_m": 17.682654668468725,
+        "z_error_m": 1779.3245916962624,
+        "heading_error_deg": 2.44108032128878,
         "consensus_count": 0,
         "consensus_xy_rmse_m": Infinity,
         "consensus_z_rmse_m": Infinity,
         "correspondence_count": 5,
         "correspondence_local_indices": [
-          0,
           2,
-          3,
+          1,
+          0,
           4,
+          3
+        ],
+        "correspondence_global_indices": [
+          39,
+          31,
+          37,
+          51,
+          50
+        ],
+        "correspondence_xy_rmse_m": 6.7150169719687405,
+        "correspondence_z_rmse_m": 0.5663660376680649
+      },
+      "truth_x_m": 32.84788513183594,
+      "truth_y_m": -26.799724578857422,
+      "truth_z_m": -0.2008056640625,
+      "xy_error_m": 16.252793191585482,
+      "z_error_m": 1779.3245916962624,
+      "heading_error_deg": 0.27879742071181113
+    },
+    {
+      "site": 44,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.00836813499336131,
+      "estimated_x_m": 31.295376223139176,
+      "estimated_y_m": -28.18980563306425,
+      "estimated_z_m": 1778.3976621031761,
+      "estimated_heading_deg": -39.57045243002183,
+      "fitness": -0.5185571001039364,
+      "overlap": 0.9997269102627123,
+      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
+      "fitness_improvement_m": -0.05458780769422966,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 18309,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 4,
+        "inlier_count": 4,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          3,
+          2,
+          0,
+          1
+        ],
+        "inlier_global_indices": [
+          53,
+          34,
+          17,
+          24
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.7845802894018583,
+            0.6200272328552165
+          ],
+          [
+            -0.6200272328552164,
+            0.7845802894018582
+          ]
+        ],
+        "translation_xy_m": [
+          31.582892958604777,
+          -26.24065895980499
+        ],
+        "translation_z_m": 1778.509123429656,
+        "heading_deg": -38.31812318825608,
+        "terrain_fitness": -0.5731449077981661,
+        "terrain_overlap": 0.9993992025779671,
+        "median_mahalanobis_squared": 0.1707154114767941,
+        "mahalanobis_squared": [
+          0.04087737932643708,
+          0.03684013844461949,
+          0.3005534436271511,
+          0.4079642619685407
+        ],
+        "residuals_xyz_m": [
+          [
+            -0.5587092370973608,
+            0.2678333457750455,
+            0.27060554921627045
+          ],
+          [
+            -1.8162478265735658,
+            0.2848753728983837,
+            -0.1114613264799118
+          ],
+          [
+            2.6483717002751774,
+            5.061271155482295,
+            0.1114613264799118
+          ],
+          [
+            -0.2734146366042438,
+            -5.613979874155717,
+            -0.4946105629205704
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 4
+      },
+      "darces": {
+        "site": 44,
+        "local_feature_count": 5,
+        "heading_measurement_deg": -40.165472451576946,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 18309,
+        "runtime_s": 3.018323121999856,
+        "estimated_x_m": 31.295376223139176,
+        "estimated_y_m": -28.18980563306425,
+        "estimated_z_m": 1778.3976621031761,
+        "estimated_heading_deg": -39.57045243002183,
+        "fitness": -0.5185571001039364,
+        "overlap": 0.9997269102627123,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 12,
+        "truth_x_m": 33.61085510253906,
+        "truth_y_m": -27.452526092529297,
+        "truth_z_m": -0.2303466796875,
+        "xy_error_m": 2.430025424113581,
+        "z_error_m": 1778.6280087828636,
+        "heading_error_deg": 0.5950200215551149,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 4,
+        "correspondence_local_indices": [
+          3,
+          2,
+          0,
           1
         ],
         "correspondence_global_indices": [
+          53,
+          34,
           17,
-          50,
-          47,
-          52,
-          23
+          24
         ],
-        "correspondence_xy_rmse_m": 6.710919734706746,
-        "correspondence_z_rmse_m": 0.3076515089665206
+        "correspondence_xy_rmse_m": 4.653814997266787,
+        "correspondence_z_rmse_m": 0.3325449322852763
       },
-      "truth_x_m": 29.70754623413086,
-      "truth_y_m": -24.237674713134766,
-      "truth_z_m": -0.0882568359375,
-      "xy_error_m": 6.79525950200321,
-      "z_error_m": 1778.5524473190308,
-      "heading_error_deg": 0.9579186902518586
+      "truth_x_m": 33.61085510253906,
+      "truth_y_m": -27.452526092529297,
+      "truth_z_m": -0.2303466796875,
+      "xy_error_m": 2.430025424113581,
+      "z_error_m": 1778.6280087828636,
+      "heading_error_deg": 0.5950200215551149
     },
     {
-      "site": 56,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
+      "site": 45,
+      "status": "solution",
+      "estimate_source": "ransac",
+      "runtime_s": 0.04169365800044034,
+      "estimated_x_m": 20.34644547644088,
+      "estimated_y_m": -15.152823223928245,
+      "estimated_z_m": 1778.8043636381626,
+      "estimated_heading_deg": -41.82070851712452,
+      "fitness": -0.5107336170915523,
+      "overlap": 0.9977538654408692,
+      "preservation_reason": null,
+      "fitness_improvement_m": 0.18504734103730136,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 19144,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 6,
+        "inlier_count": 6,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          4,
+          1,
+          2,
+          0,
+          5,
+          3
+        ],
+        "inlier_global_indices": [
+          53,
+          37,
+          31,
+          23,
+          51,
+          12
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.7452350449610772,
+            0.6668018654456964
+          ],
+          [
+            -0.6668018654456965,
+            0.7452350449610773
+          ]
+        ],
+        "translation_xy_m": [
+          20.34644547644088,
+          -15.152823223928245
+        ],
+        "translation_z_m": 1778.8043636381626,
+        "heading_deg": -41.82070851712452,
+        "terrain_fitness": -0.5107336170915523,
+        "terrain_overlap": 0.9977538654408692,
+        "median_mahalanobis_squared": 0.4072152015999535,
+        "mahalanobis_squared": [
+          0.4696570382420178,
+          0.2641022700569055,
+          0.19523013629132238,
+          0.34477336495788913,
+          0.6191250074804906,
+          3.469038444168853
+        ],
+        "residuals_xyz_m": [
+          [
+            -4.581106884512465,
+            -5.143950827613921,
+            0.2858394682407379
+          ],
+          [
+            -4.408176600211977,
+            1.4244530863583478,
+            -0.3889399468898773
+          ],
+          [
+            1.1632432058516784,
+            3.9633470383825333,
+            -0.2858394682407379
+          ],
+          [
+            -4.357844595989459,
+            -2.8823860978164078,
+            -0.44278237223625183
+          ],
+          [
+            5.419418551389576,
+            -2.66069690931203,
+            0.7539738714694977
+          ],
+          [
+            6.764466323472632,
+            5.299233710001488,
+            2.33977397531271
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 20
+      },
       "darces": {
-        "site": 56,
-        "local_feature_count": 4,
-        "heading_measurement_deg": -40.04744151198716,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 22010,
-        "runtime_s": 1.9544717870012391
-      }
-    },
-    {
-      "site": 63,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 63,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -38.60558616095365,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 21063,
-        "runtime_s": 0.33277023400296457
-      }
-    },
-    {
-      "site": 69,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 69,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -39.00430764604017,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 73,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 73,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -39.377967019497376,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 86,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 86,
+        "site": 45,
         "local_feature_count": 7,
-        "heading_measurement_deg": -43.767970841702756,
-        "status": "no_solution",
+        "heading_measurement_deg": -40.66108139864205,
+        "status": "solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 28010,
-        "runtime_s": 2.07904470799258
-      }
+        "fitness_reference_point_count": 19144,
+        "runtime_s": 5.004884576002951,
+        "estimated_x_m": 21.607068934190895,
+        "estimated_y_m": -14.527100953024313,
+        "estimated_z_m": 1778.5185241699219,
+        "estimated_heading_deg": -43.08495918089432,
+        "fitness": -0.6957809581288537,
+        "overlap": 0.9980150438779775,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 49,
+        "truth_x_m": 34.36920166015625,
+        "truth_y_m": -28.111652374267578,
+        "truth_z_m": -0.2572021484375,
+        "xy_error_m": 18.638993240826025,
+        "z_error_m": 1778.7757263183594,
+        "heading_error_deg": 2.4238777822522763,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 6,
+        "correspondence_local_indices": [
+          4,
+          1,
+          2,
+          0,
+          5,
+          3
+        ],
+        "correspondence_global_indices": [
+          53,
+          37,
+          31,
+          23,
+          51,
+          12
+        ],
+        "correspondence_xy_rmse_m": 6.394406730653251,
+        "correspondence_z_rmse_m": 0.9790157158040598
+      },
+      "truth_x_m": 34.36920166015625,
+      "truth_y_m": -28.111652374267578,
+      "truth_z_m": -0.2572021484375,
+      "xy_error_m": 19.09368858904984,
+      "z_error_m": 1779.0615657866,
+      "heading_error_deg": 1.15962711848249
     },
     {
-      "site": 100,
+      "site": 46,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.04349541000556201,
+      "estimated_x_m": 35.0794322154996,
+      "estimated_y_m": -28.42181192554693,
+      "estimated_z_m": 1778.7848864793777,
+      "estimated_heading_deg": -36.65109640149914,
+      "fitness": -0.43631188873915716,
+      "overlap": 0.9992667904976048,
+      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
+      "fitness_improvement_m": -0.28687826287288776,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 20458,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 6,
+        "inlier_count": 6,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          0,
+          2,
+          1,
+          5,
+          3,
+          6
+        ],
+        "inlier_global_indices": [
+          23,
+          34,
+          28,
+          53,
+          24,
+          49
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.829858802148618,
+            0.5579734478417953
+          ],
+          [
+            -0.5579734478417954,
+            0.829858802148618
+          ]
+        ],
+        "translation_xy_m": [
+          31.798123928848064,
+          -29.377083597289264
+        ],
+        "translation_z_m": 1778.4931970834732,
+        "heading_deg": -33.91576369769372,
+        "terrain_fitness": -0.7231901516120449,
+        "terrain_overlap": 0.9990223873301398,
+        "median_mahalanobis_squared": 0.4608162800535305,
+        "mahalanobis_squared": [
+          0.0936298062107093,
+          0.4136815469240256,
+          0.5079510131830354,
+          0.3760507922063569,
+          1.1593507594042134,
+          1.2687227119622473
+        ],
+        "residuals_xyz_m": [
+          [
+            -2.4270941957242798,
+            -0.744494362990622,
+            -0.291689395904541
+          ],
+          [
+            -3.670844783676799,
+            -3.3385968294842385,
+            -0.6127416491508484
+          ],
+          [
+            -5.78255561195245,
+            -4.0062672090340214,
+            -0.34782928228378296
+          ],
+          [
+            -6.0717146297298115,
+            0.09987936753311288,
+            0.291689395904541
+          ],
+          [
+            8.49722118363377,
+            7.081501894870176,
+            0.3304933235049248
+          ],
+          [
+            9.454988037449553,
+            0.9079771391055758,
+            0.9442840814590454
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 20
+      },
+      "darces": {
+        "site": 46,
+        "local_feature_count": 12,
+        "heading_measurement_deg": -40.94042934455417,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 20458,
+        "runtime_s": 44.16527301599854,
+        "estimated_x_m": 35.0794322154996,
+        "estimated_y_m": -28.42181192554693,
+        "estimated_z_m": 1778.7848864793777,
+        "estimated_heading_deg": -36.65109640149914,
+        "fitness": -0.43631188873915716,
+        "overlap": 0.9992667904976048,
+        "cluster_size": 5,
+        "evaluated_hypothesis_count": 133,
+        "truth_x_m": 35.151485443115234,
+        "truth_y_m": -28.76966094970703,
+        "truth_z_m": -0.2763671875,
+        "xy_error_m": 0.3552331786572943,
+        "z_error_m": 1779.0612536668777,
+        "heading_error_deg": 4.2893329430550295,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 6,
+        "correspondence_local_indices": [
+          0,
+          2,
+          1,
+          5,
+          3,
+          6
+        ],
+        "correspondence_global_indices": [
+          23,
+          34,
+          28,
+          53,
+          24,
+          49
+        ],
+        "correspondence_xy_rmse_m": 8.728211449307652,
+        "correspondence_z_rmse_m": 0.6273354796236518
+      },
+      "truth_x_m": 35.151485443115234,
+      "truth_y_m": -28.76966094970703,
+      "truth_z_m": -0.2763671875,
+      "xy_error_m": 0.3552331786572943,
+      "z_error_m": 1779.0612536668777,
+      "heading_error_deg": 4.2893329430550295
+    },
+    {
+      "site": 49,
+      "status": "solution",
+      "estimate_source": "ransac",
+      "runtime_s": 0.020935398002620786,
+      "estimated_x_m": -17.328028215415184,
+      "estimated_y_m": -25.40990407572756,
+      "estimated_z_m": 1777.5355126857758,
+      "estimated_heading_deg": -44.269834733238255,
+      "fitness": -1.608388875674438,
+      "overlap": 0.9977751880495815,
+      "preservation_reason": null,
+      "fitness_improvement_m": 0.17656793493459588,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 18878,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 5,
+        "inlier_count": 5,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          3,
+          0,
+          4,
+          2,
+          1
+        ],
+        "inlier_global_indices": [
+          29,
+          19,
+          15,
+          41,
+          16
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.7160603384289318,
+            0.6980383884350803
+          ],
+          [
+            -0.6980383884350797,
+            0.7160603384289315
+          ]
+        ],
+        "translation_xy_m": [
+          -17.328028215415184,
+          -25.40990407572756
+        ],
+        "translation_z_m": 1777.5355126857758,
+        "heading_deg": -44.269834733238255,
+        "terrain_fitness": -1.608388875674438,
+        "terrain_overlap": 0.9977751880495815,
+        "median_mahalanobis_squared": 1.7857898524282483,
+        "mahalanobis_squared": [
+          0.2739042420363657,
+          0.7646876062083645,
+          4.7523660906843,
+          1.8543073253897764,
+          1.7857898524282483
+        ],
+        "residuals_xyz_m": [
+          [
+            1.02433084385574,
+            -0.7181156554049579,
+            0.7133229970932007
+          ],
+          [
+            -6.492730964208391,
+            -1.6182881775268712,
+            -0.843112051486969
+          ],
+          [
+            8.346299530902954,
+            3.074260961030255,
+            2.8134117126464844
+          ],
+          [
+            -6.395181984681862,
+            12.833744425411318,
+            0.0
+          ],
+          [
+            3.517282574131567,
+            -13.571601553509744,
+            -0.18085253238677979
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 10
+      },
+      "darces": {
+        "site": 49,
+        "local_feature_count": 5,
+        "heading_measurement_deg": -38.24230812800141,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 18878,
+        "runtime_s": 2.14574777900998,
+        "estimated_x_m": -14.94545162949641,
+        "estimated_y_m": -27.61871966320447,
+        "estimated_z_m": 1776.8221896886826,
+        "estimated_heading_deg": -37.00026324456767,
+        "fitness": -1.7849568106090339,
+        "overlap": 0.9992583960165272,
+        "cluster_size": 3,
+        "evaluated_hypothesis_count": 29,
+        "truth_x_m": 37.52904510498047,
+        "truth_y_m": -30.651636123657227,
+        "truth_z_m": -0.331298828125,
+        "xy_error_m": 52.56207177987479,
+        "z_error_m": 1777.1534885168076,
+        "heading_error_deg": 1.2420448834337492,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 5,
+        "correspondence_local_indices": [
+          3,
+          0,
+          4,
+          2,
+          1
+        ],
+        "correspondence_global_indices": [
+          29,
+          19,
+          15,
+          41,
+          16
+        ],
+        "correspondence_xy_rmse_m": 11.147326404289808,
+        "correspondence_z_rmse_m": 1.2760283891313566
+      },
+      "truth_x_m": 37.52904510498047,
+      "truth_y_m": -30.651636123657227,
+      "truth_z_m": -0.331298828125,
+      "xy_error_m": 55.106934664718544,
+      "z_error_m": 1777.8668115139008,
+      "heading_error_deg": 6.027526605236858
+    },
+    {
+      "site": 53,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 100,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -46.09187006691905,
+        "site": 53,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -38.97099921389206,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 20671,
+        "runtime_s": 0.6506587140029296
+      }
+    },
+    {
+      "site": 55,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.2843243910028832,
+      "estimated_x_m": 37.76194014727608,
+      "estimated_y_m": -29.803061270759535,
+      "estimated_z_m": 1779.005440235138,
+      "estimated_heading_deg": -39.97410934752987,
+      "fitness": -0.4051315529178683,
+      "overlap": 0.9998629385964912,
+      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
+      "fitness_improvement_m": -0.11333822946679906,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 21888,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 10,
+        "inlier_count": 10,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          3,
+          4,
+          0,
+          1,
+          5,
+          2,
+          7,
+          6,
+          8,
+          9
+        ],
+        "inlier_global_indices": [
+          33,
+          39,
+          22,
+          31,
+          53,
+          35,
+          50,
+          48,
+          49,
+          47
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.7764121864196637,
+            0.6302254491680238
+          ],
+          [
+            -0.630225449168024,
+            0.7764121864196639
+          ]
+        ],
+        "translation_xy_m": [
+          35.72621148834752,
+          -32.828757280047206
+        ],
+        "translation_z_m": 1778.9814155995846,
+        "heading_deg": -39.0667577259217,
+        "terrain_fitness": -0.5184697823846673,
+        "terrain_overlap": 0.9999543128654971,
+        "median_mahalanobis_squared": 0.7700701210698836,
+        "mahalanobis_squared": [
+          0.12209411244069929,
+          0.1334981884020196,
+          0.3624154484222222,
+          0.8682013837344357,
+          0.2535531974416422,
+          0.9140685810522494,
+          0.6719388584053315,
+          1.3941912048946488,
+          1.382594602763729,
+          1.800717378098493
+        ],
+        "residuals_xyz_m": [
+          [
+            1.645394897352869,
+            -3.2860005444179237,
+            0.024024635553359985
+          ],
+          [
+            -3.571982864911103,
+            0.01625000630563278,
+            -0.1900174915790558
+          ],
+          [
+            -3.8745618076156134,
+            -3.2301792510683924,
+            0.5096487104892731
+          ],
+          [
+            -8.081235022159142,
+            -5.559374565862605,
+            -0.030972182750701904
+          ],
+          [
+            -2.6245516178876898,
+            3.115802717250908,
+            -0.4503946006298065
+          ],
+          [
+            0.32287535084282126,
+            -10.060510387224099,
+            -0.024024635553359985
+          ],
+          [
+            -5.350045716038203,
+            6.7465390688081825,
+            -0.0801897943019867
+          ],
+          [
+            11.08484352985613,
+            -5.618294973435312,
+            0.050927430391311646
+          ],
+          [
+            10.794372398966338,
+            5.887274395082095,
+            0.19334211945533752
+          ],
+          [
+            -0.34510914840640794,
+            11.98849353456152,
+            0.9923649728298187
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 120
+      },
+      "darces": {
+        "site": 55,
+        "local_feature_count": 16,
+        "heading_measurement_deg": -39.52790348528501,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 21888,
+        "runtime_s": 125.42529177101096,
+        "estimated_x_m": 37.76194014727608,
+        "estimated_y_m": -29.803061270759535,
+        "estimated_z_m": 1779.005440235138,
+        "estimated_heading_deg": -39.97410934752987,
+        "fitness": -0.4051315529178683,
+        "overlap": 0.9998629385964912,
+        "cluster_size": 4,
+        "evaluated_hypothesis_count": 487,
+        "truth_x_m": 42.241180419921875,
+        "truth_y_m": -34.50684356689453,
+        "truth_z_m": -0.4593505859375,
+        "xy_error_m": 6.495318414791149,
+        "z_error_m": 1779.4647908210754,
+        "heading_error_deg": 0.44620586224485237,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 10,
+        "correspondence_local_indices": [
+          3,
+          4,
+          0,
+          1,
+          5,
+          2,
+          7,
+          6,
+          8,
+          9
+        ],
+        "correspondence_global_indices": [
+          33,
+          39,
+          22,
+          31,
+          53,
+          35,
+          50,
+          48,
+          49,
+          47
+        ],
+        "correspondence_xy_rmse_m": 9.739731727929978,
+        "correspondence_z_rmse_m": 0.39819313102715614
+      },
+      "truth_x_m": 42.241180419921875,
+      "truth_y_m": -34.50684356689453,
+      "truth_z_m": -0.4593505859375,
+      "xy_error_m": 6.495318414791149,
+      "z_error_m": 1779.4647908210754,
+      "heading_error_deg": 0.44620586224485237
+    },
+    {
+      "site": 57,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.025415755997528322,
+      "estimated_x_m": 4.507743824246589,
+      "estimated_y_m": -35.72697145051427,
+      "estimated_z_m": 1778.7656460553408,
+      "estimated_heading_deg": -36.51395344658796,
+      "fitness": -1.108068054365451,
+      "overlap": 1.0,
+      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
+      "fitness_improvement_m": -0.23750802955824013,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 23788,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 5,
+        "inlier_count": 5,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          4,
+          8,
+          5,
+          9,
+          12
+        ],
+        "inlier_global_indices": [
+          42,
+          50,
+          29,
+          47,
+          53
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.7965627328560241,
+            0.6045558804816504
+          ],
+          [
+            -0.6045558804816504,
+            0.7965627328560237
+          ]
+        ],
+        "translation_xy_m": [
+          2.558293588579879,
+          -36.40679343841103
+        ],
+        "translation_z_m": 1778.0776474177837,
+        "heading_deg": -37.19689014001362,
+        "terrain_fitness": -1.3455760839236912,
+        "terrain_overlap": 1.0,
+        "median_mahalanobis_squared": 0.454305546043274,
+        "mahalanobis_squared": [
+          0.3660123134486166,
+          0.454305546043274,
+          0.09344141914844004,
+          1.6252417782664668,
+          1.9229086044570696
+        ],
+        "residuals_xyz_m": [
+          [
+            -3.132245252938441,
+            -1.9752258697889324,
+            -0.6879986375570297
+          ],
+          [
+            1.9610581865566132,
+            -1.2779690069215022,
+            -0.8893196284770966
+          ],
+          [
+            -3.1959652908958613,
+            0.38272333642165535,
+            0.0
+          ],
+          [
+            -5.106450629837525,
+            12.408241210937113,
+            0.05385658144950867
+          ],
+          [
+            9.473602987115171,
+            -9.537769670648352,
+            0.7579223811626434
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 10
+      },
+      "darces": {
+        "site": 57,
+        "local_feature_count": 25,
+        "heading_measurement_deg": -38.38421724166335,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 23788,
+        "runtime_s": 522.0260176849988,
+        "estimated_x_m": 4.507743824246589,
+        "estimated_y_m": -35.72697145051427,
+        "estimated_z_m": 1778.7656460553408,
+        "estimated_heading_deg": -36.51395344658796,
+        "fitness": -1.108068054365451,
+        "overlap": 1.0,
+        "cluster_size": 4,
+        "evaluated_hypothesis_count": 850,
+        "truth_x_m": 43.79813766479492,
+        "truth_y_m": -35.79203414916992,
+        "truth_z_m": -0.5557861328125,
+        "xy_error_m": 39.2904477106097,
+        "z_error_m": 1779.3214321881533,
+        "heading_error_deg": 1.8702637950754024,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 5,
+        "correspondence_local_indices": [
+          4,
+          8,
+          5,
+          9,
+          12
+        ],
+        "correspondence_global_indices": [
+          42,
+          50,
+          29,
+          47,
+          53
+        ],
+        "correspondence_xy_rmse_m": 9.015499166348501,
+        "correspondence_z_rmse_m": 0.7943436315610446
+      },
+      "truth_x_m": 43.79813766479492,
+      "truth_y_m": -35.79203414916992,
+      "truth_z_m": -0.5557861328125,
+      "xy_error_m": 39.2904477106097,
+      "z_error_m": 1779.3214321881533,
+      "heading_error_deg": 1.8702637950754024
+    },
+    {
+      "site": 67,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 67,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -39.203507135047,
         "status": "skipped_insufficient_features"
       }
     },
     {
-      "site": 108,
+      "site": 71,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 108,
-        "local_feature_count": 3,
-        "heading_measurement_deg": -43.083888473824885,
+        "site": 71,
+        "local_feature_count": 4,
+        "heading_measurement_deg": -39.0466846626355,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 36170,
-        "runtime_s": 0.2249470980023034
+        "fitness_reference_point_count": 24022,
+        "runtime_s": 0.7741325719980523
+      }
+    },
+    {
+      "site": 75,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 75,
+        "local_feature_count": 5,
+        "heading_measurement_deg": -39.32090223391184,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 26220,
+        "runtime_s": 2.2901539349986706
+      }
+    },
+    {
+      "site": 89,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 89,
+        "local_feature_count": 5,
+        "heading_measurement_deg": -44.14916288918656,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 28634,
+        "runtime_s": 1.5165149010135792
+      }
+    },
+    {
+      "site": 90,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 90,
+        "local_feature_count": 4,
+        "heading_measurement_deg": -44.45501928550962,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 29905,
+        "runtime_s": 0.25674284699198324
+      }
+    },
+    {
+      "site": 92,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 92,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -45.579757922123385,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 93,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 93,
+        "local_feature_count": 6,
+        "heading_measurement_deg": -38.17311823703593,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 18314,
+        "runtime_s": 0.0009186219976982102
+      }
+    },
+    {
+      "site": 95,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.06393526899046265,
+      "estimated_x_m": -81.84218836072463,
+      "estimated_y_m": 64.77672114756334,
+      "estimated_z_m": 1794.3228330612183,
+      "estimated_heading_deg": -42.553379472122536,
+      "fitness": -19.001557407526338,
+      "overlap": 0.8883994598418108,
+      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
+      "fitness_improvement_m": -1.0087806679347047,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 31102,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 6,
+        "inlier_count": 6,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          1,
+          4,
+          2,
+          3,
+          0,
+          5
+        ],
+        "inlier_global_indices": [
+          33,
+          36,
+          28,
+          26,
+          35,
+          17
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.8402524511219363,
+            0.5421953692015254
+          ],
+          [
+            -0.5421953692015256,
+            0.8402524511219361
+          ]
+        ],
+        "translation_xy_m": [
+          -97.56678031197742,
+          44.0620387854801
+        ],
+        "translation_z_m": 1794.4285216331482,
+        "heading_deg": -32.83321255686662,
+        "terrain_fitness": -20.010338075461043,
+        "terrain_overlap": 0.8977557713330332,
+        "median_mahalanobis_squared": 0.5662253594428441,
+        "mahalanobis_squared": [
+          0.38326260076308916,
+          0.06754486156420983,
+          0.3669561233217251,
+          0.7491881181225992,
+          1.3149449213508355,
+          3.7619446335396263
+        ],
+        "residuals_xyz_m": [
+          [
+            -2.3220763631629495,
+            -5.754881997901592,
+            -0.27362489700317383
+          ],
+          [
+            -2.248047725257848,
+            1.5578727798952485,
+            0.01279306411743164
+          ],
+          [
+            2.7713483031681534,
+            5.7444373396285044,
+            -0.01279306411743164
+          ],
+          [
+            -6.495913079938504,
+            6.140293665379545,
+            0.24313974380493164
+          ],
+          [
+            9.954218947871752,
+            -6.331923888366433,
+            -0.35370683670043945
+          ],
+          [
+            -1.6595300826805897,
+            -1.355797898635359,
+            2.744628429412842
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 20
+      },
+      "darces": {
+        "site": 95,
+        "local_feature_count": 6,
+        "heading_measurement_deg": -43.53971974811264,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 31102,
+        "runtime_s": 4.06979736800713,
+        "estimated_x_m": -81.84218836072463,
+        "estimated_y_m": 64.77672114756334,
+        "estimated_z_m": 1794.3228330612183,
+        "estimated_heading_deg": -42.553379472122536,
+        "fitness": -19.001557407526338,
+        "overlap": 0.8883994598418108,
+        "cluster_size": 2,
+        "evaluated_hypothesis_count": 3,
+        "truth_x_m": 72.2367172241211,
+        "truth_y_m": -61.37001037597656,
+        "truth_z_m": -4.5147705078125,
+        "xy_error_m": 199.13138130464486,
+        "z_error_m": 1798.8376035690308,
+        "heading_error_deg": 0.9863402759901021,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 6,
+        "correspondence_local_indices": [
+          1,
+          4,
+          2,
+          3,
+          0,
+          5
+        ],
+        "correspondence_global_indices": [
+          33,
+          36,
+          28,
+          26,
+          35,
+          17
+        ],
+        "correspondence_xy_rmse_m": 7.9831061845780384,
+        "correspondence_z_rmse_m": 1.107586469062248
+      },
+      "truth_x_m": 72.2367172241211,
+      "truth_y_m": -61.37001037597656,
+      "truth_z_m": -4.5147705078125,
+      "xy_error_m": 199.13138130464486,
+      "z_error_m": 1798.8376035690308,
+      "heading_error_deg": 0.9863402759901021
+    },
+    {
+      "site": 96,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 96,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -42.73054256666961,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 30752,
+        "runtime_s": 0.30115814101009164
+      }
+    },
+    {
+      "site": 97,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.06811820299481042,
+      "estimated_x_m": -64.4685622834782,
+      "estimated_y_m": 78.52887882723923,
+      "estimated_z_m": 1794.1359615325928,
+      "estimated_heading_deg": -41.398752346421404,
+      "fitness": -17.210343210339545,
+      "overlap": 0.871862238341377,
+      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
+      "fitness_improvement_m": -1.7407117082495915,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 35017,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 6,
+        "inlier_count": 6,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          3,
+          4,
+          2,
+          0,
+          1,
+          5
+        ],
+        "inlier_global_indices": [
+          31,
+          44,
+          38,
+          37,
+          39,
+          41
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.8970350174398821,
+            0.4419594749370472
+          ],
+          [
+            -0.4419594749370471,
+            0.8970350174398822
+          ]
+        ],
+        "translation_xy_m": [
+          -88.67146728555649,
+          48.496368434487074
+        ],
+        "translation_z_m": 1794.500189781189,
+        "heading_deg": -26.228970327876585,
+        "terrain_fitness": -18.951054918589136,
+        "terrain_overlap": 0.8963646228974498,
+        "median_mahalanobis_squared": 0.24844028190221495,
+        "mahalanobis_squared": [
+          0.07152954828489218,
+          0.7407743815261082,
+          0.14838442181634837,
+          0.2657735864143536,
+          0.23971617329602599,
+          0.25716439050840395
+        ],
+        "residuals_xyz_m": [
+          [
+            -0.19472762161520052,
+            0.8730499660878692,
+            0.3642282485961914
+          ],
+          [
+            -6.201008308241796,
+            -6.607612986087126,
+            0.020987510681152344
+          ],
+          [
+            -0.7491255966608747,
+            -3.9834600633075397,
+            -0.020987510681152344
+          ],
+          [
+            0.48474534882575426,
+            5.374226751434982,
+            -0.08134269714355469
+          ],
+          [
+            1.4218556352146976,
+            4.835103408285313,
+            -0.14946651458740234
+          ],
+          [
+            5.238260542477363,
+            -0.4913070764135199,
+            0.1258869171142578
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 20
+      },
+      "darces": {
+        "site": 97,
+        "local_feature_count": 7,
+        "heading_measurement_deg": -43.05035537173814,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 35017,
+        "runtime_s": 8.282629082998028,
+        "estimated_x_m": -64.4685622834782,
+        "estimated_y_m": 78.52887882723923,
+        "estimated_z_m": 1794.1359615325928,
+        "estimated_heading_deg": -41.398752346421404,
+        "fitness": -17.210343210339545,
+        "overlap": 0.871862238341377,
+        "cluster_size": 5,
+        "evaluated_hypothesis_count": 9,
+        "truth_x_m": 73.72492218017578,
+        "truth_y_m": -62.754295349121094,
+        "truth_z_m": -4.7686767578125,
+        "xy_error_m": 197.63191658624865,
+        "z_error_m": 1798.9046382904053,
+        "heading_error_deg": 1.6516030253167457,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 6,
+        "correspondence_local_indices": [
+          3,
+          4,
+          2,
+          0,
+          1,
+          5
+        ],
+        "correspondence_global_indices": [
+          31,
+          44,
+          38,
+          37,
+          39,
+          41
+        ],
+        "correspondence_xy_rmse_m": 7.794873908334597,
+        "correspondence_z_rmse_m": 0.3618074425856757
+      },
+      "truth_x_m": 73.72492218017578,
+      "truth_y_m": -62.754295349121094,
+      "truth_z_m": -4.7686767578125,
+      "xy_error_m": 197.63191658624865,
+      "z_error_m": 1798.9046382904053,
+      "heading_error_deg": 1.6516030253167457
+    },
+    {
+      "site": 98,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 98,
+        "local_feature_count": 4,
+        "heading_measurement_deg": -43.910040872899415,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 34395,
+        "runtime_s": 0.0006815640081185848
+      }
+    },
+    {
+      "site": 103,
+      "status": "solution",
+      "estimate_source": "ransac",
+      "runtime_s": 0.06406685900583398,
+      "estimated_x_m": -41.15857710816266,
+      "estimated_y_m": 78.63615024297488,
+      "estimated_z_m": 1793.3552408218384,
+      "estimated_heading_deg": -56.420477350827205,
+      "fitness": -15.269754073882645,
+      "overlap": 0.9189691962575915,
+      "preservation_reason": null,
+      "fitness_improvement_m": 1.02421125231022,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 36554,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 6,
+        "inlier_count": 6,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          1,
+          3,
+          2,
+          4,
+          0,
+          5
+        ],
+        "inlier_global_indices": [
+          37,
+          38,
+          26,
+          23,
+          33,
+          17
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.5530938301922982,
+            0.8331189680971217
+          ],
+          [
+            -0.8331189680971214,
+            0.5530938301922984
+          ]
+        ],
+        "translation_xy_m": [
+          -41.15857710816266,
+          78.63615024297488
+        ],
+        "translation_z_m": 1793.3552408218384,
+        "heading_deg": -56.420477350827205,
+        "terrain_fitness": -15.269754073882645,
+        "terrain_overlap": 0.9189691962575915,
+        "median_mahalanobis_squared": 0.34326762271785705,
+        "mahalanobis_squared": [
+          0.08313602464739614,
+          0.11909553095451846,
+          0.34327493589609887,
+          0.3432603095396152,
+          0.9983930781550654,
+          3.183164019057392
+        ],
+        "residuals_xyz_m": [
+          [
+            -2.0504301687077913,
+            0.9553334407003575,
+            -0.27874755859375
+          ],
+          [
+            -3.2950814623620204,
+            0.20908173181857137,
+            -0.20911216735839844
+          ],
+          [
+            -5.165174689937302,
+            3.006929814754699,
+            0.20911216735839844
+          ],
+          [
+            -0.9844322463445252,
+            -5.063555129480974,
+            0.4612598419189453
+          ],
+          [
+            10.238429222395482,
+            1.2407660885397718,
+            -0.28558349609375
+          ],
+          [
+            1.256689344956257,
+            -0.34855594633245346,
+            2.532851219177246
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 20
+      },
+      "darces": {
+        "site": 103,
+        "local_feature_count": 6,
+        "heading_measurement_deg": -45.01290894158833,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 36554,
+        "runtime_s": 6.605365429000813,
+        "estimated_x_m": -54.13603570843625,
+        "estimated_y_m": 69.84754299989693,
+        "estimated_z_m": 1793.6067667007446,
+        "estimated_heading_deg": -49.660218005893974,
+        "fitness": -16.293965326192865,
+        "overlap": 0.916124090386825,
+        "cluster_size": 3,
+        "evaluated_hypothesis_count": 10,
+        "truth_x_m": 77.97964477539062,
+        "truth_y_m": -66.98892974853516,
+        "truth_z_m": -5.62939453125,
+        "xy_error_m": 190.20718520586183,
+        "z_error_m": 1799.2361612319946,
+        "heading_error_deg": 4.647309064305659,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 6,
+        "correspondence_local_indices": [
+          1,
+          3,
+          2,
+          4,
+          0,
+          5
+        ],
+        "correspondence_global_indices": [
+          37,
+          38,
+          26,
+          23,
+          33,
+          17
+        ],
+        "correspondence_xy_rmse_m": 5.8189811665003734,
+        "correspondence_z_rmse_m": 1.1886060871087218
+      },
+      "truth_x_m": 77.97964477539062,
+      "truth_y_m": -66.98892974853516,
+      "truth_z_m": -5.62939453125,
+      "xy_error_m": 188.1504181130312,
+      "z_error_m": 1798.9846353530884,
+      "heading_error_deg": 11.407568409238877
+    },
+    {
+      "site": 106,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.13249403999361675,
+      "estimated_x_m": -52.706536020352615,
+      "estimated_y_m": 57.52880917126928,
+      "estimated_z_m": 1793.2735290527344,
+      "estimated_heading_deg": -44.86177160831725,
+      "fitness": -15.147500320051098,
+      "overlap": 0.9437608927503056,
+      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
+      "fitness_improvement_m": -0.4062919131379683,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 38443,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 7,
+        "inlier_count": 7,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          4,
+          0,
+          1,
+          2,
+          6,
+          5,
+          3
+        ],
+        "inlier_global_indices": [
+          37,
+          23,
+          26,
+          31,
+          17,
+          24,
+          28
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            0.7490815029790249,
+            0.6624778501162781
+          ],
+          [
+            -0.6624778501162781,
+            0.7490815029790244
+          ]
+        ],
+        "translation_xy_m": [
+          -59.37374998699964,
+          55.845407724027204
+        ],
+        "translation_z_m": 1793.2955932617188,
+        "heading_deg": -41.48912263220156,
+        "terrain_fitness": -15.553792233189066,
+        "terrain_overlap": 0.9365814322503446,
+        "median_mahalanobis_squared": 0.5832487692544238,
+        "mahalanobis_squared": [
+          0.18643834409005958,
+          0.11288983217810279,
+          0.3995977793230161,
+          0.5832487692544238,
+          1.184302260525833,
+          1.4354873247401898,
+          2.2925104955120275
+        ],
+        "residuals_xyz_m": [
+          [
+            -2.9919893417389716,
+            3.3771560948093438,
+            -0.07753372192382812
+          ],
+          [
+            -0.29278539865937603,
+            3.5221457651442805,
+            0.022064208984375
+          ],
+          [
+            -1.6792118524523403,
+            6.441053094407387,
+            0.0
+          ],
+          [
+            -7.6555319431974596,
+            -0.2953704635684389,
+            -0.3365812301635742
+          ],
+          [
+            -0.5307492073239644,
+            3.43091289079387,
+            1.4851417541503906
+          ],
+          [
+            -2.058399848015952,
+            -11.73997768683244,
+            0.5623197555541992
+          ],
+          [
+            15.20866759138805,
+            -4.735919694754038,
+            -0.09259700775146484
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 35
+      },
+      "darces": {
+        "site": 106,
+        "local_feature_count": 7,
+        "heading_measurement_deg": -43.08408303463808,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 38443,
+        "runtime_s": 9.875162012001965,
+        "estimated_x_m": -52.706536020352615,
+        "estimated_y_m": 57.52880917126928,
+        "estimated_z_m": 1793.2735290527344,
+        "estimated_heading_deg": -44.86177160831725,
+        "fitness": -15.147500320051098,
+        "overlap": 0.9437608927503056,
+        "cluster_size": 3,
+        "evaluated_hypothesis_count": 8,
+        "truth_x_m": 80.05274963378906,
+        "truth_y_m": -69.16338348388672,
+        "truth_z_m": -6.0826416015625,
+        "xy_error_m": 183.51005315014527,
+        "z_error_m": 1799.3561706542969,
+        "heading_error_deg": 1.7776885736791712,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 7,
+        "correspondence_local_indices": [
+          4,
+          0,
+          1,
+          2,
+          6,
+          5,
+          3
+        ],
+        "correspondence_global_indices": [
+          37,
+          23,
+          26,
+          31,
+          17,
+          24,
+          28
+        ],
+        "correspondence_xy_rmse_m": 9.59252450506445,
+        "correspondence_z_rmse_m": 0.6076479574759367
+      },
+      "truth_x_m": 80.05274963378906,
+      "truth_y_m": -69.16338348388672,
+      "truth_z_m": -6.0826416015625,
+      "xy_error_m": 183.51005315014527,
+      "z_error_m": 1799.3561706542969,
+      "heading_error_deg": 1.7776885736791712
+    },
+    {
+      "site": 107,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 107,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -42.51815854720408,
+        "status": "skipped_insufficient_features"
       }
     },
     {
@@ -1721,35 +3114,35 @@
       }
     },
     {
-      "site": 111,
+      "site": 112,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 111,
-        "local_feature_count": 4,
-        "heading_measurement_deg": -45.59258374131965,
+        "site": 112,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -45.59289183942474,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 38267,
-        "runtime_s": 0.8383445989747997
+        "fitness_reference_point_count": 38734,
+        "runtime_s": 0.37423059799766634
       }
     },
     {
-      "site": 117,
+      "site": 116,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 117,
+        "site": 116,
         "local_feature_count": 4,
-        "heading_measurement_deg": -44.955896570698606,
+        "heading_measurement_deg": -45.0028494441314,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 35954,
-        "runtime_s": 0.7576841039990541
+        "fitness_reference_point_count": 37499,
+        "runtime_s": 0.7593297900020843
       }
     },
     {
@@ -1765,7 +3158,7 @@
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
         "fitness_reference_point_count": 38770,
-        "runtime_s": 0.7509683080133982
+        "runtime_s": 0.39443162600218784
       }
     },
     {
@@ -1781,18 +3174,42 @@
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
         "fitness_reference_point_count": 36013,
-        "runtime_s": 0.0005869449814781547
+        "runtime_s": 0.0005991019861539826
       }
     },
     {
-      "site": 128,
+      "site": 120,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 128,
+        "site": 120,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -44.57394721066002,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 121,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 121,
         "local_feature_count": 1,
-        "heading_measurement_deg": -47.04317616483623,
+        "heading_measurement_deg": -44.829650890658534,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 127,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 127,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -48.13278972789267,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1809,31 +3226,47 @@
       }
     },
     {
-      "site": 137,
+      "site": 134,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 137,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -45.403703328736434,
+        "site": 134,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -45.35452751288533,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 44011,
+        "runtime_s": 0.0008065229922067374
+      }
+    },
+    {
+      "site": 135,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 135,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -44.98454666586523,
         "status": "skipped_insufficient_features"
       }
     },
     {
-      "site": 142,
+      "site": 139,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 142,
-        "local_feature_count": 7,
-        "heading_measurement_deg": -38.09062081062839,
+        "site": 139,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -44.429363601543386,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 40684,
-        "runtime_s": 3.675551458989503
+        "fitness_reference_point_count": 41889,
+        "runtime_s": 0.0006338579987641424
       }
     },
     {
@@ -1843,48 +3276,52 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 144,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -49.45914392890705,
-        "status": "skipped_insufficient_features"
-      }
-    },
-    {
-      "site": 149,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 149,
         "local_feature_count": 3,
-        "heading_measurement_deg": -44.07571315890444,
+        "heading_measurement_deg": -49.45914392890705,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 50791,
-        "runtime_s": 0.0011248279770370573
+        "fitness_reference_point_count": 45549,
+        "runtime_s": 0.26367570500588045
       }
     },
     {
-      "site": 154,
+      "site": 150,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 154,
-        "local_feature_count": 2,
-        "heading_measurement_deg": -45.057244028557044,
+        "site": 150,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -44.848447286267465,
         "status": "skipped_insufficient_features"
       }
     },
     {
-      "site": 158,
+      "site": 156,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 158,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -44.93005850481467,
+        "site": 156,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -45.22870924655455,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 49410,
+        "runtime_s": 0.2513452970015351
+      }
+    },
+    {
+      "site": 157,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 157,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -45.20125927824063,
         "status": "skipped_insufficient_features"
       }
     },
@@ -1901,39 +3338,59 @@
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
         "fitness_reference_point_count": 59851,
-        "runtime_s": 0.2516863270138856
+        "runtime_s": 0.2645766210043803
       }
     },
     {
-      "site": 177,
+      "site": 166,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 177,
-        "local_feature_count": 7,
-        "heading_measurement_deg": -49.42803202982776,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 63641,
-        "runtime_s": 5.600705529010156
+        "site": 166,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -44.650522563707554,
+        "status": "skipped_insufficient_features"
       }
     },
     {
-      "site": 179,
+      "site": 167,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 179,
+        "site": 167,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -45.75122862565374,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 169,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 169,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -45.9780445960567,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 176,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 176,
         "local_feature_count": 3,
-        "heading_measurement_deg": -42.36676866148385,
+        "heading_measurement_deg": -44.680630685106244,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 56910,
-        "runtime_s": 0.0006836280226707458
+        "fitness_reference_point_count": 62501,
+        "runtime_s": 0.24452127498807386
       }
     },
     {
@@ -1943,109 +3400,353 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 180,
-        "local_feature_count": 2,
+        "local_feature_count": 3,
         "heading_measurement_deg": -42.5237923057275,
-        "status": "skipped_insufficient_features"
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 57995,
+        "runtime_s": 0.0006393450021278113
       }
     },
     {
-      "site": 187,
+      "site": 182,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 187,
+        "site": 182,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -44.6798546770664,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 183,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 183,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -45.32551310907346,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 189,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 189,
         "local_feature_count": 2,
-        "heading_measurement_deg": -44.94207445841788,
+        "heading_measurement_deg": -44.68030830269751,
         "status": "skipped_insufficient_features"
       }
     },
     {
-      "site": 202,
+      "site": 190,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 202,
+        "site": 190,
         "local_feature_count": 1,
-        "heading_measurement_deg": -44.58728202979252,
+        "heading_measurement_deg": -45.093970350672045,
         "status": "skipped_insufficient_features"
       }
     },
     {
-      "site": 227,
+      "site": 191,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 227,
+        "site": 191,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -45.03745039744829,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 61067,
+        "runtime_s": 0.0006394649972207844
+      }
+    },
+    {
+      "site": 196,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 196,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -47.04917061725294,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 48358,
+        "runtime_s": 0.4468245269963518
+      }
+    },
+    {
+      "site": 198,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 198,
         "local_feature_count": 1,
-        "heading_measurement_deg": -142.66664898230752,
+        "heading_measurement_deg": -47.123536615890615,
         "status": "skipped_insufficient_features"
       }
     },
     {
-      "site": 230,
+      "site": 199,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 230,
-        "local_feature_count": 6,
-        "heading_measurement_deg": -138.95671008709775,
+        "site": 199,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -46.8807507616142,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 61960,
-        "runtime_s": 2.5078423350059893
+        "fitness_reference_point_count": 61417,
+        "runtime_s": 0.03719701700902078
       }
     },
     {
-      "site": 231,
+      "site": 200,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 231,
-        "local_feature_count": 5,
-        "heading_measurement_deg": -144.32940290268445,
+        "site": 200,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -45.41835751601196,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 201,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 201,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -44.711600491544985,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 203,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 203,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -44.10597825430367,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 65529,
-        "runtime_s": 1.6833869330002926
+        "fitness_reference_point_count": 63705,
+        "runtime_s": 0.0774409680016106
       }
     },
     {
-      "site": 238,
+      "site": 205,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 238,
-        "local_feature_count": 5,
-        "heading_measurement_deg": -141.80793974364232,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 60657,
-        "runtime_s": 0.8267748420184944
+        "site": 205,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -47.6032661763136,
+        "status": "skipped_insufficient_features"
       }
     },
     {
-      "site": 241,
+      "site": 208,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 241,
+        "site": 208,
         "local_feature_count": 4,
-        "heading_measurement_deg": -144.40157912572337,
+        "heading_measurement_deg": -42.491605805699834,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 63529,
-        "runtime_s": 0.39709813898662105
+        "fitness_reference_point_count": 60648,
+        "runtime_s": 0.6533283999888226
+      }
+    },
+    {
+      "site": 211,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 211,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -51.695153144291474,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 212,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 212,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -49.30403007349622,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 215,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 215,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -43.93270236256767,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 60935,
+        "runtime_s": 0.19485211800201796
+      }
+    },
+    {
+      "site": 218,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 218,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -44.90133804769701,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 223,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 223,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -143.64881829077044,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 228,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 228,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -142.96084923880284,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 229,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 229,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -143.2148740382793,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 233,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 233,
+        "local_feature_count": 4,
+        "heading_measurement_deg": -145.08787758642376,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 64838,
+        "runtime_s": 0.1111396530031925
+      }
+    },
+    {
+      "site": 235,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 235,
+        "local_feature_count": 4,
+        "heading_measurement_deg": -143.29899222464317,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 61720,
+        "runtime_s": 0.37429288000566885
+      }
+    },
+    {
+      "site": 236,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 236,
+        "local_feature_count": 5,
+        "heading_measurement_deg": -142.88402884282752,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 66161,
+        "runtime_s": 0.8858657929959008
+      }
+    },
+    {
+      "site": 240,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 240,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -144.39977831397286,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 63886,
+        "runtime_s": 0.10531407198868692
+      }
+    },
+    {
+      "site": 248,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 248,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -143.21088393967213,
+        "status": "skipped_insufficient_features"
       }
     },
     {
@@ -2055,53 +3756,185 @@
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 250,
-        "local_feature_count": 1,
+        "local_feature_count": 2,
         "heading_measurement_deg": -160.74196413313535,
         "status": "skipped_insufficient_features"
       }
     },
     {
-      "site": 253,
+      "site": 251,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 253,
-        "local_feature_count": 4,
-        "heading_measurement_deg": -140.0736995036228,
+        "site": 251,
+        "local_feature_count": 3,
+        "heading_measurement_deg": -138.1152897964851,
         "status": "no_solution",
         "fitness_reference": "raw_lidar_xy_decimated",
         "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 64010,
-        "runtime_s": 0.20250223099719733
+        "fitness_reference_point_count": 64346,
+        "runtime_s": 0.0006173769943416119
       }
     },
     {
-      "site": 254,
+      "site": 255,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 254,
-        "local_feature_count": 6,
-        "heading_measurement_deg": -140.82464191514592,
-        "status": "no_solution",
-        "fitness_reference": "raw_lidar_xy_decimated",
-        "fitness_reference_spacing_m": 0.25,
-        "fitness_reference_point_count": 65865,
-        "runtime_s": 1.8619174099876545
-      }
-    },
-    {
-      "site": 258,
-      "status": "darces_unavailable",
-      "estimate_source": "none",
-      "fallback_reason": "DARCES has no pose estimate",
-      "darces": {
-        "site": 258,
-        "local_feature_count": 1,
-        "heading_measurement_deg": -139.67573067275498,
+        "site": 255,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -146.72768275966973,
         "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 256,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 256,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -145.21688187486686,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 257,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 257,
+        "local_feature_count": 2,
+        "heading_measurement_deg": -143.50252322485218,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 261,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 261,
+        "local_feature_count": 1,
+        "heading_measurement_deg": -143.41536564254582,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 269,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 269,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 151.3973789375569,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 63228,
+        "runtime_s": 0.000618078003753908
+      }
+    },
+    {
+      "site": 271,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 271,
+        "local_feature_count": 1,
+        "heading_measurement_deg": 135.30340701020162,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 274,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 274,
+        "local_feature_count": 4,
+        "heading_measurement_deg": 133.67440895068557,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 45321,
+        "runtime_s": 0.20914037599868607
+      }
+    },
+    {
+      "site": 276,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 276,
+        "local_feature_count": 1,
+        "heading_measurement_deg": 144.29546563952812,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 278,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 278,
+        "local_feature_count": 2,
+        "heading_measurement_deg": 141.46081625701603,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 280,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 280,
+        "local_feature_count": 1,
+        "heading_measurement_deg": 139.2810947006263,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 285,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 285,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 139.86506403587285,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 62461,
+        "runtime_s": 0.0006384629959939048
+      }
+    },
+    {
+      "site": 286,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 286,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 139.50256027358725,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 65418,
+        "runtime_s": 0.24707621899142396
       }
     },
     {
@@ -2117,14 +3950,14 @@
       }
     },
     {
-      "site": 291,
+      "site": 289,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
-        "site": 291,
-        "local_feature_count": 2,
-        "heading_measurement_deg": 139.8777422459944,
+        "site": 289,
+        "local_feature_count": 1,
+        "heading_measurement_deg": 139.88422187927955,
         "status": "skipped_insufficient_features"
       }
     },
@@ -2141,16 +3974,233 @@
       }
     },
     {
+      "site": 293,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 293,
+        "local_feature_count": 3,
+        "heading_measurement_deg": 136.095052978099,
+        "status": "no_solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 54451,
+        "runtime_s": 0.28653491400473285
+      }
+    },
+    {
+      "site": 303,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 303,
+        "local_feature_count": 1,
+        "heading_measurement_deg": 140.09378058573182,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
       "site": 306,
       "status": "darces_unavailable",
       "estimate_source": "none",
       "fallback_reason": "DARCES has no pose estimate",
       "darces": {
         "site": 306,
-        "local_feature_count": 1,
+        "local_feature_count": 2,
         "heading_measurement_deg": 140.31342279692905,
         "status": "skipped_insufficient_features"
       }
+    },
+    {
+      "site": 307,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 307,
+        "local_feature_count": 1,
+        "heading_measurement_deg": 138.23110864199907,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 311,
+      "status": "darces_unavailable",
+      "estimate_source": "none",
+      "fallback_reason": "DARCES has no pose estimate",
+      "darces": {
+        "site": 311,
+        "local_feature_count": 1,
+        "heading_measurement_deg": 140.91106138396472,
+        "status": "skipped_insufficient_features"
+      }
+    },
+    {
+      "site": 315,
+      "status": "solution",
+      "estimate_source": "darces",
+      "runtime_s": 0.16806648999045137,
+      "estimated_x_m": -50.32962289017956,
+      "estimated_y_m": -130.59507007203126,
+      "estimated_z_m": 1776.4569952487946,
+      "estimated_heading_deg": 137.76545636211273,
+      "fitness": -5.185510743137284,
+      "overlap": 0.98790511737951,
+      "preservation_reason": "RANSAC terrain fitness improvement was below threshold",
+      "fitness_improvement_m": -0.23096988305096922,
+      "ransac_rejected_outlier": false,
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.25,
+      "fitness_reference_point_count": 49029,
+      "ransac": {
+        "status": "solution",
+        "input_correspondence_count": 7,
+        "inlier_count": 7,
+        "outlier_count": 0,
+        "inlier_local_indices": [
+          6,
+          4,
+          8,
+          2,
+          9,
+          10,
+          13
+        ],
+        "inlier_global_indices": [
+          36,
+          35,
+          43,
+          13,
+          40,
+          42,
+          56
+        ],
+        "outlier_local_indices": [],
+        "outlier_global_indices": [],
+        "rotation": [
+          [
+            -0.7329214389459521,
+            -0.6803132839607021
+          ],
+          [
+            0.6803132839607022,
+            -0.7329214389459523
+          ]
+        ],
+        "translation_xy_m": [
+          -53.04428926299538,
+          -132.83571583674265
+        ],
+        "translation_z_m": 1775.6419172286987,
+        "heading_deg": 137.1318709899479,
+        "terrain_fitness": -5.416480626188253,
+        "terrain_overlap": 0.9848049113789797,
+        "median_mahalanobis_squared": 0.8283545531430287,
+        "mahalanobis_squared": [
+          0.38257447997662336,
+          1.6024717020752852,
+          0.013688720313199353,
+          1.7360130351741372,
+          0.5270174954372452,
+          0.8283545531430287,
+          1.7928871328848592
+        ],
+        "residuals_xyz_m": [
+          [
+            0.6051264864895813,
+            -2.090297734636451,
+            -0.8150780200958252
+          ],
+          [
+            -1.2895354669208956,
+            -5.83179826878019,
+            -1.5817720890045166
+          ],
+          [
+            0.15700859089252361,
+            -1.2219398587185992,
+            0.0
+          ],
+          [
+            -5.5105241839277355,
+            -4.849338245498927,
+            -1.5628665387630463
+          ],
+          [
+            0.6510527027219268,
+            1.9990907494840968,
+            0.977109432220459
+          ],
+          [
+            0.5206026301002638,
+            -1.2387162627909873,
+            1.2619261741638184
+          ],
+          [
+            4.8662692406443,
+            13.232999620940916,
+            0.0023345947265625
+          ]
+        ],
+        "mahalanobis_threshold_squared": 7.814727903251179,
+        "model_count_tested": 35
+      },
+      "darces": {
+        "site": 315,
+        "local_feature_count": 15,
+        "heading_measurement_deg": 140.00161341014328,
+        "status": "solution",
+        "fitness_reference": "raw_lidar_xy_decimated",
+        "fitness_reference_spacing_m": 0.25,
+        "fitness_reference_point_count": 49029,
+        "runtime_s": 37.48189864799497,
+        "estimated_x_m": -50.32962289017956,
+        "estimated_y_m": -130.59507007203126,
+        "estimated_z_m": 1776.4569952487946,
+        "estimated_heading_deg": 137.76545636211273,
+        "fitness": -5.185510743137284,
+        "overlap": 0.98790511737951,
+        "cluster_size": 5,
+        "evaluated_hypothesis_count": 204,
+        "truth_x_m": 84.42285919189453,
+        "truth_y_m": -148.4501953125,
+        "truth_z_m": -10.5621337890625,
+        "xy_error_m": 135.9302649325474,
+        "z_error_m": 1787.019129037857,
+        "heading_error_deg": 2.236157048030549,
+        "consensus_count": 0,
+        "consensus_xy_rmse_m": Infinity,
+        "consensus_z_rmse_m": Infinity,
+        "correspondence_count": 7,
+        "correspondence_local_indices": [
+          6,
+          4,
+          8,
+          2,
+          9,
+          10,
+          13
+        ],
+        "correspondence_global_indices": [
+          36,
+          35,
+          43,
+          13,
+          40,
+          42,
+          56
+        ],
+        "correspondence_xy_rmse_m": 7.379923065131256,
+        "correspondence_z_rmse_m": 1.195551594923954
+      },
+      "truth_x_m": 84.42285919189453,
+      "truth_y_m": -148.4501953125,
+      "truth_z_m": -10.5621337890625,
+      "xy_error_m": 135.9302649325474,
+      "z_error_m": 1787.019129037857,
+      "heading_error_deg": 2.236157048030549
     }
   ]
 }

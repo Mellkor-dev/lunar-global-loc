@@ -43,80 +43,28 @@
   },
   "execution": {
     "worker_processes": 6,
-    "checkpoint_signature": "e2a5426f211fe27e46684afc030b541515d78b3ca679093b58d5d3cc8df625b4"
+    "checkpoint_signature": "abab6cb1541be4b2e60ae5db420e498c676108423e185e573edab9e27b02ef6f"
   },
   "sites": [
     {
-      "site": 2,
-      "local_feature_count": 1,
-      "heading_measurement_deg": -20.974839005495397,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 6,
+      "site": 12,
       "local_feature_count": 3,
-      "heading_measurement_deg": -42.51573793248288,
+      "heading_measurement_deg": -39.71688393994657,
       "status": "no_solution",
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.125,
-      "fitness_reference_point_count": 47095,
-      "runtime_s": 0.9767435129906517
+      "fitness_reference_point_count": 20373,
+      "runtime_s": 0.41152686599525623
     },
     {
-      "site": 7,
+      "site": 17,
       "local_feature_count": 3,
-      "heading_measurement_deg": -39.06206289246691,
+      "heading_measurement_deg": -39.84202365654841,
       "status": "no_solution",
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.125,
-      "fitness_reference_point_count": 47456,
-      "runtime_s": 0.5038834649894852
-    },
-    {
-      "site": 9,
-      "local_feature_count": 5,
-      "heading_measurement_deg": -37.76336249359943,
-      "status": "solution",
-      "fitness_reference": "raw_lidar_xy_decimated",
-      "fitness_reference_spacing_m": 0.125,
-      "fitness_reference_point_count": 49591,
-      "runtime_s": 4.471194324985845,
-      "estimated_x_m": -12.539046441025736,
-      "estimated_y_m": -14.412087241052912,
-      "estimated_z_m": 1779.1105710864067,
-      "estimated_heading_deg": -38.37363381180364,
-      "fitness": -0.5487529581638027,
-      "overlap": 0.9968744328608014,
-      "cluster_size": 3,
-      "evaluated_hypothesis_count": 23,
-      "truth_x_m": 6.133005142211914,
-      "truth_y_m": -4.976420879364014,
-      "truth_z_m": 0.4110107421875,
-      "xy_error_m": 20.920738754073554,
-      "z_error_m": 1778.6995603442192,
-      "heading_error_deg": 0.6102713182042123,
-      "consensus_count": 0,
-      "consensus_xy_rmse_m": Infinity,
-      "consensus_z_rmse_m": Infinity,
-      "correspondence_count": 3,
-      "correspondence_local_indices": [
-        4,
-        2,
-        3
-      ],
-      "correspondence_global_indices": [
-        45,
-        15,
-        40
-      ],
-      "correspondence_xy_rmse_m": 2.3648619611417563,
-      "correspondence_z_rmse_m": 0.43263618251021946
-    },
-    {
-      "site": 14,
-      "local_feature_count": 2,
-      "heading_measurement_deg": -41.33108907836607,
-      "status": "skipped_insufficient_features"
+      "fitness_reference_point_count": 27149,
+      "runtime_s": 0.0010182319965679199
     },
     {
       "site": 18,
@@ -125,87 +73,173 @@
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 26,
-      "local_feature_count": 3,
-      "heading_measurement_deg": -39.3638236300559,
-      "status": "no_solution",
-      "fitness_reference": "raw_lidar_xy_decimated",
-      "fitness_reference_spacing_m": 0.125,
-      "fitness_reference_point_count": 34568,
-      "runtime_s": 0.2930813290004153
-    },
-    {
-      "site": 35,
+      "site": 20,
       "local_feature_count": 1,
-      "heading_measurement_deg": -41.86620246456552,
+      "heading_measurement_deg": -38.27391643548647,
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 36,
+      "site": 22,
+      "local_feature_count": 2,
+      "heading_measurement_deg": -39.267137363970704,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 23,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -39.39300905701032,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 30,
       "local_feature_count": 4,
-      "heading_measurement_deg": -40.45894715148988,
+      "heading_measurement_deg": -38.77604678854181,
       "status": "no_solution",
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.125,
-      "fitness_reference_point_count": 26999,
-      "runtime_s": 1.3985440289834514
+      "fitness_reference_point_count": 33949,
+      "runtime_s": 1.485514404004789
     },
     {
-      "site": 37,
+      "site": 38,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -36.41550851501793,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 43,
+      "local_feature_count": 2,
+      "heading_measurement_deg": -40.713282001243165,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 44,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -40.165472451576946,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 45,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -40.66108139864205,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 46,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -40.94042934455417,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 49,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -38.24230812800141,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 53,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -38.97099921389206,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 55,
       "local_feature_count": 3,
-      "heading_measurement_deg": -35.166051378509735,
+      "heading_measurement_deg": -39.52790348528501,
       "status": "no_solution",
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.125,
-      "fitness_reference_point_count": 37185,
-      "runtime_s": 0.0009530519891995937
+      "fitness_reference_point_count": 36539,
+      "runtime_s": 0.33469532399612945
     },
     {
-      "site": 39,
-      "local_feature_count": 1,
-      "heading_measurement_deg": -38.47246738279622,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 56,
-      "local_feature_count": 1,
-      "heading_measurement_deg": -40.04744151198716,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 63,
-      "local_feature_count": 1,
-      "heading_measurement_deg": -38.60558616095365,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 69,
+      "site": 57,
       "local_feature_count": 0,
-      "heading_measurement_deg": -39.00430764604017,
+      "heading_measurement_deg": -38.38421724166335,
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 73,
+      "site": 67,
       "local_feature_count": 0,
-      "heading_measurement_deg": -39.377967019497376,
+      "heading_measurement_deg": -39.203507135047,
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 86,
+      "site": 71,
       "local_feature_count": 0,
-      "heading_measurement_deg": -43.767970841702756,
+      "heading_measurement_deg": -39.0466846626355,
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 100,
+      "site": 75,
       "local_feature_count": 0,
-      "heading_measurement_deg": -46.09187006691905,
+      "heading_measurement_deg": -39.32090223391184,
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 108,
+      "site": 89,
       "local_feature_count": 0,
-      "heading_measurement_deg": -43.083888473824885,
+      "heading_measurement_deg": -44.14916288918656,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 90,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -44.45501928550962,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 92,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -45.579757922123385,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 93,
+      "local_feature_count": 2,
+      "heading_measurement_deg": -38.17311823703593,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 95,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -43.53971974811264,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 96,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -42.73054256666961,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 97,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -43.05035537173814,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 98,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -43.910040872899415,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 103,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -45.01290894158833,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 106,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -43.08408303463808,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 107,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -42.51815854720408,
       "status": "skipped_insufficient_features"
     },
     {
@@ -215,15 +249,15 @@
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 111,
+      "site": 112,
       "local_feature_count": 0,
-      "heading_measurement_deg": -45.59258374131965,
+      "heading_measurement_deg": -45.59289183942474,
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 117,
+      "site": 116,
       "local_feature_count": 0,
-      "heading_measurement_deg": -44.955896570698606,
+      "heading_measurement_deg": -45.0028494441314,
       "status": "skipped_insufficient_features"
     },
     {
@@ -239,9 +273,21 @@
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 128,
+      "site": 120,
       "local_feature_count": 0,
-      "heading_measurement_deg": -47.04317616483623,
+      "heading_measurement_deg": -44.57394721066002,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 121,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -44.829650890658534,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 127,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -48.13278972789267,
       "status": "skipped_insufficient_features"
     },
     {
@@ -251,15 +297,21 @@
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 137,
+      "site": 134,
       "local_feature_count": 0,
-      "heading_measurement_deg": -45.403703328736434,
+      "heading_measurement_deg": -45.35452751288533,
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 142,
-      "local_feature_count": 2,
-      "heading_measurement_deg": -38.09062081062839,
+      "site": 135,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -44.98454666586523,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 139,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -44.429363601543386,
       "status": "skipped_insufficient_features"
     },
     {
@@ -269,21 +321,21 @@
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 149,
+      "site": 150,
+      "local_feature_count": 0,
+      "heading_measurement_deg": -44.848447286267465,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 156,
       "local_feature_count": 2,
-      "heading_measurement_deg": -44.07571315890444,
+      "heading_measurement_deg": -45.22870924655455,
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 154,
-      "local_feature_count": 0,
-      "heading_measurement_deg": -45.057244028557044,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 158,
-      "local_feature_count": 0,
-      "heading_measurement_deg": -44.93005850481467,
+      "site": 157,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -45.20125927824063,
       "status": "skipped_insufficient_features"
     },
     {
@@ -293,75 +345,191 @@
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 177,
-      "local_feature_count": 3,
-      "heading_measurement_deg": -49.42803202982776,
-      "status": "no_solution",
-      "fitness_reference": "raw_lidar_xy_decimated",
-      "fitness_reference_spacing_m": 0.125,
-      "fitness_reference_point_count": 72240,
-      "runtime_s": 0.4555407910083886
+      "site": 166,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -44.650522563707554,
+      "status": "skipped_insufficient_features"
     },
     {
-      "site": 179,
+      "site": 167,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -45.75122862565374,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 169,
+      "local_feature_count": 2,
+      "heading_measurement_deg": -45.9780445960567,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 176,
       "local_feature_count": 3,
-      "heading_measurement_deg": -42.36676866148385,
+      "heading_measurement_deg": -44.680630685106244,
       "status": "no_solution",
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.125,
-      "fitness_reference_point_count": 71805,
-      "runtime_s": 0.2885413680050988
+      "fitness_reference_point_count": 78864,
+      "runtime_s": 0.22053008200600743
     },
     {
       "site": 180,
-      "local_feature_count": 2,
-      "heading_measurement_deg": -42.5237923057275,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 187,
-      "local_feature_count": 1,
-      "heading_measurement_deg": -44.94207445841788,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 202,
-      "local_feature_count": 1,
-      "heading_measurement_deg": -44.58728202979252,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 227,
-      "local_feature_count": 1,
-      "heading_measurement_deg": -142.66664898230752,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 230,
-      "local_feature_count": 1,
-      "heading_measurement_deg": -138.95671008709775,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 231,
-      "local_feature_count": 1,
-      "heading_measurement_deg": -144.32940290268445,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 238,
       "local_feature_count": 3,
-      "heading_measurement_deg": -141.80793974364232,
+      "heading_measurement_deg": -42.5237923057275,
       "status": "no_solution",
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.125,
-      "fitness_reference_point_count": 81038,
-      "runtime_s": 0.21588476200122386
+      "fitness_reference_point_count": 74267,
+      "runtime_s": 0.001029495004331693
     },
     {
-      "site": 241,
+      "site": 182,
       "local_feature_count": 1,
-      "heading_measurement_deg": -144.40157912572337,
+      "heading_measurement_deg": -44.6798546770664,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 183,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -45.32551310907346,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 189,
+      "local_feature_count": 2,
+      "heading_measurement_deg": -44.68030830269751,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 190,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -45.093970350672045,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 191,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -45.03745039744829,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 196,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -47.04917061725294,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 198,
+      "local_feature_count": 2,
+      "heading_measurement_deg": -47.123536615890615,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 199,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -46.8807507616142,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 200,
+      "local_feature_count": 2,
+      "heading_measurement_deg": -45.41835751601196,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 201,
+      "local_feature_count": 2,
+      "heading_measurement_deg": -44.711600491544985,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 203,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -44.10597825430367,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 205,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -47.6032661763136,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 208,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -42.491605805699834,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 211,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -51.695153144291474,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 212,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -49.30403007349622,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 215,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -43.93270236256767,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 218,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -44.90133804769701,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 223,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -143.64881829077044,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 228,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -142.96084923880284,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 229,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -143.2148740382793,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 233,
+      "local_feature_count": 2,
+      "heading_measurement_deg": -145.08787758642376,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 235,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -143.29899222464317,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 236,
+      "local_feature_count": 2,
+      "heading_measurement_deg": -142.88402884282752,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 240,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -144.39977831397286,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 248,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -143.21088393967213,
       "status": "skipped_insufficient_features"
     },
     {
@@ -371,21 +539,81 @@
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 253,
-      "local_feature_count": 2,
-      "heading_measurement_deg": -140.0736995036228,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 254,
-      "local_feature_count": 2,
-      "heading_measurement_deg": -140.82464191514592,
-      "status": "skipped_insufficient_features"
-    },
-    {
-      "site": 258,
+      "site": 251,
       "local_feature_count": 1,
-      "heading_measurement_deg": -139.67573067275498,
+      "heading_measurement_deg": -138.1152897964851,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 255,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -146.72768275966973,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 256,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -145.21688187486686,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 257,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -143.50252322485218,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 261,
+      "local_feature_count": 1,
+      "heading_measurement_deg": -143.41536564254582,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 269,
+      "local_feature_count": 2,
+      "heading_measurement_deg": 151.3973789375569,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 271,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 135.30340701020162,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 274,
+      "local_feature_count": 0,
+      "heading_measurement_deg": 133.67440895068557,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 276,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 144.29546563952812,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 278,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 141.46081625701603,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 280,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 139.2810947006263,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 285,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 139.86506403587285,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 286,
+      "local_feature_count": 2,
+      "heading_measurement_deg": 139.50256027358725,
       "status": "skipped_insufficient_features"
     },
     {
@@ -396,12 +624,12 @@
       "fitness_reference": "raw_lidar_xy_decimated",
       "fitness_reference_spacing_m": 0.125,
       "fitness_reference_point_count": 81867,
-      "runtime_s": 0.22776119998889044
+      "runtime_s": 0.2362616739992518
     },
     {
-      "site": 291,
-      "local_feature_count": 2,
-      "heading_measurement_deg": 139.8777422459944,
+      "site": 289,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 139.88422187927955,
       "status": "skipped_insufficient_features"
     },
     {
@@ -411,9 +639,43 @@
       "status": "skipped_insufficient_features"
     },
     {
-      "site": 306,
+      "site": 293,
+      "local_feature_count": 3,
+      "heading_measurement_deg": 136.095052978099,
+      "status": "no_solution",
+      "fitness_reference": "raw_lidar_xy_decimated",
+      "fitness_reference_spacing_m": 0.125,
+      "fitness_reference_point_count": 72968,
+      "runtime_s": 0.232317925998359
+    },
+    {
+      "site": 303,
       "local_feature_count": 1,
+      "heading_measurement_deg": 140.09378058573182,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 306,
+      "local_feature_count": 2,
       "heading_measurement_deg": 140.31342279692905,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 307,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 138.23110864199907,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 311,
+      "local_feature_count": 1,
+      "heading_measurement_deg": 140.91106138396472,
+      "status": "skipped_insufficient_features"
+    },
+    {
+      "site": 315,
+      "local_feature_count": 2,
+      "heading_measurement_deg": 140.00161341014328,
       "status": "skipped_insufficient_features"
     }
   ]

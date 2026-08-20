@@ -23,7 +23,8 @@ from pipeline_config import add_resolution_argument, load_resolution_config
 from site_selection import selected_sites_for_config
 from traversal_presentation import (
     environment_display_name,
-    generate_darces_prediction_contour_map,
+    generate_localization_prediction_contour_map,
+    select_best_pose_estimates,
 )
 
 
@@ -37,6 +38,16 @@ def parse_arguments() -> argparse.Namespace:
         "--results",
         type=Path,
         help="Override the default results/<resolution>_px/darces_all_sites.json",
+    )
+    parser.add_argument(
+        "--ransac-results",
+        type=Path,
+        help="Override results/<resolution>_px/ransac_all_sites.json",
+    )
+    parser.add_argument(
+        "--moga-results",
+        type=Path,
+        help="Override results/<resolution>_px/moga_all_sites.json",
     )
     parser.add_argument(
         "--output",
@@ -271,12 +282,27 @@ def main() -> None:
     results_path = args.results or (
         config.results_path / "darces_all_sites.json"
     )
+    ransac_results_path = args.ransac_results or (
+        config.results_path / "ransac_all_sites.json"
+    )
+    moga_results_path = args.moga_results or (
+        config.results_path / "moga_all_sites.json"
+    )
 
     selected_sites = selected_sites_for_config(config)
     sites, poses = load_odometry(
         config.captures_path / "odom_scans", selected_sites
     )
     estimates = load_estimates(results_path)
+    best_estimates, best_stage_counts = select_best_pose_estimates(
+        sites,
+        poses,
+        {
+            "darces": estimates,
+            "ransac": load_estimates(ransac_results_path),
+            "moga": load_estimates(moga_results_path),
+        },
+    )
     dem = np.load(config.orbital_dem_path, mmap_mode="r", allow_pickle=False)
     if dem.shape != config.orbital_raster.shape:
         raise ValueError(
@@ -351,11 +377,11 @@ def main() -> None:
     fig.savefig(output_path, dpi=180, bbox_inches="tight")
     contour_summary = None
     if not args.no_contour_map:
-        contour_summary = generate_darces_prediction_contour_map(
+        contour_summary = generate_localization_prediction_contour_map(
             config=config,
             sites=sites,
             poses=poses,
-            estimates=estimates,
+            estimates=best_estimates,
             dem=np.asarray(dem),
             output_path=contour_output_path,
             contour_interval_m=args.contour_interval,
@@ -378,6 +404,13 @@ def main() -> None:
         print(f"Site mapping:      {contour_summary['mapping_path']}")
         print(f"Spatial path:      {contour_summary['route_length_m']:.3f} m")
         print(f"Largest link:      {contour_summary['largest_route_link_m']:.3f} m")
+        print(
+            "Best poses:        "
+            + ", ".join(
+                f"{stage.upper()}={count}"
+                for stage, count in best_stage_counts.items()
+            )
+        )
     if args.show:
         plt.show()
     else:

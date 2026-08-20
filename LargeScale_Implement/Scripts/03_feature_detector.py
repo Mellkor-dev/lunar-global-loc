@@ -24,6 +24,7 @@ from pipeline_config import (
     RasterConfig,
     load_pipeline_config,
 )
+from traversal_presentation import environment_display_name
 
 
 def _load_dem(path: Path, raster: RasterConfig, name: str) -> np.ndarray:
@@ -112,7 +113,7 @@ def _save_preview(
         y_centers[-1] - half_cell,
         y_centers[0] + half_cell,
     )
-    figure, axis = plt.subplots(figsize=(9, 8))
+    figure, axis = plt.subplots(figsize=(9.2, 7.5), layout="constrained")
     image = axis.imshow(
         elevation,
         cmap="terrain",
@@ -129,18 +130,42 @@ def _save_preview(
             linewidths=1.2,
             label=f"Detected {kind}",
         )
-        axis.legend()
+        axis.legend(
+            loc="center left",
+            fontsize=10,
+            framealpha=0.88,
+            borderpad=0.45,
+            handletextpad=0.55,
+        )
     axis.set_title(
         f"{title}\n"
-        f"kind={kind}, n={radius_cells}, "
-        f"D={distance_m:g} m, N={len(xyz)}"
+        f"n={radius_cells}, D={distance_m:g}m, No.={len(xyz)}",
+        fontsize=18,
+        fontweight="bold",
+        pad=9,
     )
-    axis.set_xlabel("Map x / east [m]")
-    axis.set_ylabel("Map y / north [m]")
+    axis.set_xlabel("Map x / east [m]", fontsize=14)
+    axis.set_ylabel("Map y / north [m]", fontsize=14)
+    axis.tick_params(axis="both", labelsize=11)
     axis.set_aspect("equal")
-    figure.colorbar(image, ax=axis, label="Elevation [m]")
-    figure.tight_layout()
-    figure.savefig(path, dpi=200)
+    colorbar = figure.colorbar(
+        image,
+        ax=axis,
+        label="Elevation [m]",
+        fraction=0.026,
+        pad=0.018,
+        shrink=0.55,
+        aspect=26,
+    )
+    colorbar.ax.tick_params(labelsize=9)
+    colorbar.set_label("Elevation [m]", fontsize=11, labelpad=6)
+    figure.savefig(
+        path,
+        dpi=250,
+        bbox_inches="tight",
+        pad_inches=0.04,
+        facecolor="white",
+    )
     plt.close(figure)
 
 
@@ -201,8 +226,8 @@ def _process_target(config: PipelineConfig, target: FeatureDetectionTarget) -> i
         target.raster,
         xyz,
         title=(
-            f"{config.config_path.stem.replace('_', ' ').title()} "
-            f"{target.name} {target.catalogue_role} DEM features"
+            f"{environment_display_name(config)} "
+            f"{target.name}/px DEM {config.features.kind}s"
         ),
         radius_cells=target.radius_cells,
         kind=config.features.kind,

@@ -1,51 +1,101 @@
 estimate_source,estimated_heading_deg,estimated_x_m,estimated_y_m,estimated_z_m,fallback_reason,fitness,fitness_improvement_m,fitness_reference,fitness_reference_point_count,fitness_reference_spacing_m,heading_error_deg,overlap,preservation_reason,ransac_rejected_outlier,runtime_s,site,status,truth_x_m,truth_y_m,truth_z_m,xy_error_m,z_error_m
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,2,darces_unavailable,,,,,
-darces,-42.94896730614721,-2.2628842449377915,-2.2743386973004007,1779.2239277809858,,-0.2308175130730656,-0.007368066262101458,raw_lidar_xy_decimated,28573,0.25,0.43322937366434644,0.9916004619745914,RANSAC terrain fitness improvement was below threshold,False,0.15124857099726796,6,solution,3.7302491664886475,-3.090923309326172,0.2786865234375,6.04850878446524,1778.9452412575483
-darces,-40.50023532325318,3.054149158279859,-4.715447337273721,1779.485860913992,,-0.12606616487505332,-0.09040339234118769,raw_lidar_xy_decimated,27889,0.25,1.4381724307862669,0.9936892681702464,RANSAC terrain fitness improvement was below threshold,False,0.292483324999921,7,solution,4.510462284088135,-3.7341771125793457,0.3763427734375,1.7560578504916118,1779.1095181405544
-darces,-41.89881543381584,4.207550210302457,-5.1091262429356625,1779.7090556621552,,-0.3142319739186445,-0.03466173435824882,raw_lidar_xy_decimated,28844,0.25,4.135452940216396,0.9936555262792955,RANSAC terrain fitness improvement was below threshold,False,0.5883454589638859,9,solution,6.133005142211914,-4.976420879364014,0.4110107421875,1.9300226445135653,1779.2980449199677
-ransac,-38.93844209340879,2.53280686861687,-4.850876739450662,1779.0273685455322,,-0.36019657102862496,0.043235274937830415,raw_lidar_xy_decimated,21108,0.25,2.392646984957281,0.9888194049649423,,False,0.07276786904549226,14,solution,10.047952651977539,-8.223517417907715,0.2745361328125,8.237239907344382,1778.7528324127197
-darces,-38.23278298318593,19.718896451020946,-17.62919497661415,1779.192521482706,,-0.33043316986461996,-0.26704193449424324,raw_lidar_xy_decimated,19086,0.25,0.7898119535557839,0.9951273184533166,RANSAC terrain fitness improvement was below threshold,False,0.00785821198951453,18,solution,13.143409729003906,-10.803790092468262,0.2095947265625,9.477509032649083,1778.9829267561436
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,26,darces_unavailable,,,,,
-ransac,-45.03716613672893,21.492179030721573,-14.658864922784595,1779.326150342822,,-0.5118730119904241,0.12642621509427776,raw_lidar_xy_decimated,21272,0.25,3.1709636721633956,0.9973674313651749,,False,0.1304749900009483,35,solution,26.538867950439453,-21.722379684448242,-0.051025390625,8.681146804463307,1779.377175733447
-darces,-38.01504976097416,22.29019992498029,-22.286130233445146,1778.9194882512093,,-0.26469878511793205,-0.05164608148823224,raw_lidar_xy_decimated,18563,0.25,2.4438973905157297,0.9977913052847062,RANSAC terrain fitness improvement was below threshold,False,0.3774405680014752,36,solution,27.270973205566406,-22.418659210205078,-0.204345703125,4.982536141593117,1779.1238339543343
-darces,-33.357925862291474,22.601945383795254,-22.273721972113023,1778.9778295345604,,-0.392116372773941,-0.44104941560876126,raw_lidar_xy_decimated,21272,0.25,1.8081255162182686,0.9988717562993606,RANSAC terrain fitness improvement was below threshold,False,0.041040328971575946,37,solution,28.076244354248047,-23.026575088500977,-0.0062255859375,5.525824556820055,1778.984055120498
-darces,-37.51454869254437,24.52627727426024,-28.63426471733645,1778.4641904830933,,-0.6161933037926283,-0.036550849086094184,raw_lidar_xy_decimated,19809,0.25,0.9579186902518586,0.999444696854965,RANSAC terrain fitness improvement was below threshold,False,0.021049424016382545,39,solution,29.70754623413086,-24.237674713134766,-0.0882568359375,6.79525950200321,1778.5524473190308
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,56,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,63,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,69,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,73,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,86,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,100,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,108,darces_unavailable,,,,,
+darces,-36.70515995546222,4.018962283180764,-7.060174984946785,1779.2642450779676,,-0.20521162380765542,-0.11597255526866809,raw_lidar_xy_decimated,12490,0.25,3.011723984484348,0.999759807846277,RANSAC terrain fitness improvement was below threshold,False,0.08820789499441162,12,solution,8.534244537353516,-6.865278720855713,0.2811279296875,4.519486518245632,1778.9831171482801
+darces,-40.54117670805412,9.491874826136844,-17.787929403553356,1779.158580482006,,-0.2850717820483816,-0.04389887451189772,raw_lidar_xy_decimated,17780,0.25,0.6991530515057036,0.9944319460067491,RANSAC terrain fitness improvement was below threshold,False,0.6752891130017815,17,solution,12.359783172607422,-10.166851043701172,0.103271484375,8.142833269247435,1779.055308997631
+darces,-38.23278298318593,19.718896451020946,-17.62919497661415,1779.192521482706,,-0.33043316986461996,-0.26704193449424324,raw_lidar_xy_decimated,19086,0.25,0.7898119535557839,0.9951273184533166,RANSAC terrain fitness improvement was below threshold,False,0.008173320005880669,18,solution,13.143409729003906,-10.803790092468262,0.2095947265625,9.477509032649083,1778.9829267561436
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,20,darces_unavailable,,,,,
+darces,-41.10511179305972,8.024908924733886,-6.188627889860207,1779.4077159762383,,-0.3010549467463844,0.00624472675257004,raw_lidar_xy_decimated,22250,0.25,1.8379744290890017,0.992808988764045,RANSAC terrain fitness improvement was below threshold,False,0.12332384999899659,22,solution,16.350055694580078,-13.349465370178223,0.2919921875,10.981150311283775,1779.1157237887383
+darces,-42.13867317667127,9.754458123341312,-9.759566279287736,1779.3516844511032,,-0.25796954091668395,-0.014302494916243691,raw_lidar_xy_decimated,19178,0.25,2.745664119660944,0.995098550422359,RANSAC terrain fitness improvement was below threshold,False,0.0738820529950317,23,solution,17.130788803100586,-13.996265411376953,0.2733154296875,8.506460711306637,1779.0783690214157
+darces,-42.72325401255627,19.564374851239613,-15.878274779142423,1779.1019817143679,,-0.315151699347121,-0.30191146395212926,raw_lidar_xy_decimated,19155,0.25,3.9472072240144485,0.9972330984077264,RANSAC terrain fitness improvement was below threshold,False,0.11650262400507927,30,solution,22.628347396850586,-18.482574462890625,0.127685546875,4.021231727099145,1778.9742961674929
+ransac,-32.63799150433151,28.336788691034315,-35.28086387724082,1778.5917058736086,,-0.34723426677899183,0.04880352929264564,raw_lidar_xy_decimated,18807,0.25,3.777517010686438,0.999255596320519,,False,0.037163158995099366,38,solution,28.903059005737305,-23.614961624145508,-0.0653076171875,11.679637727604742,1778.657013490796
+ransac,-40.992079421954976,19.173068664026623,-18.01606468675216,1779.1237860321999,,-0.3748787083302063,0.10959703608273341,raw_lidar_xy_decimated,17516,0.25,0.27879742071181113,0.9984585521808632,,False,0.01813593199767638,43,solution,32.84788513183594,-26.799724578857422,-0.2008056640625,16.252793191585482,1779.3245916962624
+darces,-39.57045243002183,31.295376223139176,-28.18980563306425,1778.3976621031761,,-0.5185571001039364,-0.05458780769422966,raw_lidar_xy_decimated,18309,0.25,0.5950200215551149,0.9997269102627123,RANSAC terrain fitness improvement was below threshold,False,0.00836813499336131,44,solution,33.61085510253906,-27.452526092529297,-0.2303466796875,2.430025424113581,1778.6280087828636
+ransac,-41.82070851712452,20.34644547644088,-15.152823223928245,1778.8043636381626,,-0.5107336170915523,0.18504734103730136,raw_lidar_xy_decimated,19144,0.25,1.15962711848249,0.9977538654408692,,False,0.04169365800044034,45,solution,34.36920166015625,-28.111652374267578,-0.2572021484375,19.09368858904984,1779.0615657866
+darces,-36.65109640149914,35.0794322154996,-28.42181192554693,1778.7848864793777,,-0.43631188873915716,-0.28687826287288776,raw_lidar_xy_decimated,20458,0.25,4.2893329430550295,0.9992667904976048,RANSAC terrain fitness improvement was below threshold,False,0.04349541000556201,46,solution,35.151485443115234,-28.76966094970703,-0.2763671875,0.3552331786572943,1779.0612536668777
+ransac,-44.269834733238255,-17.328028215415184,-25.40990407572756,1777.5355126857758,,-1.608388875674438,0.17656793493459588,raw_lidar_xy_decimated,18878,0.25,6.027526605236858,0.9977751880495815,,False,0.020935398002620786,49,solution,37.52904510498047,-30.651636123657227,-0.331298828125,55.106934664718544,1777.8668115139008
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,53,darces_unavailable,,,,,
+darces,-39.97410934752987,37.76194014727608,-29.803061270759535,1779.005440235138,,-0.4051315529178683,-0.11333822946679906,raw_lidar_xy_decimated,21888,0.25,0.44620586224485237,0.9998629385964912,RANSAC terrain fitness improvement was below threshold,False,0.2843243910028832,55,solution,42.241180419921875,-34.50684356689453,-0.4593505859375,6.495318414791149,1779.4647908210754
+darces,-36.51395344658796,4.507743824246589,-35.72697145051427,1778.7656460553408,,-1.108068054365451,-0.23750802955824013,raw_lidar_xy_decimated,23788,0.25,1.8702637950754024,1.0,RANSAC terrain fitness improvement was below threshold,False,0.025415755997528322,57,solution,43.79813766479492,-35.79203414916992,-0.5557861328125,39.2904477106097,1779.3214321881533
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,67,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,71,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,75,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,89,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,90,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,92,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,93,darces_unavailable,,,,,
+darces,-42.553379472122536,-81.84218836072463,64.77672114756334,1794.3228330612183,,-19.001557407526338,-1.0087806679347047,raw_lidar_xy_decimated,31102,0.25,0.9863402759901021,0.8883994598418108,RANSAC terrain fitness improvement was below threshold,False,0.06393526899046265,95,solution,72.2367172241211,-61.37001037597656,-4.5147705078125,199.13138130464486,1798.8376035690308
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,96,darces_unavailable,,,,,
+darces,-41.398752346421404,-64.4685622834782,78.52887882723923,1794.1359615325928,,-17.210343210339545,-1.7407117082495915,raw_lidar_xy_decimated,35017,0.25,1.6516030253167457,0.871862238341377,RANSAC terrain fitness improvement was below threshold,False,0.06811820299481042,97,solution,73.72492218017578,-62.754295349121094,-4.7686767578125,197.63191658624865,1798.9046382904053
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,98,darces_unavailable,,,,,
+ransac,-56.420477350827205,-41.15857710816266,78.63615024297488,1793.3552408218384,,-15.269754073882645,1.02421125231022,raw_lidar_xy_decimated,36554,0.25,11.407568409238877,0.9189691962575915,,False,0.06406685900583398,103,solution,77.97964477539062,-66.98892974853516,-5.62939453125,188.1504181130312,1798.9846353530884
+darces,-44.86177160831725,-52.706536020352615,57.52880917126928,1793.2735290527344,,-15.147500320051098,-0.4062919131379683,raw_lidar_xy_decimated,38443,0.25,1.7776885736791712,0.9437608927503056,RANSAC terrain fitness improvement was below threshold,False,0.13249403999361675,106,solution,80.05274963378906,-69.16338348388672,-6.0826416015625,183.51005315014527,1799.3561706542969
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,107,darces_unavailable,,,,,
 none,,,,,DARCES has no pose estimate,,,,,,,,,,,110,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,111,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,117,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,112,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,116,darces_unavailable,,,,,
 none,,,,,DARCES has no pose estimate,,,,,,,,,,,118,darces_unavailable,,,,,
 none,,,,,DARCES has no pose estimate,,,,,,,,,,,119,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,128,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,120,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,121,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,127,darces_unavailable,,,,,
 none,,,,,DARCES has no pose estimate,,,,,,,,,,,131,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,137,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,142,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,134,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,135,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,139,darces_unavailable,,,,,
 none,,,,,DARCES has no pose estimate,,,,,,,,,,,144,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,149,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,154,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,158,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,150,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,156,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,157,darces_unavailable,,,,,
 none,,,,,DARCES has no pose estimate,,,,,,,,,,,162,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,177,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,179,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,166,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,167,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,169,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,176,darces_unavailable,,,,,
 none,,,,,DARCES has no pose estimate,,,,,,,,,,,180,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,187,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,202,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,227,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,230,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,231,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,238,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,241,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,182,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,183,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,189,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,190,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,191,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,196,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,198,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,199,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,200,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,201,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,203,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,205,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,208,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,211,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,212,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,215,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,218,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,223,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,228,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,229,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,233,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,235,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,236,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,240,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,248,darces_unavailable,,,,,
 none,,,,,DARCES has no pose estimate,,,,,,,,,,,250,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,253,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,254,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,258,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,251,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,255,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,256,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,257,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,261,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,269,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,271,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,274,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,276,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,278,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,280,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,285,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,286,darces_unavailable,,,,,
 none,,,,,DARCES has no pose estimate,,,,,,,,,,,287,darces_unavailable,,,,,
-none,,,,,DARCES has no pose estimate,,,,,,,,,,,291,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,289,darces_unavailable,,,,,
 none,,,,,DARCES has no pose estimate,,,,,,,,,,,292,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,293,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,303,darces_unavailable,,,,,
 none,,,,,DARCES has no pose estimate,,,,,,,,,,,306,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,307,darces_unavailable,,,,,
+none,,,,,DARCES has no pose estimate,,,,,,,,,,,311,darces_unavailable,,,,,
+darces,137.76545636211273,-50.32962289017956,-130.59507007203126,1776.4569952487946,,-5.185510743137284,-0.23096988305096922,raw_lidar_xy_decimated,49029,0.25,2.236157048030549,0.98790511737951,RANSAC terrain fitness improvement was below threshold,False,0.16806648999045137,315,solution,84.42285919189453,-148.4501953125,-10.5621337890625,135.9302649325474,1787.019129037857

@@ -1,4 +1,4 @@
-"""Presentation-oriented DEM contour and DARCES pose visualization."""
+"""Presentation-oriented DEM contour and localization pose visualization."""
 
 from __future__ import annotations
 
@@ -15,6 +15,11 @@ DISPLAY_NAMES = {
     "apollo17_5m.yaml": "Apollo 17",
     "apollo11.yaml": "Apollo 11",
     "haworth.yaml": "Haworth",
+}
+
+LOCALIZATION_STAGES = ("darces", "ransac", "moga")
+STAGE_PRIORITY = {
+    stage: priority for priority, stage in enumerate(LOCALIZATION_STAGES)
 }
 
 
@@ -131,6 +136,57 @@ def _prediction_rows(
     return rows
 
 
+def select_best_pose_estimates(
+    sites: np.ndarray,
+    poses: np.ndarray,
+    stage_estimates: dict[str, dict[int, dict[str, Any]]],
+) -> tuple[dict[int, dict[str, Any]], dict[str, int]]:
+    """Select the lowest-XY-error available stage at each site for display.
+
+    This is an evaluation-time selection because it compares estimates with
+    the captured truth position. Exact ties prefer the later pipeline stage,
+    matching the consolidated localization-results figure.
+    """
+    sites = np.asarray(sites, dtype=np.int64)
+    poses = np.asarray(poses, dtype=np.float64)
+    if sites.ndim != 1 or poses.shape != (len(sites), 7):
+        raise ValueError("sites and poses must have shapes (N,) and (N, 7)")
+
+    truth_by_site = {int(site): pose[:2] for site, pose in zip(sites, poses)}
+    selected: dict[int, dict[str, Any]] = {}
+    counts = {stage: 0 for stage in LOCALIZATION_STAGES}
+    for site in sorted(truth_by_site):
+        candidates: list[tuple[float, int, str, dict[str, Any]]] = []
+        for stage in LOCALIZATION_STAGES:
+            record = stage_estimates.get(stage, {}).get(site)
+            if record is None:
+                continue
+            try:
+                estimated = np.asarray(
+                    (record["estimated_x_m"], record["estimated_y_m"]),
+                    dtype=np.float64,
+                )
+                heading_deg = float(record["estimated_heading_deg"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            if not np.isfinite(estimated).all() or not np.isfinite(heading_deg):
+                continue
+            error = float(np.linalg.norm(estimated - truth_by_site[site]))
+            candidates.append(
+                (error, -STAGE_PRIORITY[stage], stage, record)
+            )
+        if not candidates:
+            continue
+        error, _priority, stage, record = min(candidates)
+        chosen = dict(record)
+        chosen["status"] = "solution"
+        chosen["selected_stage"] = stage
+        chosen["xy_error_m"] = error
+        selected[site] = chosen
+        counts[stage] += 1
+    return selected, counts
+
+
 def _write_site_mapping(
     path: Path,
     raw_sites: np.ndarray,
@@ -150,7 +206,7 @@ def _write_site_mapping(
             )
 
 
-def generate_darces_prediction_contour_map(
+def generate_localization_prediction_contour_map(
     *,
     config: Any,
     sites: np.ndarray,
@@ -324,7 +380,7 @@ def generate_darces_prediction_contour_map(
             width=0.0035,
             color="#e6007e",
             zorder=10,
-            label="DARCES predicted pose and heading",
+            label="Best per-site pose and heading",
             **arrow_options,
         )
         for display_site, _raw, estimated, _heading, truth, error in prediction_rows:
@@ -372,7 +428,7 @@ def generate_darces_prediction_contour_map(
     ax.set_xlabel("Map x / east [m]")
     ax.set_ylabel("Map y / north [m]")
     ax.set_title(
-        f"{environment_display_name(config)} DARCES predictions",
+        f"{environment_display_name(config)} Localization Predictions",
         fontsize=16,
         weight="bold",
         pad=12,
@@ -403,3 +459,10 @@ def generate_darces_prediction_contour_map(
         "display_order": raw_sites.tolist(),
         "display_stride": stride,
     }
+
+
+# Backward-compatible name for callers outside this repository. The input is
+# now expected to contain whichever per-site estimates the caller wants shown.
+generate_darces_prediction_contour_map = (
+    generate_localization_prediction_contour_map
+)
