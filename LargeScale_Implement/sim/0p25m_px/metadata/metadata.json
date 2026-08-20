@@ -1,0 +1,22 @@
+{
+  "format": "lunar_global_loc_synchronized_v1",
+  "dataset": "Apollo 14 curated forward trajectory",
+  "source_run_id": "curated_forward_approach",
+  "source_sequence": "apollo14_cone_crater_blocks_forward_02",
+  "available_frame_count": 254,
+  "site_number_mapping": "site 1 maps to source frame 001341; site 254 maps to source frame 001594",
+  "selection": {
+    "maximum_sites": 100,
+    "random_seed": 42,
+    "method": "numpy default_rng without replacement"
+  },
+  "pointcloud_topic": "/os_cloud_node/points",
+  "target_frame": "global_dem",
+  "base_frame": "os1_lidar",
+  "lidar_frame": "os1_lidar",
+  "sensor_profile": "os1_rev7_128ch20hz1024res_rtx",
+  "pose_format": "[x,y,z,qx,qy,qz,qw]",
+  "transform_format": "T_global_dem_lidar, source-to-target",
+  "coordinate_note": "XY is retained in the native global DEM frame; no odometry position is used for localization.",
+  "extrinsic_note": "Pose and transform are already for os1_lidar; configured base-to-LiDAR translation is zero."
+}
