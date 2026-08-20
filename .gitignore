@@ -24,9 +24,9 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Raw captures and intermediate local maps remain external. Curated DEMs,
-# plots, and machine-readable results are versioned for reproducibility.
+# Intermediate local maps remain regenerable and are not versioned. Raw
+# captures, curated DEMs, plots, and machine-readable results are versioned so
+# a fresh clone can reproduce the pipeline outputs.
 LargeScale_Implement/local_maps/
-LargeScale_Implement/sim/*_px/
 LargeScale_Implement/logs/
 LargeScale_Implement/results/*_px/darces_checkpoints/

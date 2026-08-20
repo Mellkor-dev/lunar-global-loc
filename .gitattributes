@@ -1,7 +1,13 @@
 # Large generated binary artifacts are stored through Git LFS. Text metadata
 # and result tables remain ordinary Git objects so their diffs stay readable.
+*.csv text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
 LargeScale_Implement/DEM/**/*.npy filter=lfs diff=lfs merge=lfs -text
 LargeScale_Implement/DEM/**/*.npz filter=lfs diff=lfs merge=lfs -text
 LargeScale_Implement/DEM/**/*.png filter=lfs diff=lfs merge=lfs -text
+LargeScale_Implement/sim/**/*.npy filter=lfs diff=lfs merge=lfs -text
+LargeScale_Implement/sim/**/*.npz filter=lfs diff=lfs merge=lfs -text
 LargeScale_Implement/plots/**/*.png filter=lfs diff=lfs merge=lfs -text
 LargeScale_Implement/results/**/*.png filter=lfs diff=lfs merge=lfs -text
+LargeScale_Implement/analysis/**/*.png filter=lfs diff=lfs merge=lfs -text

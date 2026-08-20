@@ -1,0 +1,114 @@
+{
+  "profiles": [
+    "0p25m",
+    "0p5m",
+    "10m",
+    "1m",
+    "2m",
+    "5m"
+  ],
+  "site_cases": 300,
+  "solved_cases": 31,
+  "selected_craters": 145,
+  "rejected_or_unused_craters": 111,
+  "correlations": [
+    {
+      "factor": "local_feature_count",
+      "n": 31,
+      "spearman_rho": 0.42213192831079854,
+      "p_value": 0.01800501059424172
+    },
+    {
+      "factor": "evaluated_hypothesis_count",
+      "n": 31,
+      "spearman_rho": -0.0010124627688849152,
+      "p_value": 0.9956870647117098
+    },
+    {
+      "factor": "cluster_size",
+      "n": 31,
+      "spearman_rho": -0.21047427534606122,
+      "p_value": 0.25574655579491773
+    },
+    {
+      "factor": "correspondence_count",
+      "n": 31,
+      "spearman_rho": 0.1799968629747432,
+      "p_value": 0.33257466466823526
+    },
+    {
+      "factor": "selected_fraction",
+      "n": 31,
+      "spearman_rho": -0.3467024671985317,
+      "p_value": 0.056033628046110964
+    },
+    {
+      "factor": "terrain_mae_m",
+      "n": 31,
+      "spearman_rho": 0.6612903225806452,
+      "p_value": 5.117089879149876e-05
+    },
+    {
+      "factor": "overlap",
+      "n": 31,
+      "spearman_rho": -0.40645161290322585,
+      "p_value": 0.023269193497061046
+    },
+    {
+      "factor": "correspondence_xy_rmse_m",
+      "n": 31,
+      "spearman_rho": 0.5580645161290323,
+      "p_value": 0.0011054131551958269
+    },
+    {
+      "factor": "correspondence_z_rmse_m",
+      "n": 31,
+      "spearman_rho": 0.7068548387096775,
+      "p_value": 8.792560993510406e-06
+    },
+    {
+      "factor": "heading_error_deg",
+      "n": 31,
+      "spearman_rho": 0.009274193548387096,
+      "p_value": 0.9605084692954179
+    },
+    {
+      "factor": "median_sigma_z_m",
+      "n": 31,
+      "spearman_rho": -0.217741935483871,
+      "p_value": 0.2393153966834326
+    },
+    {
+      "factor": "median_feature_range_m",
+      "n": 31,
+      "spearman_rho": 0.6887096774193548,
+      "p_value": 1.8407982171367082e-05
+    }
+  ],
+  "crater_tests": [
+    {
+      "metric": "sigma_z_m",
+      "selected_n": 145,
+      "rejected_n": 111,
+      "selected_median": 0.5562456967898897,
+      "rejected_median": 0.5240999394834663,
+      "p_value": 0.0036438986170992042
+    },
+    {
+      "metric": "abs_elevation_angle_deg",
+      "selected_n": 145,
+      "rejected_n": 111,
+      "selected_median": 1.820399100978958,
+      "rejected_median": 1.1059182103049012,
+      "p_value": 0.0007450630667015468
+    },
+    {
+      "metric": "range_m",
+      "selected_n": 145,
+      "rejected_n": 111,
+      "selected_median": 67.19840027857806,
+      "rejected_median": 93.00537618869137,
+      "p_value": 0.00036039020337103777
+    }
+  ]
+}
