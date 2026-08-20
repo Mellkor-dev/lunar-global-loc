@@ -1,0 +1,23 @@
+{
+  "format": "lunar_bevplace_raw_v1",
+  "frame_count": 3024,
+  "scan_storage": "relative symlinks to ../apollo15_01/scans",
+  "bev_png_generated": false,
+  "pose_format": "T_global_dem_lidar row-major 3x4 in poses_gt.txt",
+  "coordinate_invariant": "global_dem_xy = anchor_xy + R(stage_yaw_deg) @ odom_xy",
+  "global_frame": "global_dem",
+  "source_dataset": "/mnt/SSD2/Minseok/Apollo15/apollo15_01",
+  "sources": [
+    {
+      "run_id": "east_plateau_safe",
+      "source_sequence": "apollo15rille_east_plateau_safe_03",
+      "frames": 3024,
+      "origin_global_m": [
+        -670.6,
+        1844.9
+      ],
+      "stage_yaw_deg": -58.85502029060547
+    }
+  ],
+  "sensor_config_id": "os1_rev7_128ch20hz1024res_rtx"
+}
